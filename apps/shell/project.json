@@ -1,26 +1,29 @@
 {
-  "name": "Project-Manara-Frontend",
+  "name": "shell",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/Project-Manara-Frontend/src",
+  "sourceRoot": "apps/shell/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/Project-Manara-Frontend",
-        "index": "apps/Project-Manara-Frontend/src/index.html",
-        "main": "apps/Project-Manara-Frontend/src/main.ts",
-        "tsConfig": "apps/Project-Manara-Frontend/tsconfig.app.json",
+        "outputPath": "dist/apps/shell",
+        "index": "apps/shell/src/index.html",
+        "main": "apps/shell/src/main.ts",
+        "tsConfig": "apps/shell/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/Project-Manara-Frontend/public"
+            "input": "apps/shell/public"
           }
         ],
-        "styles": ["apps/Project-Manara-Frontend/src/styles.css"]
+        "styles": ["apps/shell/src/styles.css"],
+        "customWebpackConfig": {
+          "path": "apps/shell/webpack.config.ts"
+        }
       },
       "configurations": {
         "production": {
@@ -36,7 +39,10 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/shell/webpack.prod.config.ts"
+          }
         },
         "development": {
           "buildOptimizer": false,
@@ -51,13 +57,17 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      },
       "configurations": {
         "production": {
-          "buildTarget": "Project-Manara-Frontend:build:production"
+          "buildTarget": "shell:build:production"
         },
         "development": {
-          "buildTarget": "Project-Manara-Frontend:build:development"
+          "buildTarget": "shell:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -65,7 +75,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "Project-Manara-Frontend:build"
+        "buildTarget": "shell:build"
       }
     },
     "lint": {
@@ -75,7 +85,8 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "Project-Manara-Frontend:build",
+        "buildTarget": "shell:build",
+        "port": 4200,
         "spa": true
       }
     }
