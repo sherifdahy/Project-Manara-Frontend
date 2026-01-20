@@ -1,0 +1,32 @@
+{
+  "sidebar": {
+    "header": {
+      "portalTitle": "بوابة الإدارة"
+    },
+    "links": {
+      "dashboard": "لوحة التحكم",
+      "university": "الجامعات",
+      "userManagement": "إدارة المستخدمين",
+      "rolesAndPermissions": "الأدوار والصلاحيات",
+      "permissionMatrix": "مصفوفة الصلاحيات"
+    }
+  },
+  "header": {
+    "brand": "منارة",
+    "subtitle": "لوحة التحكم الإدارية",
+
+    "language": {
+      "selectLanguage": "اختر اللغة",
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    },
+
+    "user": {
+      "myProfile": "الملف الشخصي",
+      "settings": "الإعدادات",
+      "helpSupport": "المساعدة والدعم",
+      "logout": "تسجيل خروج"
+    }
+  }
+
+}

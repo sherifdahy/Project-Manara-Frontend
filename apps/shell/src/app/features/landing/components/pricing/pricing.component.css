@@ -1,0 +1,151 @@
+
+/* pricing */
+
+.pricing-h{
+    font-size: var(--fz-16);
+    color: #0A1F44;
+}
+
+.pricing-p{
+    font-size: var(--fz-12);
+    color: #4A5565;
+}
+
+
+
+.pricing-one-card{
+    border: 2px solid #E5E7EB;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer
+}
+
+.pricing-one-card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 8px 10px -6px #0000001A;
+    border-color: green;
+}
+
+.pricing-one-card-h{
+    font-size: var(--fz-14);
+    color: #0A1F44;
+}
+
+.pricing-one-card-p{
+    color: #364153;
+    font-size: var(--fz-10);
+}
+
+#pricing .fa-check{
+    color: #D4AF37;
+}
+
+
+#pricing ul li{
+    padding: 0;
+    list-style: none;
+    color: #364153;
+    font-size: var(--fz-12);
+}
+
+
+#pricing ul {
+    padding-left: 0;
+}
+
+
+#pricing .btn-warning {
+    --bs-btn-color: white;
+    --bs-btn-bg: #0A1F44;
+    --bs-btn-border-color: #0A1F44;
+    --bs-btn-hover-color: #0A1F44;
+    --bs-btn-hover-bg: #ffc720;
+    --bs-btn-hover-border-color: #ffc720;
+    --bs-btn-active-color: #ffc720;
+    --bs-btn-active-bg: #ffc720;
+    --bs-btn-active-border-color: #ffc720;
+    --bs-btn--border-color: #ffc107;
+}
+
+
+/* End Of pricing */
+
+
+
+
+
+/* Media Qeuries If Exists */
+@media (min-width: 576px) {
+
+
+    .pricing-h{
+    font-size: var(--fz-18);
+}
+
+.pricing-p{
+    font-size: var(--fz-16);
+}
+
+
+    .pricing-one-card-h{
+    font-size: var(--fz-16);
+}
+
+.pricing-one-card-p{
+    font-size: var(--fz-12);
+}
+
+}
+
+
+
+
+@media (min-width: 768px) {
+
+
+
+        .pricing-h{
+    font-size: var(--fz-20);
+}
+
+.pricing-p{
+    font-size: var(--fz-16);
+}
+
+
+.pricing-one-card-p{
+    font-size: var(--fz-14);
+}
+
+
+
+#pricing ul li{
+    font-size: var(--fz-14);
+}
+
+
+}
+
+
+
+
+
+@media (min-width: 992px) {
+
+
+.pricing-one-card-p{
+    font-size: var(--fz-16);
+}
+
+
+
+#pricing ul li{
+    font-size: var(--fz-16);
+}
+
+
+}
+
+
+

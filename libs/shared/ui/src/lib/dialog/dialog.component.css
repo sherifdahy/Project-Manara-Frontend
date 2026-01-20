@@ -1,0 +1,7 @@
+.modal-content{
+  padding: 5px 10px
+}
+
+.modal-header .btn-close {
+    margin-left: 0;
+}

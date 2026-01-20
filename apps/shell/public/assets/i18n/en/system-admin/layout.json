@@ -1,0 +1,17 @@
+{
+  "header": {
+    "title": "Manaraa",
+    "subtitle": "Administration System",
+    "avatar": {
+      "info": "Info",
+      "logout": "Logout"
+    }
+  },
+  "sidebar": {
+    "links": {
+      "dashboard": "Dashboard",
+      "roles": "Roles",
+      "universities": "Universities"
+    }
+  }
+}

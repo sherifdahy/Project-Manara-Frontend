@@ -1,0 +1,12 @@
+{
+  "danger": {
+    "confirmButtonText": "نعم احذفها",
+    "swalTitle": "",
+    "swalText": ""
+  },
+  "warn": {
+    "confirmButtonText": "",
+    "swalTitle": "",
+    "swalText": ""
+  }
+}

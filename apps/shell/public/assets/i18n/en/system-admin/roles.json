@@ -1,0 +1,39 @@
+{
+  "index": {
+    "title": "Roles Management",
+    "subtitle": "Manage and organize system roles and permissions",
+    "createButton": "New Role"
+  },
+  "form": {
+    "createTitle": "Create New Role",
+    "editTitle": "Edit Role",
+    "createSubtitle": "Add a new role with specific permissions",
+    "editSubtitle": "Modify role name and permissions",
+    "roleName": "Role Name",
+    "roleNamePlaceholder": "Enter role name",
+    "permissions": "Permissions",
+    "permissionsValidation": "At least one permission must be selected",
+    "submitCreate": "Create Role",
+    "submitUpdate": "Update Role",
+    "cancel": "Cancel"
+  },
+  "grid": {
+    "searchPlaceholder": "Search roles by name...",
+    "showStatus": "Show Status",
+    "activeOnly": "Active Only",
+    "allRoles": "All Roles"
+  },
+  "card": {
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "users": "Users",
+    "permissions": "Permissions",
+    "actions": {
+      "edit": "Edit",
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    }
+  }
+}

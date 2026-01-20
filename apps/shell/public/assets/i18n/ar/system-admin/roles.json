@@ -1,0 +1,39 @@
+{
+  "index": {
+    "title": "إدارة الصلاحيات",
+    "subtitle": "إدارة وتنظيم أدوار النظام والصلاحيات",
+    "createButton": "إضافة دور جديد"
+  },
+  "form": {
+    "createTitle": "إضافة دور جديد",
+    "editTitle": "تعديل الدور",
+    "createSubtitle": "إضافة دور جديد مع تحديد الصلاحيات",
+    "editSubtitle": "تعديل اسم الدور والصلاحيات",
+    "roleName": "اسم الدور",
+    "roleNamePlaceholder": "أدخل اسم الدور",
+    "permissions": "الصلاحيات",
+    "permissionsValidation": "يجب اختيار صلاحية واحدة على الأقل",
+    "submitCreate": "إنشاء الدور",
+    "submitUpdate": "تحديث الدور",
+    "cancel": "إلغاء"
+  },
+  "grid": {
+    "searchPlaceholder": "ابحث عن دور بالاسم...",
+    "showStatus": "عرض الحالة",
+    "activeOnly": "النشطة فقط",
+    "allRoles": "كل الأدوار"
+  },
+  "card": {
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "users": "المستخدمون",
+    "permissions": "الصلاحيات",
+    "actions": {
+      "edit": "تعديل",
+      "activate": "تفعيل",
+      "deactivate": "إلغاء التفعيل"
+    }
+  }
+}

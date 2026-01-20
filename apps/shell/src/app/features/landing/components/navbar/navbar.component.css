@@ -1,0 +1,68 @@
+/* navBar Section */
+.navbar {
+  background-color: white !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.navbar-brand {
+  --bs-navbar-brand-color: #0a1f44;
+  --bs-navbar-color: #364153;
+}
+
+.nav-link {
+  --bs-nav-link-font-size: var(--fz-16);
+  --bs-nav-link-font-weight: var(--fw-400);
+}
+
+.btn {
+  --bs-btn-bg: #0a1f44;
+  --bs-btn-font-weight: var(--fw-400);
+  --bs-btn-font-size: var(--fz-14);
+  --bs-btn-border-color: transparent;
+  --bs-btn-color: var(--white-color);
+}
+
+.btn-outline-success {
+  --bs-btn-hover-bg: #0a1f44;
+  --bs-btn-hover-border-color: ##0a1f44;
+  --bs-btn-active-bg: #0a1f44;
+  --bs-btn-active-border-color: #0a1f44;
+  --bs-btn-hover-color: white;
+  --bs-btn-active-color: white;
+}
+
+.login-btn {
+  --bs-btn-color: #0a1f44;
+  --bs-btn-bg: #d4af37;
+  --bs-btn-active-bg: #d4af37;
+  --bs-btn-hover-border-color: #d4af37;
+  --bs-btn-hover-bg: #d4af37;
+  --bs-btn-hover-color: #0a1f44;
+  --bs-btn-active-color: #0a1f44;
+  --bs-btn-active-border-color: #d4af37;
+}
+
+.logout-btn {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #dc3545;
+  --bs-btn-active-bg: #bb2d3b;
+  --bs-btn-hover-border-color: #dc3545;
+  --bs-btn-hover-bg: #c82333;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-border-color: #dc3545;
+}
+
+.bg-body-tertiary {
+  --bs-tertiary-bg-rgb: white;
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+}
+
+/* End Of navBar Section */

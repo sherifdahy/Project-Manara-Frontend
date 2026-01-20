@@ -1,0 +1,101 @@
+{
+  "faculties": {
+    "grid": {
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "email": "Email",
+      "website": "Website",
+      "isDeleted": "Is Deleted",
+      "activeOnly": "Active Only",
+      "allFaculities": "All Faculities",
+      "showStatus": "Show Status",
+      "deleteFaculty": "Delete Faculty",
+      "restoreFaculty": "Restore Faculty",
+      "confirmDelete": "are you sure to delete faculty",
+      "confirmRestore": "are you sure to restore faculty"
+    },
+    "dialog": {
+      "title": "Faculty",
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "email": "Email",
+      "website": "Website",
+      "save": "Save",
+      "placeholders": {
+        "name": "Enter name",
+        "description": "Enter description",
+        "address": "Enter address",
+        "email": "Enter email",
+        "website": "Enter website"
+      },
+      "facultyAdded ": "faculty added successfully",
+      "facultyUpdated": "faculty updated successfully"
+    },
+    "form": {
+      "tabs": {
+        "university": "University",
+        "faculty": "Faculty"
+      },
+      "title": "Faculties",
+      "subtitle": "Add, edit, delete and show all faculties to this university",
+      "addButton": "Faculty"
+    }
+  },
+  "universities": {
+    "grid": {
+      "showStatus": "Show Status",
+      "activeOnly": "Active Only",
+      "allUniversities": "All Universities",
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "email": "Email",
+      "website": "Website",
+      "isDeleted": "Is Deleted",
+      "deleteUniversity": "Delete university",
+      "restoreUniversity": "Restore university",
+      "confirmDelete": "are you sure to delete university",
+      "confirmRestore": "are you sure to restore university"
+    },
+    "dialog": {
+      "title": "Create University",
+      "name": "Name",
+      "description": "Description",
+      "address": "Address",
+      "email": "Email",
+      "website": "Website",
+      "submit": "Submit",
+      "placeholders": {
+        "name": "Enter name",
+        "description": "Enter description",
+        "address": "Enter address",
+        "email": "Enter email",
+        "website": "Enter website"
+      },
+      "universityAdded": "university added successfully",
+      "universityUpdated": "university updated successfully"
+    },
+    "edit": {
+      "title": "Edit Universities",
+      "subtitle": "Edit the university main informations",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter your description",
+      "address": "Address",
+      "addressPlaceholder": "Enter your address",
+      "email": "Email",
+      "emailPlaceholder": "Enter your Email",
+      "website": "Website",
+      "websitePlaceholder": "Enter your website",
+      "submit": "Submit"
+    },
+    "universites": {
+      "title": "Universities",
+      "createButton": "Create",
+      "subtitle": "Manage all universities and all faculties"
+    }
+  }
+}

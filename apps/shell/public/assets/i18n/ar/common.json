@@ -1,0 +1,25 @@
+{
+  "validation": {
+    "requiredMessage": "هذا الحقل مطلوب",
+    "emailMessage": "يرجى إدخال بريد إلكتروني صالح",
+    "minLengthMessage": "الحد الأدنى للطول هو {{min}} حرفًا",
+    "maxLengthMessage": "الحد الأقصى للطول هو {{max}} حرفًا",
+    "patternMessage": "تنسيق غير صالح"
+  },
+  "sweetAlert": {
+    "danger": {
+      "confirmButtonText": "نعم احذفها",
+      "cancelButtonText": "تجاهل",
+      "swalTitle": "تم حذفها",
+      "swalText": "تم حذف  بنجاح",
+      "swalConfirmButtonText": "تم"
+    },
+    "warn": {
+      "confirmButtonText": "نعم استرجعها!",
+      "cancelButtonText": "تجاهل",
+      "swalTitle": "تم الاسترجاع!",
+      "swalText": "تم استرجاع الملف بنجاح.",
+      "swalConfirmButtonText": "تم"
+    }
+  }
+}

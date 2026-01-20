@@ -1,0 +1,57 @@
+@if(control?.touched && control?.errors)
+{
+<div>
+
+  @if(control?.hasError('required'))
+  {
+  <small class="text-danger mt-1">
+    {{ 'validation.requiredMessage' | translate }}
+  </small>
+  }
+
+  @if(control?.hasError('minlength')){
+  <!-- MIN LENGTH -->
+  <small class="text-danger mt-1">
+    {{ 'validation.minLengthMessage'
+    | translate:{ min: control?.errors?.['minlength']?.requiredLength } }}
+  </small>
+  }
+
+  @if(control?.hasError('maxlength')){
+  <!-- MAX LENGTH -->
+  <small class="text-danger mt-1">
+    {{ 'validation.maxLengthMessage'
+    | translate:{ max: control?.errors?.['maxlength']?.requiredLength } }}
+  </small>
+  }
+
+  @if(control?.hasError('pattern')){
+  <!-- PATTERN -->
+  <small class="text-danger mt-1">
+    {{ 'validation.patternMessage' | translate }}
+  </small>
+  }
+
+  @if(control?.hasError('email')){
+  <!-- EMAIL -->
+  <small class="text-danger mt-1">
+    {{ 'validation.emailMessage' | translate }}
+  </small>
+  }
+
+  @if(control?.hasError('custom')){
+  <!-- CUSTOM -->
+  <small class="text-danger mt-1">
+    {{ control?.errors?.['custom'] }}
+  </small>
+  }
+
+  @if(control?.hasError('UnmatchedPassword')){
+  <!-- UNMATCHED PASSWORD -->
+  <small class="text-danger mt-1">
+    كلمتا المرور غير متطابقتين
+  </small>
+  }
+
+</div>
+}

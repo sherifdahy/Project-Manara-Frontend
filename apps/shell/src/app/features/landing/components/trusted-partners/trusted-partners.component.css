@@ -1,0 +1,111 @@
+/* trustedPartners */
+
+.trustedPartners {
+  background-color: #f9fafb;
+}
+
+.trustedPartners-h {
+  color: #0a1f44;
+  font-size: var(--fz-14);
+}
+
+.trustedPartners-p {
+  color: #4a5565;
+  font-size: var(--fz-12);
+}
+
+.trustedPartners-last {
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px -1px #0000001a;
+  background-color: white;
+}
+
+.trustedPartners-slider-item {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+}
+
+#trustedPartners .trustedPartners-slider::-webkit-scrollbar {
+  height: 5px;
+}
+
+#trustedPartners .trustedPartners-slider::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.fa-building-columns {
+  background: linear-gradient(to right, #0a1f44, #1e3a8a);
+  width: 48px;
+  height: 48px;
+}
+
+.uniType {
+  background-color: #0a1f44;
+  font-size: var(--fz-12);
+}
+.private {
+  background-color: #155dfc;
+}
+
+.reaseach {
+  background-color: #9810fa;
+}
+
+.government {
+  background-color: #d4af37;
+}
+
+.uniName {
+  color: #101828;
+  font-size: var(--fz-14);
+}
+
+.uniStatus {
+  color: #6a7282;
+  font-size: var(--fz-12);
+}
+
+.trustedPartners-last-item-n {
+  font-size: var(--fz-16);
+  color: #0a1f44;
+}
+
+.trustedPartners-last-item-p {
+  color: #4a5565;
+  font-size: var(--fz-14);
+}
+/* End Of trustedPartners */
+
+/* Media Qeuries If Exists */
+@media (min-width: 576px) {
+  .Ministry {
+    font-size: var(--fz-16);
+  }
+
+  .trustedPartners-h {
+    font-size: var(--fz-16);
+  }
+
+  .trustedPartners-p {
+    font-size: var(--fz-14);
+  }
+
+  .trustedPartners-last-item-n {
+    font-size: var(--fz-20);
+  }
+
+  .trustedPartners-last-item-p {
+    font-size: var(--fz-16);
+  }
+}
+
+@media (min-width: 768px) {
+  .trustedPartners-h {
+    font-size: var(--fz-20);
+  }
+
+  .trustedPartners-p {
+    font-size: var(--fz-16);
+  }
+}

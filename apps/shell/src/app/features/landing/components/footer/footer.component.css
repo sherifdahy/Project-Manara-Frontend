@@ -1,0 +1,58 @@
+
+
+
+/* Footer */
+.footer{
+    background: linear-gradient(to right, #0A1F44, #1E3A8A);
+
+}
+
+.footer-c-1-p{
+    color: #99A1AF;
+}
+
+.footer-c-2{
+    border-top: 1px solid #99A1AF;
+
+}
+.Reserved{
+    font-size: var(--fz-8);
+    color: #99A1AF;
+}
+
+
+
+
+
+/* End Of Footer */
+
+
+
+
+
+/* Media Qeuries If Exists */
+@media (min-width: 576px) {
+
+
+
+.Reserved{
+    font-size: var(--fz-12);
+}
+
+
+
+}
+
+
+
+
+@media (min-width: 768px) {
+
+.Reserved{
+    font-size: var(--fz-14);
+}
+
+}
+
+
+

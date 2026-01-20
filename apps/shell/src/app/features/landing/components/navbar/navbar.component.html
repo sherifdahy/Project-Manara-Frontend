@@ -1,0 +1,53 @@
+<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary py-3">
+  <div class="container">
+    <a class="navbar-brand fw-normal fs-6" href="#hero">Manaraa.org</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-normal">
+        <li class="nav-item me-4">
+          <a class="nav-link active" aria-current="page" href="#">{{ 'header.navbar.links.home' | translate }}</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link" href="#solutions">{{ 'header.navbar.links.services' | translate }}</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link" href="#partners">{{ 'header.navbar.links.partners' | translate }}</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link" href="#contact">{{ 'header.navbar.links.contacts' | translate }}</a>
+        </li>
+      </ul>
+
+      <form class="d-flex justify-content-sm-center justify-content-lg-between
+               flex-column flex-sm-row align-items-sm-center" role="search">
+
+        <div class="ms-sm-3 ms-0 mb-sm-0 mb-2">
+          <select class="form-select lang-select" [value]="currentLanguage"
+            (change)="changeLanguage($any($event.target).value)">
+
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+
+          </select>
+        </div>
+
+        <a *ngIf="!isLoggedIn" [routerLink]="['auth/login']"
+          class="btn btn-outline-success px-4 py-2 login-btn ms-sm-3 ms-0">
+          {{'header.navbar.login.Login' | translate}}
+        </a>
+
+        <button *ngIf="isLoggedIn" (click)="logout()" type="button"
+          class="btn btn-outline-success px-4 py-2 logout-btn ms-sm-3 ms-0">
+          Logout
+        </button>
+
+      </form>
+    </div>
+  </div>
+</nav>

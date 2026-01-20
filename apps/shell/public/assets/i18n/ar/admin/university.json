@@ -1,0 +1,219 @@
+{
+  "section": {
+    "name": "جامعة القاهرة",
+    "established": "تأسست عام 1908",
+    "research": "جامعة بحثية وطنية",
+    "setting": "الإعدادات",
+    "editProfile": "تعديل الملف الشخصي"
+  },
+  "analysis": {
+    "title": "إحصائيات لحظية",
+    "students": {
+      "total": "إجمالي عدد الطلاب",
+      "active": "عدد الطلاب النشطين"
+    },
+    "staff": {
+      "total": "إجمالي أعضاء هيئة التدريس والموظفين",
+      "active": "عدد الأعضاء النشطين"
+    },
+    "faculties": {
+      "total": "عدد الكليات",
+      "departments": "عدد الأقسام الأكاديمية"
+    },
+    "programs": {
+      "total": "عدد البرامج الدراسية",
+      "description": "موزعة على جميع الكليات"
+    }
+  },
+  "performance": {
+    "title": "مؤشرات الأداء",
+    "overall": {
+      "title": "التقييم العام",
+      "value": "٪92.5"
+    },
+    "academic": {
+      "title": "الأداء الأكاديمي",
+      "value": "٪94.2"
+    },
+    "research": {
+      "title": "الأبحاث العلمية",
+      "value": "٪88.7"
+    },
+    "employment": {
+      "title": "نسبة التوظيف",
+      "value": "٪95.1"
+    }
+  },
+  "strategic": {
+    "title": "مؤشرات استراتيجية ذكية",
+    "studentStaffRatio": "معدل الطلاب لكل معلم",
+    "fundingPerStudent": "التمويل لكل طالب",
+    "graduationRate": "معدل التخرج",
+    "employmentRate": "معدل التوظيف",
+    "researchOutput": "الناتج البحثي",
+    "internationalPresence": "الحضور الدولي"
+  },
+  "org": {
+    "title": "الهيكل التنظيمي",
+    "subtitle": "إدارة وتخصيص الوحدات التنظيمية التابعة",
+    "addNewUnit": "إضافة وحدة جديدة"
+  },
+
+  "faculty": {
+    "label": "كلية",
+    "name": "كلية الهندسة",
+    "description": "ريادة التعليم والبحث الهندسي في مصر",
+    "head": {
+      "label": "رئيس الكلية",
+      "name": "أ. د. أحمد حسن"
+    },
+    "staff": {
+      "label": "أعضاء هيئة التدريس",
+      "count": "456"
+    },
+    "students": {
+      "label": "الطلاب",
+      "count": "12,450"
+    },
+    "performance": {
+      "label": "الأداء",
+      "value": "٪94.5"
+    },
+    "dashboard": "لوحة التحكم",
+    "edit": "تعديل"
+  },
+  "faculty_med": {
+    "label": "كلية",
+    "name": "كلية الطب",
+    "description": "ريادة التعليم الطبي والخدمات الصحية",
+    "head": {
+      "label": "رئيس الكلية",
+      "name": "أ. د. فاطمة خليل"
+    },
+    "staff": {
+      "label": "أعضاء هيئة التدريس",
+      "count": "892"
+    },
+    "students": {
+      "label": "الطلاب",
+      "count": "8,920"
+    },
+    "performance": {
+      "label": "الأداء",
+      "value": "٪96.2"
+    },
+    "dashboard": "لوحة التحكم",
+    "edit": "تعديل"
+  },
+  "faculty_sci": {
+    "label": "كلية",
+    "name": "كلية العلوم",
+    "description": "التميز في البحث العلمي والتعليم",
+    "head": {
+      "label": "رئيس الكلية",
+      "name": "د. عمر إبراهيم"
+    },
+    "staff": {
+      "label": "أعضاء هيئة التدريس",
+      "count": "398"
+    },
+    "students": {
+      "label": "الطلاب",
+      "count": "15,670"
+    },
+    "performance": {
+      "label": "الأداء",
+      "value": "٪91.8"
+    },
+    "dashboard": "لوحة التحكم",
+    "edit": "تعديل"
+  },
+  "facultyDialog": {
+    "title": "إضافة كلية جديدة",
+    "formTitle": "إنشاء وحدة فرعية جديدة داخل جامعتك",
+    "labels": {
+      "name": "الاسم *",
+      "address": "العنوان *",
+      "description": "الوصف *",
+      "email": "البريد الإلكتروني *",
+      "website": "الموقع الإلكتروني *"
+    },
+    "placeholders": {
+      "name": "ادخل اسم الكلية",
+      "address": "ادخل عنوان الكلية",
+      "description": "ادخل وصف الكلية",
+      "email": "ادخل البريد الإلكتروني للكلية",
+      "website": "ادخل الموقع الإلكتروني للكلية"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "create": "إنشاء الكلية"
+    }
+  },
+  "subUnitSettings": {
+    "header": {
+      "title": "إعدادات الوحدة الفرعية",
+      "description": "ضبط الإعدادات وحوكمة هذه الوحدة الفرعية"
+    },
+    "basicInfo": {
+      "title": "المعلومات الأساسية",
+      "labels": {
+        "unitName": "اسم الوحدة",
+        "unitHead": "رئيس الوحدة",
+        "established": "تاريخ التأسيس",
+        "status": "الحالة"
+      },
+      "placeholders": {
+        "unitName": "اسم الوحدة",
+        "unitHead": "رئيس الوحدة",
+        "established": "مثال: 1920",
+        "status": "الحالة"
+      }
+    },
+    "accessControl": {
+      "title": "الصلاحيات والأدوار",
+      "roles": {
+        "departmentHeads": {
+          "name": "رؤساء الأقسام",
+          "description": "صلاحية كاملة على بيانات القسم"
+        },
+        "facultyMembers": {
+          "name": "أعضاء هيئة التدريس",
+          "description": "صلاحية قياسية للوصول لموارد التعليم"
+        },
+        "administrativeStaff": {
+          "name": "الموظفون الإداريون",
+          "description": "صلاحية محدودة للوصول للبيانات التشغيلية"
+        }
+      },
+      "button": "إدارة"
+    },
+    "governance": {
+      "title": "إعدادات الحوكمة",
+      "settings": {
+        "approvalWorkflows": {
+          "name": "سير عمل الموافقات",
+          "description": "يتطلب الموافقة لتغيير الدرجات"
+        },
+        "auditLogging": {
+          "name": "تسجيل التدقيق",
+          "description": "تتبع جميع التغييرات والأنشطة"
+        },
+        "dataRetention": {
+          "name": "الاحتفاظ بالبيانات",
+          "description": "الاحتفاظ بالسجلات لمدة 7 سنوات"
+        }
+      }
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "save": "حفظ التغييرات"
+    }
+}
+
+
+
+
+
+
+}

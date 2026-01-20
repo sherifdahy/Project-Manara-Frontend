@@ -1,0 +1,111 @@
+/*style of the container which contain the form*/
+section {
+  width: 90%;
+  max-width: 420px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/*start style of the div which contains two icons*/
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: -20px;
+}
+.icons div {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  text-align: center;
+}
+
+.icons .right span {
+  background-color: #d4af37;
+}
+
+.icons .left span {
+  background: linear-gradient(#0a1f44, #1e3a8a);
+}
+.icons span {
+  display: block;
+  width: 60px;
+  height: 50px;
+  margin-left: 20px;
+  border-radius: 8px;
+}
+.icons div i {
+  color: white;
+  font-size: 26px;
+  padding-top: 12px;
+}
+.icons div p {
+  padding-top: 5px;
+  font-size: 12px;
+  color: #4a5565;
+}
+
+/* style of div which contains the Login to manaraa  */
+.content {
+  margin-bottom: 20px;
+}
+.content h6 {
+  color: #0a1f44;
+  font-size: 16px;
+  line-height: 16px;
+  padding-top: 5px;
+}
+
+.content p {
+  font-size: 16px;
+  line-height: 24px;
+  color: #717182;
+}
+
+@media (max-width: 600px) {
+  .content h6 {
+    font-size: 18px;
+  }
+
+  .content p {
+    font-size: 14px;
+  }
+}
+
+/* selection start */
+.SIS-section {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.sis-icon {
+  display: flex;
+  width: 100px;
+  text-align: center;
+}
+.SIS-icon {
+  background: linear-gradient(#0a1f44, #1e3a8a);
+  display: block;
+  width: 60px;
+  height: 50px;
+  margin-left: 20px;
+  border-radius: 8px;
+}
+
+.SIS-content h5 {
+  font-size: 16px;
+}
+.SIS-content p {
+  font-size: 12px;
+}
+
+.SIS-icon i {
+  color: white;
+  font-size: 26px;
+  padding-top: 12px;
+}
+
+.env-msg {
+  font-size: 12px;
+}

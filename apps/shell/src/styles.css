@@ -1,1 +1,213 @@
-/* You can add global styles to this file, and also import other style files */
+/* CSS Variables */
+:root {
+  --main-color: #0a1f44;
+  --orange-color: #d4af37;
+  --orange-alt-color: #b8962e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  background-color: #f9fafb;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Basic Configuration */
+:root {
+  --color-blue: #56165d;
+  --half-rem: 0.5rem;
+  --one-rem: 1rem;
+  --one-half-rem: 1.5rem;
+  --two-rem: 2rem;
+  --two_half-rem: 2.5rem;
+  --three-rem: 3rem;
+  --v-4px: 4px;
+  --v-8px: 8px;
+  --v-10px: 10px;
+  --v-12px: 12px;
+  --v-13px: 13px;
+  --v-15px: 15px;
+  --v-16px: 16px;
+  --v-20px: 20px;
+  --v-32px: 32px;
+  --fz-8: 8px;
+  --fz-10: 10px;
+  --fz-12: 12px;
+  --fz-14: 14px;
+  --fz-16: 16px;
+  --fz-18: 18px;
+  --fz-20: 20px;
+  --fz-24: 24px;
+  --fz-25: 25px;
+  --fz-30: 30px;
+  --fz-35: 35px;
+  --fz-36: 36px;
+  --fz-40: 40px;
+  --fz-48: 48px;
+  --fz-60: 60px;
+  --fz-72: 72px;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+  --fw-900: 900;
+  --white-color: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Media Qeuries If Exists */
+@media (min-width: 576px) {
+  .Certified {
+    visibility: visible;
+    bottom: -22px;
+    left: -22px;
+    border-left: 4px #d4af37 solid;
+    z-index: 1;
+    background-color: white;
+  }
+
+  h1 {
+    font-size: var(--fz-20);
+  }
+
+  .header-p {
+    color: #e5e7eb;
+    font-size: var(--fz-14);
+  }
+
+  .Ministry {
+    font-size: var(--fz-16);
+  }
+
+  .ISO {
+    font-size: var(--fz-14);
+  }
+
+  .header-p {
+    font-size: var(--fz-16);
+  }
+
+  h1 {
+    font-size: var(--fz-30);
+  }
+
+  .pricing-h {
+    font-size: var(--fz-18);
+  }
+
+  .pricing-p {
+    font-size: var(--fz-16);
+  }
+
+  .pricing-one-card-h {
+    font-size: var(--fz-16);
+  }
+
+  .pricing-one-card-p {
+    font-size: var(--fz-12);
+  }
+
+  .trustedPartners-h {
+    font-size: var(--fz-16);
+  }
+
+  .trustedPartners-p {
+    font-size: var(--fz-14);
+  }
+
+  .trustedPartners-last-item-n {
+    font-size: var(--fz-20);
+  }
+
+  .trustedPartners-last-item-p {
+    font-size: var(--fz-16);
+  }
+
+  .Reserved {
+    font-size: var(--fz-12);
+  }
+
+  .endorSementBar {
+    font-size: var(--fz-12);
+  }
+}
+
+@media (min-width: 768px) {
+  .header-p {
+    font-size: var(--fz-18);
+  }
+
+  h1 {
+    font-size: var(--fz-36);
+  }
+
+  .pricing-h {
+    font-size: var(--fz-20);
+  }
+
+  .pricing-p {
+    font-size: var(--fz-16);
+  }
+
+  .pricing-one-card-p {
+    font-size: var(--fz-14);
+  }
+
+  #pricing ul li {
+    font-size: var(--fz-14);
+  }
+
+  .trustedPartners-h {
+    font-size: var(--fz-20);
+  }
+
+  .trustedPartners-p {
+    font-size: var(--fz-16);
+  }
+
+  .Reserved {
+    font-size: var(--fz-14);
+  }
+
+  .endorSementBar {
+    font-size: var(--fz-14);
+  }
+}
+
+@media (min-width: 992px) {
+  .pricing-one-card-p {
+    font-size: var(--fz-16);
+  }
+
+  #pricing ul li {
+    font-size: var(--fz-16);
+  }
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+}

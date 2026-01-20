@@ -20,7 +20,14 @@
             "input": "apps/shell/public"
           }
         ],
-        "styles": ["apps/shell/src/styles.css"],
+        "styles": [
+          "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/ngx-spinner/animations/ball-clip-rotate.css",
+          "node_modules/ngx-toastr/toastr.css",
+          "apps/shell/src/styles.css"
+        ],
+        "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],
         "customWebpackConfig": {
           "path": "apps/shell/webpack.config.ts"
         }

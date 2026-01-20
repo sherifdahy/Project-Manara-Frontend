@@ -1,0 +1,17 @@
+{
+  "header": {
+    "title": "منارة",
+    "subtitle": "نظام الإدارة",
+    "avatar": {
+      "info": "معلومات",
+      "logout": "تسجيل خروج"
+    }
+  },
+  "sidebar": {
+    "links": {
+      "dashboard": "لوحة المعلومات",
+      "roles": "الصلاحيات",
+      "universities": "الجامعات"
+    }
+  }
+}

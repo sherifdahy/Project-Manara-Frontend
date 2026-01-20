@@ -1,0 +1,32 @@
+{
+  "sidebar": {
+    "header": {
+      "portalTitle": "Admin Portal"
+    },
+    "links": {
+      "dashboard": "Dashboard",
+      "university": "University",
+      "userManagement": "User Management",
+      "rolesAndPermissions": "Roles & Permissions",
+      "permissionMatrix": "Permission Matrix"
+    }
+  },
+  "header": {
+    "brand": "Manara.org",
+    "subtitle": "Administrative Control Panel",
+
+    "language": {
+      "selectLanguage": "Select Language",
+      "english": "English",
+      "arabic": "Arabic"
+    },
+
+    "user": {
+      "myProfile": "My Profile",
+      "settings": "Settings",
+      "helpSupport": "Help & Support",
+      "logout": "Logout"
+    }
+}
+
+}

@@ -1,0 +1,25 @@
+{
+  "validation": {
+    "requiredMessage": "This field is required",
+    "emailMessage": "Please enter a valid email",
+    "minLengthMessage": "Minimum length is {{min}} characters",
+    "maxLengthMessage": "Maximum length is {{max}} characters",
+    "patternMessage": "Invalid format"
+  },
+  "sweetAlert": {
+    "danger": {
+      "confirmButtonText": "Yes, delete it! ",
+      "cancelButtonText": "cancel",
+      "swalTitle": "Deleted!",
+      "swalText": "Your file has been deleted.",
+      "swalConfirmButtonText": "ok"
+    },
+    "warn": {
+      "confirmButtonText": "Yes, restore it!",
+      "cancelButtonText": "Cancel",
+      "swalTitle": "Restored!",
+      "swalText": "Your file has been restored.",
+      "swalConfirmButtonText": "OK"
+    }
+  }
+}

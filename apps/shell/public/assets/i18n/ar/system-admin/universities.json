@@ -1,0 +1,101 @@
+{
+  "faculties": {
+    "grid": {
+      "name": "الاسم",
+      "description": "الوصف",
+      "address": "العنوان",
+      "email": "البريد الإلكتروني",
+      "website": "الموقع الإلكتروني",
+      "isDeleted": "محذوف",
+      "activeOnly": "النشطاء فقط",
+      "allFaculities": "كل الكليات",
+      "showStatus": "عرض الحالة",
+      "deleteFaculty": "حذف الكلية",
+      "restoreFaculty": "استعادة الكلية",
+      "confirmDelete": "هل انت متاكد من حذف الكلية",
+      "confirmRestore": "هل انت متاكد من استعادة الكلية"
+    },
+    "dialog": {
+      "title": "كلية",
+      "name": "الاسم",
+      "description": "الوصف",
+      "address": "العنوان",
+      "email": "البريد الإلكتروني",
+      "website": "الموقع الإلكتروني",
+      "save": "حفظ",
+      "placeholders": {
+        "name": "أدخل الاسم",
+        "description": "أدخل الوصف",
+        "address": "أدخل العنوان",
+        "email": "أدخل البريد الإلكتروني",
+        "website": "أدخل الموقع الإلكتروني"
+      },
+      "facultyAdded": "تم اضافة الكلية بنجاح",
+      "facultyUpdated": "تم تحديث الكلية بنجاح"
+    },
+    "form": {
+      "tabs": {
+        "university": "الجامعة",
+        "faculty": "الكليات"
+      },
+      "title": "الكليات",
+      "subtitle": "إضافة، تعديل، حذف وعرض جميع الكليات لهذه الجامعة",
+      "addButton": "أضف كلية"
+    }
+  },
+  "universities": {
+    "grid": {
+      "showStatus": "عرض الحالة",
+      "activeOnly": "النشط فقط",
+      "allUniversities": "كل الجامعات",
+      "name": "الاسم",
+      "description": "الوصف",
+      "address": "العنوان",
+      "email": "البريد الإلكتروني",
+      "website": "الموقع الإلكتروني",
+      "isDeleted": "محذوف",
+      "deleteUniversity": "حذف الجامعة",
+      "restoreUniversity": "استعادة الجامعة",
+      "confirmDelete": "هل انت متاكد من حذف الجامعة",
+      "confirmRestore": "هل انت متاكد من استعادة الجامعة"
+    },
+    "dialog": {
+      "title": "إنشاء جامعة",
+      "name": "الاسم",
+      "description": "الوصف",
+      "address": "العنوان",
+      "email": "البريد الإلكتروني",
+      "website": "الموقع الإلكتروني",
+      "submit": "حفظ",
+      "placeholders": {
+        "name": "أدخل الاسم",
+        "description": "أدخل الوصف",
+        "address": "أدخل العنوان",
+        "email": "أدخل البريد الإلكتروني",
+        "website": "أدخل الموقع الإلكتروني"
+      },
+      "universityAdded": "تم اضافة الجامعة بنجاح",
+      "universityUpdated": "تم تحديث الجامعة بنجاح"
+    },
+    "edit": {
+      "title": "تعديل الجامعة",
+      "subtitle": "تعديل المعلومات الأساسية للجامعة",
+      "name": "الاسم",
+      "namePlaceholder": "أدخل الاسم",
+      "description": "الوصف",
+      "descriptionPlaceholder": "أدخل الوصف",
+      "address": "العنوان",
+      "addressPlaceholder": "أدخل العنوان",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل البريد الإلكتروني",
+      "website": "الموقع",
+      "websitePlaceholder": "أدخل الموقع",
+      "submit": "إرسال"
+    },
+    "universites": {
+      "title": "الجامعات",
+      "createButton": "إنشاء",
+      "subtitle": "إدارة جميع الجامعات وجميع الكليات"
+    }
+  }
+}
