@@ -1,0 +1,5 @@
+{
+  "buildCommand": "nx build shell --prod",
+  "outputDirectory": "dist/apps/shell",
+  "installCommand": "npm install"
+}
