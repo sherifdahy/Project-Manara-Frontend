@@ -1,0 +1,83 @@
+
+.setting-dashboard h3{
+    font-size: var(--fz-18);
+    color: #0A0A0A;
+}
+.setting-dashboard p{
+    font-size: var(--fz-10);
+    color: #717182;
+}
+
+.basic-info,
+.access-control,
+.government-setting{
+    border-bottom: 1px solid rgb(235, 234, 234);
+}
+.basic-info h4,
+.access-control h4,
+.government-setting h4{
+    font-size: var(--fz-14);
+    color: #364153;;
+}
+
+
+.basic-info form label{
+    font-size: var(--fz-14);
+    color: #4A5565;
+}
+
+.basic-info form input{
+    background: #F3F3F5;
+}
+
+.access-control .role,
+.government-setting .setting{
+    background: #F3F3F5;
+
+}
+.access-control .role h5,
+.government-setting .setting h5{
+    font-size: var(--fz-14);
+    color: #101828;
+}
+
+.access-control .role p
+.government-setting .setting p{
+    font-size: var(--fz-12);
+    color: #4A5565;
+}
+
+.manage,
+.cancel,
+.save{
+    font-size: var(--fz-14);
+    border: 1px solid rgb(235, 234, 234);
+    color: #0A0A0A;
+    transition: all 0.3s ease;
+}
+.save{
+    background: var(--main-color);
+}
+.save:hover{
+    transform: translateY(-5px);
+}
+.manage:hover,
+.cancel:hover
+{
+    border: 1px solid lightgreen;
+    transform: translateY(-5px);
+}
+
+
+
+
+
+/* Media Qeuries If Exists */
+@media (min-width: 576px) {
+    .setting-dashboard p{
+    font-size: var(--fz-14);
+}
+
+}
+
+

@@ -1,0 +1,303 @@
+
+/* Section 1 */
+
+.uni-title{
+    color:var(--main-color);
+    font-size: var(--fz-30);
+}
+
+.shared-font{
+    color: #4A5565;
+    font-size: var(--fz-10);
+}
+
+.fa-building-columns{
+    padding-inline: 25px;
+    padding-block: var(--v-20px);
+    border: 1px solid #E5E7EB;
+}
+
+
+.setting{
+    font-size: var(--fz-10);
+    border: #D1D5DC solid 1px;
+    color: #0A0A0A;
+    transition: all ease 0.3s;
+}
+
+.edit-profile{
+    background-color: var(--main-color);
+    font-size: var(--fz-10);
+    transition: all ease 0.3s;
+}
+
+.setting:hover,
+.edit-profile:hover{
+    transform: translateY(-5px);
+}
+
+
+.analysis-1 h3,
+.analysis-2 h3,
+.analysis-3 h3
+{
+    color:#4A5565;
+    font-size: var(--fz-30);
+}
+
+
+.analysis-1-item,
+.analysis-2-item,
+.analysis-3-item {
+    background-color: #F9FAFB;
+    cursor: pointer;
+    transition: 0.3s all ease;
+}
+
+.analysis-1-item:hover,
+.analysis-2-item:hover,
+.analysis-3-item:hover
+{
+    border: 1px solid lightgreen !important;
+    transform: translateY(-5px);
+}
+
+
+.analysis-1-number {
+    color:var(--main-color);
+    font-size: var(--fz-24);
+}
+
+.analysis-1-des{
+    font-size: var(--fz-14);
+    color: #364153;
+}
+.analysis-1-ldes{
+    font-size: var(--fz-12);
+    color: #6A7282;
+}
+
+.analysis-2-item .fa-star{
+    background: var(--main-color);
+    height: 40px;
+    width: 40px;
+}
+.analysis-2-item .fa-graduation-cap{
+    background: #2B7FFF;
+    height: 40px;
+    width: 40px;
+}
+.analysis-2-item .fa-lightbulb{
+    background: #AD46FF;
+    height: 40px;
+    width: 40px;
+}
+.analysis-2-item .fa-arrow-trend-up{
+    background: #00C950;
+    height: 40px;
+    width: 40px;
+}
+
+.analysis-2-item h4,
+.analysis-3-item p{
+    color:#4A5565;
+    font-size: var(--fz-12);
+}
+.analysis-2-item p{
+    color:var(--main-color);
+    font-size: var(--fz-20);
+}
+.analysis-2 .analysis-2-item-per-con{
+    background-color: #E5E7EB;
+    height: 7px;
+    width: 100%;
+}
+
+.analysis-2 .analysis-2-item-per-1{
+    height: 100%;
+    width: 92.5%;
+    background: var(--main-color);
+}
+.analysis-2 .analysis-2-item-per-2{
+    height: 100%;
+    width: 94.2%;
+    background: #2B7FFF;
+}
+.analysis-2 .analysis-2-item-per-3{
+    height: 100%;
+    width: 88.7%;
+    background: #AD46FF;
+}
+.analysis-2 .analysis-2-item-per-4{
+    height: 100%;
+    width: 95.1%;
+    background: #00C950;
+}
+
+.analysis-3 h4,
+.analysis-3 i
+{
+    font-size: var(--fz-20);
+    color:var(--main-color);
+}
+
+/* End Of Section 1 */
+
+
+/* Section 2 */
+.sec-2-header h2{
+    font-size: var(--fz-30);
+    color:var(--main-color);
+}
+.sec-2-header p{
+    font-size: var(--fz-16);
+    color:#4A5565;
+}
+.sec-2-header .new-unit{
+    background-color: var(--main-color);
+    font-size: var(--fz-10);
+    transition: all 0.3s ease;
+}
+
+.sec-2-header .new-unit:hover{
+    transform: translateY(-5px);
+}
+
+.faculties .faculty-item{
+    transition: 0.3s all ease;
+    cursor: pointer;
+}
+
+.faculty-item .name{
+    color:#0A0A0A;
+    font-size: var(--fz-12);
+}
+
+.faculties .faculty-item:hover{
+    transform: translateY(-5px);
+    border: 1px solid lightgreen !important;
+}
+
+.faculty-des-name{
+    color: var(--main-color);
+    font-size: var(--fz-16);
+}
+.faculty-des-description{
+    color: #717182;
+    font-size: var(--fz-14);
+}
+
+.detail-1{
+    color: #4A5565;
+    font-size: var(--fz-14);
+}
+.detail-2{
+    color: #101828;
+    font-size: var(--fz-14);
+}
+
+
+.faculty-item-analysis{
+    border-top: 1px solid #E5E7EB;
+}
+
+
+.percentage{
+    height: 6px;
+    background-color: #E5E7EB;
+}
+.percentage .eng{
+    width: 94.5%;
+    background-color: #00C950;
+}
+.percentage .med{
+    width: 96.2%;
+    background-color: #00C950;
+}
+.percentage .sc{
+    width: 91.8%;
+    background-color: #00C950;
+}
+
+.buttons .dashboard,
+.buttons .edit
+{
+    color: #0A0A0A;
+    font-size: var(--fz-14);
+    background-color: transparent;
+    border: 1px solid #E5E7EB;
+    transition: 0.3s all ease;
+}
+
+
+.buttons .dashboard:hover,
+.buttons .edit:hover{
+    transform: translateY(-5px);
+    border: 1px solid lightgreen ;
+
+}
+
+
+/* End Of Section 2 */
+
+
+/* Media Qeuries If Exists */
+@media (min-width: 576px) {
+
+.shared-font{
+    font-size: var(--fz-12);
+}
+
+.sec-2-header .new-unit{
+    font-size: var(--fz-12);
+}
+
+.setting,
+.edit-profile{
+    font-size: var(--fz-14);
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+@media (min-width: 992px) {
+    .shared-font{
+    font-size: var(--fz-14);
+}
+.sec-2-header .new-unit{
+    font-size: var(--fz-14);
+}
+
+
+}
+
+
+/* Shared Classes */
+.m-inline-start-1{
+  margin-inline-start: var(--v-4px);
+}
+.m-inline-end-1{
+  margin-inline-end: var(--v-4px);
+}
+.m-inline-start-2{
+  margin-inline-start: var(--v-8px);
+}
+.m-inline-end-2{
+  margin-inline-end: var(--v-8px);
+}
+.m-inline-start-3{
+  margin-inline-start: var(--v-16px);
+}
+.m-inline-end-3{
+  margin-inline-end: var(--v-16px);
+}
+
+

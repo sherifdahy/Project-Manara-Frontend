@@ -54,6 +54,8 @@ export class LoginFormComponent implements OnInit {
 
         const currentRole = this.authService.currentUser?.roles?.[0];
 
+        alert(currentRole);
+
         switch (currentRole) {
           case (Roles.systemAdmin):
             {

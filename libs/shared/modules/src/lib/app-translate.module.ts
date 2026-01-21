@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function createTranslateLoader(http: HttpClient, path: string) {
   return new TranslateHttpLoader(http, `./assets/i18n/`, path);
 }
 
-@NgModule()
+@NgModule({
+  exports: [TranslateModule]
+})
 export class AppTranslateModule {
 
   static forRoot(): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forRoot({
       defaultLanguage: 'en',
-      extend : false,
+      extend: false,
       isolate: false,
       loader: {
         provide: TranslateLoader,
@@ -26,7 +28,7 @@ export class AppTranslateModule {
   static forChild(path: string): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forChild({
       isolate: false,
-      extend : true,
+      extend: true,
       loader: {
         provide: TranslateLoader,
         useFactory: (http: HttpClient) => createTranslateLoader(http, path),

@@ -1,0 +1,33 @@
+.form-control:focus {
+  border-color: #333;
+  box-shadow: none;
+}
+
+.form-title {
+  color: #777;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.form-control {
+  background-color: #f3f3f5;
+}
+
+.form-btns {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-cancel {
+  margin-right: 10px;
+  border: 1px solid #eee;
+  color: #000;
+}
+
+.btn-create {
+  background-color: var(--main-color);
+  color: #fff;
+}

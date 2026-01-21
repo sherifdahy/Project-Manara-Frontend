@@ -1,0 +1,88 @@
+<div class="container-fluid">
+  <!--Faculty Header-->
+  <div class="faculty-header d-flex justify-content-between align-items-center">
+    <div
+      class="first-section d-flex justify-content-between align-items-center"
+    >
+      <button class="back-btn btn me-4 bg-light">
+        <span><i class="fa-solid fa-arrow-left"></i></span> Back
+      </button>
+      <div class="texts">
+        <h1 class="fw-normal">Benha University - Faculty of Engineering</h1>
+        <p class="description">
+          Leading engineering education and research in Egypt
+        </p>
+      </div>
+    </div>
+    <div class="faculty px-2 py-1 rounded-3">Faculty</div>
+  </div>
+
+  <!--Tabs-->
+  <div class="tab-container my-4 bg-light rounded-3 p-4">
+    <!--Tabs Header-->
+    <ul
+      class="nav nav-pills d-flex justify-content-start align-items-center"
+      id="pills-tab"
+      role="tablist"
+    >
+      <li class="nav-item me-3" role="presentation">
+        <button
+          class="nav-link active"
+          id="pills-overview-tabg"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-overview"
+          aria-selected="true"
+        >
+          <span><i class="fa-regular fa-building"></i></span> Overview
+        </button>
+      </li>
+      <li class="nav-item me-3" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-department-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-department"
+          aria-selected="false"
+        >
+          <span><i class="fa-regular fa-building"></i></span>Departments
+        </button>
+      </li>
+      <li class="nav-item me-3" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-student-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-student"
+          aria-selected="false"
+        >
+          <span><i class="fa-solid fa-person"></i></span> Students
+        </button>
+      </li>
+      <li class="nav-item me-3" role="presentation">
+        <button
+          class="nav-link"
+          id="pills-setting-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#pills-setting"
+          aria-selected="false"
+        >
+          <span><i class="fa-solid fa-gear"></i></span> Settings
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!--Tabs Body-->
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-overview" role="tabpanel">
+      Overview
+    </div>
+    <div class="tab-pane fade" id="pills-department" role="tabpanel">
+      Departments
+    </div>
+    <div class="tab-pane fade" id="pills-student" role="tabpanel">Students</div>
+    <div class="tab-pane fade" id="pills-setting" role="tabpanel">
+      <app-faculty-edit></app-faculty-edit>
+    </div>
+  </div>
+</div>
