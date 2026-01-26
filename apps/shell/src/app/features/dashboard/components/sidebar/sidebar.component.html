@@ -24,16 +24,25 @@
       <span class="m-0 p-2">OVERVIEW</span>
 
       <li>
-        <a routerLink="/dashboard" routerLinkActive="active">
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-gauge-high fa-fw"></i>
           <span>{{ "sidebar.links.dashboard" | translate }}</span>
+        </a>
+      </li>
+
+
+      <li>
+        <a [routerLink]="['/dashboard/universities',1]" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-building-columns"></i>
+          <span>{{ "sidebar.links.university" | translate }}</span>
         </a>
       </li>
 
       <li>
         <a routerLink="/dashboard/universities" routerLinkActive="active">
           <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.university" | translate }}</span>
+          <span>{{ "sidebar.links.universities" | translate }}</span>
         </a>
       </li>
 

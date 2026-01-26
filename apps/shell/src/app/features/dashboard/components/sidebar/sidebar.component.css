@@ -60,6 +60,7 @@
   transition: all 0.25s ease;
   position: relative;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .sidebar-links ul a i {
@@ -78,7 +79,7 @@
 }
 
 .sidebar-links ul a.active::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -8px;
   top: 50%;
@@ -94,7 +95,7 @@
     width: 70px;
   }
 
-  .sidebar .sidebar-header{
+  .sidebar .sidebar-header {
     justify-content: center !important;
   }
 
