@@ -1,0 +1,11 @@
+/* layout.component.css */
+.page {
+  min-height: 100vh;
+}
+.content {
+  background-color: #f9fafb;
+}
+
+.main-content {
+  padding: 24px;
+}

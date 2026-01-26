@@ -14,7 +14,14 @@ const config: ModuleFederationConfig = {
    * declare module 'my-external-remote';
    *
    */
-  remotes: ['system_admin', 'admin'],
+  // remotes: [
+  //   'system_admin',
+  //   'admin',
+  //   'roles_mfe',
+  //   'universities_mfe',
+  //   'auth_mfe',
+  //   'dashboard_mfe'
+  // ],
 };
 
 /**
