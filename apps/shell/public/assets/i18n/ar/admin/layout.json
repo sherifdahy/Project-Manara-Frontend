@@ -5,7 +5,8 @@
     },
     "links": {
       "dashboard": "لوحة التحكم",
-      "university": "الجامعات",
+      "university": "الجامعة",
+      "universities": "الجامعات",
       "userManagement": "إدارة المستخدمين",
       "rolesAndPermissions": "الأدوار والصلاحيات",
       "permissionMatrix": "مصفوفة الصلاحيات"

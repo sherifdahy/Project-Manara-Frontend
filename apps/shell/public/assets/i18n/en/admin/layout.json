@@ -6,6 +6,7 @@
     "links": {
       "dashboard": "Dashboard",
       "university": "University",
+      "universities": "Universities",
       "userManagement": "User Management",
       "rolesAndPermissions": "Roles & Permissions",
       "permissionMatrix": "Permission Matrix"

@@ -4,3 +4,9 @@ export * from './lib/auth/requests/new-password-request';
 
 export * from './lib/auth/responses/auth-response';
 export * from './lib/auth/responses/authenticated-user-response';
+
+
+export * from './lib/universities/requests/university-request'
+export * from './lib/universities/responses/university-detail-response'
+
+export * from './lib/students/requests/student-request'

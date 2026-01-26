@@ -12,13 +12,12 @@ import { AppTranslateService } from '@project-manara-frontend/services'
 @NgModule({
   declarations: [
     UniversityDetailPageComponent,
-
   ],
   imports: [
     CommonModule,
     AppTranslateModule.forChild('/admin/university.json'),
     DialogComponent,
-    RouterModule.forChild(remoteRoutes)
+    RouterModule.forChild(remoteRoutes),
   ],
   providers: [],
 })

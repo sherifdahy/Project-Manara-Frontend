@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { UniSettingComponent } from './uni-setting.component';
+import { FacultyFormDialogComponent } from './faculty-form-dialog.component';
 
-describe('UniSettingComponent', () => {
-  let component: UniSettingComponent;
-  let fixture: ComponentFixture<UniSettingComponent>;
+describe('FacultyFormDialogComponent', () => {
+  let component: FacultyFormDialogComponent;
+  let fixture: ComponentFixture<FacultyFormDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UniSettingComponent ]
+      declarations: [ FacultyFormDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UniSettingComponent);
+    fixture = TestBed.createComponent(FacultyFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

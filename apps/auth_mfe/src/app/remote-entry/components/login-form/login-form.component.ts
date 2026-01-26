@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from '@project-manara-frontend/models';
-import { AuthService } from '@project-manara-frontend/services';
+import { AuthNavigationService, AuthService, NotificationService } from '@project-manara-frontend/services';
 import { Roles } from '@project-manara-frontend/consts';
 @Component({
   selector: 'app-login-form',
@@ -17,7 +17,9 @@ export class LoginFormComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private authNavigationService: AuthNavigationService,
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -46,22 +48,10 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(request).subscribe({
       next: (response) => {
         let returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
-
-        if (returnUrl) {
-          this.router.navigateByUrl(returnUrl);
-          return;
-        }
-
-        this.router.navigateByUrl('dashboard');
+        this.authNavigationService.redirect(returnUrl);
       },
       error: (errors: any) => {
-        const invalid = errors?.['User.InvalidCredentials']?.[0];
-        if (invalid) {
-          this.errorMessageRef.nativeElement.innerHTML = invalid;
-          this.errorMessageRef.nativeElement.classList.remove('d-none');
-        } else {
-          console.error(errors);
-        }
+        this.notificationService.handleError(errors)
       },
     });
   }
