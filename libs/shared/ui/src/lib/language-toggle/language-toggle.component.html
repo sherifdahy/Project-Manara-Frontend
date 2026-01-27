@@ -1,0 +1,11 @@
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn" [class.active]="(currentLanguage$ | async) === acceptedLanguageConsts.english"
+    (click)="changeLanguage(acceptedLanguageConsts.english)">
+    English
+  </button>
+  <button class="lang-btn" [class.active]="(currentLanguage$ | async) === acceptedLanguageConsts.arabic"
+    (click)="changeLanguage(acceptedLanguageConsts.arabic)">
+    العربية
+  </button>
+</div>

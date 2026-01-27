@@ -10,6 +10,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './dashboard.routes';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { LanguageToggleComponent } from '@project-manara-frontend/ui';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     FormsModule,
     RouterModule.forChild(routes),
     AppTranslateModule.forChild('/admin/layout.json'),
+    LanguageToggleComponent
   ],
   declarations: [
     DashboardLayoutComponent,

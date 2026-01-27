@@ -42,31 +42,16 @@
       <div class="navbar-actions">
 
         <!-- Language Toggle -->
-        <div class="lang-toggle">
-          <button
-            class="lang-btn"
-            [class.active]="(currentLanguage$ | async) === acceptedLanguageConsts.english"
-            (click)="changeLanguage(acceptedLanguageConsts.english)">
-            EN
-          </button>
-          <button
-            class="lang-btn"
-            [class.active]="(currentLanguage$ | async) === acceptedLanguageConsts.arabic"
-            (click)="changeLanguage(acceptedLanguageConsts.arabic)">
-            ع
-          </button>
-        </div>
+        <app-language-toggle></app-language-toggle>
 
         <!-- Divider -->
         <div class="nav-divider"></div>
 
         <!-- Login Button -->
-        @if ((isLoggedIn$ | async)) {
-          <a routerLink="/auth/login" class="btn-login">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-            <span>{{ 'header.navbar.auth.login' | translate }}</span>
-          </a>
-        }
+        <a routerLink="/auth/login" class="btn-login">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <span>{{ 'header.navbar.auth.login' | translate }}</span>
+        </a>
 
       </div>
     </div>

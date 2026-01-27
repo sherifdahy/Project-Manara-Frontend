@@ -13,7 +13,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 @NgModule({
   declarations: [
     App,
-    AuthLayoutComponent,
+    AuthLayoutComponent
   ],
   imports: [
     BrowserModule,
