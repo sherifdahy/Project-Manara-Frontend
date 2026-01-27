@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-system_admin-entry',
+  selector: 'app-system-admin-entry',
   standalone: false,
   template: `<app-nx-welcome></app-nx-welcome>`,
 })

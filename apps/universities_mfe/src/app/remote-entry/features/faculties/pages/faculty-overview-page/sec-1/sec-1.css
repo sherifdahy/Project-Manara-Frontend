@@ -1,0 +1,30 @@
+/* section 1 */
+.sec-1 h3,
+.sec-1 h3 + i {
+  color: var(--text-secondary);
+  font-size: var(--fs-md);
+}
+
+.sec-1-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sec-1-item:hover {
+  border-color: lightgreen !important;
+  transform: translateY(-5px);
+}
+
+.total-students {
+  color: var(--main-color);
+  font-size: var(--fs-4xl);
+}
+.total-students-active {
+  color: var(--text-secondary);
+  font-size: var(--fs-md);
+}
+
+.some-analysis {
+  color: #00a63e;
+  font-size: var(--fs-md);
+}
+/* end of section 1 */
