@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { NewPasswordRequest } from '@project-manara-frontend/models';
-import { AuthService, NotificationService } from '@project-manara-frontend/services';
+import { AuthService } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
 import { passwordMatch } from '@project-manara-frontend/utilities';
 @Component({
@@ -23,7 +23,6 @@ export class NewPasswordForm implements OnInit {
     private authService: AuthService,
     private toastrService: ToastrService,
     private router: Router,
-    private errorHandler: NotificationService
   ) { }
   ngOnInit(): void {
     this.buildForm();
@@ -66,15 +65,11 @@ export class NewPasswordForm implements OnInit {
     request.email = this.email;
     this.authService.resetPassword(request).subscribe({
       next: () => this.submitSuccess(),
-      error: (errors: any) => this.submitFail(errors),
     });
   }
   private submitSuccess() {
     this.toastrService.success('new Password Has Change');
     this.router.navigate(['/auth/login']);
-  }
-  private submitFail(errors: any) {
-    this.errorHandler.handleError(errors, 'User.InvalidCredentials', this.errorMessageRef);
   }
 
   get newPassword(): any {

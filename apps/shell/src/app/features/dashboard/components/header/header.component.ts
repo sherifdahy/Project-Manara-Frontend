@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
+import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { AppTranslateService } from '@project-manara-frontend/services';
 export class HeaderComponent implements OnInit {
 
   currentLang: string = 'en';
+  acceptedLanguageConsts = AcceptedLanguageConsts;
 
   constructor(private router: Router, private authService: AuthService, private appTranslateService: AppTranslateService) { }
 

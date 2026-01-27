@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AppTranslateService, AuthService, NotificationService } from '@project-manara-frontend/services';
-
+import { AppTranslateService, AuthService } from '@project-manara-frontend/services';
+import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 @Component({
   selector: 'app-navbar',
-  standalone : false,
+  standalone: false,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
 
-  currentLanguage! : string;
+  currentLanguage!: string;
   isLoggedIn!: boolean;
-
+  acceptedLanguageConsts = AcceptedLanguageConsts;
   constructor(
     private authService: AuthService,
     private appTranslateService: AppTranslateService,
-    private errorHandlerService : NotificationService
   ) {
 
   }
@@ -25,21 +24,16 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = response;
     });
 
-    this.appTranslateService.language$.subscribe(response=>{
+    this.appTranslateService.language$.subscribe(response => {
       this.currentLanguage = response;
     })
   }
 
   logout() {
-    this.authService.logout().subscribe({
-      error: (errors) => {
-        this.errorHandlerService.handleError(errors,'');
-      }
-    });
+    this.authService.logout().subscribe();
   }
 
-  changeLanguage(lang:string)
-  {
+  changeLanguage(lang: string) {
     this.appTranslateService.changeLanguage(lang);
   }
 }

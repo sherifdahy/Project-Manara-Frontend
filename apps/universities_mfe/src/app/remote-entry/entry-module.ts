@@ -8,7 +8,7 @@ import { AppTranslateModule } from '@project-manara-frontend/modules'
 import { DialogComponent } from '@project-manara-frontend/ui'
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services'
-
+import { MatDialogModule } from '@angular/material/dialog'
 @NgModule({
   declarations: [
     UniversityDetailPageComponent,
@@ -18,6 +18,7 @@ import { AppTranslateService } from '@project-manara-frontend/services'
     AppTranslateModule.forChild('/admin/university.json'),
     DialogComponent,
     RouterModule.forChild(remoteRoutes),
+    MatDialogModule
   ],
   providers: [],
 })

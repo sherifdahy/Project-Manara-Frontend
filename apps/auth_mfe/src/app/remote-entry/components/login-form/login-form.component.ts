@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from '@project-manara-frontend/models';
-import { AuthNavigationService, AuthService, NotificationService } from '@project-manara-frontend/services';
+import { AuthNavigationService, AuthService } from '@project-manara-frontend/services';
 import { Roles } from '@project-manara-frontend/consts';
 @Component({
   selector: 'app-login-form',
@@ -19,7 +19,6 @@ export class LoginFormComponent implements OnInit {
     private router: Router,
     private authNavigationService: AuthNavigationService,
     private activatedRoute: ActivatedRoute,
-    private notificationService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -49,9 +48,6 @@ export class LoginFormComponent implements OnInit {
       next: (response) => {
         let returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
         this.authNavigationService.redirect(returnUrl);
-      },
-      error: (errors: any) => {
-        this.notificationService.handleError(errors)
       },
     });
   }

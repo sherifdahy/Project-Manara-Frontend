@@ -8,5 +8,9 @@ export * from './lib/auth/responses/authenticated-user-response';
 
 export * from './lib/universities/requests/university-request'
 export * from './lib/universities/responses/university-detail-response'
+export * from './lib/universities/responses/university-response'
 
-export * from './lib/students/requests/student-request'
+
+export * from './lib/faculties/requests/faculty-request'
+export * from './lib/faculties/responses/faculty-response'
+export * from './lib/faculties/responses/faculty-detail-response'

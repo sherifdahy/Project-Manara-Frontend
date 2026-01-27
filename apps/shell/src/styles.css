@@ -1,18 +1,47 @@
-/* CSS Variables */
+/* =====================
+   CSS Variables
+===================== */
 :root {
   --main-color: #0a1f44;
   --orange-color: #d4af37;
   --orange-alt-color: #b8962e;
+
+  --text-primary: #101828;
+  --text-secondary: #4a5565;
+  --text-muted: #6a7282;
+
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --bg-light: #f9fafb;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --z-base: 1;
+  --z-toast: 1500;
+  --z-dialog: 2000;
+  --z-tooltip: 3000;
 }
 
+/* =====================
+   Base
+===================== */
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: "Open Sans", sans-serif;
-  background-color: #f9fafb;
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--bg-light);
 }
 
 a {
@@ -23,6 +52,202 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+/* =====================
+   OverlayScrollbars Custom Style
+===================== */
+.os-scrollbar {
+  --os-size: 6px;
+  --os-handle-bg: #c1c1c1;
+  --os-handle-bg-hover: #a1a1a1;
+  --os-handle-bg-active: #888888;
+  --os-handle-border-radius: 3px;
+}
+
+/* =====================
+   Reusable Buttons - Compact
+===================== */
+.btn-main {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--main-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  color: #fff;
+}
+
+.btn-outline {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--main-color);
+  color: var(--main-color);
+  transform: translateY(-1px);
+}
+
+/* =====================
+   Icon Box - Compact
+===================== */
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.icon-box-lg {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.icon-box-md {
+  width: 32px;
+  height: 32px;
+  font-size: 0.9rem;
+}
+
+.icon-box-sm {
+  width: 28px;
+  height: 28px;
+  font-size: 0.8rem;
+}
+
+/* Icon Colors */
+.icon-primary {
+  background: rgba(10, 31, 68, 0.08);
+  color: var(--main-color);
+}
+
+.icon-success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.icon-info {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+
+.icon-purple {
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+}
+
+.icon-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+/* =====================
+   Animation
+===================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.3s ease both;
+}
+
+/* =====================
+   Form Controls (Global) - Compact
+===================== */
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.form-label .required {
+  color: #ef4444;
+  margin-inline-start: 0.15rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  background-color: var(--bg-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--main-color);
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(10, 31, 68, 0.08);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 65px;
+}
+
+/* =====================
+   Form Grid (Global) - Compact
+===================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 576px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Basic Configuration */
@@ -74,7 +299,7 @@ ul {
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Media Qeuries If Exists */

@@ -9,8 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppToastrModule, AppTranslateModule } from '@project-manara-frontend/modules';
 import { ErrorInterceptor, LoaderInterceptor, TokenInterceptor } from '@project-manara-frontend/interceptors';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
-
 
 @NgModule({
   declarations: [

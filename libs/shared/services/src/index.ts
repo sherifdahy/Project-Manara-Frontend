@@ -1,7 +1,5 @@
 export * from './lib/configuration/app-translate.service';
 export * from './lib/configuration/loader.service';
-export * from './lib/configuration/notification.service';
-export * from './lib/configuration/sweet-alert.service';
 export * from './lib/auth/auth.service';
 export * from './lib/auth/jwt.service';
 export * from './lib/api/api-client.service';
@@ -9,3 +7,7 @@ export * from './lib/auth/auth-storage.service';
 export * from './lib/auth/auth-navigation.service'
 export * from './lib/universities/university.service'
 export * from './lib/students/student.service'
+export * from './lib/faculties/faculty.service'
+export * from './lib/configuration/toast.service'
+export * from './lib/configuration/swal.service'
+export * from './lib/configuration/http-error.service'

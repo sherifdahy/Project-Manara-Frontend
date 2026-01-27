@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AcceptedLanguageConsts } from '@project-manara-frontend/consts'
 
 export function createTranslateLoader(http: HttpClient, path: string) {
   return new TranslateHttpLoader(http, `./assets/i18n/`, path);
@@ -14,7 +15,7 @@ export class AppTranslateModule {
 
   static forRoot(): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forRoot({
-      defaultLanguage: 'en',
+      defaultLanguage: AcceptedLanguageConsts.english,
       extend: false,
       isolate: false,
       loader: {

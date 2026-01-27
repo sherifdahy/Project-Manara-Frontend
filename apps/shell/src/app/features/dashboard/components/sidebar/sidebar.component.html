@@ -1,9 +1,10 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
-  <div class="sidebar-header p-3 d-flex align-items-center" [ngClass]="{
+  <div class="sidebar-header d-flex align-items-center" [ngClass]="{
       'justify-content-between': !isCollapsed,
       'justify-content-center': isCollapsed
     }">
-    <div class="start-section d-flex align-items-center gap-2">
+    <!-- شيلت p-3 لأن الـ padding هيجي من CSS -->
+    <div class="start-section d-flex align-items-center">
       <span>
         <i class="fa-solid fa-shield"></i>
       </span>
@@ -19,9 +20,10 @@
 
   <hr class="m-0" />
 
-  <div class="sidebar-links p-1">
+  <div class="sidebar-links">
+    <!-- شيلت p-1 لأن الـ padding هيجي من CSS -->
     <ul>
-      <span class="m-0 p-2">OVERVIEW</span>
+      <span>OVERVIEW</span>
 
       <li>
         <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -29,7 +31,6 @@
           <span>{{ "sidebar.links.dashboard" | translate }}</span>
         </a>
       </li>
-
 
       <li>
         <a [routerLink]="['/dashboard/universities',39]" routerLinkActive="active"
@@ -46,7 +47,7 @@
         </a>
       </li>
 
-      <span class="m-0 p-2">IAM PORTAL</span>
+      <span>IAM PORTAL</span>
 
       <li>
         <a routerLink="/dashboard/users" routerLinkActive="active">

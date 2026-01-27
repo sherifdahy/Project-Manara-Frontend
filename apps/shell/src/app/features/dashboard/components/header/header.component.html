@@ -1,4 +1,4 @@
-<div class="header px-4 py-2 d-flex justify-content-between align-items-center">
+<div class="header px-3 py-1 d-flex justify-content-between align-items-center">
   <div class="header-content">
     <h5>{{ "header.brand" | translate }}</h5>
     <span>{{ "header.subtitle" | translate }}</span>
@@ -7,12 +7,7 @@
   <div class="icons d-flex align-items-center gap-3">
     <!-- Language Switcher -->
     <div class="language-switcher dropdown">
-      <button
-        class="lang-btn active dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
+      <button class="lang-btn active dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa-solid fa-globe"></i>
         <span>{{ currentLang | uppercase }}</span>
       </button>
@@ -22,20 +17,14 @@
           <small>{{ "header.language.selectLanguage" | translate }}</small>
         </div>
 
-        <button
-          class="lang-option dropdown-item"
-          [class.active]="currentLang == 'en'"
-          (click)="changeLang('en')"
-        >
+        <button class="lang-option dropdown-item" [class.active]="currentLang == acceptedLanguageConsts.english"
+          (click)="changeLang(acceptedLanguageConsts.english)">
           <span class="flag">🇺🇸</span>
           {{ "header.language.english" | translate }}
         </button>
 
-        <button
-          class="lang-option dropdown-item"
-          [class.active]="currentLang == 'ar'"
-          (click)="changeLang('ar')"
-        >
+        <button class="lang-option dropdown-item" [class.active]="currentLang == acceptedLanguageConsts.arabic"
+          (click)="changeLang(acceptedLanguageConsts.arabic)">
           <span class="flag">🇪🇬</span>
           {{ "header.language.arabic" | translate }}
         </button>
@@ -49,12 +38,7 @@
 
     <!-- User Menu -->
     <div class="user-menu dropdown">
-      <button
-        class="avatar dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
+      <button class="avatar dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <span>SH</span>
       </button>
 

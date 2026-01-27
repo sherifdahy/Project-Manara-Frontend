@@ -1,10 +1,10 @@
 {
   "validation": {
-    "requiredMessage": "هذا الحقل مطلوب",
-    "emailMessage": "يرجى إدخال بريد إلكتروني صالح",
-    "minLengthMessage": "الحد الأدنى للطول هو {{min}} حرفًا",
-    "maxLengthMessage": "الحد الأقصى للطول هو {{max}} حرفًا",
-    "patternMessage": "تنسيق غير صالح"
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال بريد إلكتروني صالح",
+    "minLength": "الحد الأدنى للطول هو {{min}} حرفًا",
+    "maxLength": "الحد الأقصى للطول هو {{max}} حرفًا",
+    "pattern": "تنسيق غير صالح"
   },
   "sweetAlert": {
     "danger": {

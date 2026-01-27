@@ -6,9 +6,11 @@ export class AppToastrModule {
 
   static forRoot(): ModuleWithProviders<ToastrModule> {
     return ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-      timeOut: 3000,
+      positionClass: 'toast-bottom-left',
       preventDuplicates: true,
-    });
+      progressBar: true,
+      timeOut: 5000,
+      toastClass: 'ngx-toastr custom-toast',
+    })
   }
 }

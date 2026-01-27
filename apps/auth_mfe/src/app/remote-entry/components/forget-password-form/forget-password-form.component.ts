@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ForgetPasswordRequest } from '@project-manara-frontend/models';
-import { AuthService, NotificationService } from '@project-manara-frontend/services';
+import { AuthService } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -18,7 +18,6 @@ export class ForgetPasswordFormComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private errorHandler: NotificationService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -43,7 +42,6 @@ export class ForgetPasswordFormComponent implements OnInit {
   private callEndPoint(request: ForgetPasswordRequest) {
     this.authService.forgetPassword(request).subscribe({
       next: () => this.submitSuccess(),
-      error: (errors: any) => this.submitFail(errors),
     });
   }
 
@@ -51,9 +49,6 @@ export class ForgetPasswordFormComponent implements OnInit {
     this.toastrService.success('Email Send Successfully');
     this.successMessage = true;
     this.cdr.detectChanges();
-  }
-  private submitFail(errors: any) {
-    this.errorHandler.handleError(errors, 'User.InvalidCredentials', this.errorMessageRef);
   }
 
   get email(): any {

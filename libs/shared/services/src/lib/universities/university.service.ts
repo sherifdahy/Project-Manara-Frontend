@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
-import { UniversityRequest, UniversityDetailResponse } from '@project-manara-frontend/models';
+import { UniversityRequest, UniversityDetailResponse, UniversityResponse } from '@project-manara-frontend/models';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class UniversityService {
 
   constructor(private apiClient: ApiClientService) { }
 
-  getAll(includeDisabled: boolean): Observable<UniversityDetailResponse[]> {
+  getAll(includeDisabled: boolean): Observable<UniversityResponse[]> {
     return this.apiClient.get(`${environment.apiUrl}/api/universities?includeDisabled=${includeDisabled}`);
   }
 
