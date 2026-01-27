@@ -7,7 +7,7 @@ export class AppToastrModule {
 
   static forRoot(): ModuleWithProviders<ToastrModule> {
     return ToastrModule.forRoot({
-      positionClass : '',
+      positionClass : 'toast-top-center',
       preventDuplicates: true,
       progressBar: true,
       progressAnimation: 'decreasing',

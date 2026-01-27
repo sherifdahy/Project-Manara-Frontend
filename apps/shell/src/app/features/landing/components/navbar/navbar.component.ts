@@ -1,39 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppTranslateService, AuthService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-navbar',
   standalone: false,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  currentLanguage!: string;
-  isLoggedIn!: boolean;
   acceptedLanguageConsts = AcceptedLanguageConsts;
+
+  currentLanguage$: Observable<string>;
+  isLoggedIn$: Observable<boolean>;
+
   constructor(
     private authService: AuthService,
-    private appTranslateService: AppTranslateService,
+    private appTranslateService: AppTranslateService
   ) {
-
+    this.currentLanguage$ = this.appTranslateService.language$;
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
 
-  ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe(response => {
-      this.isLoggedIn = response;
-    });
-
-    this.appTranslateService.language$.subscribe(response => {
-      this.currentLanguage = response;
-    })
-  }
-
-  logout() {
-    this.authService.logout().subscribe();
-  }
-
-  changeLanguage(lang: string) {
+  changeLanguage(lang: string): void {
     this.appTranslateService.changeLanguage(lang);
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe();
   }
 }

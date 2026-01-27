@@ -7,8 +7,8 @@
         "partners" : "Partners",
         "contacts" : "Contancts"
       },
-      "login" : {
-        "Login" : "Login"
+      "auth" : {
+        "login" : "Login"
       }
     }
   },

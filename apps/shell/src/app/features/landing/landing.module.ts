@@ -12,6 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FormsModule,
     AppTranslateModule.forChild('/landing.json'),
   ],
   declarations: [
