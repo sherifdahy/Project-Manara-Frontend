@@ -1,0 +1,67 @@
+/* =====================
+   Utility Classes
+===================== */
+
+/* Text Colors */
+.text-primary {
+  color: var(--text-primary) !important;
+}
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+.text-muted {
+  color: var(--text-muted) !important;
+}
+.text-main {
+  color: var(--main-color) !important;
+}
+.text-orange {
+  color: var(--orange-color) !important;
+}
+.text-white {
+  color: #fff !important;
+}
+
+/* Background Colors */
+.bg-main {
+  background-color: var(--main-color) !important;
+}
+.bg-light {
+  background-color: var(--bg-light) !important;
+}
+.bg-white {
+  background-color: var(--card-bg) !important;
+}
+
+/* Border Colors */
+.border-main {
+  border-color: var(--main-color) !important;
+}
+.border-light {
+  border-color: var(--card-border) !important;
+}
+
+/* Border Radius */
+.rounded-sm {
+  border-radius: var(--radius-sm) !important;
+}
+.rounded-md {
+  border-radius: var(--radius-md) !important;
+}
+.rounded-lg {
+  border-radius: var(--radius-lg) !important;
+}
+.rounded-xl {
+  border-radius: var(--radius-xl) !important;
+}
+
+/* Box Shadow */
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+.shadow-md {
+  box-shadow: var(--shadow-md) !important;
+}
+.shadow-lg {
+  box-shadow: var(--shadow-lg) !important;
+}

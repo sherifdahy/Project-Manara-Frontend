@@ -86,7 +86,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     this.dialog.closeAll();
     this.authService.logout();
     this.toast.warning('Session expired. Please login again.', 'Session Expired');
-    this.redirectToLogin();
+  this.redirectToLogin();
   }
 
   private redirectToLogin(): void {

@@ -1,34 +1,43 @@
-/* techPartners */
-
+/* =====================
+   Tech Partners - Compact
+===================== */
 .techPartners {
-  border-top: 2px solid #e5e7eb;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.techPartners-item {
-  transition: all 0.3s ease;
-  cursor: pointer;
-  background-color: #f9fafb;
-  border: 2px solid #e5e7eb;
-}
-
-.techPartners-item:hover {
-  transform: scale(1.05);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  padding: var(--space-md) 0;
 }
 
 .techPartners-h {
-  color: #4a5565;
-  font-size: var(--fz-16);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  margin-bottom: var(--space-md);
+}
+
+.techPartners-item {
+  background-color: var(--bg-light);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.techPartners-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .techPartners-item-h {
-  font-size: var(--fz-16);
-  color: #101828;
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  font-weight: var(--fw-semibold);
+  margin-bottom: 0.15rem;
 }
 
 .techPartners-item-p {
-  color: #6a7282;
-  font-size: var(--fz-12);
+  color: var(--text-muted);
+  font-size: var(--fs-2xs);
+  margin-bottom: 0;
 }
-
-/* End Of techPartners */

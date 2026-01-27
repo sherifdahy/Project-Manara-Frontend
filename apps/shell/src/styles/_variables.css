@@ -1,0 +1,80 @@
+/* =====================
+   CSS Variables - Unified
+===================== */
+:root {
+  /* Primary Colors */
+  --main-color: #0a1f44;
+  --main-light: #1e3a8a;
+  --main-lighter: #2563eb;
+  --orange-color: #d4af37;
+  --orange-alt-color: #b8962e;
+
+  /* Text Colors */
+  --text-primary: #101828;
+  --text-secondary: #4a5565;
+  --text-muted: #6a7282;
+  --text-light: #d1d5dc;
+
+  /* Background & Cards */
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --bg-light: #f9fafb;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 50px;
+
+  /* Z-Index */
+  --z-base: 1;
+  --z-navbar: 1000;
+  --z-toast: 2500;
+  --z-dialog: 2000;
+  --z-tooltip: 3000;
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+
+  /* Font Sizes - Compact Scale */
+  --fs-2xs: 0.625rem;
+  --fs-xs: 0.6875rem;
+  --fs-sm: 0.75rem;
+  --fs-base: 0.8125rem;
+  --fs-md: 0.875rem;
+  --fs-lg: 1rem;
+  --fs-xl: 1.125rem;
+  --fs-2xl: 1.25rem;
+  --fs-3xl: 1.5rem;
+  --fs-4xl: 1.875rem;
+  --fs-5xl: 2.25rem;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Badge Colors */
+  --badge-public: var(--main-color);
+  --badge-private: #155dfc;
+  --badge-research: #9810fa;
+  --badge-government: var(--orange-color);
+
+  /* Status Colors */
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+}

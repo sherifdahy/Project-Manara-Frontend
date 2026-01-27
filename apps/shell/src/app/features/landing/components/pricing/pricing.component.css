@@ -1,151 +1,134 @@
-
-/* pricing */
-
-.pricing-h{
-    font-size: var(--fz-16);
-    color: #0A1F44;
+/* =====================
+   Pricing - Compact
+===================== */
+.pricing {
+  padding: var(--space-xl) 0;
 }
 
-.pricing-p{
-    font-size: var(--fz-12);
-    color: #4A5565;
+.pricing-h {
+  font-size: var(--fs-lg);
+  color: var(--main-color);
+  font-weight: var(--fw-semibold);
+  margin-bottom: var(--space-sm);
 }
 
-
-
-.pricing-one-card{
-    border: 2px solid #E5E7EB;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer
+.pricing-p {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
 }
 
-.pricing-one-card:hover{
-    transform: scale(1.05);
-    box-shadow: 0 8px 10px -6px #0000001A;
-    border-color: green;
+/* Pricing Card */
+.pricing-one-card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 0.85rem;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
-.pricing-one-card-h{
-    font-size: var(--fz-14);
-    color: #0A1F44;
+.pricing-one-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--success);
 }
 
-.pricing-one-card-p{
-    color: #364153;
-    font-size: var(--fz-10);
+.pricing-one-card-h {
+  font-size: var(--fs-sm);
+  color: var(--main-color);
+  font-weight: var(--fw-semibold);
+  margin-bottom: 0.3rem;
 }
 
-#pricing .fa-check{
-    color: #D4AF37;
+.pricing-one-card-p {
+  color: var(--text-secondary);
+  font-size: var(--fs-2xs);
+  margin-bottom: var(--space-md);
 }
 
-
-#pricing ul li{
-    padding: 0;
-    list-style: none;
-    color: #364153;
-    font-size: var(--fz-12);
+/* Features List */
+.pricing-one-card ul {
+  padding-left: 0;
+  margin-bottom: var(--space-md);
+  flex-grow: 1;
 }
 
-
-#pricing ul {
-    padding-left: 0;
+.pricing-one-card ul li {
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  padding: 0.2rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
 }
 
-
-#pricing .btn-warning {
-    --bs-btn-color: white;
-    --bs-btn-bg: #0A1F44;
-    --bs-btn-border-color: #0A1F44;
-    --bs-btn-hover-color: #0A1F44;
-    --bs-btn-hover-bg: #ffc720;
-    --bs-btn-hover-border-color: #ffc720;
-    --bs-btn-active-color: #ffc720;
-    --bs-btn-active-bg: #ffc720;
-    --bs-btn-active-border-color: #ffc720;
-    --bs-btn--border-color: #ffc107;
+.pricing-one-card ul li .fa-check {
+  color: var(--orange-color);
+  font-size: var(--fs-2xs);
+  margin-top: 2px;
 }
 
+/* Pricing Button */
+.pricing-one-card .btn-warning {
+  width: 100%;
+  padding: 0.4rem 0.85rem;
+  font-size: var(--fs-sm);
+  background: var(--main-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  margin-top: auto;
+  transition: all 0.25s ease;
+}
 
-/* End Of pricing */
+.pricing-one-card .btn-warning:hover {
+  background: var(--orange-color);
+  color: var(--main-color);
+}
 
-
-
-
-
-/* Media Qeuries If Exists */
+/* Responsive */
 @media (min-width: 576px) {
+  .pricing-h {
+    font-size: var(--fs-xl);
+  }
 
+  .pricing-p {
+    font-size: var(--fs-md);
+  }
 
-    .pricing-h{
-    font-size: var(--fz-18);
+  .pricing-one-card-h {
+    font-size: var(--fs-md);
+  }
+
+  .pricing-one-card-p {
+    font-size: var(--fs-xs);
+  }
 }
-
-.pricing-p{
-    font-size: var(--fz-16);
-}
-
-
-    .pricing-one-card-h{
-    font-size: var(--fz-16);
-}
-
-.pricing-one-card-p{
-    font-size: var(--fz-12);
-}
-
-}
-
-
-
 
 @media (min-width: 768px) {
+  .pricing-h {
+    font-size: var(--fs-2xl);
+  }
 
+  .pricing-one-card-p {
+    font-size: var(--fs-sm);
+  }
 
-
-        .pricing-h{
-    font-size: var(--fz-20);
+  .pricing-one-card ul li {
+    font-size: var(--fs-sm);
+  }
 }
-
-.pricing-p{
-    font-size: var(--fz-16);
-}
-
-
-.pricing-one-card-p{
-    font-size: var(--fz-14);
-}
-
-
-
-#pricing ul li{
-    font-size: var(--fz-14);
-}
-
-
-}
-
-
-
-
 
 @media (min-width: 992px) {
+  .pricing-one-card-p {
+    font-size: var(--fs-md);
+  }
 
-
-.pricing-one-card-p{
-    font-size: var(--fz-16);
+  .pricing-one-card ul li {
+    font-size: var(--fs-md);
+  }
 }
-
-
-
-#pricing ul li{
-    font-size: var(--fz-16);
-}
-
-
-}
-
-
-

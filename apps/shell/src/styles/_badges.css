@@ -1,0 +1,39 @@
+/* =====================
+   Badges - Compact
+===================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.5rem;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-medium);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.badge-primary {
+  background: var(--main-color);
+  color: #fff;
+}
+
+.badge-private {
+  background: var(--badge-private);
+  color: #fff;
+}
+
+.badge-research {
+  background: var(--badge-research);
+  color: #fff;
+}
+
+.badge-government {
+  background: var(--badge-government);
+  color: #fff;
+}
+
+.badge-outline {
+  background: transparent;
+  border: 1px solid var(--orange-color);
+  color: var(--orange-color);
+}
