@@ -12,6 +12,9 @@ import {
 import { FacultyFormDialogComponent } from './components/faculty-form-dialog/faculty-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacultyOverviewPageComponent } from './pages/faculty-overview-page/faculty-overview-page.component';
+import { StatisticsOverview } from './components/statistics-overview/statistics-overview';
+import { DashboardDetails } from './components/dashboard-details/dashboard-details';
+import { RecentActivity } from './components/recent-activity/recent-activity';
 
 @NgModule({
   imports: [
@@ -22,12 +25,15 @@ import { FacultyOverviewPageComponent } from './pages/faculty-overview-page/facu
     ReactiveFormsModule,
     FormsModule,
     DisplayErrorComponent,
-    FacultyOverviewPageComponent,
   ],
   declarations: [
     FacultyDetailPageComponent,
     FacultiesPageComponent,
     FacultyFormDialogComponent,
+    FacultyOverviewPageComponent,
+    StatisticsOverview,
+    DashboardDetails,
+    RecentActivity,
   ],
 })
 export class FacultiesModule {}

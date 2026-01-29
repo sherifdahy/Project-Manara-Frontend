@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Sec3 } from './sec-3';
+import { RecentActivity } from './recent-activity';
 
-describe('Sec3', () => {
-  let component: Sec3;
-  let fixture: ComponentFixture<Sec3>;
+describe('RecentActivity', () => {
+  let component: RecentActivity;
+  let fixture: ComponentFixture<RecentActivity>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Sec3],
+      imports: [RecentActivity],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Sec3);
+    fixture = TestBed.createComponent(RecentActivity);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
