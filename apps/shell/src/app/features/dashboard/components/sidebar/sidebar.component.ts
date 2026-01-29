@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   isCollapsed = false;
-  constructor() { }
+
+  constructor(public accountService: AccountService) {
+  }
 
   ngOnInit() { }
 

@@ -1,15 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '@project-manara-frontend/services';
+import { AccountService } from '@project-manara-frontend/services';
 
 export const hasRoleGuard: CanActivateFn = (route, state) => {
 
-  const authService = inject(AuthService);
+  const accountService = inject(AccountService);
   const router = inject(Router);
 
   const data = route.data['required-role'] as string;
 
-  if (authService.currentUser?.roles.includes(data))
+  if (accountService.currentUser?.roles.includes(data))
     return true;
 
   router.navigate(['access-denied'], { queryParams: { returnUrl: route.url } });

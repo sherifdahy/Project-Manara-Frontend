@@ -21,7 +21,7 @@ export class NavbarComponent {
     private appTranslateService: AppTranslateService
   ) {
     this.currentLanguage$ = this.appTranslateService.language$;
-    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.isLoggedIn$ = this.authService.isAuthenticated$;
   }
 
   changeLanguage(lang: string): void {

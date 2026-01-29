@@ -120,7 +120,6 @@
 .sidebar-links ul a.active {
   background-color: var(--orange-color);
   color: var(--main-color);
-  font-weight: 500;
 }
 
 .sidebar-links ul a.active i {

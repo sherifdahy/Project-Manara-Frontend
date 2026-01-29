@@ -1,15 +1,13 @@
 import { Injectable } from "@angular/core";
-import { AuthService } from "./auth.service";
 import { Router } from '@angular/router'
-import { JwtService } from "./jwt.service";
+import { AccountService } from "./account.service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthNavigationService {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private jwtService: JwtService
+    private accountService: AccountService,
   ) { }
 
   redirect(returnUrl?: string | null) {
@@ -19,7 +17,7 @@ export class AuthNavigationService {
       return;
     }
 
-    const roles = this.authService.currentUser?.roles;
+    const roles = this.accountService.currentUser?.roles;
 
     if (roles?.includes('system-admin')) {
       this.router.navigate(['system-admin']);

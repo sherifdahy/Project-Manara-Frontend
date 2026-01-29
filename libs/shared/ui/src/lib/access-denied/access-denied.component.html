@@ -12,7 +12,7 @@
     <p class="error-message">You don't have permission to access this resource. Please contact your administrator if you believe this is a mistake.</p>
     <div class="error-actions">
       <button class="btn btn-primary" (click)="goHome()">Go to Home</button>
-      <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
+      <button class="btn btn-secondary" [disabled]="!goBackEnable" (click)="goBack()">Go Back</button>
     </div>
   </div>
 </div>

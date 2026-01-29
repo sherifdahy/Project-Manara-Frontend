@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-access-denied',
@@ -7,18 +7,24 @@ import { Router } from '@angular/router';
   templateUrl: './access-denied.component.html',
   styleUrls: ['./access-denied.component.css']
 })
-export class AccessDeniedComponent implements OnInit {
+export class AccessDeniedComponent {
 
-  constructor(private router: Router) { }
+  private returnUrl: string | null;
+  goBackEnable: boolean = false;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+  }
 
-  ngOnInit(): void {
+  goBack(): void {
+    if (this.returnUrl) {
+      this.goBackEnable = true;
+    }
   }
 
   goHome(): void {
     this.router.navigate(['/']);
-  }
-
-  goBack(): void {
-    window.history.back();
   }
 }
