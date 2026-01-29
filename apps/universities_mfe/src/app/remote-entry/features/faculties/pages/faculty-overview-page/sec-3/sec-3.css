@@ -1,0 +1,42 @@
+/* section 3 */
+.sec-3 h3 {
+  font-size: var(--fs-lg);
+  color: #0a0a0a;
+}
+.sec-3 p {
+  font-size: var(--fs-lg);
+  color: #717182;
+}
+
+.sec-3-item-c {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--bg-light);
+}
+.sec-3-item-c:hover {
+  border-color: lightgreen !important;
+  transform: translateY(-5px);
+}
+
+.sec-3-item-c h4 {
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+}
+
+.sec-3-item-c p {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.sec-3-item-c span {
+  font-size: var(--fs-sm);
+  color: #6a7282;
+}
+
+.sec-3-item-c .fa-circle-check {
+  color: green;
+}
+.sec-3-item-c .fa-circle-exclamation {
+  color: #d08700;
+}
+
+/* end of section 3 */

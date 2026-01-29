@@ -5,9 +5,13 @@ import { RouterModule } from '@angular/router';
 import { routes } from './faculties.routes';
 import { FacultiesPageComponent } from './pages/faculties-page/faculties-page.component';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
-import { DialogComponent, DisplayErrorComponent } from '@project-manara-frontend/ui';
+import {
+  DialogComponent,
+  DisplayErrorComponent,
+} from '@project-manara-frontend/ui';
 import { FacultyFormDialogComponent } from './components/faculty-form-dialog/faculty-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FacultyOverviewPageComponent } from './pages/faculty-overview-page/faculty-overview-page.component';
 
 @NgModule({
   imports: [
@@ -17,14 +21,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DialogComponent,
     ReactiveFormsModule,
     FormsModule,
-    DisplayErrorComponent
-],
+    DisplayErrorComponent,
+    FacultyOverviewPageComponent,
+  ],
   declarations: [
     FacultyDetailPageComponent,
     FacultiesPageComponent,
     FacultyFormDialogComponent,
-  ]
+  ],
 })
-export class FacultiesModule {
-
-}
+export class FacultiesModule {}
