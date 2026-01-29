@@ -9,9 +9,11 @@ import { DialogComponent } from '@project-manara-frontend/ui'
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services'
 import { MatDialogModule } from '@angular/material/dialog'
+import { UniversityFormDialogComponent } from './components/university-form-dialog/university-form-dialog.component';
 @NgModule({
   declarations: [
     UniversityDetailPageComponent,
+    UniversityFormDialogComponent
   ],
   imports: [
     CommonModule,

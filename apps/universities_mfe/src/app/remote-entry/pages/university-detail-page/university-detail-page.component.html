@@ -20,20 +20,12 @@
                   <i class="fa-regular fa-calendar"></i>
                   {{ "section.established" | translate }}
                 </span>
-                <span>
-                  <i class="fa-solid fa-award"></i>
-                  {{ "section.research" | translate }}
-                </span>
               </div>
             </div>
           </div>
 
           <div class="header-actions">
-            <button class="btn-setting">
-              <i class="fa-solid fa-gear"></i>
-              {{ "section.setting" | translate }}
-            </button>
-            <button class="btn-edit">
+            <button (click)="openUniversityFormDialog()" class="btn-edit">
               <i class="fa-solid fa-edit"></i>
               {{ "section.editProfile" | translate }}
             </button>

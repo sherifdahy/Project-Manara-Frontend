@@ -5,6 +5,7 @@ import { UniversityDetailResponse } from '@project-manara-frontend/models';
 import { UniversityService } from '@project-manara-frontend/services'
 import { Observable } from 'rxjs';
 import { FacultyFormDialogComponent } from '../../features/faculties/components/faculty-form-dialog/faculty-form-dialog.component';
+import { UniversityFormDialogComponent } from '../../components/university-form-dialog/university-form-dialog.component';
 
 @Component({
   selector: 'app-university-detail-page',
@@ -45,5 +46,21 @@ export class UniversityDetailPageComponent implements OnInit {
         this.loadCurrentUniversity();
       }
     });
+  }
+
+  openUniversityFormDialog(): void {
+    const dialogRef = this.matDialog.open(UniversityFormDialogComponent, {
+      width: '600px',
+      maxHeight: '90vw',
+      data: {
+        universityId: this.universityId
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadCurrentUniversity();
+      }
+    })
   }
 }
