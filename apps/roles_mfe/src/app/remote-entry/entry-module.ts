@@ -2,12 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { RemoteEntry } from './entry';
-import { NxWelcome } from './nx-welcome';
 import { remoteRoutes } from './entry.routes';
+import { RolesGrid } from './components/roles-grid/roles-grid';
+import { RolesHeader } from './components/roles-header/roles-header';
+import { RolesSearchBar } from './components/roles-search-bar/roles-search-bar';
+import { RolesStatistics } from './components/roles-statistics/roles-statistics';
+import { RolesPageComponent } from './pages/roles-page/roles-page.component';
 
 @NgModule({
-  declarations: [RemoteEntry, NxWelcome],
+  declarations: [
+    RolesGrid,
+    RolesHeader,
+    RolesSearchBar,
+    RolesStatistics,
+    RolesPageComponent,
+  ],
   imports: [CommonModule, RouterModule.forChild(remoteRoutes)],
   providers: [],
 })
