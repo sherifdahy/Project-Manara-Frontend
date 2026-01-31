@@ -13,7 +13,7 @@ import { AppTranslateModule } from '@project-manara-frontend/modules';
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { FormsModule } from '@angular/forms';
-import { LanguageToggleComponent } from '@project-manara-frontend/ui';
+import { UiModule } from '@project-manara-frontend/ui';
 
 const routes: Routes = [
   {
@@ -39,7 +39,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     AppTranslateModule.forChild('/landing.json'),
-    LanguageToggleComponent
+    UiModule
   ],
   declarations: [
     // layouts

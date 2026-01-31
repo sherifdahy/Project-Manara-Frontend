@@ -20,7 +20,12 @@ const config: ModuleFederationConfig = {
   //   'roles_mfe',
   //   'universities_mfe',
   //   'auth_mfe',
-  //   'dashboard_mfe'
+  //   'dashboard_mfe',
+  //   'university_administration_mfe',
+  //   'faculty_administration_mfe',
+  //   'student_mfe',
+  //   'system_admin_mfe',
+  //   'stuff_mfe',
   // ],
 };
 

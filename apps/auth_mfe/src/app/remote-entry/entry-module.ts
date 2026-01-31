@@ -11,9 +11,10 @@ import { NewPasswordPage } from './pages/new-password-page/new-password-page';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppTranslateModule } from '@project-manara-frontend/modules'
-import { DisplayErrorComponent } from '@project-manara-frontend/ui'
+import { UiModule } from '@project-manara-frontend/ui'
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AppTranslateService } from '@project-manara-frontend/services';
     NewPasswordPage,
     LoginPageComponent,
     NewPasswordPage,
+    AuthLayoutComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { AppTranslateService } from '@project-manara-frontend/services';
     FormsModule,
     RouterModule.forChild(remoteRoutes),
     AppTranslateModule.forChild('/auth.json'),
-    DisplayErrorComponent
+    UiModule
   ],
   providers: [],
 })

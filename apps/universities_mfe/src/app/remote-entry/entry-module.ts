@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { remoteRoutes } from './entry.routes';
 import { UniversityDetailPageComponent } from './pages/university-detail-page/university-detail-page.component';
 import { AppTranslateModule } from '@project-manara-frontend/modules'
-import { DialogComponent } from '@project-manara-frontend/ui'
+import { UiModule } from '@project-manara-frontend/ui'
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -18,7 +18,7 @@ import { UniversityFormDialogComponent } from './components/university-form-dial
   imports: [
     CommonModule,
     AppTranslateModule.forChild('/admin/university.json'),
-    DialogComponent,
+    UiModule,
     RouterModule.forChild(remoteRoutes),
     MatDialogModule
   ],

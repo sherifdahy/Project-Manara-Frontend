@@ -8,12 +8,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppToastrModule, AppTranslateModule } from '@project-manara-frontend/modules';
 import { ErrorInterceptor, LoaderInterceptor, TokenInterceptor } from '@project-manara-frontend/interceptors';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { UiModule } from '@project-manara-frontend/ui';
 
 @NgModule({
   declarations: [
     App,
-    AuthLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +22,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     BrowserAnimationsModule,
     AppToastrModule.forRoot(),
     AppTranslateModule.forRoot(),
+    UiModule
   ],
   providers: [
     {

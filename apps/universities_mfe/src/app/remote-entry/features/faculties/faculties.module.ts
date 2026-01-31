@@ -5,26 +5,22 @@ import { RouterModule } from '@angular/router';
 import { routes } from './faculties.routes';
 import { FacultiesPageComponent } from './pages/faculties-page/faculties-page.component';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
-import {
-  DialogComponent,
-  DisplayErrorComponent,
-} from '@project-manara-frontend/ui';
 import { FacultyFormDialogComponent } from './components/faculty-form-dialog/faculty-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacultyOverviewPageComponent } from './pages/faculty-overview-page/faculty-overview-page.component';
 import { StatisticsOverview } from './components/statistics-overview/statistics-overview';
 import { DashboardDetails } from './components/dashboard-details/dashboard-details';
 import { RecentActivity } from './components/recent-activity/recent-activity';
+import { UiModule } from '@project-manara-frontend/ui';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     AppTranslateModule.forChild(''),
-    DialogComponent,
+    UiModule,
     ReactiveFormsModule,
     FormsModule,
-    DisplayErrorComponent,
   ],
   declarations: [
     FacultyDetailPageComponent,

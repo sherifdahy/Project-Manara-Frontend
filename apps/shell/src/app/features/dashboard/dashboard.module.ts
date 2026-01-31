@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardLayoutComponent } from '../../layouts/dashboard-layout/dashboard-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
 import { TranslateService } from '@ngx-translate/core';
 import { AppTranslateService } from '@project-manara-frontend/services';
-import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './dashboard.routes';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { LanguageToggleComponent } from '@project-manara-frontend/ui';
-
+import { DirectivesModule } from '@project-manara-frontend/directives'
 @NgModule({
   imports: [
     CommonModule,
@@ -19,12 +15,9 @@ import { LanguageToggleComponent } from '@project-manara-frontend/ui';
     FormsModule,
     RouterModule.forChild(routes),
     AppTranslateModule.forChild('/admin/layout.json'),
-    LanguageToggleComponent
+    DirectivesModule
   ],
   declarations: [
-    DashboardLayoutComponent,
-    HeaderComponent,
-    SidebarComponent,
     DashboardPageComponent
   ]
 })

@@ -15,31 +15,43 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      // environments
       "environments": ["apps/shell/src/environments"],
-      "system_admin/Module": [
-        "apps/system_admin/src/app/remote-entry/entry-module.ts"
-      ],
-      "@project-manara-frontend/consts": ["libs/shared/consts/src/index.ts"],
-      "@project-manara-frontend/ui": ["libs/shared/ui/src/index.ts"],
-      "@project-manara-frontend/guards": ["libs/shared/guards/src/index.ts"],
+
+      // libs
+      "@project-manara-frontend/consts": ["libs/consts/src/index.ts"],
+      "@project-manara-frontend/directives": ["libs/directives/src/index.ts"],
+      "@project-manara-frontend/guards": ["libs/guards/src/index.ts"],
       "@project-manara-frontend/interceptors": [
-        "libs/shared/interceptors/src/index.ts"
+        "libs/interceptors/src/index.ts"
       ],
-      "@project-manara-frontend/services": [
-        "libs/shared/services/src/index.ts"
-      ],
-      "@project-manara-frontend/models": ["libs/shared/models/src/index.ts"],
-      "@project-manara-frontend/modules": ["libs/shared/modules/src/index.ts"],
-      "@project-manara-frontend/utilities": [
-        "libs/shared/utilities/src/index.ts"
-      ],
+      "@project-manara-frontend/models": ["libs/models/src/index.ts"],
+      "@project-manara-frontend/modules": ["libs/modules/src/index.ts"],
+      "@project-manara-frontend/services": ["libs/services/src/index.ts"],
+      "@project-manara-frontend/ui": ["libs/ui/src/index.ts"],
+      "@project-manara-frontend/utilities": ["libs/utilities/src/index.ts"],
+
+      // micro front ends
       "roles_mfe/Module": [
         "apps/roles_mfe/src/app/remote-entry/entry-module.ts"
       ],
       "universities_mfe/Module": [
         "apps/universities_mfe/src/app/remote-entry/entry-module.ts"
       ],
-      "auth_mfe/Module": ["apps/auth_mfe/src/app/remote-entry/entry-module.ts"]
+      "auth_mfe/Module": ["apps/auth_mfe/src/app/remote-entry/entry-module.ts"],
+
+      "university_administration_mfe/Module": [
+        "apps/dashboards/university_administration_mfe/src/app/remote-entry/entry-module.ts"
+      ],
+      "faculty_administration_mfe/Module": [
+        "apps/dashboards/faculty_administration_mfe/src/app/remote-entry/entry-module.ts"
+      ],
+      "student_mfe/Module": [
+        "apps/dashboards/student_mfe/src/app/remote-entry/entry-module.ts"
+      ],
+      "system_admin_mfe/Module": [
+        "apps/dashboards/system_admin_mfe/src/app/remote-entry/entry-module.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

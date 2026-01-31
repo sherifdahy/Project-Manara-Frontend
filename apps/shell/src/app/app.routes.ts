@@ -1,11 +1,9 @@
 import { Route } from '@angular/router';
-import {
-  AccessDeniedComponent,
-  NotFoundComponent,
-  ServerErrorComponent,
-} from '@project-manara-frontend/ui';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { guestGuard, hasRoleGuard } from '@project-manara-frontend/guards';
+import { RoleConsts } from '@project-manara-frontend/consts';
+import { AccessDeniedComponent } from 'libs/ui/src/lib/access-denied/access-denied.component';
+import { ServerErrorComponent } from 'libs/ui/src/lib/server-error/server-error.component';
+import { NotFoundComponent } from 'libs/ui/src/lib/not-found/not-found.component';
 
 export const appRoutes: Route[] = [
   {
@@ -15,19 +13,41 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'auth',
-    component: AuthLayoutComponent,
+    canMatch: [guestGuard],
     loadChildren: () =>
       import('auth_mfe/Module').then((m) => m!.RemoteEntryModule),
   },
   {
-    path: 'dashboard',
-    component: DashboardLayoutComponent,
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(x => x.DashboardModule),
+    path: 'system-administration',
+    // canMatch: [hasRoleGuard],
+    data: { 'required-roles': [RoleConsts.systemAdmin] },
+    loadChildren: () =>
+      import('system_admin_mfe/Module').then((m) => m!.RemoteEntryModule),
   },
   {
-    path: 'system_admin',
+    path: 'university-administration',
+    // canMatch: [hasRoleGuard],
+    data: { 'required-roles': [RoleConsts.universityAdmin] },
     loadChildren: () =>
-      import('system_admin/Module').then((m) => m!.RemoteEntryModule),
+      import('university_administration_mfe/Module').then(
+        (m) => m!.RemoteEntryModule,
+      ),
+  },
+  {
+    path: 'faculty-administration',
+    // canMatch: [hasRoleGuard],
+    data: { 'required-roles': [RoleConsts.facultyAdmin, RoleConsts.examinationOfficer, RoleConsts.programCoordinator, RoleConsts.academicAdvisor] },
+    loadChildren: () =>
+      import('faculty_administration_mfe/Module').then(
+        (m) => m!.RemoteEntryModule,
+      ),
+  },
+  {
+    path: 'student',
+    // canActivate: [hasRoleGuard],
+    data: { 'required-roles': [RoleConsts.student] },
+    loadChildren: () =>
+      import('student_mfe/Module').then((m) => m!.RemoteEntryModule),
   },
   {
     path: 'access-denied',

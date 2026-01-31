@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from '@project-manara-frontend/models';
 import { AuthNavigationService, AuthService } from '@project-manara-frontend/services';
-import { Roles } from '@project-manara-frontend/consts';
 @Component({
   selector: 'app-login-form',
   standalone: false,

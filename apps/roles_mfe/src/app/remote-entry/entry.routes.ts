@@ -1,4 +1,9 @@
 import { Route } from '@angular/router';
-import { RemoteEntry } from './entry';
+import { RolesPageComponent } from './pages/roles-page/roles-page.component';
 
-export const remoteRoutes: Route[] = [{ path: '', component: RemoteEntry }];
+export const remoteRoutes: Route[] = [
+  {
+    path : '',
+    component : RolesPageComponent,
+  },
+];
