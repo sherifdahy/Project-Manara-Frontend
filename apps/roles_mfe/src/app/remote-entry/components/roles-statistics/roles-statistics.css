@@ -1,0 +1,20 @@
+.sec-2-item {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.sec-2-item h3 {
+  color: #0a0a0a;
+  font-size: var(--fs-md);
+}
+.sec-2-item p {
+  color: var(--main-color);
+  font-size: var(--fs-3xl);
+}
+.sec-2-item span {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+.sec-2-item:hover {
+  transform: translateY(-5px);
+  border-color: green !important;
+}

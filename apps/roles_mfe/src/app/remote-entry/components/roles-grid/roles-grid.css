@@ -1,0 +1,22 @@
+.sec-4-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sec-4-item:hover {
+  transform: translateY(-5px);
+  border-color: green !important;
+}
+
+.sec-4-item h3 {
+  font-size: var(--fs-xl);
+  color: var(--main-color);
+}
+
+.sec-4-item p {
+  font-size: var(--fs-lg);
+  color: #717182;
+}
+
+.item-header {
+  border-top: 1px solid gray;
+}
