@@ -6,8 +6,10 @@ import { remoteRoutes } from './entry.routes';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { AppTranslateService } from '@project-manara-frontend/services';
+import { AppTranslateModule } from '@project-manara-frontend/modules';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,17 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     TranslateModule,
     UiModule,
     CommonModule,
+    AppTranslateModule.forChild('/dashboards/system-administration/layout.json'),
     RouterModule.forChild(remoteRoutes)
   ],
   providers: [],
 })
-export class RemoteEntryModule { }
+export class RemoteEntryModule {
+  constructor(private translateService: TranslateService, private appTranslateService: AppTranslateService) {
+    this.appTranslateService.language$.subscribe(lang => {
+      this.translateService.getTranslation(lang).subscribe(file => {
+        this.translateService.setTranslation(lang, file, true);
+      });
+    })
+  }
+}

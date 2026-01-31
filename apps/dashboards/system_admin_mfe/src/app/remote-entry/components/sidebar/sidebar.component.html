@@ -25,7 +25,7 @@
       <span>OVERVIEW</span>
 
       <li>
-        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/system-administration/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-gauge-high fa-fw"></i>
           <span>{{ "sidebar.links.dashboard" | translate }}</span>
         </a>
@@ -33,25 +33,17 @@
 
       <span>IAM PORTAL</span>
 
-      <li hasPermission="universities:read" *ngIf="accountService.currentUser?.universityId">
-        <a [routerLink]="['/dashboard/universities',accountService.currentUser?.universityId]"
-          routerLinkActive="active">
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.university" | translate }}</span>
-        </a>
-      </li>
-
       <li hasPermission="universities:read" *ngIf="!accountService.currentUser?.universityId">
-        <a routerLink="/dashboard/universities" routerLinkActive="active">
+        <a routerLink="/system-administration/universities" routerLinkActive="active">
           <i class="fa-solid fa-building-columns"></i>
           <span>{{ "sidebar.links.universities" | translate }}</span>
         </a>
       </li>
 
       <li hasPermission="roles:read">
-        <a routerLink="/dashboard/roles" routerLinkActive="active">
+        <a routerLink="/system-administration/roles" routerLinkActive="active">
           <i class="fa-solid fa-user-shield fa-fw"></i>
-          <span>{{ "sidebar.links.rolesAndPermissions" | translate }}</span>
+          <span>{{ "sidebar.links.roles" | translate }}</span>
         </a>
       </li>
     </ul>

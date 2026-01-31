@@ -8,9 +8,7 @@ export function createTranslateLoader(http: HttpClient, path: string) {
   return new TranslateHttpLoader(http, `./assets/i18n/`, path);
 }
 
-@NgModule({
-  exports: [TranslateModule]
-})
+@NgModule()
 export class AppTranslateModule {
 
   static forRoot(): ModuleWithProviders<TranslateModule> {

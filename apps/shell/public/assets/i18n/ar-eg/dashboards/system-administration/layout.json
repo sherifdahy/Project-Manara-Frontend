@@ -1,0 +1,27 @@
+{
+  "sidebar": {
+    "header": {
+      "portalTitle": "بوابة إدارة النظام"
+    },
+    "links": {
+      "dashboard": "لوحة التحكم",
+      "universities": "الجامعات",
+      "roles": "الأدوار والصلاحيات"
+    }
+  },
+  "header": {
+    "brand": "منارة",
+    "subtitle": "لوحة التحكم الإدارية",
+    "language": {
+      "selectLanguage": "اختر اللغة",
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    },
+    "user": {
+      "myProfile": "الملف الشخصي",
+      "settings": "الإعدادات",
+      "helpSupport": "المساعدة والدعم",
+      "logout": "تسجيل الخروج"
+    }
+  }
+}

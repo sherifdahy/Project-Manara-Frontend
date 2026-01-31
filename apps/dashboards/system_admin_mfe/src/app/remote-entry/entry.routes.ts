@@ -9,7 +9,20 @@ export const remoteRoutes: Route[] = [
     children: [
       {
         path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
         component: DashboardPageComponent
+      },
+      {
+        path: 'roles',
+        loadChildren: () => import('./features/roles/roles.module').then(x => x.RolesModule)
+      },
+      {
+        path: 'universities',
+        loadChildren: () => import('./features/universities/universities.module').then(x => x.UniversitiesModule)
       }
     ]
   }

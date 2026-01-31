@@ -59,10 +59,10 @@ const routes: Routes = [
 })
 export class LandingModule {
   constructor(private translateService: TranslateService, private appTranslateService: AppTranslateService) {
-      this.appTranslateService.language$.subscribe(lang => {
-        this.translateService.getTranslation(lang).subscribe(file => {
-          this.translateService.setTranslation(lang, file, true);
-        });
-      })
-    }
+    this.appTranslateService.language$.subscribe(lang => {
+      this.translateService.getTranslation(lang).subscribe(file => {
+        this.translateService.setTranslation(lang, file, true);
+      });
+    })
+  }
 }

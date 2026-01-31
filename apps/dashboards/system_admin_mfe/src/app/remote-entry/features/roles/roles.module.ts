@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
-import { remoteRoutes } from './entry.routes';
+import { RolesPageComponent } from './pages/roles-page/roles-page.component';
 import { RolesGrid } from './components/roles-grid/roles-grid';
 import { RolesHeader } from './components/roles-header/roles-header';
 import { RolesSearchBar } from './components/roles-search-bar/roles-search-bar';
 import { RolesStatistics } from './components/roles-statistics/roles-statistics';
-import { RolesPageComponent } from './pages/roles-page/roles-page.component';
+import { RouterModule } from '@angular/router';
+import { routes } from './roles.route';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+  ],
   declarations: [
+    RolesPageComponent,
     RolesGrid,
     RolesHeader,
     RolesSearchBar,
-    RolesStatistics,
-    RolesPageComponent,
-  ],
-  imports: [CommonModule, RouterModule.forChild(remoteRoutes)],
-  providers: [],
+    RolesStatistics
+  ]
 })
-export class RemoteEntryModule {}
+export class RolesModule { }
