@@ -1,28 +1,28 @@
 {
-  "name": "university_administration_mfe",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "system_administration_mfe",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/university_administration_mfe/src",
+  "sourceRoot": "apps/dashboards/system_administration_mfe/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/university_administration_mfe",
-        "index": "apps/university_administration_mfe/src/index.html",
-        "main": "apps/university_administration_mfe/src/main.ts",
-        "tsConfig": "apps/university_administration_mfe/tsconfig.app.json",
+        "outputPath": "dist/apps/dashboards/system_administration_mfe",
+        "index": "apps/dashboards/system_administration_mfe/src/index.html",
+        "main": "apps/dashboards/system_administration_mfe/src/main.ts",
+        "tsConfig": "apps/dashboards/system_administration_mfe/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/university_administration_mfe/public"
+            "input": "apps/dashboards/system_administration_mfe/public"
           }
         ],
-        "styles": ["apps/university_administration_mfe/src/styles.css"],
+        "styles": ["apps/dashboards/system_administration_mfe/src/styles.css"],
         "customWebpackConfig": {
-          "path": "apps/university_administration_mfe/webpack.config.ts"
+          "path": "apps/dashboards/system_administration_mfe/webpack.config.ts"
         }
       },
       "configurations": {
@@ -41,7 +41,7 @@
           ],
           "outputHashing": "all",
           "customWebpackConfig": {
-            "path": "apps/university_administration_mfe/webpack.prod.config.ts"
+            "path": "apps/dashboards/system_administration_mfe/webpack.prod.config.ts"
           }
         },
         "development": {
@@ -59,15 +59,15 @@
       "continuous": true,
       "executor": "@nx/angular:dev-server",
       "options": {
-        "port": 4206,
-        "publicHost": "http://localhost:4206"
+        "port": 4207,
+        "publicHost": "http://localhost:4207"
       },
       "configurations": {
         "production": {
-          "buildTarget": "university_administration_mfe:build:production"
+          "buildTarget": "system_administration_mfe:build:production"
         },
         "development": {
-          "buildTarget": "university_administration_mfe:build:development"
+          "buildTarget": "system_administration_mfe:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -76,7 +76,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "university_administration_mfe:build"
+        "buildTarget": "system_administration_mfe:build"
       }
     },
     "lint": {
@@ -87,16 +87,16 @@
       "executor": "@nx/web:file-server",
       "defaultConfiguration": "production",
       "options": {
-        "buildTarget": "university_administration_mfe:build",
-        "port": 4206,
+        "buildTarget": "system_administration_mfe:build",
+        "port": 4207,
         "watch": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "university_administration_mfe:build:development"
+          "buildTarget": "system_administration_mfe:build:development"
         },
         "production": {
-          "buildTarget": "university_administration_mfe:build:production"
+          "buildTarget": "system_administration_mfe:build:production"
         }
       }
     }

@@ -1,10 +1,10 @@
 import { ModuleFederationConfig } from '@nx/module-federation';
 
 const config: ModuleFederationConfig = {
-  name: 'faculty_administration_mfe',
+  name: 'system_administration_mfe',
   exposes: {
     './Module':
-      'apps/dashboards/faculty_administration_mfe/src/app/remote-entry/entry-module.ts',
+      'apps/dashboards/system_administration_mfe/src/app/remote-entry/entry-module.ts',
   },
 };
 

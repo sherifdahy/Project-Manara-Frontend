@@ -15,10 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      // environments
       "environments": ["apps/shell/src/environments"],
-
-      // libs
       "@project-manara-frontend/consts": ["libs/consts/src/index.ts"],
       "@project-manara-frontend/directives": ["libs/directives/src/index.ts"],
       "@project-manara-frontend/guards": ["libs/guards/src/index.ts"],
@@ -30,25 +27,13 @@
       "@project-manara-frontend/services": ["libs/services/src/index.ts"],
       "@project-manara-frontend/ui": ["libs/ui/src/index.ts"],
       "@project-manara-frontend/utilities": ["libs/utilities/src/index.ts"],
-
-      // micro front ends
       "universities_mfe/Module": [
         "apps/universities_mfe/src/app/remote-entry/entry-module.ts"
       ],
       "auth_mfe/Module": ["apps/auth_mfe/src/app/remote-entry/entry-module.ts"],
-
-      "university_administration_mfe/Module": [
-        "apps/dashboards/university_administration_mfe/src/app/remote-entry/entry-module.ts"
+      "system_administration_mfe/Module": [
+        "apps/dashboards/system_administration_mfe/src/app/remote-entry/entry-module.ts"
       ],
-      "faculty_administration_mfe/Module": [
-        "apps/dashboards/faculty_administration_mfe/src/app/remote-entry/entry-module.ts"
-      ],
-      "student_mfe/Module": [
-        "apps/dashboards/student_mfe/src/app/remote-entry/entry-module.ts"
-      ],
-      "system_admin_mfe/Module": [
-        "apps/dashboards/system_admin_mfe/src/app/remote-entry/entry-module.ts"
-      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
