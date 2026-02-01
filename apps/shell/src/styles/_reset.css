@@ -43,33 +43,3 @@ button {
   font-family: inherit;
   cursor: pointer;
 }
-
-/* =====================
-   Scrollbar
-===================== */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-light);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: var(--radius-sm);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
-}
-
-/* OverlayScrollbars */
-.os-scrollbar {
-  --os-size: 5px;
-  --os-handle-bg: #c1c1c1;
-  --os-handle-bg-hover: #a1a1a1;
-  --os-handle-bg-active: #888;
-  --os-handle-border-radius: 3px;
-}

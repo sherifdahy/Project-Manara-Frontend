@@ -9,31 +9,5 @@
     --fs-lg: 0.875rem;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .section-title {
-    font-size: var(--fs-md);
-  }
-
-  .section-subtitle {
-    font-size: var(--fs-xs);
-  }
 }
 
-@media (min-width: 768px) {
-  .section-title {
-    font-size: var(--fs-xl);
-  }
-
-  .section-subtitle {
-    font-size: var(--fs-md);
-  }
-}
-
-@media (min-width: 992px) {
-  .section-title {
-    font-size: var(--fs-2xl);
-  }
-}

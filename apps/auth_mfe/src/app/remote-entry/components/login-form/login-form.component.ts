@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from '@project-manara-frontend/models';
-import { AuthNavigationService, AuthService } from '@project-manara-frontend/services';
+import { AuthNavigationService, AuthService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
 @Component({
   selector: 'app-login-form',
   standalone: false,
@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private httpErrorService : HttpErrorService,
     private authNavigationService: AuthNavigationService,
     private activatedRoute: ActivatedRoute,
   ) { }
@@ -48,6 +48,9 @@ export class LoginFormComponent implements OnInit {
         let returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
         this.authNavigationService.redirect(returnUrl);
       },
+      error: (error) => {
+        this.httpErrorService.handle(error);
+      }
     });
   }
 }

@@ -1,14 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FacultyRequest } from '@project-manara-frontend/models';
 import { FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
-
 @Component({
   selector: 'app-faculty-form-dialog',
-  standalone: false,
   templateUrl: './faculty-form-dialog.component.html',
-  styleUrls: ['./faculty-form-dialog.component.css']
+  styleUrls: ['./faculty-form-dialog.component.css'],
+  standalone: false,
 })
 export class FacultyFormDialogComponent implements OnInit {
 

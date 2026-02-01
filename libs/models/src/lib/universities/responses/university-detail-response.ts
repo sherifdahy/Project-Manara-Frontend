@@ -7,5 +7,9 @@ export interface UniversityDetailResponse {
   address: string
   email: string
   website: string
+  yearOfEstablishment: number
+  numberOfStudents: number
+  numberOfStuff: number
+  numberOfFacilities: number
   faculties: FacultyResponse[]
 }

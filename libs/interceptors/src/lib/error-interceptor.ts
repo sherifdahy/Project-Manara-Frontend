@@ -14,7 +14,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toast: ToastService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,14 +28,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           // لو الريفريش نفسه رجّع 401
           if (req.url.includes('refresh')) {
             this.forceLogout();
-            this.toast.warning('Your session has expired. Please login again.', 'Session Expired');
             return throwError(() => error);
           }
 
           // مفيش token أصلاً
           if (!this.authService.isAuthenticated) {
             this.forceLogout();
-            this.toast.warning('You are not authenticated. Please login.', 'Unauthorized');
             return throwError(() => error);
           }
 
@@ -57,7 +54,6 @@ export class ErrorInterceptor implements HttpInterceptor {
               catchError(err => {
                 this.isRefreshing = false;
                 this.forceLogout();
-                this.toast.warning('Your session has expired. Please login again.', 'Session Expired');
                 return throwError(() => err);
               })
             );
@@ -84,19 +80,16 @@ export class ErrorInterceptor implements HttpInterceptor {
   private handleNavigation(error: HttpErrorResponse): void {
     switch (error.status) {
       case 403:
-        this.toast.error('You do not have permission to access this resource.', 'Access Denied');
         this.router.navigate(['/access-denied']);
         break;
 
       case 404:
-        this.toast.error('Requested resource not found.', 'Not Found');
         this.router.navigate(['/not-found']);
         break;
 
       case 500:
       case 502:
       case 503:
-        this.toast.error('Server error. Please try again later.', 'Server Error');
         this.router.navigate(['/server-error']);
         break;
     }

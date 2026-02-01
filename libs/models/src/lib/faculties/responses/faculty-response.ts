@@ -6,4 +6,6 @@ export interface FacultyResponse {
   email: string
   website: string
   isDeleted: boolean
+  numberOfStudents: number
+  numberOfStaff: number
 }

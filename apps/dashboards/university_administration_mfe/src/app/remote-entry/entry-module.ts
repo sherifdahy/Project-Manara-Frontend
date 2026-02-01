@@ -10,20 +10,22 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
-
+import { DirectivesModule } from '@project-manara-frontend/directives'
+import { FacultyCardComponent } from './features/universities/components/faculty-card/faculty-card.component';
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    DashboardPageComponent
+    DashboardPageComponent,
   ],
   imports: [
     TranslateModule,
     UiModule,
     CommonModule,
     AppTranslateModule.forChild('/dashboards/university-administration/layout.json'),
-    RouterModule.forChild(remoteRoutes)
+    RouterModule.forChild(remoteRoutes),
+    DirectivesModule
   ],
   providers: [],
 })

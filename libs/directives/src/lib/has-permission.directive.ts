@@ -18,7 +18,7 @@ export class HasPermissionDirective implements OnInit {
     const user = this.accountService.currentUser;
 
     if (!user || !user.permissions.includes(this.permission)) {
-      this.el.nativeElement.style.display = 'none';
+      this.el.nativeElement.classList = 'd-none';
     }
   }
 }

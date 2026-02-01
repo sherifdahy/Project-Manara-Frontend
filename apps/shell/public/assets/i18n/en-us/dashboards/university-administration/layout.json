@@ -1,11 +1,11 @@
 {
   "sidebar": {
     "header": {
-      "portalTitle": "university Portal"
+      "portalTitle": "University Portal"
     },
     "links": {
       "dashboard": "Dashboard",
-      "university" : "university",
+      "university" : "University",
       "roles": "Roles & Permissions"
     }
   },

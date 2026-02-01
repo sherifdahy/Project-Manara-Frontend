@@ -3,7 +3,6 @@
       'justify-content-between': !isCollapsed,
       'justify-content-center': isCollapsed
     }">
-    <!-- شيلت p-3 لأن الـ padding هيجي من CSS -->
     <div class="start-section d-flex align-items-center">
       <span>
         <i class="fa-solid fa-shield"></i>
@@ -25,7 +24,8 @@
       <span>OVERVIEW</span>
 
       <li>
-        <a routerLink="/university-administration/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/university-administration/dashboard" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-gauge-high fa-fw"></i>
           <span>{{ "sidebar.links.dashboard" | translate }}</span>
         </a>
@@ -33,8 +33,9 @@
 
       <span>IAM PORTAL</span>
 
-      <li hasPermission="universities:read" *ngIf="!accountService.currentUser?.universityId">
-        <a [routerLink]="['/university-administration/universities',accountService.currentUser?.universityId]" routerLinkActive="active">
+      <li hasPermission="universities:read">
+        <a [routerLink]="['/university-administration/universities',accountService.currentUser?.universityId]"
+          routerLinkActive="active">
           <i class="fa-solid fa-building-columns"></i>
           <span>{{ "sidebar.links.university" | translate }}</span>
         </a>

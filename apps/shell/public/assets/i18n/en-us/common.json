@@ -1,24 +1,24 @@
 {
   "validation": {
-    "requiredMessage": "This field is required",
-    "emailMessage": "Please enter a valid email",
-    "minLengthMessage": "Minimum length is {{min}} characters",
-    "maxLengthMessage": "Maximum length is {{max}} characters",
-    "patternMessage": "Invalid format"
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "minLength": "The minimum length is {{min}} characters",
+    "maxLength": "The maximum length is {{max}} characters",
+    "pattern": "Invalid format"
   },
   "sweetAlert": {
     "danger": {
-      "confirmButtonText": "Yes, delete it! ",
-      "cancelButtonText": "cancel",
-      "swalTitle": "Deleted!",
-      "swalText": "Your file has been deleted.",
-      "swalConfirmButtonText": "ok"
+      "confirmButtonText": "Yes, delete it",
+      "cancelButtonText": "Cancel",
+      "swalTitle": "Deleted",
+      "swalText": "Deleted successfully",
+      "swalConfirmButtonText": "OK"
     },
     "warn": {
       "confirmButtonText": "Yes, restore it!",
       "cancelButtonText": "Cancel",
       "swalTitle": "Restored!",
-      "swalText": "Your file has been restored.",
+      "swalText": "The file has been restored successfully.",
       "swalConfirmButtonText": "OK"
     }
   }

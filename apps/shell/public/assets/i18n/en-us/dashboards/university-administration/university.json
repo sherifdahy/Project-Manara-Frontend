@@ -1,0 +1,133 @@
+{
+  "section": {
+    "name": "Cairo University",
+    "established": "Established",
+    "research": "National Research University",
+    "setting": "Settings",
+    "editProfile": "Edit Profile"
+  },
+
+  "analysis": {
+    "title": "REAL-TIME STATISTICS",
+    "students": {
+      "total": "Total Students",
+      "active": "active"
+    },
+    "staff": {
+      "total": "Total Staff",
+      "active": "active"
+    },
+    "faculties": {
+      "total": "Faculties",
+      "departments": "departments"
+    },
+    "programs": {
+      "total": "Programs",
+      "description": "Across all faculties"
+    }
+  },
+
+  "org": {
+    "title": "Organizational Structure",
+    "subtitle": "Manage and customize your organizational sub-units",
+    "gridView": "Grid View",
+    "hierarchyView": "Hierarchy View",
+    "addNewUnit": "Add New Unit"
+  },
+
+  "faculty": {
+    "label": "Faculty",
+    "dashboard": "Dashboard",
+    "edit": "Edit",
+    "staff": {
+      "label": "Staff"
+    },
+    "students": {
+      "label": "Students"
+    }
+  },
+
+  "facultyDialog": {
+    "title": "Add New Faculty",
+    "formTitle": "Create a new sub-unit within your university",
+    "labels": {
+      "name": "Name *",
+      "address": "Address *",
+      "description": "Description *",
+      "email": "Email *",
+      "website": "Website *"
+    },
+    "placeholders": {
+      "name": "Enter faculty name",
+      "address": "Enter faculty address",
+      "description": "Enter faculty description",
+      "email": "Enter faculty email",
+      "website": "Enter faculty website"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create Faculty"
+    }
+  },
+
+  "subUnitSettings": {
+    "header": {
+      "title": "Sub-Unit Configuration",
+      "description": "Configure settings and governance for this sub-unit"
+    },
+    "basicInfo": {
+      "title": "Basic Information",
+      "labels": {
+        "unitName": "Unit Name",
+        "unitHead": "Unit Head",
+        "established": "Established",
+        "status": "Status"
+      },
+      "placeholders": {
+        "unitName": "Unit Name",
+        "unitHead": "Unit Head",
+        "established": "e.g. 1920",
+        "status": "Status"
+      }
+    },
+    "accessControl": {
+      "title": "Access Control & Roles",
+      "roles": {
+        "departmentHeads": {
+          "name": "Department Heads",
+          "description": "Full access to departmental data"
+        },
+        "facultyMembers": {
+          "name": "Faculty Members",
+          "description": "Standard access to teaching resources"
+        },
+        "administrativeStaff": {
+          "name": "Administrative Staff",
+          "description": "Limited access to operational data"
+        }
+      },
+      "button": "Manage"
+    },
+    "governance": {
+      "title": "Governance Settings",
+      "settings": {
+        "approvalWorkflows": {
+          "name": "Approval Workflows",
+          "description": "Require approval for grade changes"
+        },
+        "auditLogging": {
+          "name": "Audit Logging",
+          "description": "Track all changes and activities"
+        },
+        "dataRetention": {
+          "name": "Data Retention",
+          "description": "Keep records for 7 years"
+        }
+      }
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save Changes"
+    }
+  }
+}
