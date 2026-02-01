@@ -7,11 +7,6 @@ import { NotFoundComponent } from 'libs/ui/src/lib/not-found/not-found.component
 
 export const appRoutes: Route[] = [
   {
-    path: 'student_mfe',
-    loadChildren: () =>
-      import('student_mfe/Module').then((m) => m!.RemoteEntryModule),
-  },
-  {
     path: '',
     loadChildren: () =>
       import('./features/landing/landing.module').then((m) => m!.LandingModule),
@@ -24,7 +19,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'system-administration',
-    // canMatch: [hasRoleGuard],
+    canMatch: [hasRoleGuard],
     data: { 'required-roles': [RoleConsts.systemAdmin] },
     loadChildren: () =>
       import('system_administration_mfe/Module').then(
@@ -33,7 +28,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'university-administration',
-    // canMatch: [hasRoleGuard],
+    canMatch: [hasRoleGuard],
     data: { 'required-roles': [RoleConsts.universityAdmin] },
     loadChildren: () =>
       import('university_administration_mfe/Module').then(
@@ -42,7 +37,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'faculty-administration',
-    // canMatch: [hasRoleGuard],
+    canMatch: [hasRoleGuard],
     data: {
       'required-roles': [
         RoleConsts.facultyAdmin,
@@ -55,6 +50,17 @@ export const appRoutes: Route[] = [
       import('faculty_administration_mfe/Module').then(
         (m) => m!.RemoteEntryModule,
       ),
+  },
+  {
+    path: 'student',
+    canMatch: [hasRoleGuard],
+    data: {
+      'required-roles': [
+        RoleConsts.student
+      ]
+    },
+    loadChildren: () =>
+      import('student_mfe/Module').then((m) => m!.RemoteEntryModule),
   },
   {
     path: 'access-denied',

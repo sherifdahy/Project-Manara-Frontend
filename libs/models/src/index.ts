@@ -14,3 +14,7 @@ export * from './lib/universities/responses/university-response'
 export * from './lib/faculties/requests/faculty-request'
 export * from './lib/faculties/responses/faculty-response'
 export * from './lib/faculties/responses/faculty-detail-response'
+
+export * from './lib/roles/requests/role-request'
+export * from './lib/roles/responses/role-response'
+export * from './lib/roles/responses/role-detail-response'

@@ -1,5 +1,5 @@
 export const RoleConsts = {
-  systemAdmin : 'System Admin',
+  systemAdmin : 'SystemAdmin',
   universityAdmin : 'University Admin',
   facultyAdmin : 'Faculty Admin',
   academicAdvisor : 'Academic Advisor',

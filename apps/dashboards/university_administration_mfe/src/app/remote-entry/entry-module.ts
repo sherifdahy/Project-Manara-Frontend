@@ -1,14 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-import { RemoteEntry } from './entry';
-import { NxWelcome } from './nx-welcome';
+import { UiModule } from '@project-manara-frontend/ui'
 import { remoteRoutes } from './entry.routes';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { AppTranslateService } from '@project-manara-frontend/services';
+import { AppTranslateModule } from '@project-manara-frontend/modules';
 
 @NgModule({
-  declarations: [RemoteEntry, NxWelcome],
-  imports: [CommonModule, RouterModule.forChild(remoteRoutes)],
+  declarations: [
+    MainLayoutComponent,
+    HeaderComponent,
+    SidebarComponent,
+    DashboardPageComponent
+  ],
+  imports: [
+    TranslateModule,
+    UiModule,
+    CommonModule,
+    AppTranslateModule.forChild('/dashboards/university-administration/layout.json'),
+    RouterModule.forChild(remoteRoutes)
+  ],
   providers: [],
 })
-export class RemoteEntryModule {}
+export class RemoteEntryModule {
+  constructor(private translateService: TranslateService, private appTranslateService: AppTranslateService) {
+    this.appTranslateService.language$.subscribe(lang => {
+      this.translateService.getTranslation(lang).subscribe(file => {
+        this.translateService.setTranslation(lang, file, true);
+      });
+    })
+  }
+}

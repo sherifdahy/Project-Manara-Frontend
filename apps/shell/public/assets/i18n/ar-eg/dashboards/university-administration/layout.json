@@ -1,0 +1,28 @@
+{
+  "sidebar": {
+    "header": {
+      "portalTitle": "بوابة إدارة الجامعة"
+    },
+    "links": {
+      "dashboard": "لوحة التحكم",
+      "universities": "الجامعات",
+      "university": "الجامعة",
+      "roles": "الأدوار والصلاحيات"
+    }
+  },
+  "header": {
+    "brand": "منارة",
+    "subtitle": "لوحة التحكم الإدارية",
+    "language": {
+      "selectLanguage": "اختر اللغة",
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    },
+    "user": {
+      "myProfile": "الملف الشخصي",
+      "settings": "الإعدادات",
+      "helpSupport": "المساعدة والدعم",
+      "logout": "تسجيل الخروج"
+    }
+  }
+}

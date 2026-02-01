@@ -1,0 +1,27 @@
+{
+  "sidebar": {
+    "header": {
+      "portalTitle": "university Portal"
+    },
+    "links": {
+      "dashboard": "Dashboard",
+      "university" : "university",
+      "roles": "Roles & Permissions"
+    }
+  },
+  "header": {
+    "brand": "Manara",
+    "subtitle": "Admin Dashboard",
+    "language": {
+      "selectLanguage": "Select Language",
+      "english": "English",
+      "arabic": "Arabic"
+    },
+    "user": {
+      "myProfile": "My Profile",
+      "settings": "Settings",
+      "helpSupport": "Help & Support",
+      "logout": "Logout"
+    }
+  }
+}

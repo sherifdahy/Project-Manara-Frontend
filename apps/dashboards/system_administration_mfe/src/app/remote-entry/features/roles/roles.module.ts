@@ -7,6 +7,7 @@ import { RolesSearchBar } from './components/roles-search-bar/roles-search-bar';
 import { RolesStatistics } from './components/roles-statistics/roles-statistics';
 import { RouterModule } from '@angular/router';
 import { routes } from './roles.route';
+import { RoleDetailPageComponent } from './pages/role-detail-page/role-detail-page.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { routes } from './roles.route';
     RolesGrid,
     RolesHeader,
     RolesSearchBar,
-    RolesStatistics
+    RolesStatistics,
+    RoleDetailPageComponent,
   ]
 })
 export class RolesModule { }
