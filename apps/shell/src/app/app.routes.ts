@@ -6,7 +6,11 @@ import { ServerErrorComponent } from 'libs/ui/src/lib/server-error/server-error.
 import { NotFoundComponent } from 'libs/ui/src/lib/not-found/not-found.component';
 
 export const appRoutes: Route[] = [
-
+  {
+    path: 'student_mfe',
+    loadChildren: () =>
+      import('student_mfe/Module').then((m) => m!.RemoteEntryModule),
+  },
   {
     path: '',
     loadChildren: () =>
@@ -27,31 +31,31 @@ export const appRoutes: Route[] = [
         (m) => m!.RemoteEntryModule,
       ),
   },
-  // {
-  //   path: 'university-administration',
-  //   // canMatch: [hasRoleGuard],
-  //   data: { 'required-roles': [RoleConsts.universityAdmin] },
-  //   loadChildren: () =>
-  //     import('university_administration_mfe/Module').then(
-  //       (m) => m!.RemoteEntryModule,
-  //     ),
-  // },
-  // {
-  //   path: 'faculty-administration',
-  //   // canMatch: [hasRoleGuard],
-  //   data: {
-  //     'required-roles': [
-  //       RoleConsts.facultyAdmin,
-  //       RoleConsts.examinationOfficer,
-  //       RoleConsts.programCoordinator,
-  //       RoleConsts.academicAdvisor,
-  //     ],
-  //   },
-  //   loadChildren: () =>
-  //     import('faculty_administration_mfe/Module').then(
-  //       (m) => m!.RemoteEntryModule,
-  //     ),
-  // },
+  {
+    path: 'university-administration',
+    // canMatch: [hasRoleGuard],
+    data: { 'required-roles': [RoleConsts.universityAdmin] },
+    loadChildren: () =>
+      import('university_administration_mfe/Module').then(
+        (m) => m!.RemoteEntryModule,
+      ),
+  },
+  {
+    path: 'faculty-administration',
+    // canMatch: [hasRoleGuard],
+    data: {
+      'required-roles': [
+        RoleConsts.facultyAdmin,
+        RoleConsts.examinationOfficer,
+        RoleConsts.programCoordinator,
+        RoleConsts.academicAdvisor,
+      ],
+    },
+    loadChildren: () =>
+      import('faculty_administration_mfe/Module').then(
+        (m) => m!.RemoteEntryModule,
+      ),
+  },
   {
     path: 'access-denied',
     component: AccessDeniedComponent,
