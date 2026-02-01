@@ -25,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
   declarations: [
     FacultiesPageComponent,
     FacultyOverviewPageComponent,
+    FacultyDetailPageComponent,
     StatisticsOverview,
     DashboardDetails,
     RecentActivity,
