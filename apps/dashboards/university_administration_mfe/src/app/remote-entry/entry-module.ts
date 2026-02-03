@@ -7,17 +7,16 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
 import { DirectivesModule } from '@project-manara-frontend/directives'
-import { FacultyCardComponent } from './features/universities/components/faculty-card/faculty-card.component';
+import { UniversityOverviewPageComponent } from './pages/university-overview-page/university-overview-page.component';
 @NgModule({
   declarations: [
     MainLayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    DashboardPageComponent,
+    UniversityOverviewPageComponent
   ],
   imports: [
     TranslateModule,

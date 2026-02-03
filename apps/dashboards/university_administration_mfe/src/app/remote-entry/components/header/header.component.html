@@ -1,49 +1,101 @@
-<div class="header px-3 py-1 d-flex justify-content-between align-items-center">
-  <div class="header-content">
-    <h5>{{ "header.brand" | translate }}</h5>
-    <span>{{ "header.subtitle" | translate }}</span>
-  </div>
+<div class="app-header">
+  <div class="header-content-wrapper">
+    <!-- Left Side - University Info -->
+    <ng-container *ngIf="(university$ | async) as university">
+      <div class="university-info">
+        <h1 class="university-title">{{ university.name }}</h1>
+        <span class="university-subtitle">{{ university.description || 'Administrative Control Panel' }}</span>
+      </div>
+    </ng-container>
 
-  <div class="icons d-flex align-items-center gap-3">
-    <!-- Language Switcher -->
-    <app-language-toggle></app-language-toggle>
+    <!-- Right Side - Actions -->
+    <div class="header-actions">
+      <!-- Language Toggle -->
+      <app-language-toggle></app-language-toggle>
 
-    <!-- User Menu -->
-    <div class="user-menu dropdown">
-      <button class="avatar dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <span>SH</span>
-      </button>
+      <!-- Notifications -->
+      <div class="notification-wrapper">
+        <button class="notification-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-badge"></span>
+        </button>
 
-      <div class="user-dropdown dropdown-menu dropdown-menu-end">
-        <div class="user-info px-3 py-2">
-          <div class="user-avatar-large">SH</div>
-          <div class="user-details">
-            <h6>Sameh Hassan</h6>
-            <span>admin@manara.org</span>
+        <!-- Notifications Dropdown -->
+        <div class="notifications-dropdown dropdown-menu dropdown-menu-end">
+          <div class="dropdown-header">
+            <h6>Notifications</h6>
+            <span class="badge-count">3 New</span>
+          </div>
+          <div class="notifications-list">
+            <div class="notification-item unread">
+              <div class="notification-icon bg-primary-soft">
+                <i class="fa-solid fa-user-plus text-primary"></i>
+              </div>
+              <div class="notification-content">
+                <p class="notification-title">New student enrolled</p>
+                <span class="notification-time">2 hours ago</span>
+              </div>
+            </div>
+            <div class="notification-item">
+              <div class="notification-icon bg-warning-soft">
+                <i class="fa-solid fa-exclamation-triangle text-warning"></i>
+              </div>
+              <div class="notification-content">
+                <p class="notification-title">Deadline approaching</p>
+                <span class="notification-time">5 hours ago</span>
+              </div>
+            </div>
+          </div>
+          <div class="dropdown-footer">
+            <a href="#" class="view-all-link">View All Notifications</a>
           </div>
         </div>
+      </div>
 
-        <button class="dropdown-item">
-          <i class="fa-solid fa-user"></i>
-          {{ "header.user.myProfile" | translate }}
+      <!-- User Menu -->
+      <div class="user-menu dropdown">
+        <button class="user-avatar-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="avatar-text">{{ getInitials(currentUser?.fullName) }}</span>
         </button>
 
-        <button class="dropdown-item">
-          <i class="fa-solid fa-gear"></i>
-          {{ "header.user.settings" | translate }}
-        </button>
+        <div class="user-dropdown dropdown-menu dropdown-menu-end">
+          <!-- User Info Header -->
+          <div class="user-info-header">
+            <div class="user-avatar-large">
+              {{ getInitials(currentUser?.fullName) }}
+            </div>
+            <div class="user-details">
+              <h6 class="user-name">{{ currentUser?.fullName }}</h6>
+              <span class="user-email">{{ currentUser?.email }}</span>
+            </div>
+          </div>
 
-        <button class="dropdown-item">
-          <i class="fa-solid fa-circle-question"></i>
-          {{ "header.user.helpSupport" | translate }}
-        </button>
+          <!-- Menu Items -->
+          <div class="dropdown-body">
+            <button class="dropdown-item">
+              <i class="fa-solid fa-user"></i>
+              <span>{{ "header.user.myProfile" | translate }}</span>
+            </button>
 
-        <hr class="dropdown-divider" />
+            <button class="dropdown-item">
+              <i class="fa-solid fa-gear"></i>
+              <span>{{ "header.user.settings" | translate }}</span>
+            </button>
 
-        <button class="dropdown-item logout" (click)="logout()">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          {{ "header.user.logout" | translate }}
-        </button>
+            <button class="dropdown-item">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>{{ "header.user.helpSupport" | translate }}</span>
+            </button>
+          </div>
+
+          <!-- Logout -->
+          <div class="dropdown-footer">
+            <button class="dropdown-item logout-btn" (click)="logout()">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span>{{ "header.user.logout" | translate }}</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -29,13 +29,9 @@
   </div>
 
   <div class="faculty-card__actions d-flex gap-2">
-    <button type="button" class="faculty-card__btn flex-fill d-inline-flex align-items-center justify-content-center gap-2" routerLink="faculty">
-      <i class="fa-solid fa-eye"></i>
-      {{ "faculty.dashboard" | translate }}
-    </button>
-    <button type="button" class="faculty-card__btn flex-fill d-inline-flex align-items-center justify-content-center gap-2">
+    <a [routerLink]="['/university-administration/universities','39','faculties',faculty.id]" class="faculty-card__btn flex-fill d-inline-flex align-items-center justify-content-center gap-2">
       <i class="fa-solid fa-edit"></i>
       {{ "faculty.edit" | translate }}
-    </button>
+    </a>
   </div>
 </div>

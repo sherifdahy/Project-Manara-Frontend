@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { UniversityOverviewPageComponent } from './pages/university-overview-page/university-overview-page.component';
 
 export const remoteRoutes: Route[] = [
   {
@@ -9,21 +9,26 @@ export const remoteRoutes: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'overview',
         pathMatch: 'full'
       },
       {
-        path: 'dashboard',
-        component: DashboardPageComponent
+        path: 'overview',
+        component: UniversityOverviewPageComponent
       },
-      // {
-      //   path: 'roles',
-      //   loadChildren: () => import('./features/roles/roles.module').then(x => x.RolesModule)
-      // },
       {
         path: 'universities',
         loadChildren: () => import('./features/universities/universities.module').then(x => x.UniversitiesModule)
-      }
+      },
+      {
+        path : 'faculties',
+        loadChildren : ()=> import('./features/faculties/faculties.module').then(x=>x.FacultiesModule)
+      },
+      {
+        path: 'roles',
+        loadChildren: () => import('./features/roles/roles.module').then(x => x.RolesModule)
+      },
+
     ]
   }
 ];

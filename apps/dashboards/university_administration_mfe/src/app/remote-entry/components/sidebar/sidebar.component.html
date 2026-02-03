@@ -21,23 +21,20 @@
 
   <div class="sidebar-links">
     <ul>
-      <span>OVERVIEW</span>
 
       <li>
-        <a routerLink="/university-administration/dashboard" routerLinkActive="active"
+        <a routerLink="/university-administration/overview" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-gauge-high fa-fw"></i>
-          <span>{{ "sidebar.links.dashboard" | translate }}</span>
+          <span>{{ "sidebar.links.overview" | translate }}</span>
         </a>
       </li>
 
-      <span>IAM PORTAL</span>
-
-      <li hasPermission="universities:read">
-        <a [routerLink]="['/university-administration/universities',accountService.currentUser?.universityId]"
+      <li hasPermission="faculties:read">
+        <a [routerLink]="['/university-administration/faculties']"
           routerLinkActive="active">
           <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.university" | translate }}</span>
+          <span>{{ "sidebar.links.faculties" | translate }}</span>
         </a>
       </li>
 

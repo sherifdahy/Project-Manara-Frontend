@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FacultyResponse } from '@project-manara-frontend/models';
 
 @Component({
@@ -9,9 +10,11 @@ import { FacultyResponse } from '@project-manara-frontend/models';
 })
 export class FacultyCardComponent implements OnInit {
   @Input() faculty!: FacultyResponse;
-  constructor() { }
+  universityId!: number;
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.universityId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
 }

@@ -4,14 +4,13 @@ import { FacultyDetailPageComponent } from './pages/faculty-detail-page/faculty-
 import { RouterModule } from '@angular/router';
 import { routes } from './faculties.routes';
 import { FacultiesPageComponent } from './pages/faculties-page/faculties-page.component';
-import { FacultyFormDialogComponent } from '../universities/components/faculty-form-dialog/faculty-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacultyOverviewPageComponent } from './pages/faculty-overview-page/faculty-overview-page.component';
 import { StatisticsOverview } from './components/statistics-overview/statistics-overview';
 import { DashboardDetails } from './components/dashboard-details/dashboard-details';
-import { RecentActivity } from './components/recent-activity/recent-activity';
 import { UiModule } from '@project-manara-frontend/ui';
 import { TranslateModule } from '@ngx-translate/core';
+import { FacultyFormDialogComponent } from './components/faculty-form-dialog/faculty-form-dialog.component';
 
 @NgModule({
   imports: [
@@ -24,11 +23,12 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   declarations: [
     FacultiesPageComponent,
-    FacultyOverviewPageComponent,
     FacultyDetailPageComponent,
+    FacultyOverviewPageComponent,
     StatisticsOverview,
     DashboardDetails,
-    RecentActivity,
+    FacultyFormDialogComponent
   ],
 })
-export class FacultiesModule {}
+export class FacultiesModule {
+}
