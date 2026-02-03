@@ -1,14 +1,19 @@
-import { Routes } from "@angular/router";
-import { RolesPageComponent } from "./pages/roles-page/roles-page.component";
-import { RoleDetailPageComponent } from "./pages/role-detail-page/role-detail-page.component";
+import { Routes } from '@angular/router';
+import { RolesPageComponent } from './pages/roles-page/roles-page.component';
+import { RoleDetailPageComponent } from './pages/role-detail-page/role-detail-page.component';
+import { RoleFormPageComponent } from './pages/role-form-page/role-form-page.component';
 
-export const routes : Routes = [
+export const routes: Routes = [
   {
-    path : '',
-    component : RolesPageComponent
+    path: '',
+    component: RolesPageComponent,
   },
   {
-    path : ':id',
-    component : RoleDetailPageComponent
-  }
+    path: 'create-role',
+    component: RoleFormPageComponent,
+  },
+  {
+    path: ':id',
+    component: RoleDetailPageComponent,
+  },
 ];

@@ -8,12 +8,11 @@ import { RolesStatistics } from './components/roles-statistics/roles-statistics'
 import { RouterModule } from '@angular/router';
 import { routes } from './roles.route';
 import { RoleDetailPageComponent } from './pages/role-detail-page/role-detail-page.component';
+import { RoleFormPageComponent } from './pages/role-form-page/role-form-page.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, FormsModule, RouterModule.forChild(routes)],
   declarations: [
     RolesPageComponent,
     RolesGrid,
@@ -21,6 +20,7 @@ import { RoleDetailPageComponent } from './pages/role-detail-page/role-detail-pa
     RolesSearchBar,
     RolesStatistics,
     RoleDetailPageComponent,
-  ]
+    RoleFormPageComponent,
+  ],
 })
-export class RolesModule { }
+export class RolesModule {}
