@@ -1,0 +1,21 @@
+.btn-role-style {
+  font-size: var(--fs-md);
+  background-color: var(--text-primary);
+  color: #fff;
+  border: 0;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-role-style:hover {
+  transform: translateY(-5px);
+}
+
+.btn-clear-cancel {
+  font-size: var(--fs-md);
+  transition: all 0.3s ease;
+}
+
+.btn-clear-cancel:hover {
+  transform: translateY(-3px);
+}

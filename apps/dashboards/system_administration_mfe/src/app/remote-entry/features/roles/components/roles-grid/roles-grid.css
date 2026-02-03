@@ -20,3 +20,48 @@
 .item-header {
   border-top: 1px solid gray;
 }
+
+.role-UniversityAdmin {
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  font-size: var(--fs-base);
+}
+
+.role-FacultyAdmin {
+  color: #155dfc;
+  border: 1px solid #155dfc;
+  font-size: var(--fs-base);
+}
+
+.role-SystemAdmin {
+  color: #ff5733;
+  border: 1px solid #ff5733;
+  font-size: var(--fs-base);
+}
+
+.role-AcademicAdvisor,
+.role-ProgramCoordinator,
+.role-ExaminationOfficer,
+.role-Doctor,
+.role-Instrctor,
+.role-Student {
+  color: #00a63e;
+  border: 1px solid #00a63e;
+  font-size: var(--fs-base);
+}
+
+.Active {
+  color: #00a63e;
+  border: 1px solid #00a63e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: var(--fs-base);
+}
+
+.Inactive {
+  color: #ff4d4f;
+  border: 1px solid #ff4d4f;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: var(--fs-base);
+}

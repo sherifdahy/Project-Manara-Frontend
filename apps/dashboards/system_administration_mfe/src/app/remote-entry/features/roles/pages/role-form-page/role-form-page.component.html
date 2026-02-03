@@ -1,3 +1,327 @@
-<p>
-  role-form-page works!
-</p>
+<section>
+  <div class="container-fluid my-4">
+    <h2 class="mb-4">Create New Role</h2>
+
+    <form>
+      <!-- Role Details -->
+      <div class="card mb-4 p-3">
+        <div class="mb-3">
+          <label class="form-label">Role Name</label>
+          <input
+            [(ngModel)]="roleName"
+            name="role-name"
+            type="text"
+            class="form-control"
+            placeholder="Enter role name"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Is Deleted?</label>
+          <select class="form-select" [(ngModel)]="isDeleted" name="status">
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            rows="4"
+            placeholder="Enter role description"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Permissions Section -->
+      <h5 class="mb-3">Permissions</h5>
+
+      <!-- Role Permissions -->
+      <div class="card mb-3 p-3" #roleCard>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0">Role Permissions</h6>
+          <div class="btn-group btn-group-sm">
+            <button
+              type="button"
+              class="btn btn-role-style fw-normal me-2 rounded-3"
+              (click)="selectAll(roleCard)"
+            >
+              Select All
+            </button>
+            <button
+              type="button"
+              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
+              (click)="clearAll(roleCard)"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="readRoles"
+            value="roles:read"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="readRoles">Read Roles</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="createRoles"
+            value="roles:create"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="createRoles">Create Roles</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="updateRoles"
+            value="roles:update"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="updateRoles">Update Roles</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="toggleRoleStatus"
+            value="roles:toggleStatus"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="toggleRoleStatus">
+            Toggle Role Status
+          </label>
+        </div>
+      </div>
+
+      <!-- Permission Management -->
+      <div class="card mb-3 p-3" #permissionCard>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0">Permission Management</h6>
+          <div class="btn-group btn-group-sm">
+            <button
+              type="button"
+              class="btn btn-role-style fw-normal me-2 rounded-3"
+              (click)="selectAll(permissionCard)"
+            >
+              Select All
+            </button>
+            <button
+              type="button"
+              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
+              (click)="clearAll(permissionCard)"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="createPermissions"
+            value="permissions:create"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="createPermissions">
+            Create Permissions
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="togglePermissionStatus"
+            value="permissions:toggleStatus"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="togglePermissionStatus">
+            Toggle Permission Status
+          </label>
+        </div>
+      </div>
+
+      <!-- University Permissions -->
+      <div class="card mb-3 p-3" #universityCard>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0">University Permissions</h6>
+          <div class="btn-group btn-group-sm">
+            <button
+              type="button"
+              class="btn btn-role-style fw-normal me-2 rounded-3"
+              (click)="selectAll(universityCard)"
+            >
+              Select All
+            </button>
+            <button
+              type="button"
+              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
+              (click)="clearAll(universityCard)"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="readUniversities"
+            value="universities:read"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="readUniversities">
+            Read Universities
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="createUniversities"
+            value="universities:create"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="createUniversities">
+            Create Universities
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="updateUniversities"
+            value="universities:update"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="updateUniversities">
+            Update Universities
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="toggleUniversityStatus"
+            value="universities:toggleStatus"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="toggleUniversityStatus">
+            Toggle University Status
+          </label>
+        </div>
+      </div>
+
+      <!-- Faculty Permissions -->
+      <div class="card mb-3 p-3" #facultyCard>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="mb-0">Faculty Permissions</h6>
+          <div class="btn-group btn-group-sm">
+            <button
+              type="button"
+              class="btn btn-role-style fw-normal me-2 rounded-3"
+              (click)="selectAll(facultyCard)"
+            >
+              Select All
+            </button>
+            <button
+              type="button"
+              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
+              (click)="clearAll(facultyCard)"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="readFaculties"
+            value="faculties:read"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="readFaculties">
+            Read Faculties
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="createFaculties"
+            value="faculties:create"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="createFaculties">
+            Create Faculties
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="updateFaculties"
+            value="faculties:update"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="updateFaculties">
+            Update Faculties
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="toggleFacultyStatus"
+            value="faculties:toggleStatus"
+            (change)="onPermissionChange($event)"
+          />
+          <label class="form-check-label" for="toggleFacultyStatus">
+            Toggle Faculty Status
+          </label>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex justify-content-end gap-3 mt-3">
+        <button
+          (click)="clearForm()"
+          type="button"
+          class="btn btn-clear-cancel btn-outline-secondary rounded-3"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="createRole()"
+          type="button"
+          class="btn btn-role-style fw-normal rounded-3"
+        >
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
