@@ -6,11 +6,10 @@ import { routes } from './faculties.routes';
 import { FacultiesPageComponent } from './pages/faculties-page/faculties-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacultyOverviewPageComponent } from './pages/faculty-overview-page/faculty-overview-page.component';
-import { StatisticsOverview } from './components/statistics-overview/statistics-overview';
-import { DashboardDetails } from './components/dashboard-details/dashboard-details';
 import { UiModule } from '@project-manara-frontend/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { FacultyFormDialogComponent } from './components/faculty-form-dialog/faculty-form-dialog.component';
+import { FacultySettingsPageComponent } from './pages/faculty-settings-page/faculty-settings-page.component';
 
 @NgModule({
   imports: [
@@ -25,9 +24,8 @@ import { FacultyFormDialogComponent } from './components/faculty-form-dialog/fac
     FacultiesPageComponent,
     FacultyDetailPageComponent,
     FacultyOverviewPageComponent,
-    StatisticsOverview,
-    DashboardDetails,
-    FacultyFormDialogComponent
+    FacultyFormDialogComponent,
+    FacultySettingsPageComponent
   ],
 })
 export class FacultiesModule {
