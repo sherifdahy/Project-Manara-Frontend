@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { catchError,Observable, switchMap, take, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, take, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService, ToastService } from '@project-manara-frontend/services';
 @Injectable({
@@ -14,7 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {}
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(

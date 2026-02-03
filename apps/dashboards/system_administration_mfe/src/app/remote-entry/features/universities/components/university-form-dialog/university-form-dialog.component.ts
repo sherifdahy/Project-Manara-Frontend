@@ -1,6 +1,7 @@
-import { Component, destroyPlatform, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { HttpErrorService, UniversityService } from '@project-manara-frontend/services';
 
 @Component({
@@ -11,38 +12,70 @@ import { HttpErrorService, UniversityService } from '@project-manara-frontend/se
 })
 export class UniversityFormDialogComponent implements OnInit {
   form!: FormGroup;
+  isSubmitting = false;
+  currentYear = new Date().getFullYear();
+
   constructor(
     private fb: FormBuilder,
     private httpErrorService: HttpErrorService,
     private universityService: UniversityService,
     @Inject(MAT_DIALOG_DATA) public data: { universityId?: number },
-    private dialogRef: MatDialogRef<UniversityFormDialogComponent>
-  ) { }
+    private dialogRef: MatDialogRef<UniversityFormDialogComponent>,
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formInit();
 
-    if (this.data?.universityId)
+    if (this.data?.universityId) {
       this.loadUniversity();
+    }
   }
 
-  formInit() {
+  formInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', Validators.required],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      website: ['', [Validators.required]],
-      establishedAt: ['', Validators.required]
+      website: ['', [Validators.required, Validators.pattern(RegexPatternConsts.WEB_SITE_URL_PATTERN)]],
+      yearOfEstablishment: ['', [
+        Validators.required,
+        Validators.min(1800),
+        Validators.max(this.currentYear)
+      ]]
     });
   }
 
-  loadUniversity() {
+  loadUniversity(): void {
     this.universityService.get(this.data.universityId!).subscribe({
       next: (response) => {
         this.form.patchValue(response);
       },
       error: (errors) => {
+        this.httpErrorService.handle(errors);
+      }
+    });
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    const submitObservable = this.data?.universityId
+      ? this.universityService.update(this.data.universityId, this.form.value)
+      : this.universityService.create(this.form.value);
+
+    submitObservable.subscribe({
+      next: (response) => {
+        this.isSubmitting = false;
+        this.dialogRef.close(response);
+      },
+      error: (errors) => {
+        this.isSubmitting = false;
         this.httpErrorService.handle(errors);
       }
     });

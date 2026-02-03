@@ -189,6 +189,32 @@
 }
 
 /* =====================
+   Faculties Table - Responsive Column Hiding
+===================== */
+
+/* Hide Departments & Avg GPA on tablets and below */
+@media (max-width: 1199.98px) {
+  .faculties-section .data-table th:nth-child(6),
+  .faculties-section .data-table td:nth-child(6),
+  .faculties-section .data-table th:nth-child(7),
+  .faculties-section .data-table td:nth-child(7) {
+    display: none;
+  }
+}
+
+/* Hide Location, Students, Staff on mobile */
+@media (max-width: 767.98px) {
+  .faculties-section .data-table th:nth-child(3),
+  .faculties-section .data-table td:nth-child(3),
+  .faculties-section .data-table th:nth-child(4),
+  .faculties-section .data-table td:nth-child(4),
+  .faculties-section .data-table th:nth-child(5),
+  .faculties-section .data-table td:nth-child(5) {
+    display: none;
+  }
+}
+
+/* =====================
    Responsive
 ===================== */
 @media (max-width: 1199.98px) {

@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { UniversityDetailResponse } from '@project-manara-frontend/models';
 import { UniversityService } from '@project-manara-frontend/services'
 import { Observable } from 'rxjs';
-import { UniversityFormDialogComponent } from '../../components/university-form-dialog/university-form-dialog.component';
-import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog/faculty-form-dialog.component';
 import { PermissionConsts } from '@project-manara-frontend/consts'
 @Component({
   selector: 'app-university-detail-page',
@@ -35,34 +33,34 @@ export class UniversityDetailPageComponent implements OnInit {
   }
 
   openCreateFacultyFormDialog(): void {
-    const dialogRef = this.matDialog.open(FacultyFormDialogComponent, {
-      width: '600px',
-      maxWidth: '90vw',
-      data: {
-        universityId: this.universityId
-      }
-    });
+    // const dialogRef = this.matDialog.open(FacultyFormDialogComponent, {
+    //   width: '600px',
+    //   maxWidth: '90vw',
+    //   data: {
+    //     universityId: this.universityId
+    //   }
+    // });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadCurrentUniversity();
-      }
-    });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.loadCurrentUniversity();
+    //   }
+    // });
   }
 
   openUniversityFormDialog(): void {
-    const dialogRef = this.matDialog.open(UniversityFormDialogComponent, {
-      width: '600px',
-      maxHeight: '90vw',
-      data: {
-        universityId: this.universityId
-      }
-    })
+    // const dialogRef = this.matDialog.open(UniversityFormDialogComponent, {
+    //   width: '600px',
+    //   maxHeight: '90vw',
+    //   data: {
+    //     universityId: this.universityId
+    //   }
+    // })
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.loadCurrentUniversity();
-      }
-    })
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    //     this.loadCurrentUniversity();
+    //   }
+    // })
   }
 }

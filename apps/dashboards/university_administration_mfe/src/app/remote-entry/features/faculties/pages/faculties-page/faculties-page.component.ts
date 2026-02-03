@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FacultyResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
 import { AccountService, FacultyService, HttpErrorService, UniversityService } from '@project-manara-frontend/services'
 import { Observable } from 'rxjs';
@@ -21,8 +21,9 @@ export class FacultiesPageComponent implements OnInit {
     private accountService: AccountService,
     private matDialog: MatDialog,
     private route: ActivatedRoute,
-    private httpErrorService : HttpErrorService,
+    private httpErrorService: HttpErrorService,
     private facultyService: FacultyService,
+    private router: Router
   ) {
 
   }
@@ -32,7 +33,7 @@ export class FacultiesPageComponent implements OnInit {
   }
 
   loadFaculties() {
-    this.faculties$ = this.facultyService.getAll(this.accountService.currentUser?.universityId ?? 0,this.includeDisabled);
+    this.faculties$ = this.facultyService.getAll(this.accountService.currentUser?.universityId ?? 0, this.includeDisabled);
   }
 
   openFacultyFormDialog() {
@@ -41,7 +42,8 @@ export class FacultiesPageComponent implements OnInit {
       maxWidth: '90vw'
     }).afterClosed().subscribe((result) => {
       if (result)
-        this.loadFaculties();
+        this.router.navigate([result.id]);
+
     });
   }
 
