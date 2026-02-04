@@ -1,0 +1,167 @@
+<ng-container *ngIf="(roles$ | async) as roles">
+  <!-- roles.component.html -->
+  <div class="container-fluid px-0">
+
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+      <div>
+        <h1 class="page-title mb-1">Roles & Permissions</h1>
+        <p class="page-description mb-0">Configure system roles, hierarchy, and access permissions</p>
+      </div>
+    </div>
+
+    <!-- Stats Cards Row -->
+    <div class="row g-3 mb-4">
+      <!-- Total Roles -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Total Roles</span>
+              <h3 class="stats-number">6</h3>
+              <span class="stats-meta">Configured roles</span>
+            </div>
+            <div class="stats-icon-wrapper bg-primary-soft">
+              <i class="fa-solid fa-shield-alt text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Roles -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Active Roles</span>
+              <h3 class="stats-number">6</h3>
+              <span class="stats-meta text-success">All currently active</span>
+            </div>
+            <div class="stats-icon-wrapper bg-success-soft">
+              <i class="fa-solid fa-check-circle text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Users -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Total Users</span>
+              <h3 class="stats-number">12,661</h3>
+              <span class="stats-meta">Assigned to roles</span>
+            </div>
+            <div class="stats-icon-wrapper bg-warning-soft">
+              <i class="fa-solid fa-users text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permissions -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Permissions</span>
+              <h3 class="stats-number">42</h3>
+              <span class="stats-meta">Available permissions</span>
+            </div>
+            <div class="stats-icon-wrapper bg-info-soft">
+              <i class="fa-solid fa-key text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Roles Section -->
+    <div class="roles-section">
+      <div class="section-card">
+        <!-- Section Header -->
+        <div class="section-header">
+          <div>
+            <h4 class="section-title">All Roles</h4>
+            <p class="section-subtitle">Manage and configure system roles</p>
+          </div>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="filters-wrapper mb-3">
+          <!-- Search Bar -->
+          <div class="search-bar-container">
+            <div class="search-bar">
+              <i class="fa-solid fa-search search-icon"></i>
+              <input type="text" class="search-input" placeholder="Search roles by name or description...">
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Roles Table -->
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Role Name</th>
+                <th>Description</th>
+                <th>Users</th>
+                <th>Permissions</th>
+                <th>Default Portal</th>
+                <th>Status</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Role 1: Super Administrator -->
+              <tr *ngFor="let role of roles">
+                <td>
+                  <div class="table-cell-with-icon">
+                    <div class="table-cell-icon">
+                      <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <a [routerLink]="[role.id]" class="table-cell-content">
+                      <span class="table-cell-title">{{role.name}}</span>
+                    </a>
+                  </div>
+                </td>
+                <td>Full system access with all permissions</td>
+                <td>3</td>
+                <td><span class="table-value-badge">42</span></td>
+                <td>Admin</td>
+                <td>
+                  <span class="table-status-badge status-inactive" *ngIf="role.isDeleted">Disabled</span>
+                  <span class="table-status-badge status-active" *ngIf="!role.isDeleted">Active</span>
+                </td>
+                <td>
+                  <div class="table-actions">
+                    <a [routerLink]="[role.id]" class="table-action-btn btn-primary" title="Edit Role">
+                      <i class="fa-solid fa-pen"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="roles.length == 0">
+                <td colspan="9">
+                  <div class="table-empty-state">
+                    <div class="table-empty-icon">
+                      <i class="fa-solid fa-inbox"></i>
+                    </div>
+                    <h3 class="table-empty-title">No Roles Found</h3>
+                    <p class="table-empty-text">
+                      There are no roles to display at the moment.
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

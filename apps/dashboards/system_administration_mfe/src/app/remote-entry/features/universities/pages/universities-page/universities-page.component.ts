@@ -18,7 +18,7 @@ export class UniversitiesPageComponent implements OnInit {
   includeDisabled: boolean = false;
 
   constructor(
-    private router : Router,
+    private router: Router,
     private httpErrorService: HttpErrorService,
     private universityService: UniversityService,
     private matDialog: MatDialog,
@@ -44,12 +44,15 @@ export class UniversitiesPageComponent implements OnInit {
     return new Date().getFullYear() - establishedYear;
   }
 
-  openUniversityForm(): void {
+  openUniversityForm(id?: number): void {
     this.matDialog.open(UniversityFormDialogComponent, {
       width: '600px',
-      maxWidth: '90vw'
+      maxWidth: '90vw',
+      data: {
+        universityId: id
+      }
     }).afterClosed().subscribe((result) => {
-      if(result)
+      if (result)
         this.router.navigate([result.id]);
     });
   }

@@ -17,10 +17,6 @@ export const remoteRoutes: Route[] = [
         component: UniversityOverviewPageComponent
       },
       {
-        path: 'universities',
-        loadChildren: () => import('./features/universities/universities.module').then(x => x.UniversitiesModule)
-      },
-      {
         path : 'faculties',
         loadChildren : ()=> import('./features/faculties/faculties.module').then(x=>x.FacultiesModule)
       },

@@ -12,7 +12,6 @@ import { HttpErrorService, UniversityService } from '@project-manara-frontend/se
 })
 export class UniversityFormDialogComponent implements OnInit {
   form!: FormGroup;
-  isSubmitting = false;
   currentYear = new Date().getFullYear();
 
   constructor(
@@ -21,7 +20,7 @@ export class UniversityFormDialogComponent implements OnInit {
     private universityService: UniversityService,
     @Inject(MAT_DIALOG_DATA) public data: { universityId?: number },
     private dialogRef: MatDialogRef<UniversityFormDialogComponent>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -63,19 +62,15 @@ export class UniversityFormDialogComponent implements OnInit {
       return;
     }
 
-    this.isSubmitting = true;
-
     const submitObservable = this.data?.universityId
       ? this.universityService.update(this.data.universityId, this.form.value)
       : this.universityService.create(this.form.value);
 
     submitObservable.subscribe({
       next: (response) => {
-        this.isSubmitting = false;
         this.dialogRef.close(response);
       },
       error: (errors) => {
-        this.isSubmitting = false;
         this.httpErrorService.handle(errors);
       }
     });

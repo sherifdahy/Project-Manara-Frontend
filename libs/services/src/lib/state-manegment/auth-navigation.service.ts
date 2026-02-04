@@ -22,23 +22,23 @@ export class AuthNavigationService {
 
     if (roles?.length == 1) {
       switch (roles[0]) {
-        case (RoleConsts.systemAdmin):
+        case (RoleConsts.systemAdmin.name):
           this.router.navigateByUrl('/system-administration');
           break;
-        case (RoleConsts.universityAdmin):
+        case (RoleConsts.universityAdmin.name):
           this.router.navigateByUrl('/university-administration');
           break;
-        case (RoleConsts.facultyAdmin):
-        case (RoleConsts.academicAdvisor):
-        case (RoleConsts.examinationOfficer):
-        case (RoleConsts.programCoordinator):
+        case (RoleConsts.facultyAdmin.name):
+        case (RoleConsts.academicAdvisor.name):
+        case (RoleConsts.examinationOfficer.name):
+        case (RoleConsts.programCoordinator.name):
           this.router.navigateByUrl('/faculty-administration');
           break;
-        case (RoleConsts.doctor):
-        case (RoleConsts.instructor):
+        case (RoleConsts.doctor.name):
+        case (RoleConsts.instructor.name):
           this.router.navigateByUrl('/staff');
           break;
-        case (RoleConsts.student):
+        case (RoleConsts.student.name):
           this.router.navigateByUrl('/student');
           break;
 

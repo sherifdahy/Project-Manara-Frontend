@@ -7,10 +7,10 @@
       </div>
       <div class="flex-fill">
         <h2 class="dialog-title mb-1" mat-dialog-title>
-          {{ data?.universityId ? 'Edit University' : 'Add New University' }}
+          {{ data.universityId ? 'Edit University' : 'Add New University' }}
         </h2>
         <p class="dialog-subtitle mb-0">
-          {{ data?.universityId ? 'Update university information and settings' : 'Create a new university in the system'
+          {{ data.universityId ? 'Update university information and settings' : 'Create a new university in the system'
           }}
         </p>
       </div>
@@ -112,12 +112,12 @@
 
   <!-- Dialog Footer -->
   <div class="dialog-footer" mat-dialog-actions>
-    <button type="button" class="btn btn-outline-secondary" mat-dialog-close [disabled]="isSubmitting">
+    <button type="button" class="btn btn-outline-secondary" mat-dialog-close>
       Cancel
     </button>
-    <button type="button" class="btn btn-primary" [disabled]="form.invalid || isSubmitting" (click)="onSubmit()">
-      <i class="fa-solid me-2" [ngClass]="data?.universityId ? 'fa-check' : 'fa-plus'"></i>
-      <span>{{ data?.universityId ? 'Update' : 'Create' }}</span>
+    <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
+      <i class="fa-solid me-2" [ngClass]="data.universityId ? 'fa-check' : 'fa-plus'"></i>
+      <span>{{ data.universityId ? 'Update' : 'Create' }}</span>
     </button>
   </div>
 </div>

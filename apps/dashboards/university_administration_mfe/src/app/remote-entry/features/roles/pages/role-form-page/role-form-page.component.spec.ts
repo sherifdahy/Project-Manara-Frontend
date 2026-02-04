@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { FacultyFormDialogComponent } from './faculty-form-dialog.component';
+import { RoleFormPageComponent } from './role-form-page.component';
 
-describe('FacultyFormDialogComponent', () => {
-  let component: FacultyFormDialogComponent;
-  let fixture: ComponentFixture<FacultyFormDialogComponent>;
+describe('RoleFormPageComponent', () => {
+  let component: RoleFormPageComponent;
+  let fixture: ComponentFixture<RoleFormPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FacultyFormDialogComponent ]
+      declarations: [ RoleFormPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FacultyFormDialogComponent);
+    fixture = TestBed.createComponent(RoleFormPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
