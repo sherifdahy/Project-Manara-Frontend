@@ -1,6 +1,6 @@
 <section>
   <div class="container-fluid my-4">
-    <h2 class="mb-4">Create New Role</h2>
+    <h2 class="mb-4">{{ isEditMode ? 'Edit' : 'Create New' }} Role</h2>
 
     <form>
       <!-- Role Details -->
@@ -27,8 +27,10 @@
         <div class="mb-3">
           <label class="form-label">Description</label>
           <textarea
+            [(ngModel)]="roleDescription"
             class="form-control"
             rows="4"
+            name="roleDescription"
             placeholder="Enter role description"
           ></textarea>
         </div>
@@ -63,6 +65,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="readRoles"
             value="roles:read"
             (change)="onPermissionChange($event)"
@@ -74,6 +77,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="createRoles"
             value="roles:create"
             (change)="onPermissionChange($event)"
@@ -85,6 +89,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="updateRoles"
             value="roles:update"
             (change)="onPermissionChange($event)"
@@ -96,6 +101,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="toggleRoleStatus"
             value="roles:toggleStatus"
             (change)="onPermissionChange($event)"
@@ -132,6 +138,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="createPermissions"
             value="permissions:create"
             (change)="onPermissionChange($event)"
@@ -145,6 +152,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="togglePermissionStatus"
             value="permissions:toggleStatus"
             (change)="onPermissionChange($event)"
@@ -181,6 +189,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="readUniversities"
             value="universities:read"
             (change)="onPermissionChange($event)"
@@ -194,6 +203,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="createUniversities"
             value="universities:create"
             (change)="onPermissionChange($event)"
@@ -207,6 +217,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="updateUniversities"
             value="universities:update"
             (change)="onPermissionChange($event)"
@@ -220,6 +231,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="toggleUniversityStatus"
             value="universities:toggleStatus"
             (change)="onPermissionChange($event)"
@@ -256,6 +268,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="readFaculties"
             value="faculties:read"
             (change)="onPermissionChange($event)"
@@ -269,6 +282,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="createFaculties"
             value="faculties:create"
             (change)="onPermissionChange($event)"
@@ -282,6 +296,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="updateFaculties"
             value="faculties:update"
             (change)="onPermissionChange($event)"
@@ -295,6 +310,7 @@
           <input
             class="form-check-input"
             type="checkbox"
+            #check
             id="toggleFacultyStatus"
             value="faculties:toggleStatus"
             (change)="onPermissionChange($event)"
@@ -315,11 +331,11 @@
           Cancel
         </button>
         <button
-          (click)="createRole()"
+          (click)="submit()"
           type="button"
           class="btn btn-role-style fw-normal rounded-3"
         >
-          Create
+          {{ isEditMode ? 'Save Changes' : 'Create' }}
         </button>
       </div>
     </form>

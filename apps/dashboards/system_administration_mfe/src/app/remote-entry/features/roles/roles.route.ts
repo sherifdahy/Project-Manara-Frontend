@@ -13,6 +13,10 @@ export const routes: Routes = [
     component: RoleFormPageComponent,
   },
   {
+    path: 'edit-role/:id',
+    component: RoleFormPageComponent,
+  },
+  {
     path: ':id',
     component: RoleDetailPageComponent,
   },

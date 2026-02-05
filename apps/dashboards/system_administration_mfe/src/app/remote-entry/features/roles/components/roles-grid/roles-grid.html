@@ -6,14 +6,23 @@
           <div class="mb-3 d-flex justify-content-between align-items-center">
             <i class="fa-solid fa-user"></i>
             <div>
-              <button class="border-0 bg-transparent">
+              <button
+                (click)="updateRole(role.id)"
+                class="border-0 bg-transparent me-2"
+              >
+                <i class="fa-solid fa-edit text-secondary"></i>
+              </button>
+              <button
+                (click)="deleteRole(role.id)"
+                class="border-0 bg-transparent"
+              >
                 <i class="fa-solid fa-trash text-danger"></i>
               </button>
             </div>
           </div>
 
           <h3 class="fw-normal mb-0">{{ role.name }}</h3>
-          <p class="fw-normal">{{ role.name }}</p>
+          <p class="fw-normal">{{ role.description }}</p>
 
           <div class="d-flex flex-column mb-3">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -36,7 +45,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <span>Permissions:</span>
-              <span>42</span>
+              <span>{{role.numberOfPermissions}}</span>
             </div>
           </div>
 
