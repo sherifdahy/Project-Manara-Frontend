@@ -15,7 +15,7 @@
         </p>
       </div>
     </div>
-    <button class="dialog-close-btn" mat-dialog-close type="button" aria-label="Close dialog">
+    <button (click)="onClose()" class="dialog-close-btn" mat-dialog-close type="button" aria-label="Close dialog">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
@@ -112,7 +112,7 @@
 
   <!-- Dialog Footer -->
   <div class="dialog-footer" mat-dialog-actions>
-    <button type="button" class="btn btn-outline-secondary" mat-dialog-close>
+    <button (click)="onClose()" type="button" class="btn btn-outline-secondary" mat-dialog-close>
       Cancel
     </button>
     <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">

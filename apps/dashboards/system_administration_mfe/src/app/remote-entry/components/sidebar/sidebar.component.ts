@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '@project-manara-frontend/services';
+import { UserService } from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +11,7 @@ export class SidebarComponent implements OnInit {
   isCollapsed = false;
 
   constructor(
-    public accountService: AccountService
+    public userService: UserService
   ) {
   }
 

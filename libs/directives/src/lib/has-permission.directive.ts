@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { AccountService } from '@project-manara-frontend/services';
+import { UserService } from '@project-manara-frontend/services';
 
 @Directive({
   selector: '[hasPermission]',
@@ -11,11 +11,11 @@ export class HasPermissionDirective implements OnInit {
 
   constructor(
     private el: ElementRef,
-    private accountService: AccountService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    const user = this.accountService.currentUser;
+    const user = this.userService.currentUser;
 
     if (!user || !user.permissions.includes(this.permission)) {
       this.el.nativeElement.classList = 'd-none';

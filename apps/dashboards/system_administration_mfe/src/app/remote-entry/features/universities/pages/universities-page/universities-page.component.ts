@@ -4,7 +4,7 @@ import { UniversityResponse } from '@project-manara-frontend/models';
 import { HttpErrorService, UniversityService } from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
 import { UniversityFormDialogComponent } from '../../components/university-form-dialog/university-form-dialog.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-universities-page',
@@ -22,6 +22,7 @@ export class UniversitiesPageComponent implements OnInit {
     private httpErrorService: HttpErrorService,
     private universityService: UniversityService,
     private matDialog: MatDialog,
+    private route : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +54,7 @@ export class UniversitiesPageComponent implements OnInit {
       }
     }).afterClosed().subscribe((result) => {
       if (result)
-        this.router.navigate([result.id]);
+        this.router.navigate([result.id], { relativeTo: this.route });
     });
   }
 

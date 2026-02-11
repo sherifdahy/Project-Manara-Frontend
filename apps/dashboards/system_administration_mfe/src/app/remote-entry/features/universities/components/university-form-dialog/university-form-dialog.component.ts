@@ -45,6 +45,10 @@ export class UniversityFormDialogComponent implements OnInit {
     });
   }
 
+  onClose(){
+    this.dialogRef.close();
+  }
+
   loadUniversity(): void {
     this.universityService.get(this.data.universityId!).subscribe({
       next: (response) => {

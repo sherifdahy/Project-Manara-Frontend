@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router'
-import { AccountService } from "./account.service";
+import { UserService } from "./user.service";
 import { RoleConsts } from "@project-manara-frontend/consts";
 
 @Injectable({ providedIn: 'root' })
@@ -8,7 +8,7 @@ export class AuthNavigationService {
 
   constructor(
     private router: Router,
-    private accountService: AccountService,
+    private userService: UserService,
   ) { }
 
   redirect(returnUrl?: string | null) {
@@ -18,7 +18,7 @@ export class AuthNavigationService {
       return;
     }
 
-    const roles = this.accountService.currentUser?.roles;
+    const roles = this.userService.currentUser?.roles;
 
     if (roles?.length == 1) {
       switch (roles[0]) {

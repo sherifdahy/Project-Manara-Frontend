@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService, AuthService, UniversityService } from '@project-manara-frontend/services';
+import {  AuthService, UniversityService, UserService } from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   currentUser!: CurrentUserResponse | null;
 
   constructor(
-    private accountService: AccountService,
+    private userService : UserService,
     private router: Router,
     private authService: AuthService,
     private universityService: UniversityService,
@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.currentUser = this.accountService.currentUser;
-    this.universityId = this.accountService.currentUser?.universityId ?? 0;
+    this.currentUser = this.userService.currentUser;
+    // this.universityId = this.userService.currentUser?.universityId ?? 0;
     this.university$ = this.universityService.get(this.universityId);
 
     this.appTranslateService.language$.subscribe((result) => {

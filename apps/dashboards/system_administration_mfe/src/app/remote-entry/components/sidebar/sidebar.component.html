@@ -33,7 +33,7 @@
 
       <span>IAM PORTAL</span>
 
-      <li hasPermission="universities:read" *ngIf="!accountService.currentUser?.universityId">
+      <li hasPermission="universities:read" >
         <a routerLink="/system-administration/universities" routerLinkActive="active">
           <i class="fa-solid fa-building-columns"></i>
           <span>{{ "sidebar.links.universities" | translate }}</span>

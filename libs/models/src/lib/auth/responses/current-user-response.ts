@@ -6,6 +6,4 @@ export interface CurrentUserResponse {
   fullName: string;
   roles: string[];
   permissions: string[];
-  universityId: number | null;
-  facultyId: number | null;
 }

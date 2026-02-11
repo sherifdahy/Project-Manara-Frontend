@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FacultyRequest } from '@project-manara-frontend/models';
-import { AccountService, FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
+import { UserService, FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
 @Component({
   selector: 'app-faculty-form-dialog',
   templateUrl: './faculty-form-dialog.component.html',
@@ -14,7 +14,7 @@ export class FacultyFormDialogComponent implements OnInit {
   facultyForm!: FormGroup;
 
   constructor(
-    private accountService : AccountService,
+    private userService : UserService,
     private fb: FormBuilder,
     private toastService: ToastService,
     private httpErrorService: HttpErrorService,
@@ -40,7 +40,7 @@ export class FacultyFormDialogComponent implements OnInit {
     if (this.facultyForm.valid) {
       let payload = this.facultyForm.value as FacultyRequest;
 
-      payload.universityId = this.accountService.currentUser?.universityId ?? 0;
+      // payload.universityId = this.userService.currentUser?.universityId ?? 0;
 
       this.facultyService.create(this.facultyForm.value).subscribe({
         next: (response) => {

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
-import { AccountService, FacultyService, HttpErrorService } from '@project-manara-frontend/services';
+import { FacultyService, HttpErrorService } from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-faculty-settings',
@@ -16,7 +16,6 @@ export class FacultySettingsPageComponent implements OnInit {
   facultyId!: number;
 
   constructor(
-    private accountService : AccountService,
     private fb: FormBuilder,
     private facultyService: FacultyService,
     private route: ActivatedRoute,

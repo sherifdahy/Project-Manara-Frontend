@@ -6,7 +6,8 @@ import { AuthTokenService } from './auth-token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+
+export class UserService {
 
   private currentUserSubject!: BehaviorSubject<CurrentUserResponse | null>;
 

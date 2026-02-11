@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FacultyResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
-import { AccountService, FacultyService, HttpErrorService, UniversityService } from '@project-manara-frontend/services'
+import { UserService, FacultyService, HttpErrorService, UniversityService } from '@project-manara-frontend/services'
 import { Observable } from 'rxjs';
 import { PermissionConsts } from '@project-manara-frontend/consts'
 import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog/faculty-form-dialog.component';
@@ -18,7 +18,7 @@ export class FacultiesPageComponent implements OnInit {
   permissions = PermissionConsts;
   faculties$!: Observable<FacultyResponse[]>;
   constructor(
-    private accountService: AccountService,
+    private userService: UserService,
     private matDialog: MatDialog,
     private route: ActivatedRoute,
     private httpErrorService: HttpErrorService,
@@ -33,7 +33,7 @@ export class FacultiesPageComponent implements OnInit {
   }
 
   loadFaculties() {
-    this.faculties$ = this.facultyService.getAll(this.accountService.currentUser?.universityId ?? 0, this.includeDisabled);
+    // this.faculties$ = this.facultyService.getAll(this.userService.currentUser?.universityId ?? 0, this.includeDisabled);
   }
 
   openFacultyFormDialog() {
