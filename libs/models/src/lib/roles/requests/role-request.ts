@@ -1,4 +1,6 @@
 export interface RoleRequest {
-  name: string
-  permissions: string[]
+  name: string;
+  description: string;
+  permissions: string[];
+  isDeleted?: boolean;
 }

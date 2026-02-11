@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RoleService } from 'libs/services/src/lib/roles/role.service';
 import { RoleResponse } from '@project-manara-frontend/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-roles-grid',
@@ -14,6 +15,7 @@ export class RolesGrid implements OnInit {
   constructor(
     private roleService: RoleService,
     private cdr: ChangeDetectorRef,
+    private router: Router,
   ) {
     this.systemRoles = [];
   }
@@ -23,7 +25,7 @@ export class RolesGrid implements OnInit {
   }
 
   getRoles(): void {
-    this.roleService.getAll(true).subscribe({
+    this.roleService.getAll(false).subscribe({
       next: (res) => {
         this.systemRoles = res;
         this.cdr.detectChanges();
@@ -42,5 +44,21 @@ export class RolesGrid implements OnInit {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join('')
     );
+  }
+
+  deleteRole(id: number) {
+    this.roleService.toggleStatus(id).subscribe({
+      next: (res) => {
+        console.log('role is deleted');
+        this.getRoles();
+      },
+      error: (err) => {
+        console.log('error when deleting new role');
+      },
+    });
+  }
+
+  updateRole(id: number) {
+    this.router.navigate([`/system-administration/roles/edit-role/${id}`]);
   }
 }
