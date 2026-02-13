@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleResponse } from '@project-manara-frontend/models';
-import { RoleService } from '@project-manara-frontend/services';
+import { RoleResponse, ScopeDetailResponse } from '@project-manara-frontend/models';
+import { RoleService, ScopeService } from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
 
 @Component({

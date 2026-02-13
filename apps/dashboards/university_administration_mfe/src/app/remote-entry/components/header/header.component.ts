@@ -15,7 +15,6 @@ import { CurrentUserResponse, UniversityDetailResponse } from '@project-manara-f
 export class HeaderComponent implements OnInit {
   currentLang: string = 'en';
   acceptedLanguageConsts = AcceptedLanguageConsts;
-  universityId!: number;
   university$!: Observable<UniversityDetailResponse>;
   currentUser!: CurrentUserResponse | null;
 
@@ -29,8 +28,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.userService.currentUser;
-    // this.universityId = this.userService.currentUser?.universityId ?? 0;
-    this.university$ = this.universityService.get(this.universityId);
+    this.university$ = this.universityService.my();
 
     this.appTranslateService.language$.subscribe((result) => {
       this.currentLang = result;

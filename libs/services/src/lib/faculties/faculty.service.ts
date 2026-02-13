@@ -21,6 +21,10 @@ export class FacultyService {
     return this.apiClient.get(`${environment.apiUrl}/api/faculities/${id}`);
   }
 
+  my(): Observable<FacultyDetailResponse> {
+    return this.apiClient.get(`${environment.apiUrl}/api/faculities/my`);
+  }
+
   create(request: FacultyRequest) {
     return this.apiClient.post(`${environment.apiUrl}/api/faculities`, request);
   }

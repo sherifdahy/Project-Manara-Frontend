@@ -8,4 +8,5 @@
 @import '../src/styles/_typography.css';
 @import '../src/styles/_utilities.css';
 @import '../src/styles/_responsive.css';
-@import '../src/styles/_table.css'
+@import '../src/styles/_table.css';
+@import '../src/styles/_matDialog.css'

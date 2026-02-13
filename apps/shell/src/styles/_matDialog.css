@@ -1,0 +1,67 @@
+/* =====================
+   Staff Form Dialog - FULL HEIGHT FIX
+   ===================== */
+
+/* Layer 1: The overlay pane itself */
+.staff-form-dialog-panel {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Layer 2: mat-dialog-container */
+.staff-form-dialog-panel .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  max-height: 90vh !important;
+}
+
+/* Layer 3: mdc-dialog__container ← ★ ده كان المشكلة */
+.staff-form-dialog-panel .mdc-dialog__container {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Layer 4: mdc-dialog__surface */
+.staff-form-dialog-panel .mat-mdc-dialog-surface,
+.staff-form-dialog-panel .mdc-dialog__surface {
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  max-height: 90vh !important;
+}
+
+/* Content wrapper (if exists) */
+.staff-form-dialog-panel .mdc-dialog__content {
+  padding: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Title overrides */
+.staff-form-dialog-panel .mdc-dialog__title {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.staff-form-dialog-panel .mdc-dialog__title::before {
+  display: none !important;
+  height: 0 !important;
+}
+
+/* Actions overrides */
+.staff-form-dialog-panel .mdc-dialog__actions {
+  padding: 0 !important;
+  min-height: auto !important;
+}

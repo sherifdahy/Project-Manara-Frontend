@@ -20,34 +20,18 @@ export class AuthNavigationService {
 
     const roles = this.userService.currentUser?.roles;
 
-    if (roles?.length == 1) {
-      switch (roles[0]) {
-        case (RoleConsts.systemAdmin.name):
-          this.router.navigateByUrl('/system-administration');
-          break;
-        case (RoleConsts.universityAdmin.name):
-          this.router.navigateByUrl('/university-administration');
-          break;
-        case (RoleConsts.facultyAdmin.name):
-        case (RoleConsts.academicAdvisor.name):
-        case (RoleConsts.examinationOfficer.name):
-        case (RoleConsts.programCoordinator.name):
-          this.router.navigateByUrl('/faculty-administration');
-          break;
-        case (RoleConsts.doctor.name):
-        case (RoleConsts.instructor.name):
-          this.router.navigateByUrl('/staff');
-          break;
-        case (RoleConsts.student.name):
-          this.router.navigateByUrl('/student');
-          break;
-
-      }
+    if (roles?.includes(RoleConsts.systemAdmin)) {
+      this.router.navigateByUrl('/system-administration');
+    }
+    else if (roles?.includes(RoleConsts.universityAdmin)) {
+      this.router.navigateByUrl('/university-administration');
+    }
+    else if (roles?.includes(RoleConsts.facultyAdmin)) {
+      this.router.navigateByUrl('/faculty-administration');
     }
     else {
-      // select one of dashboards
+      this.router.navigateByUrl('/');
     }
   }
-
 }
 

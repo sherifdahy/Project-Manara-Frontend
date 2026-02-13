@@ -86,18 +86,6 @@
             <h4 class="section-title">All Roles</h4>
             <p class="section-subtitle">Manage and configure system roles</p>
           </div>
-        </div>
-
-        <!-- Search and Filter Bar -->
-        <div class="filters-wrapper mb-3">
-          <!-- Search Bar -->
-          <div class="search-bar-container">
-            <div class="search-bar">
-              <i class="fa-solid fa-search search-icon"></i>
-              <input type="text" class="search-input" placeholder="Search roles by name or description...">
-            </div>
-          </div>
-
 
         </div>
 
@@ -116,13 +104,9 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Role 1: Super Administrator -->
               <tr *ngFor="let role of roles">
                 <td>
                   <div class="table-cell-with-icon">
-                    <div class="table-cell-icon">
-                      <i class="fa-solid fa-shield-halved"></i>
-                    </div>
                     <a [routerLink]="[role.id]" class="table-cell-content">
                       <span class="table-cell-title">{{role.name}}</span>
                     </a>

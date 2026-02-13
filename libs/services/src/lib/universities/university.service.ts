@@ -19,6 +19,10 @@ export class UniversityService {
     return this.apiClient.get(`${environment.apiUrl}/api/universities/${id}`);
   }
 
+  my(): Observable<UniversityDetailResponse> {
+    return this.apiClient.get(`${environment.apiUrl}/api/universities/my`)
+  }
+
   create(request: UniversityRequest) {
     return this.apiClient.post(`${environment.apiUrl}/api/universities`, request);
   }

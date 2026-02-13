@@ -1,0 +1,294 @@
+<ng-container *ngIf="(staffs$ | async) as staffs">
+
+  <div class="container-fluid px-0">
+
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+      <div class="page-header-content">
+        <div>
+          <h1 class="page-title mb-1">Staff Management</h1>
+          <p class="page-description mb-0">Manage staff members, assignments, and account details</p>
+        </div>
+        <!-- Add Staff Button -->
+        <button class="btn-add-staff" (click)="onAddStaff()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Staff</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Cards Row -->
+    <div class="row g-3 mb-4">
+      <!-- Total Staff -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Total Staff</span>
+              <h3 class="stats-number">{{ staffs.length }}</h3>
+              <span class="stats-meta">Registered members</span>
+            </div>
+            <div class="stats-icon-wrapper bg-primary-soft">
+              <i class="fa-solid fa-user-tie text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Staff -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Active Staff</span>
+              <h3 class="stats-number">{{ activeCount }}</h3>
+              <span class="stats-meta text-success">Currently active</span>
+            </div>
+            <div class="stats-icon-wrapper bg-success-soft">
+              <i class="fa-solid fa-user-check text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inactive Staff -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Inactive Staff</span>
+              <h3 class="stats-number">{{ inactiveCount }}</h3>
+              <span class="stats-meta text-danger">Disabled / Deleted</span>
+            </div>
+            <div class="stats-icon-wrapper bg-warning-soft">
+              <i class="fa-solid fa-user-xmark text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roles -->
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Roles In Use</span>
+              <h3 class="stats-number">{{ rolesCount }}</h3>
+              <span class="stats-meta">Unique roles assigned</span>
+            </div>
+            <div class="stats-icon-wrapper bg-info-soft">
+              <i class="fa-solid fa-shield-alt text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Staff Section -->
+    <div class="staffs-section">
+      <div class="section-card">
+
+        <!-- Section Header -->
+        <div class="section-header">
+          <div>
+            <h4 class="section-title">All Staff Members</h4>
+            <p class="section-subtitle">Manage and view all staff accounts</p>
+          </div>
+
+          <!-- Search & Filters -->
+          <div class="header-actions">
+            <!-- Search -->
+            <div class="search-bar-wrapper">
+              <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search by name, email, phone, SSN..."
+                  [(ngModel)]="searchTerm"
+                  (ngModelChange)="onSearch($event)"
+                />
+              </div>
+            </div>
+
+            <!-- Filter by Status -->
+            <div class="filter-dropdown-container">
+              <div class="custom-select-wrapper">
+                <select
+                  class="custom-select"
+                  [(ngModel)]="selectedStatus"
+                  (ngModelChange)="onStatusFilter($event)"
+                >
+                  <option value="">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="disabled">Disabled</option>
+                  <option value="deleted">Deleted</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Staff Table -->
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Staff Member</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>SSN</th>
+                <th>Roles</th>
+                <th>Status</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let staff of filteredStaffs">
+
+                <!-- Staff Member -->
+                <td>
+                  <div class="table-cell-with-icon">
+                    <div
+                      class="staff-avatar"
+                      [ngClass]="'avatar-' + getAvatarColor(staff.name)"
+                    >
+                      {{ getInitials(staff.name) }}
+                    </div>
+                    <a [routerLink]="[staff.id]" class="table-cell-content">
+                      <span class="table-cell-title">{{ staff.name }}</span>
+                    </a>
+                  </div>
+                </td>
+
+                <!-- Email -->
+                <td>
+                  <span class="staff-email">{{ staff.email || '—' }}</span>
+                </td>
+
+                <!-- Phone -->
+                <td>
+                  <span class="staff-phone">{{ staff.phone || '—' }}</span>
+                </td>
+
+                <!-- SSN -->
+                <td>
+                  <span class="staff-ssn">{{ staff.ssn || '—' }}</span>
+                </td>
+
+                <!-- Roles -->
+                <td>
+                  <div class="roles-list">
+                    <span
+                      class="table-value-badge"
+                      *ngFor="let role of staff.roles"
+                    >
+                      {{ role }}
+                    </span>
+                    <span *ngIf="!staff.roles || staff.roles.length === 0">—</span>
+                  </div>
+                </td>
+
+                <!-- Status -->
+                <td>
+                  <span
+                    class="table-status-badge"
+                    [ngClass]="getStaffStatus(staff).class"
+                  >
+                    {{ getStaffStatus(staff).label }}
+                  </span>
+                </td>
+
+                <!-- Actions -->
+                <td>
+                  <div class="table-actions">
+                    <!-- Edit -->
+                    <a
+                      [routerLink]="[staff.id, 'edit']"
+                      class="table-action-btn btn-primary"
+                      title="Edit Staff"
+                    >
+                      <i class="fa-solid fa-pen"></i>
+                    </a>
+
+                    <!-- Disable / Enable -->
+                    <button
+                      class="table-action-btn"
+                      [ngClass]="staff.isDisabled ? 'btn-success' : 'btn-warning'"
+                      [title]="staff.isDisabled ? 'Enable Staff' : 'Disable Staff'"
+                      (click)="onToggleDisable(staff)"
+                    >
+                      <i
+                        class="fa-solid"
+                        [ngClass]="staff.isDisabled ? 'fa-user-check' : 'fa-user-slash'"
+                      ></i>
+                    </button>
+
+                    <!-- Delete -->
+                    <button
+                      class="table-action-btn btn-danger"
+                      title="Delete Staff"
+                      (click)="onDelete(staff)"
+                      [disabled]="staff.isDeleted"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Empty State -->
+              <tr *ngIf="filteredStaffs.length === 0">
+                <td colspan="7">
+                  <div class="table-empty-state">
+                    <div class="table-empty-icon">
+                      <i class="fa-solid fa-user-slash"></i>
+                    </div>
+                    <h3 class="table-empty-title">No Staff Found</h3>
+                    <p class="table-empty-text">
+                      There are no staff members matching your criteria.
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination (شكل بس) -->
+        <div class="table-pagination" *ngIf="filteredStaffs.length > 0">
+          <div class="table-pagination-info">
+            Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ totalStaffs }} staff members
+          </div>
+          <div class="table-pagination-controls">
+            <button
+              class="table-pagination-btn"
+              [disabled]="currentPage === 1"
+              (click)="goToPage(currentPage - 1)"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button
+              *ngFor="let page of pages"
+              class="table-pagination-btn"
+              [class.active]="page === currentPage"
+              (click)="goToPage(page)"
+            >
+              {{ page }}
+            </button>
+            <button
+              class="table-pagination-btn"
+              [disabled]="currentPage === totalPages"
+              (click)="goToPage(currentPage + 1)"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</ng-container>

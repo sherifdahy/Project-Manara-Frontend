@@ -170,7 +170,7 @@
               </td>
               <td>
                 <div class="table-actions">
-                  <button (click)="openUniversityForm(university.id)" class="table-action-btn btn-primary" title="Edit University">
+                  <button [routerLink]="[university.id]" class="table-action-btn btn-primary" title="Edit University">
                     <i class="fa-solid fa-pen"></i>
                   </button>
                   <button class="table-action-btn" [ngClass]="{

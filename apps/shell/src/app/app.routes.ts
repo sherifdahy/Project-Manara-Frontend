@@ -20,7 +20,7 @@ export const appRoutes: Route[] = [
   {
     path: 'system-administration',
     canMatch: [hasRoleGuard],
-    data: { 'required-roles': [RoleConsts.systemAdmin.name] },
+    data: { 'required-roles': [RoleConsts.systemAdmin] },
     loadChildren: () =>
       import('system_administration_mfe/Module').then(
         (m) => m!.RemoteEntryModule,
@@ -29,7 +29,7 @@ export const appRoutes: Route[] = [
   {
     path: 'university-administration',
     canMatch: [hasRoleGuard],
-    data: { 'required-roles': [RoleConsts.universityAdmin.name] },
+    data: { 'required-roles': [RoleConsts.universityAdmin] },
     loadChildren: () =>
       import('university_administration_mfe/Module').then(
         (m) => m!.RemoteEntryModule,
@@ -40,10 +40,7 @@ export const appRoutes: Route[] = [
     canMatch: [hasRoleGuard],
     data: {
       'required-roles': [
-        RoleConsts.facultyAdmin.name,
-        RoleConsts.examinationOfficer.name,
-        RoleConsts.programCoordinator.name,
-        RoleConsts.academicAdvisor.name,
+        RoleConsts.facultyAdmin,
       ],
     },
     loadChildren: () =>
@@ -56,7 +53,7 @@ export const appRoutes: Route[] = [
     canMatch: [hasRoleGuard],
     data: {
       'required-roles': [
-        RoleConsts.student.name
+        RoleConsts.student
       ]
     },
     loadChildren: () =>

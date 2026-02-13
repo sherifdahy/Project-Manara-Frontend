@@ -1,0 +1,66 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header d-flex align-items-center" [ngClass]="{
+      'justify-content-between': !isCollapsed,
+      'justify-content-center': isCollapsed
+    }">
+    <div class="start-section d-flex align-items-center">
+      <span>
+        <i class="fa-solid fa-shield"></i>
+      </span>
+      <p class="m-0">
+        {{ "sidebar.header.portalTitle" | translate }}
+      </p>
+    </div>
+
+    <button class="bg-transparent border-0" (click)="toggleSidebar()">
+      <i class="fa-solid fa-bars text-white"></i>
+    </button>
+  </div>
+  <hr class="m-0" />
+  <div class="sidebar-links">
+    <ul>
+      <li>
+        <a routerLink="/faculty-administration/overview" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-gauge-high fa-fw"></i>
+          <span>{{ "sidebar.links.overview" | translate }}</span>
+        </a>
+      </li>
+
+      <li hasPermission="facultyUsers:read">
+        <a [routerLink]="['/faculty-administration/staffs']" routerLinkActive="active">
+          <i class="fa-solid fa-building-columns"></i>
+          <span>{{ "sidebar.links.staffs" | translate }}</span>
+        </a>
+      </li>
+
+      <li hasPermission="departments:read">
+        <a [routerLink]="['/faculty-administration/departments']" routerLinkActive="active">
+          <i class="fa-solid fa-building-columns"></i>
+          <span>{{ "sidebar.links.departments" | translate }}</span>
+        </a>
+      </li>
+
+      <li hasPermission="roles:read">
+        <a [routerLink]="['/faculty-administration/roles']" routerLinkActive="active">
+          <i class="fa-solid fa-building-columns"></i>
+          <span>{{ "sidebar.links.roles" | translate }}</span>
+        </a>
+      </li>
+
+      <li hasPermission="reports:read">
+        <a [routerLink]="['/faculty-administration/reports']" routerLinkActive="active">
+          <i class="fa-solid fa-building-columns"></i>
+          <span>{{ "sidebar.links.reports" | translate }}</span>
+        </a>
+      </li>
+      <li hasPermission="faculties:read">
+        <a [routerLink]="['/faculty-administration/settings']" routerLinkActive="active">
+          <i class="fa-solid fa-building-columns"></i>
+          <span>{{ "sidebar.links.settings" | translate }}</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>

@@ -45,13 +45,10 @@ export class UniversitiesPageComponent implements OnInit {
     return new Date().getFullYear() - establishedYear;
   }
 
-  openUniversityForm(id?: number): void {
+  openUniversityForm(): void {
     this.matDialog.open(UniversityFormDialogComponent, {
       width: '600px',
       maxWidth: '90vw',
-      data: {
-        universityId: id
-      }
     }).afterClosed().subscribe((result) => {
       if (result)
         this.router.navigate([result.id], { relativeTo: this.route });
