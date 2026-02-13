@@ -1,7 +1,52 @@
+<section class="sec-3 mb-3">
+  <div class="container-fluid">
+    <div
+      class="sec-3-item d-flex justify-content-between align-items-center rounded-3 border border-1 p-3"
+    >
+      <div class="input-group me-2">
+        <span class="input-group-text">
+          <i class="fa-solid fa-search"></i>
+        </span>
+        <input
+          type="search"
+          class="form-control w-75"
+          placeholder="Search roles by name or description..."
+        />
+      </div>
+      <label for="role-status" class="me-2">Status: </label>
+      <select
+        (change)="filterRolesStatus()"
+        [(ngModel)]="rolesStatus"
+        class="form-select w-25 me-2"
+        aria-label="Default select example"
+        id="role-status"
+      >
+        <option value="active" selected>Active Only</option>
+        <option value="inActive">Include Disabled</option>
+      </select>
+      <label for="role-scope" class="me-2">Scope: </label>
+      <select
+        [(ngModel)]="rolesScope"
+        (change)="filterRolesScope()"
+        class="form-select w-25"
+        aria-label="Default select example"
+        id="role-scope"
+      >
+        <option value="All" selected>All</option>
+        <option value="System">System</option>
+        <option value="University">University</option>
+        <option value="Faculty">Faculty</option>
+        <option value="Department">Department</option>
+        <option value="Program">Program</option>
+      </select>
+    </div>
+  </div>
+</section>
+
 <section class="sec-4">
   <div class="container-fluid">
-    <div class="row g-3" *ngIf="systemRoles.length > 0">
-      <div class="col-md-6 col-lg-4" *ngFor="let role of systemRoles">
+    <div class="row g-3" *ngIf="filteredSystemRoles.length > 0">
+      <div class="col-md-6 col-lg-4" *ngFor="let role of filteredSystemRoles">
         <div class="sec-4-item bg-white border border-1 rounded-3 p-3">
           <div class="mb-3 d-flex justify-content-between align-items-center">
             <i class="fa-solid fa-user"></i>
@@ -38,6 +83,10 @@
               <span [class]="role.isDeleted ? 'Inactive' : 'Active'"
                 >{{ role.isDeleted ? 'Inactive' : 'Active' }}</span
               >
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span>Code:</span>
+              <span>{{ role.code }}</span>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
               <span>Users:</span>

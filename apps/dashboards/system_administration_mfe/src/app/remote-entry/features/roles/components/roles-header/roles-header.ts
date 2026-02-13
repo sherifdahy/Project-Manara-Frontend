@@ -9,8 +9,4 @@ import { Router } from '@angular/router';
 })
 export class RolesHeader {
   constructor(private router: Router) {}
-
-  goToCreateRole() {
-    this.router.navigate(['/system-administration/roles/create-role']);
-  }
 }
