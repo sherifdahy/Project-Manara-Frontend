@@ -3,6 +3,7 @@ export * from './lib/configuration/loader.service';
 export * from './lib/state-manegment/auth.service';
 export * from './lib/api/api-client.service';
 export * from './lib/state-manegment/auth-token.service';
+<<<<<<< HEAD
 export * from './lib/state-manegment/auth-navigation.service'
 export * from './lib/universities/university.service'
 export * from './lib/students/student.service'
@@ -14,3 +15,16 @@ export * from './lib/state-manegment/user.service'
 export * from './lib/roles/role.service'
 export * from './lib/scopes/scope.service'
 export * from './lib/faculty-users/faculty-user.service'
+=======
+export * from './lib/state-manegment/auth-navigation.service';
+export * from './lib/universities/university.service';
+export * from './lib/students/student.service';
+export * from './lib/faculties/faculty.service';
+export * from './lib/configuration/toast.service';
+export * from './lib/configuration/swal.service';
+export * from './lib/configuration/http-error.service';
+export * from './lib/state-manegment/user.service';
+export * from './lib/roles/role.service';
+export * from './lib/scopes/scopes.service';
+export * from './lib/permessions/permession.service';
+>>>>>>> 0b8df75 (updated)

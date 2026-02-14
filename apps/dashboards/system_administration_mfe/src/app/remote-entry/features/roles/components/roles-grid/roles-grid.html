@@ -45,7 +45,10 @@
 
 <section class="sec-4">
   <div class="container-fluid">
-    <div class="row g-3" *ngIf="filteredSystemRoles.length > 0">
+    <div
+      class="row g-3"
+      *ngIf="filteredSystemRoles.length > 0 ; else noContent"
+    >
       <div class="col-md-6 col-lg-4" *ngFor="let role of filteredSystemRoles">
         <div class="sec-4-item bg-white border border-1 rounded-3 p-3">
           <div class="mb-3 d-flex justify-content-between align-items-center">
@@ -58,16 +61,20 @@
                 <i class="fa-solid fa-edit text-secondary"></i>
               </button>
               <button
-                (click)="deleteRole(role.id)"
+                (click)="toggleRoleStatus(role.id)"
                 class="border-0 bg-transparent"
               >
-                <i class="fa-solid fa-trash text-danger"></i>
+                <i
+                  class="fa-solid"
+                  [class]="(role.isDeleted) ? 'fa-toggle-off text-danger' : 'fa-toggle-on text-success'"
+                ></i>
               </button>
             </div>
           </div>
 
           <h3 class="fw-normal mb-0">{{ role.name }}</h3>
           <p class="fw-normal">{{ role.description }}</p>
+          <p class="fw-normal">{{ role.id }}</p>
 
           <div class="d-flex flex-column mb-3">
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -104,5 +111,11 @@
         </div>
       </div>
     </div>
+
+    <ng-template #noContent>
+      <div class="text-center py-5">
+        <h4 class="text-muted">No Roles Available</h4>
+      </div>
+    </ng-template>
   </div>
 </section>
