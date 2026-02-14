@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FacultyResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
+import { FacultyResponse } from '@project-manara-frontend/models';
 import { UserService, FacultyService, HttpErrorService, UniversityService } from '@project-manara-frontend/services'
 import { Observable } from 'rxjs';
-import { PermissionConsts } from '@project-manara-frontend/consts'
 import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog/faculty-form-dialog.component';
 @Component({
   selector: 'app-faculties-page',
@@ -15,7 +14,6 @@ import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog
 export class FacultiesPageComponent implements OnInit {
   includeDisabled: boolean = false;
   searchTerm!: string;
-  permissions = PermissionConsts;
   faculties$!: Observable<FacultyResponse[]>;
   constructor(
     private userService: UserService,
