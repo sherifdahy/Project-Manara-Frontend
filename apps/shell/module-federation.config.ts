@@ -14,13 +14,13 @@ const config: ModuleFederationConfig = {
    * declare module 'my-external-remote';
    *
    */
-  remotes: [
-    'auth_mfe',
-    'system_administration_mfe',
-    'faculty_administration_mfe',
-    'university_administration_mfe',
-    'student_mfe',
-  ],
+  // remotes: [
+  //   'auth_mfe',
+  //   'system_administration_mfe',
+  //   'faculty_administration_mfe',
+  //   'university_administration_mfe',
+  //   'student_mfe',
+  // ],
 };
 
 /**
