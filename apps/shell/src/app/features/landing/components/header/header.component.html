@@ -1,56 +1,27 @@
-<!-- header Section -->
-<header id="header" class="header">
+<header class="header">
   <div class="container">
-    <div class="row py-5">
-      <div class="col-lg-6">
-        <div class="py-4">
-          <div class="header-p1 d-inline-block fw-normal rounded-pill p-2 mb-4">
-            <i class="fa-solid fa-circle me-2"></i>
-            National Education Platform
-          </div>
-          <h1 class="fw-bold text-white">The National Platform for Academic Excellence</h1>
-          <p class="fw-normal header-p mb-4">
-            Empowering Egypt's Universities with unified Student Information & Learning Management
-            Systems
-          </p>
-          <button type="button" class="btn btn-warning me-2 mb-3 mb-lg-0">
-            Get Started
-            <i class="fa-solid fa-arrow-right ms-2"></i>
-          </button>
-          <button type="button" class="btn btn-light mb-3 mb-lg-0">View Solutions</button>
-          <div
-            class="header-last pt-4 d-flex flex-sm-row flex-column row-gap-3 column-gap-5 justify-content-sm-between justify-content-lg-start mt-5 mb-5 mb-lg-0"
-          >
-            <div class="d-flex flex-column text-start me-lg-5 me-0">
-              <span class="d-inline-block header-last-n fw-normal"> 20+ </span>
-              <span class="d-inline-block header-last-p fw-normal"> Universities </span>
-            </div>
-            <div class="d-flex flex-column text-start me-lg-5 me-0">
-              <span class="d-inline-block header-last-n fw-normal"> 500K+ </span>
-              <span class="d-inline-block header-last-p fw-normal"> Students </span>
-            </div>
-            <div class="d-flex flex-column text-start me-lg-5 me-0">
-              <span class="d-inline-block header-last-n fw-normal"> 99.9% </span>
-
-              <span class="d-inline-block header-last-p fw-normal"> Uptime </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="position-relative">
-          <img src="Hero_Photo.jpg" class="img-fluid rounded-4 photo" />
-          <div class="Certified position-absolute rounded-3 p-3 d-flex justify-content-between">
-            <i
-              class="fa-regular fa-circle-check text-white d-flex justify-content-center align-items-center rounded-3 p-3"
-            ></i>
-            <div class="ms-3">
-              <span class="fw-normal Ministry d-block"> Ministry Certified </span>
-              <span class="fw-normal ISO"> ISO 27001 Compliant </span>
-            </div>
-          </div>
-        </div>
+    <div class="header-content text-center">
+      <h1 class="header-title">The National Platform for<br>Academic Excellence</h1>
+      <p class="header-desc">
+        Empowering Egypt's Universities with unified Student Information
+        & Learning Management Systems
+      </p>
+      <div class="header-actions">
+        <a routerLink="/auth/login" class="btn-primary-cta">
+          Get Started
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a fragment="features" [routerLink]="['/']" class="btn-secondary-cta">
+          View Solutions
+        </a>
       </div>
     </div>
+  </div>
+
+  <!-- Wave Bottom -->
+  <div class="header-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="#ffffff"/>
+    </svg>
   </div>
 </header>

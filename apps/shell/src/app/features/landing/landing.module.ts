@@ -5,8 +5,6 @@ import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { TechPartnersComponent } from './components/tech-partners/tech-partners.component';
-import { TrustedPartnersComponent } from './components/trusted-partners/trusted-partners.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
@@ -51,8 +49,6 @@ const routes: Routes = [
     // components
     HeaderComponent,
     NavbarComponent,
-    TechPartnersComponent,
-    TrustedPartnersComponent,
     PricingComponent,
     FooterComponent,
   ]

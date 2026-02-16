@@ -1,134 +1,136 @@
-/* =====================
-   Pricing - Compact
-===================== */
-.pricing {
-  padding: var(--space-xl) 0;
+.pricing-section {
+  padding: var(--space-2xl) 0;
+  background: var(--card-bg);
 }
 
-.pricing-h {
+.pricing-title {
   font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
   color: var(--main-color);
-  font-weight: var(--fw-semibold);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
 }
 
-.pricing-p {
-  font-size: var(--fs-xs);
-  color: var(--text-secondary);
+.pricing-desc {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
   margin-bottom: var(--space-lg);
 }
 
-/* Pricing Card */
-.pricing-one-card {
+/* Card */
+.price-card {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  padding: 0.85rem;
-  background: var(--card-bg);
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  height: 100%;
   transition: all 0.25s ease;
-  cursor: pointer;
+  position: relative;
 }
 
-.pricing-one-card:hover {
+.price-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
-  border-color: var(--success);
 }
 
-.pricing-one-card-h {
-  font-size: var(--fs-sm);
+/* Featured */
+.price-card-featured {
+  border-color: var(--orange-color);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+}
+
+.price-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange-color);
   color: var(--main-color);
-  font-weight: var(--fw-semibold);
-  margin-bottom: 0.3rem;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  padding: 2px var(--space-md);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
 }
 
-.pricing-one-card-p {
-  color: var(--text-secondary);
+.price-name {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  color: var(--main-color);
+  margin-bottom: var(--space-xs);
+}
+
+.price-sub {
   font-size: var(--fs-2xs);
+  color: var(--text-muted);
   margin-bottom: var(--space-md);
 }
 
-/* Features List */
-.pricing-one-card ul {
-  padding-left: 0;
+.price-card ul {
+  list-style: none;
+  padding: 0;
   margin-bottom: var(--space-md);
   flex-grow: 1;
 }
 
-.pricing-one-card ul li {
-  color: var(--text-secondary);
+.price-card ul li {
   font-size: var(--fs-xs);
-  padding: 0.2rem 0;
+  color: var(--text-secondary);
+  padding: var(--space-xs) 0;
   display: flex;
   align-items: flex-start;
-  gap: 0.4rem;
+  gap: var(--space-sm);
 }
 
-.pricing-one-card ul li .fa-check {
+.price-card ul li i {
   color: var(--orange-color);
   font-size: var(--fs-2xs);
   margin-top: 2px;
 }
 
-/* Pricing Button */
-.pricing-one-card .btn-warning {
-  width: 100%;
-  padding: 0.4rem 0.85rem;
-  font-size: var(--fs-sm);
+.btn-price {
   background: var(--main-color);
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
-  margin-top: auto;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
   transition: all 0.25s ease;
 }
 
-.pricing-one-card .btn-warning:hover {
+.btn-price:hover {
+  background: var(--main-light);
+  color: #ffffff;
+}
+
+.btn-price-featured {
   background: var(--orange-color);
+  color: var(--main-color);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  transition: all 0.25s ease;
+}
+
+.btn-price-featured:hover {
+  background: var(--orange-alt-color);
   color: var(--main-color);
 }
 
-/* Responsive */
 @media (min-width: 576px) {
-  .pricing-h {
+  .pricing-title {
     font-size: var(--fs-xl);
-  }
-
-  .pricing-p {
-    font-size: var(--fs-md);
-  }
-
-  .pricing-one-card-h {
-    font-size: var(--fs-md);
-  }
-
-  .pricing-one-card-p {
-    font-size: var(--fs-xs);
   }
 }
 
 @media (min-width: 768px) {
-  .pricing-h {
+  .pricing-title {
     font-size: var(--fs-2xl);
   }
 
-  .pricing-one-card-p {
+  .price-card ul li {
     font-size: var(--fs-sm);
-  }
-
-  .pricing-one-card ul li {
-    font-size: var(--fs-sm);
-  }
-}
-
-@media (min-width: 992px) {
-  .pricing-one-card-p {
-    font-size: var(--fs-md);
-  }
-
-  .pricing-one-card ul li {
-    font-size: var(--fs-md);
   }
 }

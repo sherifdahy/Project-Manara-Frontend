@@ -1,18 +1,18 @@
+import { PermissionRes } from './../../../../../../../../../../libs/models/src/lib/permissions/permission-res';
 import {
   ChangeDetectorRef,
   Component,
   ElementRef,
   OnInit,
   QueryList,
-  viewChild,
   ViewChildren,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RoleRequest } from '@project-manara-frontend/models';
 import {
-  RoleDetailResponse,
-  RoleRequest,
-} from '@project-manara-frontend/models';
-import { RoleService } from '@project-manara-frontend/services';
+  PermissionService,
+  RoleService,
+} from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-role-form-page',
@@ -22,44 +22,67 @@ import { RoleService } from '@project-manara-frontend/services';
 })
 export class RoleFormPageComponent implements OnInit {
   permissions: string[];
+  permissions2: string[];
+  permissions3: PermissionRes;
   roleName: string;
+  roleCode: string;
   roleDescription: string;
-  isDeleted: boolean;
   roleReq: RoleRequest;
   isEditMode: boolean;
   editedRoleId: number;
   @ViewChildren('check') checkButtons!: QueryList<ElementRef>;
   constructor(
     private roleService: RoleService,
+    private permeisionService: PermissionService,
     private router: Router,
     private route: ActivatedRoute,
     private cd: ChangeDetectorRef,
   ) {
     this.isEditMode = false;
     this.permissions = [''];
+    this.permissions2 = [];
+    this.permissions3 = {
+      roles: [],
+      universities: [],
+      permissions: [],
+      faculties: [],
+      departments: [],
+      programs: [],
+      facultyusers: [],
+      universityusers: [],
+      scopes: [],
+    };
     this.roleName = '';
+    this.roleCode = '';
     this.roleDescription = '';
-    this.isDeleted = false;
     this.roleReq = {
       name: this.roleName,
+      code: this.roleCode,
       permissions: this.permissions,
       description: this.roleDescription,
-      isDeleted: this.isDeleted,
     };
     this.editedRoleId = 0;
   }
 
   ngOnInit() {
+    this.permeisionService.getAll().subscribe({
+      next: (res: string[]) => {
+        this.permissions2 = res;
+        this.permissions3 = this.arrayToObj(this.permissions2);
+      },
+      error: (err) => {
+        console.log('error when get permessions');
+      },
+    });
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
         this.editedRoleId = +id;
-        this.isEditMode = true;
-        this.loadRoleData(+id);
+        this.loadRoleData(this.editedRoleId);
       }
-      console.log(this.isEditMode);
     });
   }
+
   selectAll(card: HTMLElement) {
     const checkboxes = card.querySelectorAll(
       'input[type="checkbox"]',
@@ -102,53 +125,29 @@ export class RoleFormPageComponent implements OnInit {
   }
 
   submit() {
-    if (this.isEditMode) {
-      // edit
-      this.roleReq = {
-        name: this.roleName,
-        description: this.roleDescription,
-        permissions: this.permissions.filter((p) => p),
-      };
-      console.log(this.roleReq);
-      this.roleService.update(this.editedRoleId, this.roleReq).subscribe({
-        next: (res) => {
-          console.log('done');
-          this.clearForm();
-          this.goToRolesPage();
-        },
-        error: (err) => {
-          console.log('error when updating role, ');
-        },
-      });
-    } else {
-      // create
-      this.roleReq = {
-        name: this.roleName,
-        description: this.roleDescription,
-        isDeleted: this.isDeleted,
-        permissions: this.permissions.filter((p) => p),
-      };
-      console.log(this.roleReq);
-      this.roleService.create(this.roleReq).subscribe({
-        next: (res) => {
-          console.log('done');
-          this.clearForm();
-          this.goToRolesPage();
-        },
-        error: (err) => {
-          console.log(
-            'error when creating new role, ',
-            err.error.errors.DuplicateRoleName[0],
-          );
-        },
-      });
-    }
+    this.roleReq = {
+      name: this.roleName,
+      code: this.roleCode,
+      description: this.roleDescription,
+      permissions: this.permissions.filter((p) => p),
+    };
+    this.roleReq;
+    this.roleService.update(this.editedRoleId, this.roleReq).subscribe({
+      next: (res) => {
+        console.log('done');
+        this.clearForm();
+        this.goToRolesPage();
+      },
+      error: (err) => {
+        console.log('error when updating role, ');
+      },
+    });
   }
 
   clearForm() {
     this.roleName = '';
+    this.roleCode = '';
     this.roleDescription = '';
-    this.isDeleted = true;
     this.permissions = [];
 
     const allCheckboxes = document.querySelectorAll(
@@ -164,20 +163,35 @@ export class RoleFormPageComponent implements OnInit {
   loadRoleData(id: number) {
     this.roleService.get(id).subscribe({
       next: (res) => {
-        console.log('done');
         this.roleName = res.name;
+        this.roleCode = res.code;
         this.permissions = res.permissions;
         this.checkButtons.forEach((button) => {
           const el = button.nativeElement as HTMLInputElement;
           el.checked = this.permissions.includes(el.value);
         });
+
         this.roleDescription = res.description;
-        this.isDeleted = res.isDeleted;
         this.cd.detectChanges();
       },
       error: (err) => {
         console.log('error when retrieving role details, ');
       },
     });
+  }
+
+  arrayToObj(arr: string[]): any {
+    const obj: Record<string, string[]> = {};
+
+    arr.forEach((item) => {
+      const [key, value] = item.split(':');
+      const keyLower = key.toLowerCase();
+      if (!obj[keyLower]) {
+        obj[keyLower] = [];
+      }
+      obj[keyLower].push(value);
+    });
+
+    return obj;
   }
 }

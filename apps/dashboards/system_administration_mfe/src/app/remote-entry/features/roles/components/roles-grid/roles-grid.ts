@@ -54,7 +54,9 @@ export class RolesGrid implements OnInit {
     );
   }
 
-  deleteRole(id: number) {
+  toggleRoleStatus(id: number) {
+    this.rolesStatus = 'inActive';
+    this.rolesScope = 'All';
     this.roleService.toggleStatus(id).subscribe({
       next: (res) => {
         console.log('role is deleted');
@@ -72,7 +74,6 @@ export class RolesGrid implements OnInit {
 
   filterRolesStatus() {
     if (this.rolesStatus === 'active') {
-      console.log(this.rolesStatus);
       this.filteredSystemRoles = this.systemRoles.filter(
         (role) => role.isDeleted === false,
       );
