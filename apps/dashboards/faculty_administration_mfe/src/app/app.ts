@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   standalone: false,
   template: '<router-outlet></router-outlet>',
 })
-export class App {}
+export class App { }

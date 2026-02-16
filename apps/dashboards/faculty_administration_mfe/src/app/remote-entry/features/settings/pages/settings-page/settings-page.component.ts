@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
-import { FacultyService, HttpErrorService } from '@project-manara-frontend/services';
+import { FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
+import { getFacultyAction } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/actions/get-faculty.actions';
+import { selectFacultyId } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selector';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-settings-page',
@@ -14,19 +18,18 @@ import { FacultyService, HttpErrorService } from '@project-manara-frontend/servi
 export class SettingsPageComponent implements OnInit {
 
   facultyForm!: FormGroup;
-  facultyId!: number;
+  facultyId$ = this.store.select(selectFacultyId);
 
   constructor(
+    private store: Store,
     private fb: FormBuilder,
     private facultyService: FacultyService,
-    private route: ActivatedRoute,
-    private router: Router,
+    private toastrService: ToastService,
     private httpErrorService: HttpErrorService,
   ) { }
 
   ngOnInit(): void {
     this.initForm();
-    this.facultyId = 1;
     this.loadFacultyData();
   }
 
@@ -41,14 +44,20 @@ export class SettingsPageComponent implements OnInit {
   }
 
   loadFacultyData(): void {
-    this.facultyService.get(this.facultyId).subscribe({
-      next: (faculty) => {
-        this.facultyForm.patchValue(faculty);
-      },
-      error: (error) => {
-        this.httpErrorService.handle(error);
-      }
-    });
+    this.facultyId$.pipe(
+      filter((id) => !!id),
+      take(1)
+    ).subscribe(
+      (id) =>
+        this.facultyService.get(id!).subscribe({
+          next: (faculty) => {
+            this.facultyForm.patchValue(faculty)
+          },
+          error: (error) => {
+            this.httpErrorService.handle(error);
+          }
+        })
+    )
   }
 
   onSave(): void {
@@ -56,14 +65,23 @@ export class SettingsPageComponent implements OnInit {
 
       var request = this.facultyForm.value as FacultyRequest;
 
-      this.facultyService.update(this.facultyId, this.facultyForm.value).subscribe({
-        next: () => {
-          this.router.navigate(['..'], { relativeTo: this.route });
-        },
-        error: (error) => {
-          this.httpErrorService.handle(error);
-        }
-      });
+
+      this.facultyId$.pipe(
+        filter((id) => !!id),
+        take(1)
+      ).subscribe((id) => {
+        this.facultyService.update(id!, request).subscribe({
+          next: () => {
+            this.store.dispatch(getFacultyAction());
+            this.toastrService.success('done');
+          },
+          error: (error) => {
+            this.httpErrorService.handle(error);
+          }
+        });
+      })
+
+
     }
 
     this.facultyForm.markAllAsTouched();

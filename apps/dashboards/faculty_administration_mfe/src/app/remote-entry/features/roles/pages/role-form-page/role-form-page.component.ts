@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { FacultyRoleResponse, PermissionsRequest } from '@project-manara-frontend/models';
 import { PermissionService, RoleService } from '@project-manara-frontend/services';
+import { selectFaculty } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selector';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 interface Permission {
   key: string;
@@ -32,11 +34,14 @@ export class RoleFormPageComponent implements OnInit {
   selectedPermissions: string[] = [];
   originalPermissions: string[] = [];
 
+  faculty$ = this.store.select(selectFaculty);
+
   searchQuery = '';
   allPermissions: Permission[] = [];
   categories: Category[] = [];
 
   constructor(
+    private store: Store,
     private route: ActivatedRoute,
     private roleService: RoleService,
     private permissionService: PermissionService
@@ -52,21 +57,23 @@ export class RoleFormPageComponent implements OnInit {
   // Load Data
   // =====================
   private loadData(): void {
-    this.data$ = this.roleService.getFacultyRole(1, this.roleId).pipe(
+    this.data$ = this.faculty$.pipe(
+      filter(faculty => !!faculty), // عشان اتاكد انها اتحملت
+      switchMap((faculty) => {
+        return this.roleService.getFacultyRole(faculty!.id, this.roleId)
+      }
+      ),
       tap((data: FacultyRoleResponse) => {
         const defaults = data.defaultPermissions || [];
         const overrides = data.overridePermissions || [];
 
-        // Store defaults for later
         this.defaultPermissionKeys = [...defaults];
 
-        // Active permissions = defaults MINUS overrides (removed ones)
         const activePermissions = defaults.filter(p => !overrides.includes(p));
 
         this.selectedPermissions = [...activePermissions];
         this.originalPermissions = [...activePermissions];
 
-        // Build categories from ALL default permissions
         this.buildCategories(defaults);
       })
     );

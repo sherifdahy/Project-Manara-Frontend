@@ -197,7 +197,6 @@ textarea.form-control-custom {
 ===================== */
 .sticky-card {
   position: sticky;
-  top: var(--space-xl);
 }
 
 .preview-section {

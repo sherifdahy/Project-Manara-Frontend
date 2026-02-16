@@ -11,6 +11,10 @@ import { AppTranslateService } from '@project-manara-frontend/services';
 import { AppTranslateModule } from '@project-manara-frontend/modules';
 import { DirectivesModule } from '@project-manara-frontend/directives'
 import { UniversityOverviewPageComponent } from './pages/university-overview-page/university-overview-page.component';
+import { StoreModule } from '@ngrx/store';
+import { universityReducer } from './store/university/reducers/university.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UniversityEffects } from './store/university/effects/university.effects';
 @NgModule({
   declarations: [
     MainLayoutComponent,
@@ -24,7 +28,9 @@ import { UniversityOverviewPageComponent } from './pages/university-overview-pag
     CommonModule,
     AppTranslateModule.forChild('/dashboards/university-administration/layout.json'),
     RouterModule.forChild(remoteRoutes),
-    DirectivesModule
+    DirectivesModule,
+    StoreModule.forFeature('university', universityReducer),
+    EffectsModule.forFeature([UniversityEffects]),
   ],
   providers: [],
 })

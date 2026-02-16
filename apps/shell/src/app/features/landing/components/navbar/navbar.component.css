@@ -91,7 +91,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 20px;
+  padding: 6px 20px;
   font-size: 13px;
   font-weight: var(--fw-semibold);
   color: var(--main-color);

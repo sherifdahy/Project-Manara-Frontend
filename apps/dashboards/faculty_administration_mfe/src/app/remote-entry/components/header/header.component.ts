@@ -5,6 +5,9 @@ import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
 import { CurrentUserResponse, FacultyDetailResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
+import { Store } from '@ngrx/store';
+import { selectFaculty } from '../../../store/faculty/selectors/faculty.selector';
+import { getFacultyAction } from '../../../store/faculty/actions/get-faculty.actions';
 
 @Component({
   selector: 'app-header',
@@ -15,20 +18,19 @@ import { CurrentUserResponse, FacultyDetailResponse, UniversityDetailResponse } 
 export class HeaderComponent implements OnInit {
   currentLang: string = 'en';
   acceptedLanguageConsts = AcceptedLanguageConsts;
-  faculty$!: Observable<FacultyDetailResponse>;
   currentUser!: CurrentUserResponse | null;
-
+  faculty$ = this.store.select(selectFaculty);
   constructor(
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
-    private facultyService: FacultyService,
-    private appTranslateService: AppTranslateService
+    private appTranslateService: AppTranslateService,
+    private store: Store
   ) { }
 
   ngOnInit() {
+    this.store.dispatch(getFacultyAction());
     this.currentUser = this.userService.currentUser;
-    this.faculty$ = this.facultyService.my();
 
     this.appTranslateService.language$.subscribe((result) => {
       this.currentLang = result;
@@ -51,6 +53,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe(() => { });
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/auth/login');
   }
 }

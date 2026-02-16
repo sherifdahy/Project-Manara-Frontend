@@ -8,6 +8,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiModule } from '@project-manara-frontend/ui'
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { FacultyEffect } from '../store/faculty/effects/faculties/faculty.effect';
+import { facultyReducer } from '../store/faculty/reducers/faculties/faculty-reducer';
 
 @NgModule({
   declarations: [
@@ -19,8 +23,11 @@ import { UiModule } from '@project-manara-frontend/ui'
     CommonModule,
     RouterModule.forChild(remoteRoutes),
     TranslateModule,
-    UiModule
+    UiModule,
+    EffectsModule.forFeature([FacultyEffect]),
+    StoreModule.forFeature('faculty', facultyReducer),
   ],
   providers: [],
 })
-export class RemoteEntryModule { }
+export class RemoteEntryModule {
+}
