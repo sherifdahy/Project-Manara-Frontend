@@ -3,6 +3,7 @@ import { FacultyDetailPageComponent } from "./pages/faculty-detail-page/faculty-
 import { FacultiesPageComponent } from "./pages/faculties-page/faculties-page.component";
 import { FacultyOverviewPageComponent } from "./pages/faculty-overview-page/faculty-overview-page.component";
 import { FacultySettingsPageComponent } from "./pages/faculty-settings-page/faculty-settings-page.component";
+import { StaffsPageComponent } from "../staffs/pages/staffs-page/staffs-page.component";
 
 export const routes: Routes = [
   {
@@ -15,16 +16,20 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo : 'overview',
-        pathMatch : 'full'
+        redirectTo: 'overview',
+        pathMatch: 'full'
       },
       {
-        path : 'overview',
-        component : FacultyOverviewPageComponent
+        path: 'overview',
+        component: FacultyOverviewPageComponent
       },
       {
-        path : 'settings',
-        component : FacultySettingsPageComponent
+        path: 'settings',
+        component: FacultySettingsPageComponent
+      },
+      {
+        path: 'staffs',
+        loadChildren :()=> import('../staffs/staffs.module').then(x=>x.StaffsModule)
       }
     ]
   }

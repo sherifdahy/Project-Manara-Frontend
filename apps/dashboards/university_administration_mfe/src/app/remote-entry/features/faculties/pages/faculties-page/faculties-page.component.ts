@@ -16,9 +16,7 @@ export class FacultiesPageComponent implements OnInit {
   searchTerm!: string;
   faculties$!: Observable<FacultyResponse[]>;
   constructor(
-    private userService: UserService,
     private matDialog: MatDialog,
-    private route: ActivatedRoute,
     private httpErrorService: HttpErrorService,
     private facultyService: FacultyService,
     private router: Router
@@ -31,7 +29,7 @@ export class FacultiesPageComponent implements OnInit {
   }
 
   loadFaculties() {
-    // this.faculties$ = this.facultyService.getAll(this.userService.currentUser?.universityId ?? 0, this.includeDisabled);
+    this.faculties$ = this.facultyService.getAll(1, this.includeDisabled);
   }
 
   openFacultyFormDialog() {

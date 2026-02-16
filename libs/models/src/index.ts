@@ -18,6 +18,7 @@ export * from './lib/faculties/responses/faculty-detail-response'
 export * from './lib/roles/requests/role-request'
 export * from './lib/roles/responses/role-response'
 export * from './lib/roles/responses/role-detail-response'
+export * from './lib/roles/responses/faculty-role-response'
 
 
 export * from './lib/scopes/responses/scope-response'
@@ -26,3 +27,9 @@ export * from './lib/scopes/responses/scope-detail-response'
 
 export * from './lib/faculty-users/requests/faculty-user-request'
 export * from './lib/faculty-users/responses/faculty-user-response'
+
+export * from './lib/common/paginated-list'
+export * from './lib/common/request-filters'
+
+export * from './lib/permissions/requests/permissions-request'
+

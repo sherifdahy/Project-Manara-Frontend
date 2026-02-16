@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
-import { RoleDetailResponse, RoleRequest, RoleResponse } from '@project-manara-frontend/models';
+import { FacultyRoleResponse, RoleDetailResponse, RoleRequest, RoleResponse } from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 
@@ -29,6 +29,12 @@ export class RoleService {
 
   toggleStatus(id: number) {
     return this.apiClient.delete(`${environment.apiUrl}/api/roles/${id}`);
+  }
+
+  getFacultyRole(facultyId: number, roleId: number): Observable<FacultyRoleResponse> {
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/faculties/${facultyId}/roles/${roleId}`
+    );
   }
 
 }

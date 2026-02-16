@@ -15,7 +15,7 @@ export const appRoutes: Route[] = [
     path: 'auth',
     canMatch: [guestGuard],
     loadChildren: () =>
-      import('auth_mfe/Module').then((m) => m!.RemoteEntryModule),
+      import('./features/auth/auth.module').then((m) => m!.AuthModule),
   },
   {
     path: 'system-administration',

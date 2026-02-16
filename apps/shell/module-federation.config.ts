@@ -15,7 +15,6 @@ const config: ModuleFederationConfig = {
    *
    */
   // remotes: [
-  //   'auth_mfe',
   //   'system_administration_mfe',
   //   'faculty_administration_mfe',
   //   'university_administration_mfe',

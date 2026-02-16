@@ -14,26 +14,26 @@ export class FacultyService {
   ) { }
 
   getAll(universityId: number, includeDisabled: boolean): Observable<FacultyResponse[]> {
-    return this.apiClient.get(`${environment.apiUrl}/api/universities/${universityId}/faculities?includeDisabled=${includeDisabled}`);
+    return this.apiClient.get(`${environment.apiUrl}/api/universities/${universityId}/faculties?includeDisabled=${includeDisabled}`);
   }
 
   get(id: number): Observable<FacultyDetailResponse> {
-    return this.apiClient.get(`${environment.apiUrl}/api/faculities/${id}`);
+    return this.apiClient.get(`${environment.apiUrl}/api/faculties/${id}`);
   }
 
   my(): Observable<FacultyDetailResponse> {
-    return this.apiClient.get(`${environment.apiUrl}/api/faculities/my`);
+    return this.apiClient.get(`${environment.apiUrl}/api/faculties/my`);
   }
 
   create(request: FacultyRequest) {
-    return this.apiClient.post(`${environment.apiUrl}/api/faculities`, request);
+    return this.apiClient.post(`${environment.apiUrl}/api/faculties`, request);
   }
 
   update(id: number, request: FacultyRequest) {
-    return this.apiClient.put(`${environment.apiUrl}/api/faculities/${id}`, request);
+    return this.apiClient.put(`${environment.apiUrl}/api/faculties/${id}`, request);
   }
 
   toggleStatus(id: number) {
-    return this.apiClient.delete(`${environment.apiUrl}/api/faculities/${id}/toggle-status`);
+    return this.apiClient.delete(`${environment.apiUrl}/api/faculties/${id}/toggle-status`);
   }
 }

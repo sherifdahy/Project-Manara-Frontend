@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core';
 export class ApiClientService {
   constructor(private httpClient: HttpClient) { }
 
-  get<T>(url: string) {
-    return this.httpClient.get<T>(url);
+  get<T>(url: string, params?: HttpParams) {
+    return this.httpClient.get<T>(url, { params : params });
   }
 
   post<TResponse>(url: string, body: any) {

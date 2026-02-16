@@ -1,17 +1,16 @@
-<!-- Wrap everything in async pipe to trigger scope$ -->
 <ng-container *ngIf="scope$ | async">
 
   <div class="staff-dialog">
 
     <!-- Dialog Header -->
     <div class="staff-dialog-header">
-      <div class="d-flex align-items-start gap-3 flex-fill">
+      <div class="d-flex align-items-center gap-3 flex-fill">
         <div class="staff-dialog-icon">
           <i class="fa-solid fa-user-plus"></i>
         </div>
         <div class="flex-fill">
-          <h2 class="staff-dialog-title mb-0">Add New Staff</h2>
-          <p class="staff-dialog-subtitle mb-0">Fill in the details to create a new staff member</p>
+          <h2 class="staff-dialog-title">Add New Staff</h2>
+          <p class="staff-dialog-subtitle">Fill in the details to create a new staff member</p>
         </div>
       </div>
       <button (click)="onClose()" class="staff-dialog-close" type="button" aria-label="Close dialog">
@@ -22,131 +21,168 @@
     <!-- Dialog Body -->
     <div class="staff-dialog-body">
       <form [formGroup]="form">
-        <div class="row g-3">
+        <div class="form-grid">
 
           <!-- Full Name -->
-          <div class="col-md-6">
-            <label for="staffName" class="staff-form-label">
-              Full Name <span class="text-danger">*</span>
+          <div class="form-field">
+            <label class="field-label">
+              <i class="fas fa-user"></i>
+              Full Name <span class="required-star">*</span>
             </label>
-            <input id="staffName" type="text" class="form-control form-control-sm" formControlName="name"
+            <input
+              type="text"
+              class="field-input"
+              [class.invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+              formControlName="name"
               placeholder="Enter full name"
-              [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched" />
-            <div class="staff-field-error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+            />
+            <span class="field-error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
               <span *ngIf="form.get('name')?.errors?.['required']">Name is required</span>
-              <span *ngIf="form.get('name')?.errors?.['minlength']">Name must be at least 3 characters</span>
-            </div>
+              <span *ngIf="form.get('name')?.errors?.['minlength']">Minimum 3 characters</span>
+            </span>
           </div>
 
           <!-- SSN -->
-          <div class="col-md-6">
-            <label for="staffSsn" class="staff-form-label">
-              SSN <span class="text-danger">*</span>
+          <div class="form-field">
+            <label class="field-label">
+              <i class="fas fa-hashtag"></i>
+              SSN <span class="required-star">*</span>
             </label>
-            <input id="staffSsn" type="text" class="form-control form-control-sm" formControlName="ssn"
-              placeholder="Enter SSN"
-              [class.is-invalid]="form.get('ssn')?.invalid && form.get('ssn')?.touched" />
-            <div class="staff-field-error" *ngIf="form.get('ssn')?.invalid && form.get('ssn')?.touched">
+            <input
+              type="text"
+              class="field-input"
+              [class.invalid]="form.get('ssn')?.invalid && form.get('ssn')?.touched"
+              formControlName="ssn"
+              placeholder="Enter 14-digit national ID"
+              maxlength="14"
+            />
+            <span class="field-error" *ngIf="form.get('ssn')?.invalid && form.get('ssn')?.touched">
               <span *ngIf="form.get('ssn')?.errors?.['required']">SSN is required</span>
-            </div>
+            </span>
           </div>
 
           <!-- Email -->
-          <div class="col-md-6">
-            <label for="staffEmail" class="staff-form-label">
-              Email Address <span class="text-danger">*</span>
+          <div class="form-field">
+            <label class="field-label">
+              <i class="fas fa-envelope"></i>
+              Email Address <span class="required-star">*</span>
             </label>
-            <input id="staffEmail" type="email" class="form-control form-control-sm" formControlName="email"
-              placeholder="Enter email address"
-              [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched" />
-            <div class="staff-field-error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <input
+              type="email"
+              class="field-input"
+              [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+              formControlName="email"
+              placeholder="example@university.edu"
+            />
+            <span class="field-error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
               <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
-              <span *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email</span>
-            </div>
+              <span *ngIf="form.get('email')?.errors?.['email']">Enter a valid email</span>
+            </span>
           </div>
 
           <!-- Password -->
-          <div class="col-md-6">
-            <label for="staffPassword" class="staff-form-label">
-              Password <span class="text-danger">*</span>
+          <div class="form-field">
+            <label class="field-label">
+              <i class="fas fa-lock"></i>
+              Password <span class="required-star">*</span>
             </label>
-            <div class="staff-password-wrapper">
-              <input id="staffPassword" [type]="showPassword ? 'text' : 'password'"
-                class="form-control form-control-sm staff-password-input" formControlName="password"
+            <div class="input-wrapper">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="field-input"
+                [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+                formControlName="password"
                 placeholder="Enter password"
-                [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched" />
-              <button type="button" class="staff-password-toggle" (click)="showPassword = !showPassword" tabindex="-1">
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                (click)="showPassword = !showPassword"
+                tabindex="-1"
+              >
                 <i class="fa-solid" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
               </button>
             </div>
-            <div class="staff-field-error"
-              *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <span class="field-error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
               <span *ngIf="form.get('password')?.errors?.['required']">Password is required</span>
-              <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6
-                characters</span>
-            </div>
+              <span *ngIf="form.get('password')?.errors?.['minlength']">Minimum 6 characters</span>
+            </span>
           </div>
 
-          <!-- Roles Multi-Select -->
-          <div class="col-12">
-            <label class="staff-form-label">
-              Roles <span class="text-danger">*</span>
+          <!-- Roles -->
+          <div class="form-field">
+            <label class="field-label">
+              <i class="fas fa-shield-alt"></i>
+              Roles <span class="required-star">*</span>
             </label>
 
-            <!-- Selected Roles Tags -->
-            <div class="staff-roles-tags" *ngIf="getSelectedRoles().length > 0">
-              <span class="staff-role-tag" *ngFor="let roleName of getSelectedRoles()">
-                {{ roleName }}
-                <button type="button" class="staff-role-tag-x" (click)="toggleRole(roleName)">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-              </span>
-            </div>
-
-            <!-- Dropdown Trigger -->
-            <div class="staff-roles-dropdown-wrap">
-              <div class="staff-roles-trigger"
-                [class.trigger-invalid]="form.get('roles')?.invalid && form.get('roles')?.touched"
-                [class.trigger-open]="isRolesDropdownOpen" (click)="isRolesDropdownOpen = !isRolesDropdownOpen">
-                <span class="trigger-placeholder" *ngIf="getSelectedRoles().length === 0">
-                  Select roles...
-                </span>
-                <span class="trigger-summary" *ngIf="getSelectedRoles().length > 0">
-                  {{ getSelectedRoles().length }} role(s) selected
-                </span>
-                <i class="fa-solid fa-chevron-down trigger-arrow" [class.trigger-arrow-up]="isRolesDropdownOpen"></i>
-              </div>
-
-              <!-- Dropdown Panel -->
-              <div class="staff-roles-panel" *ngIf="isRolesDropdownOpen">
-                <div class="roles-panel-search">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                  <input type="text" placeholder="Search roles..." [(ngModel)]="roleSearchTerm"
-                    [ngModelOptions]="{standalone: true}" (click)="$event.stopPropagation()" />
+            <ng-select
+              [items]="availableRoles"
+              bindLabel="name"
+              bindValue="name"
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [searchable]="true"
+              [clearable]="true"
+              placeholder="Select roles..."
+              formControlName="roles"
+              class="roles-select"
+              [class.invalid]="form.get('roles')?.invalid && form.get('roles')?.touched"
+              [class.has-value]="getSelectedRoles().length > 0"
+              notFoundText="No roles found"
+              loadingText="Loading roles..."
+            >
+              <ng-template ng-option-tmp let-item="item" let-item$="item$">
+                <div class="role-option">
+                  <span class="role-checkbox">
+                    <i class="fas fa-check" *ngIf="item$.selected"></i>
+                  </span>
+                  <span class="role-name">{{ item.name }}</span>
                 </div>
+              </ng-template>
 
-                <div class="roles-panel-list">
-                  <!-- ★ loop over RoleResponse objects -->
-                  <div class="roles-panel-item" *ngFor="let role of filteredRoles"
-                    [class.roles-panel-item-active]="isRoleSelected(role.name)"
-                    (click)="toggleRole(role.name); $event.stopPropagation()">
-                    <i class="fa-solid" [ngClass]="isRoleSelected(role.name) ? 'fa-square-check' : 'fa-square'"></i>
-                    <span>{{ role.name }}</span>
-                  </div>
-
-                  <div class="roles-panel-empty" *ngIf="filteredRoles.length === 0">
-                    <i class="fa-solid fa-circle-info"></i>
-                    No roles found
-                  </div>
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                <div class="role-tag" *ngFor="let item of items">
+                  {{ item.name }}
+                  <span class="remove-tag" (click)="clear(item.name)">×</span>
                 </div>
-              </div>
+              </ng-template>
+            </ng-select>
 
-              <!-- Backdrop -->
-              <div class="staff-roles-backdrop" *ngIf="isRolesDropdownOpen" (click)="isRolesDropdownOpen = false"></div>
-            </div>
-
-            <div class="staff-field-error" *ngIf="form.get('roles')?.invalid && form.get('roles')?.touched">
+            <span class="field-error" *ngIf="form.get('roles')?.invalid && form.get('roles')?.touched">
               Please select at least one role
+            </span>
+          </div>
+
+          <!-- Account Status -->
+          <div class="form-field">
+            <label class="field-label">
+              <i class="fas fa-toggle-on"></i>
+              Account Status
+            </label>
+            <div
+              class="status-box"
+              [class.active]="!form.get('isDisabled')?.value"
+              [class.inactive]="form.get('isDisabled')?.value"
+            >
+              <div class="status-info">
+                <span
+                  class="status-indicator"
+                  [class.off]="form.get('isDisabled')?.value"
+                ></span>
+                <div>
+                  <div class="status-label">
+                    {{ form.get('isDisabled')?.value ? 'Disabled' : 'Active' }}
+                  </div>
+                  <div class="status-desc">
+                    {{ form.get('isDisabled')?.value ? 'This account is currently suspended' : 'This account is fully operational' }}
+                  </div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" formControlName="isDisabled">
+                <span class="slider"></span>
+              </label>
             </div>
           </div>
 
@@ -156,10 +192,10 @@
 
     <!-- Dialog Footer -->
     <div class="staff-dialog-footer">
-      <button (click)="onClose()" type="button" class="staff-btn-cancel">
+      <button (click)="onClose()" type="button" class="btn btn-cancel">
         Cancel
       </button>
-      <button type="button" class="staff-btn-submit" [disabled]="form.invalid" (click)="onSubmit()">
+      <button type="button" class="btn btn-submit" [disabled]="form.invalid" (click)="onSubmit()">
         <i class="fa-solid fa-plus"></i>
         <span>Create Staff</span>
       </button>

@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import {
-  FacultyUserRequest,
   RoleResponse,
   ScopeDetailResponse
 } from '@project-manara-frontend/models';
@@ -28,19 +27,14 @@ export class StaffFormDialogComponent implements OnInit {
   showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
 
-  // Roles data
   availableRoles: RoleResponse[] = [];
-
-  // Roles dropdown state
-  isRolesDropdownOpen = false;
-  roleSearchTerm = '';
 
   constructor(
     private fb: FormBuilder,
     private facultyUserService: FacultyUserService,
     private scopeService: ScopeService,
     private dialogRef: MatDialogRef<StaffFormDialogComponent>
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -56,7 +50,8 @@ export class StaffFormDialogComponent implements OnInit {
       ssn: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      roles: [[] as string[], [this.rolesRequiredValidator]]
+      roles: [[] as string[], [this.rolesRequiredValidator]],
+      isDisabled: [false]
     });
   }
 
@@ -69,7 +64,7 @@ export class StaffFormDialogComponent implements OnInit {
   }
 
   // =====================
-  // Load Scope → Extract Roles
+  // Load Scope
   // =====================
   private loadScope(): void {
     this.scope$ = this.scopeService.get('faculty').pipe(
@@ -80,40 +75,10 @@ export class StaffFormDialogComponent implements OnInit {
   }
 
   // =====================
-  // Roles Multi-Select
+  // Roles Helpers
   // =====================
-  get filteredRoles(): RoleResponse[] {
-    if (!this.roleSearchTerm) {
-      return this.availableRoles;
-    }
-    const term = this.roleSearchTerm.toLowerCase();
-    return this.availableRoles.filter(role =>
-      role.name.toLowerCase().includes(term)
-    );
-  }
-
-  isRoleSelected(roleName: string): boolean {
-    const roles: string[] = this.form.get('roles')?.value || [];
-    return roles.includes(roleName);
-  }
-
   getSelectedRoles(): string[] {
     return this.form.get('roles')?.value || [];
-  }
-
-  toggleRole(roleName: string): void {
-    const roles: string[] = [...(this.form.get('roles')?.value || [])];
-    const index = roles.indexOf(roleName);
-
-    if (index > -1) {
-      roles.splice(index, 1);
-    } else {
-      roles.push(roleName);
-    }
-
-    this.form.patchValue({ roles });
-    this.form.get('roles')?.markAsTouched();
-    this.form.get('roles')?.updateValueAndValidity();
   }
 
   // =====================
@@ -140,9 +105,7 @@ export class StaffFormDialogComponent implements OnInit {
     });
   }
 
-  // =====================
-  // Close
-  // =====================
+
   onClose(): void {
     this.dialogRef.close();
   }

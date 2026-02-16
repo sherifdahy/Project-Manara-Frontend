@@ -1,0 +1,66 @@
+<section class="login-card mx-auto">
+
+  <!-- Dark Header -->
+  <div class="card-header-dark">
+    <div class="header-icons">
+      <div class="icon-block">
+        <span class="icon-box icon-navy d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-shield text-white"></i>
+        </span>
+      </div>
+    </div>
+    <h4 class="header-title">Welcome to Manaraa</h4>
+    <p class="header-subtitle">Unified National Education Platform</p>
+  </div>
+
+  <!-- White Form Body -->
+  <div class="card-body-white">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="mb-2">
+        <label for="loginEmail" class="form-label label-text fw-semibold">Email</label>
+        <input type="email" class="form-control custom-input" formControlName="email"
+          id="loginEmail" placeholder="Enter your email" />
+        <app-display-error [control]="email"></app-display-error>
+      </div>
+
+      <div class="mb-3">
+        <label for="loginPassword" class="form-label label-text fw-semibold">Password</label>
+        <input type="password" class="form-control custom-input" formControlName="password"
+          id="loginPassword" placeholder="Enter your password" />
+        <app-display-error [control]="password"></app-display-error>
+      </div>
+
+      <button type="submit" class="btn w-100 btn-login fw-semibold">Login</button>
+
+      <div #errorMessage class="error-alert d-none"></div>
+
+      <div class="d-flex align-items-center my-2">
+        <hr class="flex-grow-1 m-0" />
+        <span class="divider-text px-2">OR</span>
+        <hr class="flex-grow-1 m-0" />
+      </div>
+
+      <button type="button" class="btn w-100 btn-microsoft d-flex align-items-center justify-content-center gap-2">
+        <img src="/windows_2374606.png" alt="Microsoft" />
+        Login with Microsoft
+      </button>
+
+      <div class="text-center mt-2">
+        <a class="forgot-link fw-semibold" [routerLink]="['/auth/forget-password']">Forgot Password?</a>
+      </div>
+
+
+      <div class="security-notice mt-2">
+        <div class="d-flex align-items-start gap-2">
+          <i class="fa-solid fa-shield-halved notice-icon"></i>
+          <p class="mb-0">Your credentials are protected using government-grade
+            encryption. This platform is officially endorsed by the
+            Ministry of Higher Education.</p>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</section>

@@ -31,19 +31,12 @@
       </li>
 
       <li hasPermission="faculties:read">
-        <a [routerLink]="['/university-administration/faculties']"
-          routerLinkActive="active">
+        <a [routerLink]="['/university-administration/faculties']" routerLinkActive="active">
           <i class="fa-solid fa-building-columns"></i>
           <span>{{ "sidebar.links.faculties" | translate }}</span>
         </a>
       </li>
 
-      <li hasPermission="roles:read">
-        <a routerLink="/university-administration/roles" routerLinkActive="active">
-          <i class="fa-solid fa-user-shield fa-fw"></i>
-          <span>{{ "sidebar.links.roles" | translate }}</span>
-        </a>
-      </li>
     </ul>
   </div>
 </div>

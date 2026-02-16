@@ -1,9 +1,0 @@
-section{
-  min-height: 100vh;
-  background:linear-gradient(#0A1F44,#1E3A8A,#2563EB);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-}

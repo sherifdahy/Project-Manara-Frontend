@@ -1,46 +1,35 @@
 /* =====================
-   Dialog Layout - ★ FIXED
-   ===================== */
+   Dialog Layout
+===================== */
 .staff-dialog {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--card-bg);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  /* ★ ياخد كل الطول المتاح من الـ parent */
   flex: 1 1 auto;
   min-height: 0;
 }
 
 /* =====================
-   Header - fixed at top
-   ===================== */
+   Header
+===================== */
 .staff-dialog-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: var(--space-lg) var(--space-xl);
   border-bottom: 1px solid var(--card-border);
-  gap: 0.75rem;
-  background: #fff;
-  /* ★ ميتقلصش */
+  gap: var(--space-md);
+  background: var(--card-bg);
   flex-shrink: 0;
 }
 
-.staff-dialog-header .staff-dialog-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.3;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
 .staff-dialog-icon {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   background: var(--main-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,19 +37,29 @@
 }
 
 .staff-dialog-icon i {
-  font-size: 1rem;
+  font-size: var(--fs-sm);
   color: #fff;
 }
 
+.staff-dialog-title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .staff-dialog-subtitle {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
   line-height: 1.4;
+  margin: 0 !important;
 }
 
 .staff-dialog-close {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
   background: transparent;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
@@ -81,24 +80,21 @@
 }
 
 .staff-dialog-close i {
-  font-size: 0.8rem;
+  font-size: var(--fs-xs);
 }
 
 /* =====================
-   Body - ★ FIXED: grows to fill space
-   ===================== */
+   Body
+===================== */
 .staff-dialog-body {
-  /* ★ يتمدد ويملي كل المساحة بين الـ header و footer */
   flex: 1 1 auto;
   overflow-y: auto;
-  padding: 1.25rem 1.5rem;
-  padding-bottom: 2rem;
-  /* ★ مهم عشان الـ flex يشتغل */
+  padding: var(--space-xl);
   min-height: 0;
 }
 
 .staff-dialog-body::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 .staff-dialog-body::-webkit-scrollbar-track {
@@ -107,489 +103,599 @@
 
 .staff-dialog-body::-webkit-scrollbar-thumb {
   background: var(--card-border);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 /* =====================
-   Footer - ★ FIXED: always at bottom
-   ===================== */
+   Footer
+===================== */
 .staff-dialog-footer {
-  /* ★ ميتقلصش + يلزق تحت */
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
   border-top: 1px solid var(--card-border);
   background: var(--bg-light);
 }
 
 /* =====================
-   Form Label
-   ===================== */
-.staff-form-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.35rem;
+   Form Grid
+===================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg) var(--space-xl);
+  align-items: start;
 }
 
 /* =====================
-   Field Error
-   ===================== */
-.staff-field-error {
-  font-size: 0.65rem;
+   Form Field
+===================== */
+.form-field {
+  margin-bottom: 0;
+}
+
+/* =====================
+   Field Label
+===================== */
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.field-label i {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  width: 14px;
+  text-align: center;
+}
+
+.required-star {
   color: var(--error);
-  margin-top: 0.2rem;
-  line-height: 1.3;
+  font-weight: var(--fw-bold);
+  margin-left: 1px;
+}
+
+/* =====================
+   Field Input
+===================== */
+.field-input {
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-md);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.field-input::placeholder {
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+}
+
+.field-input:focus {
+  border-color: var(--main-lighter);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.field-input.invalid {
+  border-color: var(--error);
+}
+
+.field-input.invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
 }
 
 /* =====================
    Password Wrapper
-   ===================== */
-.staff-password-wrapper {
+===================== */
+.input-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
-.staff-password-input {
-  padding-right: 2.5rem !important;
-}
-
-.staff-password-toggle {
+.toggle-password {
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 2.2rem;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: none;
   border-left: 1px solid var(--card-border);
   color: var(--text-muted);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all 0.15s ease;
+  font-size: var(--fs-xs);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
-.staff-password-toggle:hover {
+.toggle-password:hover {
   color: var(--text-primary);
   background: var(--bg-light);
 }
 
-.staff-password-toggle i {
-  font-size: 0.7rem;
+/* =====================
+   Field Error
+===================== */
+.field-error {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--fs-xs);
+  color: var(--error);
+  line-height: 1.3;
 }
 
 /* =====================
-   Selected Roles Tags
-   ===================== */
-.staff-roles-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 0.4rem;
-}
-
-.staff-role-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 6px 2px 9px;
-  background: rgba(15, 23, 43, 0.07);
-  border: 1px solid rgba(15, 23, 43, 0.14);
-  border-radius: 50px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: var(--main-color);
-  line-height: 1.4;
-}
-
-.staff-role-tag-x {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 14px;
-  height: 14px;
-  border: none;
-  background: rgba(15, 23, 43, 0.1);
-  border-radius: 50%;
-  color: var(--main-color);
-  font-size: 7px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  padding: 0;
-  line-height: 1;
-}
-
-.staff-role-tag-x:hover {
-  background: var(--main-color);
-  color: #fff;
-}
-
-/* =====================
-   Roles Dropdown Wrapper
-   ===================== */
-.staff-roles-dropdown-wrap {
-  position: relative;
-}
-
-.staff-roles-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.35rem 0.65rem;
+   Roles Select - Compact
+===================== */
+.roles-select ::ng-deep .ng-select-container {
+  min-height: 54px !important;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
-  background: #fff;
-  cursor: pointer;
-  user-select: none;
-  min-height: 31px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: var(--card-bg);
+  padding: var(--space-sm) var(--space-md);
+  transition: all 0.2s ease;
+  font-size: var(--fs-sm);
+  display: flex;
+  align-items: center;
 }
 
-.staff-roles-trigger:hover {
-  border-color: var(--main-color);
+.roles-select.ng-select-focused ::ng-deep .ng-select-container {
+  border-color: var(--main-lighter);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
 }
 
-.staff-roles-trigger.trigger-open {
-  border-color: var(--main-color);
-  box-shadow: 0 0 0 3px rgba(15, 23, 43, 0.08);
-}
-
-.staff-roles-trigger.trigger-invalid {
+.roles-select.invalid ::ng-deep .ng-select-container {
   border-color: var(--error);
 }
 
-.trigger-placeholder {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  opacity: 0.7;
+.roles-select.invalid.ng-select-focused ::ng-deep .ng-select-container {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
 }
 
-.trigger-summary {
+/* Placeholder */
+.roles-select ::ng-deep .ng-placeholder {
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+}
+
+/* Input */
+.roles-select ::ng-deep .ng-input {
+  padding: 0 !important;
+}
+
+.roles-select ::ng-deep .ng-input input {
+  font-size: var(--fs-sm);
   color: var(--text-primary);
-  font-size: 0.8rem;
-  font-weight: 500;
 }
 
-.trigger-arrow {
-  font-size: 0.55rem;
+/* Value Container */
+.roles-select ::ng-deep .ng-value-container {
+  padding: 0 !important;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* Selected Role Tags */
+.roles-select ::ng-deep .role-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px var(--space-sm);
+  margin: 1px;
+  background: rgba(37, 99, 235, 0.06);
+  color: var(--main-light);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  line-height: 1.5;
+}
+
+.roles-select ::ng-deep .remove-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  line-height: 1;
+}
+
+.roles-select ::ng-deep .remove-tag:hover {
+  opacity: 1;
+}
+
+/* Arrow */
+.roles-select ::ng-deep .ng-arrow-wrapper {
+  padding-right: var(--space-sm);
+  width: 20px;
+}
+
+.roles-select ::ng-deep .ng-arrow {
+  border-color: var(--text-muted) transparent transparent;
+  border-width: 4px 4px 2px;
+}
+
+.roles-select.ng-select-opened ::ng-deep .ng-arrow {
+  border-color: transparent transparent var(--text-muted);
+  border-width: 0 4px 4px;
+}
+
+/* Clear Button */
+.roles-select ::ng-deep .ng-clear-wrapper {
   color: var(--text-muted);
-  transition: transform 0.2s ease;
-  margin-left: auto;
-  padding-left: 0.5rem;
+  margin-right: 2px;
+  font-size: var(--fs-sm);
 }
 
-.trigger-arrow-up {
-  transform: rotate(180deg);
+.roles-select ::ng-deep .ng-clear-wrapper:hover {
+  color: var(--error);
 }
 
-/* =====================
-   Roles Panel
-   ===================== */
-.staff-roles-panel {
-  position: absolute;
-  top: calc(100% + 3px);
-  left: 0;
-  right: 0;
-  background: #fff;
+/* Dropdown Panel */
+.roles-select ::ng-deep .ng-dropdown-panel {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-  overflow: hidden;
-  animation: staffDropdownIn 0.12s ease-out;
-  max-height: 220px;
-  display: flex;
-  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  margin-top: 2px;
+  background: var(--card-bg);
 }
 
-@keyframes staffDropdownIn {
-  from {
-    opacity: 0;
-    transform: translateY(-3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.roles-select ::ng-deep .ng-dropdown-panel-items {
+  max-height: 160px;
 }
 
-.roles-panel-search {
+/* Options */
+.roles-select ::ng-deep .ng-option {
+  padding: 0 !important;
+  transition: background 0.15s ease;
+  font-size: var(--fs-sm);
+}
+
+.roles-select ::ng-deep .ng-option:hover {
+  background: var(--bg-light);
+}
+
+.roles-select ::ng-deep .ng-option.ng-option-selected {
+  background: rgba(37, 99, 235, 0.04);
+}
+
+/* Role Option Layout */
+.roles-select ::ng-deep .role-option {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.65rem;
-  border-bottom: 1px solid var(--card-border);
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+}
+
+/* Checkbox Indicator */
+.roles-select ::ng-deep .role-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--card-border);
+  border-radius: 2px;
+  background: var(--card-bg);
+  transition: all 0.15s ease;
   flex-shrink: 0;
 }
 
-.roles-panel-search i {
-  color: var(--text-muted);
-  font-size: 0.65rem;
-  flex-shrink: 0;
+.roles-select ::ng-deep .ng-option-selected .role-checkbox {
+  background: var(--main-lighter);
+  border-color: var(--main-lighter);
 }
 
-.roles-panel-search input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 0.75rem;
-  color: var(--text-primary);
-  background: transparent;
-  font-family: inherit;
+.roles-select ::ng-deep .role-checkbox i {
+  color: #fff;
+  font-size: 0.5rem;
 }
 
-.roles-panel-search input::placeholder {
-  color: var(--text-muted);
-}
-
-.roles-panel-list {
+/* Role Name */
+.roles-select ::ng-deep .role-name {
   flex: 1;
-  overflow-y: auto;
-  padding: 0.15rem 0;
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
 }
 
-.roles-panel-list::-webkit-scrollbar {
-  width: 3px;
+.roles-select ::ng-deep .ng-option-selected .role-name {
+  font-weight: var(--fw-medium);
+  color: var(--main-light);
 }
 
-.roles-panel-list::-webkit-scrollbar-thumb {
+/* Loading & Not Found */
+.roles-select ::ng-deep .ng-option-disabled {
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-lg) !important;
+  font-size: var(--fs-sm);
+}
+
+/* Scrollbar */
+.roles-select ::ng-deep .ng-dropdown-panel-items::-webkit-scrollbar {
+  width: 4px;
+}
+
+.roles-select ::ng-deep .ng-dropdown-panel-items::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+
+.roles-select ::ng-deep .ng-dropdown-panel-items::-webkit-scrollbar-thumb {
   background: var(--card-border);
   border-radius: 2px;
 }
 
-.roles-panel-item {
+.roles-select ::ng-deep .ng-dropdown-panel-items::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* =====================
+   Status Box
+===================== */
+.status-box {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.65rem;
-  cursor: pointer;
-  transition: background 0.1s ease;
-  user-select: none;
-  font-size: 0.75rem;
-  color: var(--text-primary);
-}
-
-.roles-panel-item:hover {
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  min-height: 54px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
   background: var(--bg-light);
+  transition: all 0.3s ease;
 }
 
-.roles-panel-item i {
-  font-size: 0.85rem;
-  color: var(--card-border);
-  width: 16px;
-  text-align: center;
+.status-box.active {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.status-box.inactive {
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.02);
+}
+
+.status-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.status-indicator.off {
+  background: var(--error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.status-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.status-desc {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-top: 1px;
+  line-height: 1.3;
+}
+
+/* =====================
+   Switch
+===================== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
   flex-shrink: 0;
 }
 
-.roles-panel-item-active {
-  background: rgba(15, 23, 43, 0.03);
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.roles-panel-item-active:hover {
-  background: rgba(15, 23, 43, 0.06);
-}
-
-.roles-panel-item-active i {
-  color: var(--main-color);
-}
-
-.roles-panel-item-active span {
-  color: var(--main-color);
-  font-weight: 600;
-}
-
-.roles-panel-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 1rem;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-}
-
-.staff-roles-backdrop {
-  position: fixed;
+.slider {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9998;
-  background: transparent;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+input:not(:checked) + .slider {
+  background: var(--success);
+}
+
+input:not(:checked) + .slider:before {
+  transform: translateX(16px);
+}
+
+input:checked + .slider {
+  background: var(--card-border);
+}
+
+input:checked + .slider:before {
+  transform: translateX(0);
 }
 
 /* =====================
    Buttons
-   ===================== */
-.staff-btn-cancel {
-  padding: 0.4rem 1rem;
-  background: #fff;
-  border: 1px solid var(--card-border);
+===================== */
+.btn {
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
   border-radius: var(--radius-md);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-secondary);
+  border: none;
   cursor: pointer;
   transition: all 0.15s ease;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: inherit;
 }
 
-.staff-btn-cancel:hover {
+.btn-cancel {
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+}
+
+.btn-cancel:hover {
   background: var(--bg-light);
   border-color: var(--text-muted);
   color: var(--text-primary);
 }
 
-.staff-btn-submit {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 1.2rem;
+.btn-submit {
   background: var(--main-color);
   color: #fff;
-  border: 1px solid var(--main-color);
-  border-radius: var(--radius-md);
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  font-family: inherit;
+  gap: var(--space-sm);
 }
 
-.staff-btn-submit:hover:not(:disabled) {
+.btn-submit i {
+  font-size: var(--fs-xs);
+}
+
+.btn-submit:hover:not(:disabled) {
   background: var(--main-light);
-  border-color: var(--main-light);
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(15, 23, 43, 0.2);
 }
 
-.staff-btn-submit:active:not(:disabled) {
+.btn-submit:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.staff-btn-submit:disabled {
+.btn-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
 }
 
-.staff-btn-submit i {
-  font-size: 0.65rem;
-}
-
-/* =====================
-   Form Control Overrides (scoped)
-   ===================== */
-.staff-dialog .form-control {
-  font-size: 0.8rem;
-  border-color: var(--card-border);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.staff-dialog .form-control:focus {
-  border-color: var(--main-color);
-  box-shadow: 0 0 0 3px rgba(15, 23, 43, 0.08);
-}
-
-.staff-dialog .form-control::placeholder {
-  color: var(--text-muted);
-  opacity: 0.65;
-}
-
-.staff-dialog .form-control.is-invalid {
-  border-color: var(--error);
-  background-image: none;
-}
-
-.staff-dialog .form-control.is-invalid:focus {
-  border-color: var(--error);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
-}
-
 /* =====================
    Responsive
-   ===================== */
+===================== */
 @media (max-width: 767.98px) {
   .staff-dialog-header {
-    padding: 0.85rem 1.25rem;
+    padding: var(--space-md) var(--space-lg);
   }
 
   .staff-dialog-icon {
-    width: 2.25rem;
-    height: 2.25rem;
-  }
-
-  .staff-dialog-icon i {
-    font-size: 0.85rem;
-  }
-
-  .staff-dialog-header .staff-dialog-title {
-    font-size: 0.95rem;
+    width: 2rem;
+    height: 2rem;
   }
 
   .staff-dialog-body {
-    padding: 1rem 1.25rem 1.5rem;
+    padding: var(--space-lg);
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 
   .staff-dialog-footer {
-    padding: 0.75rem 1.25rem;
+    padding: var(--space-md) var(--space-lg);
     flex-direction: column-reverse;
-    gap: 0.4rem;
+    gap: var(--space-sm);
   }
 
-  .staff-btn-cancel,
-  .staff-btn-submit {
+  .btn {
     width: 100%;
-    justify-content: center;
+  }
+
+  .status-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .switch {
+    align-self: flex-end;
   }
 }
 
 @media (max-width: 575.98px) {
   .staff-dialog-header {
-    padding: 0.75rem 1rem;
+    padding: var(--space-sm) var(--space-md);
   }
 
   .staff-dialog-body {
-    padding: 0.85rem 1rem 1.25rem;
+    padding: var(--space-md);
   }
 
   .staff-dialog-footer {
-    padding: 0.6rem 1rem;
-  }
-
-  .staff-role-tag {
-    font-size: 0.6rem;
-  }
-
-  .staff-roles-panel {
-    max-height: 180px;
+    padding: var(--space-sm) var(--space-md);
   }
 }
 
 /* =====================
    Focus & Accessibility
-   ===================== */
+===================== */
 .staff-dialog-close:focus-visible,
-.staff-btn-cancel:focus-visible,
-.staff-btn-submit:focus-visible {
+.btn:focus-visible {
   outline: 2px solid var(--main-color);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .staff-btn-submit,
+  .btn,
   .staff-dialog-close,
-  .staff-roles-trigger,
-  .staff-roles-panel,
-  .trigger-arrow {
+  .slider,
+  .slider:before,
+  .status-box,
+  .status-indicator {
     transition: none !important;
     animation: none !important;
   }

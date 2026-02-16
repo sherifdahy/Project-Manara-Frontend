@@ -9,7 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppToastrModule, AppTranslateModule } from '@project-manara-frontend/modules';
 import { ErrorInterceptor, LoaderInterceptor, TokenInterceptor } from '@project-manara-frontend/interceptors';
 import { UiModule } from '@project-manara-frontend/ui';
-
+import { StoreModule } from '@ngrx/store'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { EffectsModule } from '@ngrx/effects'
+import { effects, reducers } from './store/store';
 @NgModule({
   declarations: [
     App,
@@ -22,7 +25,12 @@ import { UiModule } from '@project-manara-frontend/ui';
     BrowserAnimationsModule,
     AppToastrModule.forRoot(),
     AppTranslateModule.forRoot(),
-    UiModule
+    UiModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 20
+    }),
+    EffectsModule.forRoot(effects)
   ],
   providers: [
     {

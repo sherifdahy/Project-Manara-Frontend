@@ -15,19 +15,17 @@ export class FacultyDetailPageComponent implements OnInit {
   faculty$!: Observable<FacultyDetailResponse>;
   university$! : Observable<UniversityDetailResponse>;
   facultyId!: number;
-  universityId!:number;
   constructor(
     private userService: UserService,
     private universityService: UniversityService,
     private facultyService: FacultyService,
     private route: ActivatedRoute,
   ) {
-    // this.universityId = Number(this.userService.currentUser?.universityId);
     this.facultyId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit() {
-    this.university$ = this.universityService.get(this.universityId);
+    this.university$ = this.universityService.my();
     this.faculty$ = this.facultyService.get(this.facultyId);
   }
 
