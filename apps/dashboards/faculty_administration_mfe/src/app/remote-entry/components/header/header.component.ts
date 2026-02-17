@@ -6,7 +6,7 @@ import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
 import { CurrentUserResponse, FacultyDetailResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
-import { selectFaculty } from '../../../store/faculty/selectors/faculty.selector';
+import { selectFaculty } from '../../../store/faculty/selectors/faculty.selectors';
 import { getFacultyAction } from '../../../store/faculty/actions/get-faculty.actions';
 
 @Component({

@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FacultyResponse } from '@project-manara-frontend/models';
 import { UserService, FacultyService, HttpErrorService, UniversityService } from '@project-manara-frontend/services'
-import { Observable } from 'rxjs';
+import { filter, Observable, switchMap } from 'rxjs';
 import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog/faculty-form-dialog.component';
+import { Store } from '@ngrx/store';
+import { selectUniversityIdState } from '../../../../store/university/selectors/university.selectors';
 @Component({
   selector: 'app-faculties-page',
   standalone: false,
@@ -15,11 +17,13 @@ export class FacultiesPageComponent implements OnInit {
   includeDisabled: boolean = false;
   searchTerm!: string;
   faculties$!: Observable<FacultyResponse[]>;
+  universityId$ = this.store.select(selectUniversityIdState);
   constructor(
     private matDialog: MatDialog,
     private httpErrorService: HttpErrorService,
     private facultyService: FacultyService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
 
   }
@@ -28,9 +32,15 @@ export class FacultiesPageComponent implements OnInit {
     this.loadFaculties();
   }
 
-  loadFaculties() {
-    this.faculties$ = this.facultyService.getAll(1, this.includeDisabled);
+  loadFaculties(): void {
+    this.faculties$ = this.universityId$.pipe(
+      filter((id): id is number => !!id),
+      switchMap((id) =>
+        this.facultyService.getAll(id, this.includeDisabled)
+      )
+    );
   }
+
 
   openFacultyFormDialog() {
     this.matDialog.open(FacultyFormDialogComponent, {

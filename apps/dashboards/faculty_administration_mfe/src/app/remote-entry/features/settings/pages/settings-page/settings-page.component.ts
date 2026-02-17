@@ -6,7 +6,7 @@ import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
 import { FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
 import { getFacultyAction } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/actions/get-faculty.actions';
-import { selectFacultyId } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selector';
+import { selectFacultyId } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selectors';
 import { filter, take } from 'rxjs';
 
 @Component({

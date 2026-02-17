@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FacultyUserResponse, PaginatedList, RequestFilters } from '@project-manara-frontend/models';
 import { FacultyUserService, HttpErrorService } from '@project-manara-frontend/services';
-import { Observable } from 'rxjs';
+import { filter, Observable, switchMap } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { selectFacultyId } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selectors';
 
 @Component({
   selector: 'app-staffs-page',
@@ -18,11 +20,12 @@ export class StaffsPageComponent implements OnInit {
   staffs$!: Observable<PaginatedList<FacultyUserResponse>>;
   selectedStatus: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25, 50];
-
+  facultyId$ = this.store.select(selectFacultyId);
   constructor(
     private httpErrorService: HttpErrorService,
     private facultyUserService: FacultyUserService,
     private dialog: MatDialog,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +33,12 @@ export class StaffsPageComponent implements OnInit {
   }
 
   loadStaffs(): void {
-    this.staffs$ = this.facultyUserService.getAll(1, this.filters, this.selectedStatus);
+    this.staffs$ = this.facultyId$.pipe(
+      filter(id => !!id),
+      switchMap((id) =>
+        this.facultyUserService.getAll(id!, this.filters, this.selectedStatus)
+      )
+    )
   }
 
   onSearch(): void {

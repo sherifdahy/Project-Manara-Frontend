@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FacultyRoleResponse, PermissionsRequest } from '@project-manara-frontend/models';
 import { PermissionService, RoleService } from '@project-manara-frontend/services';
-import { selectFaculty } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selector';
+import { selectFaculty } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selectors';
 import { Observable } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 
@@ -58,7 +58,7 @@ export class RoleFormPageComponent implements OnInit {
   // =====================
   private loadData(): void {
     this.data$ = this.faculty$.pipe(
-      filter(faculty => !!faculty), // عشان اتاكد انها اتحملت
+      filter(faculty => !!faculty),
       switchMap((faculty) => {
         return this.roleService.getFacultyRole(faculty!.id, this.roleId)
       }

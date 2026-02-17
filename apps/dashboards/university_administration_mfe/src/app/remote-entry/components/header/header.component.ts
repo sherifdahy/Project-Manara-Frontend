@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {  AuthService, UniversityService, UserService } from '@project-manara-frontend/services';
+import { AuthService, UniversityService, UserService } from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
 import { CurrentUserResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
+import { Store } from '@ngrx/store';
+import { selectUniversityState } from '../../store/university/selectors/university.selectors';
+import { getUniversityAction } from '../../store/university/actions/get-university.actions';
 
 @Component({
   selector: 'app-header',
@@ -15,20 +18,21 @@ import { CurrentUserResponse, UniversityDetailResponse } from '@project-manara-f
 export class HeaderComponent implements OnInit {
   currentLang: string = 'en';
   acceptedLanguageConsts = AcceptedLanguageConsts;
-  university$!: Observable<UniversityDetailResponse>;
   currentUser!: CurrentUserResponse | null;
-
+  universityState$ = this.store.select(selectUniversityState);
   constructor(
-    private userService : UserService,
+    private store: Store,
+    private userService: UserService,
     private router: Router,
     private authService: AuthService,
-    private universityService: UniversityService,
     private appTranslateService: AppTranslateService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    this.store.dispatch(getUniversityAction());
+
     this.currentUser = this.userService.currentUser;
-    this.university$ = this.universityService.my();
 
     this.appTranslateService.language$.subscribe((result) => {
       this.currentLang = result;
@@ -51,6 +55,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe(() => { });
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('auth/login');
   }
 }

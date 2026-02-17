@@ -1,10 +1,10 @@
 <div class="app-header">
   <div class="header-content-wrapper">
     <!-- Left Side - University Info -->
-    <ng-container *ngIf="(university$ | async) as university">
+    <ng-container *ngIf="(universityState$ | async) as university">
       <div class="university-info">
-        <h1 class="university-title">{{ university.name }}</h1>
-        <span class="university-subtitle">{{ university.description || 'Administrative Control Panel' }}</span>
+        <h1 class="university-title">{{ university.entity?.name }}</h1>
+        <span class="university-subtitle">{{ university.entity?.description }}</span>
       </div>
     </ng-container>
 
