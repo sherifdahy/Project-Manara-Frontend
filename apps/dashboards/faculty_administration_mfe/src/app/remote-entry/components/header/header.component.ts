@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, FacultyService, UniversityService, UserService } from '@project-manara-frontend/services';
+import { AuthService, FacultyService, HttpErrorService, UniversityService, UserService } from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { CurrentUserResponse, FacultyDetailResponse, UniversityDetailResponse } 
 import { Store } from '@ngrx/store';
 import { selectFaculty } from '../../../store/faculty/selectors/faculty.selectors';
 import { getFacultyAction } from '../../../store/faculty/actions/get-faculty.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   currentUser!: CurrentUserResponse | null;
   faculty$ = this.store.select(selectFaculty);
   constructor(
+    private httpErrorService : HttpErrorService,
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
@@ -52,7 +54,13 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(() => { });
-    this.router.navigateByUrl('/auth/login');
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigateByUrl('/auth/login');
+      },
+      error: (error) => {
+        this.httpErrorService.handle(error);
+      }
+    });
   }
 }
