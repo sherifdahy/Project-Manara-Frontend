@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-staffs-page',
-  standalone : false,
+  standalone: false,
   templateUrl: './staffs-page.component.html',
   styleUrls: ['./staffs-page.component.css']
 })
