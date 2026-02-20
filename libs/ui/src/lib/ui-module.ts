@@ -6,25 +6,30 @@ import { LanguageToggleComponent } from './language-toggle/language-toggle.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    RouterModule
   ],
   declarations: [
     AccessDeniedComponent,
     DisplayErrorComponent,
     LanguageToggleComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    BreadcrumbComponent
   ],
   exports: [
     DisplayErrorComponent,
     AccessDeniedComponent,
     LanguageToggleComponent,
     NotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    BreadcrumbComponent
   ]
 })
 export class UiModule { }

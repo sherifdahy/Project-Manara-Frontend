@@ -12,20 +12,23 @@ export const routes: Routes = [
   {
     path: ':id',
     component: StaffDetailPageComponent,
+    data: { breadcrumb: 'Staff Details' },
     children: [
       {
-        path : '',
-        redirectTo : 'basic-info',
-        pathMatch : 'full'
+        path: '',
+        redirectTo: 'basic-info',
+        pathMatch: 'full',
       },
       {
         path: 'basic-info',
         component: StaffBasicInfoPageComponent,
+        data: { breadcrumb: 'Basic Info' },
       },
       {
         path: 'permissions',
-        component: StaffPermissionsPageComponent
-      }
-    ]
-  }
-]
+        component: StaffPermissionsPageComponent,
+        data: { breadcrumb: 'Permissions' },
+      },
+    ],
+  },
+];

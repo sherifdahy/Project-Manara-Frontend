@@ -6,8 +6,8 @@ import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { catchError, EMPTY, empty, Observable, tap } from 'rxjs';
 import { CurrentUserResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
-import { selectUniversityState } from '../../store/university/selectors/university.selectors';
-import { getUniversityAction } from '../../store/university/actions/get-university.actions';
+import { selectUniversityState } from '../../store/selectors/university.selectors';
+import { getUniversityAction } from '../../store/actions/get-university.actions';
 
 @Component({
   selector: 'app-header',

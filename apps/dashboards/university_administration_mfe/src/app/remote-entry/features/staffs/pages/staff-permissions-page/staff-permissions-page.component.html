@@ -1,6 +1,14 @@
 <ng-container *ngIf="(data$ | async)">
   <div class="container-fluid px-0">
 
+    <div class="page-header mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn-back" routerLink="/roles">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+    </div>
+
     <!-- Stats Cards Row -->
     <div class="row g-3 mb-4">
       <div class="col-12 col-sm-6 col-xl-3">

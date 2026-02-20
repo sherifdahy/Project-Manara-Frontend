@@ -3,7 +3,6 @@ import { FacultyDetailPageComponent } from "./pages/faculty-detail-page/faculty-
 import { FacultiesPageComponent } from "./pages/faculties-page/faculties-page.component";
 import { FacultyOverviewPageComponent } from "./pages/faculty-overview-page/faculty-overview-page.component";
 import { FacultySettingsPageComponent } from "./pages/faculty-settings-page/faculty-settings-page.component";
-import { StaffsPageComponent } from "../staffs/pages/staffs-page/staffs-page.component";
 
 export const routes: Routes = [
   {

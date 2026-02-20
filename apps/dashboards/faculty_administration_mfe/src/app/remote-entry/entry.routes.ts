@@ -10,32 +10,53 @@ export const remoteRoutes: Route[] = [
       {
         path: '',
         redirectTo: 'overview',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'overview',
-        component: FacultyOverviewComponent
-      },
-      {
-        path: 'departments',
-        loadChildren: () => import('./features/departments/departments.module').then(x => x.DepartmentsModule)
-      },
-      {
-        path: 'reports',
-        loadChildren: () => import('./features/reports/reports.module').then(x => x.ReportsModule)
-      },
-      {
-        path: 'roles',
-        loadChildren: () => import('./features/roles/roles.module').then(x => x.RolesModule)
-      },
-      {
-        path: 'settings',
-        loadChildren: () => import('./features/settings/settings.module').then(x => x.SettingsModule)
+        component: FacultyOverviewComponent,
+        data: { breadcrumb: 'Overview' },
       },
       {
         path: 'staffs',
-        loadChildren: () => import('./features/staffs/staffs.module').then(x => x.StaffsModule)
-      }
-    ]
-  }
+        data: { breadcrumb: 'Staffs' },
+        loadChildren: () =>
+          import('./features/staffs/staffs.module').then(
+            (x) => x.StaffsModule
+          ),
+      },
+      {
+        path: 'departments',
+        data: { breadcrumb: 'Departments' },
+        loadChildren: () =>
+          import('./features/departments/departments.module').then(
+            (x) => x.DepartmentsModule
+          ),
+      },
+      {
+        path: 'roles',
+        data: { breadcrumb: 'Roles' },
+        loadChildren: () =>
+          import('./features/roles/roles.module').then(
+            (x) => x.RolesModule
+          ),
+      },
+      {
+        path: 'reports',
+        data: { breadcrumb: 'Reports' },
+        loadChildren: () =>
+          import('./features/reports/reports.module').then(
+            (x) => x.ReportsModule
+          ),
+      },
+      {
+        path: 'settings',
+        data: { breadcrumb: 'Settings' },
+        loadChildren: () =>
+          import('./features/settings/settings.module').then(
+            (x) => x.SettingsModule
+          ),
+      },
+    ],
+  },
 ];

@@ -35,7 +35,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
     private scopeService: ScopeService,
     private facultyUserService: FacultyUserService,
     private httpErrorService: HttpErrorService,
-    private toastrService : ToastrService,
+    private toastrService : ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
           this.populateForm(staff);
         },
         error: (error) => {
-          this.httpErrorService.handle(error);
+          console.error('Error loading data:', error);
         }
       });
   }

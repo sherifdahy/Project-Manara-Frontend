@@ -21,46 +21,46 @@
     <ul>
       <li>
         <a routerLink="/faculty-administration/overview" routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
+          [routerLinkActiveOptions]="{ exact: true }" data-tooltip="Overview">
           <i class="fa-solid fa-gauge-high fa-fw"></i>
-          <span>{{ "sidebar.links.overview" | translate }}</span>
+          <span>Overview</span>
         </a>
       </li>
 
       <li hasPermission="facultyUsers:read">
-        <a [routerLink]="['/faculty-administration/staffs']" routerLinkActive="active">
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.staffs" | translate }}</span>
+        <a routerLink="/faculty-administration/staffs" routerLinkActive="active" data-tooltip="Staffs">
+          <i class="fa-solid fa-users fa-fw"></i>
+          <span>Staffs</span>
         </a>
       </li>
 
       <li hasPermission="departments:read">
-        <a [routerLink]="['/faculty-administration/departments']" routerLinkActive="active">
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.departments" | translate }}</span>
+        <a routerLink="/faculty-administration/departments" routerLinkActive="active" data-tooltip="Departments">
+          <i class="fa-solid fa-sitemap fa-fw"></i>
+          <span>Departments</span>
         </a>
       </li>
 
       <li hasPermission="roles:read">
-        <a [routerLink]="['/faculty-administration/roles']" routerLinkActive="active">
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.roles" | translate }}</span>
+        <a routerLink="/faculty-administration/roles" routerLinkActive="active" data-tooltip="Roles">
+          <i class="fa-solid fa-user-shield fa-fw"></i>
+          <span>Roles</span>
         </a>
       </li>
 
       <li hasPermission="reports:read">
-        <a [routerLink]="['/faculty-administration/reports']" routerLinkActive="active">
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.reports" | translate }}</span>
-        </a>
-      </li>
-      <li hasPermission="faculties:read">
-        <a [routerLink]="['/faculty-administration/settings']" routerLinkActive="active">
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ "sidebar.links.settings" | translate }}</span>
+        <a routerLink="/faculty-administration/reports" routerLinkActive="active" data-tooltip="Reports">
+          <i class="fa-solid fa-chart-bar fa-fw"></i>
+          <span>Reports</span>
         </a>
       </li>
 
+      <li hasPermission="faculties:read">
+        <a routerLink="/faculty-administration/settings" routerLinkActive="active" data-tooltip="Settings">
+          <i class="fa-solid fa-gear fa-fw"></i>
+          <span>Settings</span>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

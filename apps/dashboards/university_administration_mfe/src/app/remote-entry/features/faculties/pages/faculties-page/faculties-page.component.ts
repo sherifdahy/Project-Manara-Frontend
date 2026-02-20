@@ -6,7 +6,7 @@ import { UserService, FacultyService, HttpErrorService, UniversityService } from
 import { filter, Observable, switchMap } from 'rxjs';
 import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog/faculty-form-dialog.component';
 import { Store } from '@ngrx/store';
-import { selectUniversityIdState } from '../../../../store/university/selectors/university.selectors';
+import { selectUniversityIdState } from '../../../../store/selectors/university.selectors';
 @Component({
   selector: 'app-faculties-page',
   standalone: false,

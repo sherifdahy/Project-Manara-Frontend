@@ -20,7 +20,7 @@
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Default</span>
-              <h3 class="stats-number">{{ data.defaultPermissions.length || 0 }}</h3>
+              <h3 class="stats-number">{{ defaults.length }}</h3>
               <span class="stats-meta">Available permissions</span>
             </div>
             <div class="stats-icon-wrapper bg-primary-soft">
@@ -35,7 +35,7 @@
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Override</span>
-              <h3 class="stats-number">{{ selectedPermissions.length }}</h3>
+              <h3 class="stats-number">{{ selected.length }}</h3>
               <span class="stats-meta text-success">Selected permissions</span>
             </div>
             <div class="stats-icon-wrapper bg-success-soft">
@@ -50,7 +50,7 @@
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Unassigned</span>
-              <h3 class="stats-number">{{ allPermissions.length - selectedPermissions.length }}</h3>
+              <h3 class="stats-number">{{ defaults.length - selected.length }}</h3>
               <span class="stats-meta text-warning">Remaining</span>
             </div>
             <div class="stats-icon-wrapper bg-warning-soft">

@@ -14,22 +14,10 @@ export class StaffDetailPageComponent implements OnInit {
 
   staff$!: Observable<FacultyUserResponse>;
   staffId!: number;
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private httpErrorService: HttpErrorService,
-    private facultyUserService: FacultyUserService
-  ) {
-    this.staffId = Number(this.route.snapshot.paramMap.get('id'));
+  constructor() {
   }
-
   ngOnInit() {
-    this.loadStaff();
   }
 
-
-  loadStaff() {
-    this.staff$ = this.facultyUserService.get(this.staffId);
-  }
 
 }

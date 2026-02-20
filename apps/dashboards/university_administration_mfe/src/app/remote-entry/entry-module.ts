@@ -12,9 +12,9 @@ import { AppTranslateModule } from '@project-manara-frontend/modules';
 import { DirectivesModule } from '@project-manara-frontend/directives'
 import { UniversityOverviewPageComponent } from './pages/university-overview-page/university-overview-page.component';
 import { StoreModule } from '@ngrx/store';
-import { universityReducer } from './store/university/reducers/university.reducer';
+import { universityReducer } from './store/reducers/university.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { UniversityEffects } from './store/university/effects/university.effects';
+import { UniversityEffects } from './store/effects/university.effects';
 @NgModule({
   declarations: [
     MainLayoutComponent,
