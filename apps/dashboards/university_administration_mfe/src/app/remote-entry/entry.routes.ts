@@ -10,16 +10,26 @@ export const remoteRoutes: Route[] = [
       {
         path: '',
         redirectTo: 'overview',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'overview',
-        component: UniversityOverviewPageComponent
+        component: UniversityOverviewPageComponent,
       },
       {
         path: 'faculties',
-        loadChildren: () => import('./features/faculties/faculties.module').then(x => x.FacultiesModule)
+        loadChildren: () =>
+          import('./features/faculties/faculties.module').then(
+            (x) => x.FacultiesModule,
+          ),
       },
-    ]
-  }
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./features/settings/settings.module').then(
+            (x) => x.SettingsModule,
+          ),
+      },
+    ],
+  },
 ];
