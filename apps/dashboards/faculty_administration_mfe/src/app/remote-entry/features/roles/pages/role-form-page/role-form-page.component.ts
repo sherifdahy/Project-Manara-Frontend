@@ -11,6 +11,7 @@ import {
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-role-form-page',
@@ -34,7 +35,8 @@ export class RoleFormPageComponent implements OnInit {
     private route: ActivatedRoute,
     private ps: PermissionService,
     public base: BasePermissionService,
-    private httpErrorService: HttpErrorService
+    private httpErrorService: HttpErrorService,
+    private toastrService :ToastrService
   ) {
     this.roleId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -46,6 +48,7 @@ export class RoleFormPageComponent implements OnInit {
   private loadData(): void {
     this.data$ = this.facultyId$.pipe(
       filter((id) => !!id),
+      take(1),
       switchMap((id) => this.ps.getFacultyRoleWithPermissions(id!, this.roleId)),
       tap(({ parsed }) => {
         this.defaults = parsed.defaults;
@@ -73,10 +76,6 @@ export class RoleFormPageComponent implements OnInit {
     return this.selected.includes(key);
   }
 
-  hasChanges(): boolean {
-    return this.base.hasChanges(this.selected, this.original);
-  }
-
   toggle(key: string): void {
     this.selected = this.base.toggle(this.selected, key);
   }
@@ -90,7 +89,6 @@ export class RoleFormPageComponent implements OnInit {
   }
 
   save(): void {
-    if (!this.hasChanges()) return;
 
     this.facultyId$.pipe(
       filter((id) => !!id),
@@ -99,7 +97,10 @@ export class RoleFormPageComponent implements OnInit {
         this.ps.updateForFaculty(this.roleId, id!, this.defaults, this.selected)
       )
     ).subscribe({
-      next: () => (this.original = [...this.selected]),
+      next: () => {
+        this.original = [...this.selected];
+        this.toastrService.success('Permissions updated successfully');
+      },
       error: (error) => this.httpErrorService.handle(error),
     });
   }

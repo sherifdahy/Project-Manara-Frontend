@@ -20,9 +20,7 @@ export class DisplayErrorComponent {
   @Input() showOnDirty: boolean = false;
   @Input() fieldName: string = '';
 
-  // =====================
-  // Error Configurations
-  // =====================
+
 
   private errorConfigs: ErrorConfig[] = [
     {

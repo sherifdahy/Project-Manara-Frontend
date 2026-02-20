@@ -23,7 +23,7 @@
                 Faculty Name <span class="required-mark">*</span>
               </label>
               <input type="text" class="form-control-custom" formControlName="name" placeholder="Enter faculty name"
-                [class.is-invalid]="facultyForm.get('name')?.invalid" />
+                />
               <app-display-error [control]="facultyForm.get('name')"></app-display-error>
             </div>
 
@@ -34,7 +34,7 @@
               </label>
               <textarea class="form-control-custom" formControlName="description" rows="4"
                 placeholder="Enter faculty description"
-                [class.is-invalid]="facultyForm.get('description')?.invalid"></textarea>
+                ></textarea>
               <div class="form-hint">
                 Provide a brief description of the faculty's mission and programs
               </div>
@@ -47,7 +47,7 @@
                 Address <span class="required-mark">*</span>
               </label>
               <input type="text" class="form-control-custom" formControlName="address"
-                placeholder="Enter faculty address" [class.is-invalid]="facultyForm.get('address')?.invalid" />
+                placeholder="Enter faculty address"/>
               <div class="form-hint">
                 <i class="fa-solid fa-location-dot me-1"></i>
                 Full address including city and postal code
@@ -78,7 +78,7 @@
               <div class="input-with-icon">
                 <i class="fa-solid fa-envelope input-icon"></i>
                 <input type="email" class="form-control-custom with-icon" formControlName="email"
-                  placeholder="faculty@university.edu" [class.is-invalid]="facultyForm.get('email')?.invalid" />
+                  placeholder="faculty@university.edu"  />
               </div>
               <app-display-error [control]="facultyForm.get('email')"></app-display-error>
             </div>
@@ -92,7 +92,7 @@
                 <i class="fa-solid fa-globe input-icon"></i>
                 <input type="url" class="form-control-custom with-icon" formControlName="website"
                   placeholder="https://faculty.university.edu"
-                  [class.is-invalid]="facultyForm.get('website')?.invalid" />
+                  />
               </div>
               <div class="form-hint">
                 Optional: Faculty's official website URL

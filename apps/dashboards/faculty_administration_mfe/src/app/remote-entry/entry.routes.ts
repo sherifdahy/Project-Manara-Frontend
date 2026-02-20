@@ -15,11 +15,9 @@ export const remoteRoutes: Route[] = [
       {
         path: 'overview',
         component: FacultyOverviewComponent,
-        data: { breadcrumb: 'Overview' },
       },
       {
         path: 'staffs',
-        data: { breadcrumb: 'Staffs' },
         loadChildren: () =>
           import('./features/staffs/staffs.module').then(
             (x) => x.StaffsModule
@@ -27,7 +25,6 @@ export const remoteRoutes: Route[] = [
       },
       {
         path: 'departments',
-        data: { breadcrumb: 'Departments' },
         loadChildren: () =>
           import('./features/departments/departments.module').then(
             (x) => x.DepartmentsModule
@@ -35,7 +32,6 @@ export const remoteRoutes: Route[] = [
       },
       {
         path: 'roles',
-        data: { breadcrumb: 'Roles' },
         loadChildren: () =>
           import('./features/roles/roles.module').then(
             (x) => x.RolesModule
@@ -43,7 +39,6 @@ export const remoteRoutes: Route[] = [
       },
       {
         path: 'reports',
-        data: { breadcrumb: 'Reports' },
         loadChildren: () =>
           import('./features/reports/reports.module').then(
             (x) => x.ReportsModule
@@ -51,7 +46,6 @@ export const remoteRoutes: Route[] = [
       },
       {
         path: 'settings',
-        data: { breadcrumb: 'Settings' },
         loadChildren: () =>
           import('./features/settings/settings.module').then(
             (x) => x.SettingsModule

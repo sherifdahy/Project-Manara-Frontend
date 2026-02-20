@@ -85,7 +85,7 @@ export class UniversitySettingPageComponent implements OnInit {
           this.universityService.update(id!, request).subscribe({
             next: () => {
               this.store.dispatch(getUniversityAction());
-              this.toastrService.success('done');
+              this.toastrService.success('University information updated successfully');
             },
             error: (error) => {
               this.httpErrorService.handle(error);
@@ -95,6 +95,5 @@ export class UniversitySettingPageComponent implements OnInit {
     }
 
     this.universityForm.markAllAsTouched();
-    this.router.navigate(['university-administration/overview']);
   }
 }

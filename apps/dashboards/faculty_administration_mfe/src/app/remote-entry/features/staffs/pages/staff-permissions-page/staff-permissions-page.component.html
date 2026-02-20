@@ -122,11 +122,11 @@
 
       <div class="card-footer-bar">
         <div class="footer-info">
-          <span class="footer-changes" *ngIf="hasChanges()">
+          <span class="footer-changes">
             <i class="fa-solid fa-circle-exclamation"></i>
             You have unsaved changes
           </span>
-          <span class="footer-no-changes" *ngIf="!hasChanges()">
+          <span class="footer-no-changes">
             <i class="fa-solid fa-check-circle"></i>
             All changes saved
           </span>
@@ -135,7 +135,7 @@
           <button class="btn btn-cancel" routerLink="/roles">
             Cancel
           </button>
-          <button class="btn btn-save" (click)="save()" [disabled]="!hasChanges()">
+          <button class="btn btn-save" (click)="save()" >
             <i class="fa-solid fa-save"></i>
             Save Changes
           </button>

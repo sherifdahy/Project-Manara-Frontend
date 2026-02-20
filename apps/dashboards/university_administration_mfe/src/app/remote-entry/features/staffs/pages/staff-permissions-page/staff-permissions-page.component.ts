@@ -65,9 +65,6 @@ export class StaffPermissionsPageComponent implements OnInit {
     return this.selected.includes(key);
   }
 
-  hasChanges(): boolean {
-    return this.basePermissionService.hasChanges(this.selected, this.original);
-  }
 
   toggle(key: string): void {
     this.selected = this.basePermissionService.toggle(this.selected, key);
@@ -82,8 +79,6 @@ export class StaffPermissionsPageComponent implements OnInit {
   }
 
   save(): void {
-    if (!this.hasChanges()) return;
-
     this.permissionService.updateForUser(this.facultyUserId, this.defaults, this.selected)
       .subscribe({
         next: () => (this.original = [...this.selected]),

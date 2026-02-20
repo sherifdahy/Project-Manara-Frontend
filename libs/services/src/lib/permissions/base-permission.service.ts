@@ -54,10 +54,6 @@ export class BasePermissionService {
     return selected.filter((key) => !visible.includes(key));
   }
 
-  hasChanges(selected: string[], original: string[]): boolean {
-    if (selected.length !== original.length) return true;
-    return !selected.every((p) => original.includes(p));
-  }
 
   getOverrides(defaults: string[], selected: string[]): string[] {
     return defaults.filter((p) => !selected.includes(p));

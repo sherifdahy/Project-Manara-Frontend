@@ -44,7 +44,7 @@ export class PermissionService {
   ): Observable<{ role: FacultyRoleResponse; parsed: ParsedPermissions }> {
     return this.apiClient
       .get<FacultyRoleResponse>(
-        `${environment.apiUrl}/api/roles/${roleId}/faculties/${facultyId}`
+        `${environment.apiUrl}/api/faculties/${facultyId}/roles/${roleId}`
       )
       .pipe(
         map((data) => ({
