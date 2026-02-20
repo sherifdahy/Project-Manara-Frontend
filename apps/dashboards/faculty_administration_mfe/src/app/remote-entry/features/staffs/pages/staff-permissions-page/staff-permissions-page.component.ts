@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FacultyRoleResponse, PermissionsRequest } from '@project-manara-frontend/models';
+import { PermissionsRequest, UserPermissionsResponse } from '@project-manara-frontend/models';
 import { PermissionService, RoleService } from '@project-manara-frontend/services';
 import { Observable, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 interface Permission {
@@ -24,8 +24,7 @@ interface Category {
 })
 export class StaffPermissionsPageComponent implements OnInit {
 
-  data$!: Observable<FacultyRoleResponse>;
-  roleId!: number;
+  data$!: Observable<UserPermissionsResponse>;
 
   private defaultPermissionKeys: string[] = [];
 
@@ -36,12 +35,12 @@ export class StaffPermissionsPageComponent implements OnInit {
   allPermissions: Permission[] = [];
   categories: Category[] = [];
 
+  facultyUserId: number;
   constructor(
     private route: ActivatedRoute,
-    private roleService: RoleService,
     private permissionService: PermissionService
   ) {
-    this.roleId = Number(this.route.snapshot.paramMap.get('id'));
+    this.facultyUserId = Number(this.route.parent?.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
@@ -52,24 +51,27 @@ export class StaffPermissionsPageComponent implements OnInit {
   // Load Data
   // =====================
   private loadData(): void {
-    this.data$ = this.roleService.getFacultyRole(1, this.roleId).pipe(
-      tap((data: FacultyRoleResponse) => {
-        const defaults = data.defaultPermissions || [];
-        const overrides = data.overridePermissions || [];
 
-        // Store defaults for later
-        this.defaultPermissionKeys = [...defaults];
+    this.data$ =
+      this.permissionService.getUserPermissions(this.facultyUserId).pipe(
+        tap((data: UserPermissionsResponse) => {
 
-        // Active permissions = defaults MINUS overrides (removed ones)
-        const activePermissions = defaults.filter(p => !overrides.includes(p));
+          const defaults = data.defaultPermissionsInFaculty ?? [];
+          const overrides = data.overridePermissions ?? [];
 
-        this.selectedPermissions = [...activePermissions];
-        this.originalPermissions = [...activePermissions];
+          // Store defaults
+          this.defaultPermissionKeys = [...defaults];
 
-        // Build categories from ALL default permissions
-        this.buildCategories(defaults);
-      })
-    );
+          // Active = defaults - overrides
+          const activePermissions = defaults.filter(p => !overrides.includes(p));
+
+          this.selectedPermissions = [...activePermissions];
+          this.originalPermissions = [...activePermissions];
+
+          // Build categories
+          this.buildCategories(defaults);
+        })
+      )
   }
 
   // =====================
@@ -218,15 +220,14 @@ export class StaffPermissionsPageComponent implements OnInit {
     const request: PermissionsRequest = {
       claimValues: overridePermissions
     };
-
-    this.permissionService.updateForFaculty(this.roleId, 1, request)
-      .subscribe({
-        next: () => {
-          this.originalPermissions = [...this.selectedPermissions];
-        },
-        error: (error) => {
-          console.error('Error saving permissions:', error);
-        }
-      });
+    this.permissionService.updateForUser(this.facultyUserId, request).subscribe({
+      next: () => {
+        this.originalPermissions = [...this.selectedPermissions];
+      },
+      error: (error) => {
+        // Handle error (e.g., show a notification)
+        console.error('Failed to save permissions', error);
+      }
+    });
   }
 }

@@ -34,6 +34,10 @@ export class FacultyUserService {
     return this.apiClient.get(`${environment.apiUrl}/api/faculties/${facultyId}/facultyUsers?includeDisabled=${includeDisabled}`, params);
   }
 
+  my(): Observable<FacultyUserResponse> {
+    return this.apiClient.get(`${environment.apiUrl}/api/facultyUsers/my`);
+  }
+
   get(id: number): Observable<FacultyUserResponse> {
     return this.apiClient.get(`${environment.apiUrl}/api/facultyUsers/${id}`);
   }

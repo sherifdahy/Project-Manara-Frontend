@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FacultyRoleResponse, PermissionsRequest } from '@project-manara-frontend/models';
 import { PermissionService, RoleService } from '@project-manara-frontend/services';
-import { selectFaculty } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selectors';
 import { Observable } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
+import { selectFaculty } from '../../../../store/selectors/faculty.selectors';
 
 interface Permission {
   key: string;

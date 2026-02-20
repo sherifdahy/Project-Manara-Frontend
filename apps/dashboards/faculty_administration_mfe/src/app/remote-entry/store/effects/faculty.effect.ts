@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { FacultyService } from "@project-manara-frontend/services";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { getFacultyAction, getFacultyFaildAction, getFacultySuccessAction } from "../../actions/get-faculty.actions";
+import { getFacultyAction, getFacultyFaildAction, getFacultySuccessAction } from "../actions/get-faculty.actions";
 import { catchError, map, of, switchMap } from "rxjs";
-import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
 import { FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
-import { getFacultyAction } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/actions/get-faculty.actions';
-import { selectFacultyId } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selectors';
 import { filter, take } from 'rxjs';
+import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
+import { getFacultyAction } from '../../../../store/actions/get-faculty.actions';
 
 @Component({
   selector: 'app-settings-page',

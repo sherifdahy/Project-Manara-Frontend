@@ -32,4 +32,5 @@ export * from './lib/common/paginated-list'
 export * from './lib/common/request-filters'
 
 export * from './lib/permissions/requests/permissions-request'
+export * from './lib/permissions/responses/user-permissions-response'
 

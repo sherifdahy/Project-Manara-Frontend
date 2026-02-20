@@ -48,7 +48,7 @@
               <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" class="search-input" placeholder="Search by name, email, phone, SSN..."
-                  [(ngModel)]="filters.SearchValue" (keyup.enter)="onSearch()" />
+                  [(ngModel)]="filters.SearchValue" (change)="onSearch()" />
               </div>
             </div>
 

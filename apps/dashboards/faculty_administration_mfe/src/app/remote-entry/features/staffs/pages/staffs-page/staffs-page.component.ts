@@ -4,9 +4,8 @@ import { FacultyUserResponse, PaginatedList, RequestFilters } from '@project-man
 import { FacultyUserService, HttpErrorService } from '@project-manara-frontend/services';
 import { filter, Observable, switchMap } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { selectFacultyId } from 'apps/dashboards/faculty_administration_mfe/src/app/store/faculty/selectors/faculty.selectors';
+import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 
 @Component({
   selector: 'app-staffs-page',

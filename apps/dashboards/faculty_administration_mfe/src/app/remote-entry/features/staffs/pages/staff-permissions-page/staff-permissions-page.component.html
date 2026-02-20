@@ -6,10 +6,6 @@
         <button class="btn-back" routerLink="/roles">
           <i class="fa-solid fa-arrow-left"></i>
         </button>
-        <div>
-          <h1 class="page-title mb-1">{{ data.name }}</h1>
-          <p class="page-description mb-0">{{ data.description }}</p>
-        </div>
       </div>
     </div>
 
@@ -20,7 +16,7 @@
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Default</span>
-              <h3 class="stats-number">{{ data.defaultPermissions.length || 0 }}</h3>
+              <h3 class="stats-number">{{ data.defaultPermissionsInFaculty.length || 0 }}</h3>
               <span class="stats-meta">Available permissions</span>
             </div>
             <div class="stats-icon-wrapper bg-primary-soft">
@@ -60,27 +56,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="stats-card">
-          <div class="stats-header">
-            <div class="stats-info">
-              <span class="stats-label">Role Status</span>
-              <h3 class="stats-number">
-                <span class="table-status-badge" [ngClass]="{
-                  'status-active': !data.isDeleted,
-                  'status-inactive': data.isDeleted
-                }">
-                  {{ data.isDeleted ? 'Disabled' : 'Active' }}
-                </span>
-              </h3>
-              <span class="stats-meta">{{ data.code }}</span>
-            </div>
-            <div class="stats-icon-wrapper bg-info-soft">
-              <i class="fa-solid fa-circle-info text-info"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
 
     <!-- Permissions Management Section -->

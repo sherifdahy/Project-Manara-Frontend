@@ -6,9 +6,8 @@ import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
 import { CurrentUserResponse, FacultyDetailResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
-import { selectFaculty } from '../../../store/faculty/selectors/faculty.selectors';
-import { getFacultyAction } from '../../../store/faculty/actions/get-faculty.actions';
 import { HttpErrorResponse } from '@angular/common/http';
+import { selectFaculty } from '../../store/selectors/faculty.selectors';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +30,6 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(getFacultyAction());
     this.currentUser = this.userService.currentUser;
 
     this.appTranslateService.language$.subscribe((result) => {

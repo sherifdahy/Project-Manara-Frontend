@@ -9,9 +9,13 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { TranslateModule } from '@ngx-translate/core';
 import { UiModule } from '@project-manara-frontend/ui'
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { FacultyEffect } from '../store/faculty/effects/faculties/faculty.effect';
-import { facultyReducer } from '../store/faculty/reducers/faculties/faculty-reducer';
+import { Store, StoreModule } from '@ngrx/store';
+import { FacultyEffect } from './store/effects/faculty.effect';
+import { facultyReducer } from './store/reducers/faculty-reducer';
+import { FacultyUserEffect } from './store/effects/faculty-user.effect';
+import { facultyUserReducer } from './store/reducers/faculty-user.reducer';
+import { getFacultyAction } from './store/actions/get-faculty.actions';
+import { getFacultyUserAction } from './store/actions/get-faculty-user.actions';
 
 @NgModule({
   declarations: [
@@ -24,10 +28,15 @@ import { facultyReducer } from '../store/faculty/reducers/faculties/faculty-redu
     RouterModule.forChild(remoteRoutes),
     TranslateModule,
     UiModule,
-    EffectsModule.forFeature([FacultyEffect]),
+    EffectsModule.forFeature([FacultyEffect, FacultyUserEffect]),
     StoreModule.forFeature('faculty', facultyReducer),
+    StoreModule.forFeature('facultyUser', facultyUserReducer),
   ],
   providers: [],
 })
 export class RemoteEntryModule {
+  constructor(private store: Store) {
+    this.store.dispatch(getFacultyAction());
+    this.store.dispatch(getFacultyUserAction());
+  }
 }

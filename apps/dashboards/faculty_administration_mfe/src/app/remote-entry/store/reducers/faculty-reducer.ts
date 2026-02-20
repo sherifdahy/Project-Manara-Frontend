@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
-import { initFacultyState } from "../../states/faculties/faculty.state";
-import { getFacultyAction, getFacultyFaildAction, getFacultySuccessAction } from "../../actions/get-faculty.actions";
+import { initFacultyState } from "../states/faculty.state";
+import { getFacultyAction, getFacultyFaildAction, getFacultySuccessAction } from "../actions/get-faculty.actions";
 
 export const facultyReducer = createReducer(
   initFacultyState,
@@ -21,6 +21,6 @@ export const facultyReducer = createReducer(
     ...state,
     entity: null,
     loading: false,
-    error : error,
+    error: error,
   }))
 )
