@@ -3,6 +3,7 @@ import { StaffsPageComponent } from "./pages/staffs-page/staffs-page.component";
 import { StaffDetailPageComponent } from "./pages/staff-detail-page/staff-detail-page.component";
 import { StaffBasicInfoPageComponent } from "./pages/staff-basic-info-page/staff-basic-info-page.component";
 import { StaffPermissionsPageComponent } from "./pages/staff-permissions-page/staff-permissions-page.component";
+import { staffNameResolver } from "./resolvers/staff-name.resolver";
 
 export const routes: Routes = [
   {
@@ -12,7 +13,10 @@ export const routes: Routes = [
   {
     path: ':id',
     component: StaffDetailPageComponent,
-    data: { breadcrumb: 'Staff Details' },
+    resolve: { staffName: staffNameResolver },
+    data: {
+      breadcrumb: (data: any) => data.staffName
+    },
     children: [
       {
         path: '',

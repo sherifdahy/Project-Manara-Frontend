@@ -1,32 +1,4 @@
 /* =====================
-   Staff Page Specific Styles
-   ===================== */
-
-/* Page Header */
-.page-header {
-  margin-bottom: var(--space-2xl);
-}
-
-.page-header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--space-lg);
-}
-
-.page-title {
-  font-size: var(--fs-4xl);
-  font-weight: var(--fw-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-xs);
-}
-
-.page-description {
-  font-size: var(--fs-md);
-  color: var(--text-secondary);
-}
-
-/* =====================
    Add Staff Button
    ===================== */
 .btn-add-staff {
