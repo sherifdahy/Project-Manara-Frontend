@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FacultyUserResponse } from '@project-manara-frontend/models';
+import { FacultyUserService, HttpErrorService } from '@project-manara-frontend/services';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-staff-detail-page',
@@ -8,10 +12,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffDetailPageComponent implements OnInit {
 
-  constructor(
-  ) {
+  staff$!: Observable<FacultyUserResponse>;
+  staffId!: number;
+  constructor() {
   }
-
   ngOnInit() {
   }
+
+
 }

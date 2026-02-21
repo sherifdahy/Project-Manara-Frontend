@@ -14,9 +14,9 @@ export const routes: Routes = [
     component: StaffDetailPageComponent,
     children: [
       {
-        path : '',
-        redirectTo : 'basic-info',
-        pathMatch : 'full'
+        path: '',
+        redirectTo: 'basic-info',
+        pathMatch: 'full',
       },
       {
         path: 'basic-info',
@@ -24,8 +24,8 @@ export const routes: Routes = [
       },
       {
         path: 'permissions',
-        component: StaffPermissionsPageComponent
-      }
-    ]
-  }
-]
+        component: StaffPermissionsPageComponent,
+      },
+    ],
+  },
+];

@@ -1,197 +1,139 @@
-import { PermissionRes } from './../../../../../../../../../../libs/models/src/lib/permissions/permission-res';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RoleDetailResponse, RoleRequest } from '@project-manara-frontend/models';
 import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnInit,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RoleRequest } from '@project-manara-frontend/models';
-import {
+  BasePermissionService,
+  Category,
+  HttpErrorService,
   PermissionService,
   RoleService,
 } from '@project-manara-frontend/services';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-role-form-page',
-  templateUrl: './role-form-page.component.html',
   standalone: false,
+  templateUrl: './role-form-page.component.html',
   styleUrls: ['./role-form-page.component.css'],
 })
 export class RoleFormPageComponent implements OnInit {
-  permissions: string[];
-  permissions2: string[];
-  permissions3: PermissionRes;
-  roleName: string;
-  roleCode: string;
-  roleDescription: string;
-  roleReq: RoleRequest;
-  isEditMode: boolean;
-  editedRoleId: number;
-  @ViewChildren('check') checkButtons!: QueryList<ElementRef>;
+  data$!: Observable<RoleDetailResponse>;
+  roleId: number;
+  searchQuery = '';
+
+  roleData!: RoleDetailResponse;
+  allPermissions: string[] = [];
+  selected: string[] = [];
+  original: string[] = [];
+  categories: Category[] = [];
+
   constructor(
-    private roleService: RoleService,
-    private permeisionService: PermissionService,
-    private router: Router,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef,
+    private roleService: RoleService,
+    private permissionService: PermissionService,
+    public base: BasePermissionService,
+    private httpErrorService: HttpErrorService,
+    private toastrService: ToastrService
   ) {
-    this.isEditMode = false;
-    this.permissions = [''];
-    this.permissions2 = [];
-    this.permissions3 = {
-      roles: [],
-      universities: [],
-      permissions: [],
-      faculties: [],
-      departments: [],
-      programs: [],
-      facultyusers: [],
-      universityusers: [],
-      scopes: [],
+    this.roleId = Number(this.route.snapshot.paramMap.get('id'));
+  }
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  private loadData(): void {
+    this.data$ = forkJoin({
+      role: this.roleService.get(this.roleId),
+      permissions: this.permissionService.getAll(),
+    }).pipe(
+      map(({ role, permissions }) => {
+        // Store role data for save
+        this.roleData = role;
+        this.allPermissions = permissions;
+
+        // Build categories from ALL system permissions
+        const parsed = this.base.parse(permissions, []);
+        this.categories = parsed.categories;
+
+        // Selected = permissions the role currently has
+        this.selected = [...role.permissions];
+        this.original = [...role.permissions];
+
+        return role;
+      })
+    );
+  }
+
+  // ========== Computed ==========
+
+  get filteredCategories(): Category[] {
+    return this.base.filterCategories(this.categories, this.searchQuery);
+  }
+
+  get hasChanges(): boolean {
+    if (this.selected.length !== this.original.length) return true;
+    const sortedSelected = [...this.selected].sort();
+    const sortedOriginal = [...this.original].sort();
+    return sortedSelected.some((val, i) => val !== sortedOriginal[i]);
+  }
+
+  // ========== Permission Helpers ==========
+
+  getVisiblePermissions(category: Category) {
+    return this.base.getVisiblePermissions(category, this.searchQuery);
+  }
+
+  getSelectedCount(category: Category): number {
+    return this.base.getSelectedCount(category, this.selected);
+  }
+
+  isSelected(key: string): boolean {
+    return this.selected.includes(key);
+  }
+
+  toggle(key: string): void {
+    this.selected = this.base.toggle(this.selected, key);
+  }
+
+  selectAll(): void {
+    this.selected = this.base.selectAll(
+      this.selected,
+      this.categories,
+      this.searchQuery
+    );
+  }
+
+  deselectAll(): void {
+    this.selected = this.base.deselectAll(
+      this.selected,
+      this.categories,
+      this.searchQuery
+    );
+  }
+
+  // ========== Actions ==========
+
+  save(): void {
+    const request: RoleRequest = {
+      name: this.roleData.name,
+      code: this.roleData.code,
+      description: this.roleData.description,
+      permissions: this.selected,
     };
-    this.roleName = '';
-    this.roleCode = '';
-    this.roleDescription = '';
-    this.roleReq = {
-      name: this.roleName,
-      code: this.roleCode,
-      permissions: this.permissions,
-      description: this.roleDescription,
-    };
-    this.editedRoleId = 0;
-  }
 
-  ngOnInit() {
-    this.permeisionService.getAll().subscribe({
-      next: (res: string[]) => {
-        this.permissions2 = res;
-        this.permissions3 = this.arrayToObj(this.permissions2);
+    this.roleService.update(this.roleId, request).subscribe({
+      next: () => {
+        this.original = [...this.selected];
+        this.toastrService.success('Permissions updated successfully');
       },
-      error: (err) => {
-        console.log('error when get permessions');
-      },
-    });
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.editedRoleId = +id;
-        this.loadRoleData(this.editedRoleId);
-      }
+      error: (error) => this.httpErrorService.handle(error),
     });
   }
 
-  selectAll(card: HTMLElement) {
-    const checkboxes = card.querySelectorAll(
-      'input[type="checkbox"]',
-    ) as NodeListOf<HTMLInputElement>;
-
-    checkboxes.forEach((cb) => {
-      cb.checked = true;
-      this.addPermission(cb.value);
-    });
-  }
-
-  clearAll(card: HTMLElement) {
-    const checkboxes = card.querySelectorAll(
-      'input[type="checkbox"]',
-    ) as NodeListOf<HTMLInputElement>;
-
-    checkboxes.forEach((cb) => {
-      cb.checked = false;
-      this.removePermission(cb.value);
-    });
-  }
-  onPermissionChange(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-
-    if (checkbox.checked) {
-      this.addPermission(checkbox.value);
-    } else {
-      this.removePermission(checkbox.value);
-    }
-  }
-
-  addPermission(value: string) {
-    if (!this.permissions.includes(value)) {
-      this.permissions.push(value);
-    }
-  }
-
-  removePermission(value: string) {
-    this.permissions = this.permissions.filter((p) => p !== value);
-  }
-
-  submit() {
-    this.roleReq = {
-      name: this.roleName,
-      code: this.roleCode,
-      description: this.roleDescription,
-      permissions: this.permissions.filter((p) => p),
-    };
-    this.roleReq;
-    this.roleService.update(this.editedRoleId, this.roleReq).subscribe({
-      next: (res) => {
-        console.log('done');
-        this.clearForm();
-        this.goToRolesPage();
-      },
-      error: (err) => {
-        console.log('error when updating role, ');
-      },
-    });
-  }
-
-  clearForm() {
-    this.roleName = '';
-    this.roleCode = '';
-    this.roleDescription = '';
-    this.permissions = [];
-
-    const allCheckboxes = document.querySelectorAll(
-      'input[type="checkbox"]',
-    ) as NodeListOf<HTMLInputElement>;
-    allCheckboxes.forEach((cb) => (cb.checked = false));
-    this.goToRolesPage();
-  }
-
-  goToRolesPage() {
-    this.router.navigate(['/system-administration/roles']);
-  }
-  loadRoleData(id: number) {
-    this.roleService.get(id).subscribe({
-      next: (res) => {
-        this.roleName = res.name;
-        this.roleCode = res.code;
-        this.permissions = res.permissions;
-        this.checkButtons.forEach((button) => {
-          const el = button.nativeElement as HTMLInputElement;
-          el.checked = this.permissions.includes(el.value);
-        });
-
-        this.roleDescription = res.description;
-        this.cd.detectChanges();
-      },
-      error: (err) => {
-        console.log('error when retrieving role details, ');
-      },
-    });
-  }
-
-  arrayToObj(arr: string[]): any {
-    const obj: Record<string, string[]> = {};
-
-    arr.forEach((item) => {
-      const [key, value] = item.split(':');
-      const keyLower = key.toLowerCase();
-      if (!obj[keyLower]) {
-        obj[keyLower] = [];
-      }
-      obj[keyLower].push(value);
-    });
-
-    return obj;
+  reset(): void {
+    this.selected = [...this.original];
   }
 }

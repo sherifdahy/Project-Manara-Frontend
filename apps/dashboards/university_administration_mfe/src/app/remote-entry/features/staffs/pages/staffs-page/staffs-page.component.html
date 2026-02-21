@@ -1,36 +1,6 @@
 <ng-container *ngIf="(staffs$ | async) as response">
   <div class="container-fluid px-0">
 
-    <!-- Page Header -->
-    <div class="page-header mb-4">
-      <div class="page-header-content">
-        <div>
-          <h1 class="page-title mb-1">Staff Management</h1>
-          <p class="page-description mb-0">
-            Manage staff members, assignments, and account details
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats Cards -->
-    <div class="row g-3 mb-4">
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="stats-card">
-          <div class="stats-header">
-            <div class="stats-info">
-              <span class="stats-label">Total Staff</span>
-              <h3 class="stats-number">{{ response.totalCount }}</h3>
-              <span class="stats-meta">Registered members</span>
-            </div>
-            <div class="stats-icon-wrapper bg-primary-soft">
-              <i class="fa-solid fa-user-tie text-primary"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Staff Section -->
     <div class="staffs-section">
       <div class="section-card">

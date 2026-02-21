@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: RolesPageComponent,
   },
   {
-    path: 'edit-role/:id',
+    path: ':id',
     component: RoleFormPageComponent,
   },
 ];

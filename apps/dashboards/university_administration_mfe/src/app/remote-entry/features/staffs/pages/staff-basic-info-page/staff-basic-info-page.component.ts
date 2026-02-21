@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import {
   FacultyUserResponse,
   RoleResponse,
@@ -35,7 +36,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
     private scopeService: ScopeService,
     private facultyUserService: FacultyUserService,
     private httpErrorService: HttpErrorService,
-    private toastrService : ToastrService
+    private toastrService : ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +55,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required, Validators.minLength(3)]],
       ssn: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: [''],
+      password: ['',[Validators.pattern(RegexPatternConsts.PASSWORD_PATTERN)]],
       isDisabled: [false],
       roles: [[], [Validators.required]]
     });
@@ -73,7 +74,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
           this.populateForm(staff);
         },
         error: (error) => {
-          console.error('Error loading data:', error);
+          this.httpErrorService.handle(error);
         }
       });
   }

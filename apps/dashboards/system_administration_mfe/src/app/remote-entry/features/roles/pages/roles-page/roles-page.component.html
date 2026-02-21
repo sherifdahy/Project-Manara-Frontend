@@ -1,3 +1,156 @@
-<app-roles-header></app-roles-header>
-<app-roles-statistics></app-roles-statistics>
-<app-roles-grid></app-roles-grid>
+<ng-container *ngIf="(roles$ | async) as roles">
+  <!-- Page Header -->
+  <div class="page-header mb-4">
+    <div>
+      <h1 class="page-title mb-1">Roles & Permissions</h1>
+      <p class="page-description mb-0">
+        Configure system roles, hierarchy, and access permissions
+      </p>
+    </div>
+  </div>
+
+  <!-- Stats Cards Row -->
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stats-card">
+        <div class="stats-header">
+          <div class="stats-info">
+            <span class="stats-label">Total Roles</span>
+            <h3 class="stats-number">24</h3>
+            <span class="stats-meta">Configured roles</span>
+          </div>
+          <div class="stats-icon-wrapper bg-primary-soft">
+            <i class="fa-solid fa-shield-halved text-primary"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stats-card">
+        <div class="stats-header">
+          <div class="stats-info">
+            <span class="stats-label">Active Roles</span>
+            <h3 class="stats-number">12</h3>
+            <span class="stats-meta text-success">Currently in use</span>
+          </div>
+          <div class="stats-icon-wrapper bg-success-soft">
+            <i class="fa-solid fa-circle-check text-success"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stats-card">
+        <div class="stats-header">
+          <div class="stats-info">
+            <span class="stats-label">Total Users</span>
+            <h3 class="stats-number">5156</h3>
+            <span class="stats-meta">Assigned to roles</span>
+          </div>
+          <div class="stats-icon-wrapper bg-warning-soft">
+            <i class="fa-solid fa-users text-warning"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <div class="stats-card">
+        <div class="stats-header">
+          <div class="stats-info">
+            <span class="stats-label">Permissions</span>
+            <h3 class="stats-number">651</h3>
+            <span class="stats-meta">Available permissions</span>
+          </div>
+          <div class="stats-icon-wrapper bg-info-soft">
+            <i class="fa-solid fa-key text-info"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roles Section -->
+  <div class="section-card">
+    <!-- Section Header with Filters -->
+    <div class="section-header-row">
+      <div class="section-header-title">
+        <h4 class="section-title">System Roles</h4>
+        <p class="section-subtitle">Manage roles, access levels, and permissions</p>
+      </div>
+
+      <div class="section-header-controls">
+        <div class="header-select-wrap">
+          <select class="header-select" [(ngModel)]="includeDisabled" (change)="onIncludeDisabledChange()">
+            <option [ngValue]="false">Active Only</option>
+            <option [ngValue]="true">Include Disabled</option>
+          </select>
+          <i class="fa-solid fa-chevron-down header-select-icon"></i>
+        </div>
+
+        <div class="header-select-wrap">
+          <select class="header-select" [(ngModel)]="rolesScope" (change)="onScopeChange()">
+            <option value="All">All Scopes</option>
+            <ng-container *ngIf="(scopes$ | async) as scopes">
+              <option [value]="scope.name" *ngFor="let scope of scopes">{{ scope.name }}</option>
+            </ng-container>
+          </select>
+          <i class="fa-solid fa-chevron-down header-select-icon"></i>
+        </div>
+
+        <button class="btn-add-role">
+          <i class="fa-solid fa-plus me-1"></i> Add Role
+        </button>
+      </div>
+    </div>
+
+    <!-- Roles Cards Grid -->
+    <div class="roles-grid">
+      <div class="role-card" *ngFor="let role of roles">
+        <!-- Card Top -->
+        <div class="role-card-top">
+          <div class="role-card-icon">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div class="role-card-actions">
+            <button class="role-btn role-btn-edit" title="Edit Role" [routerLink]="[role.id]">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="role-btn" [ngClass]="role.isDeleted ? 'role-btn-activate' : 'role-btn-disable'"
+              (click)="toggleRoleStatus(role.id)" [title]="role.isDeleted ? 'Activate Role' : 'Disable Role'">
+              <i class="fa-solid" [ngClass]="role.isDeleted ? 'fa-check' : 'fa-ban'"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <h5 class="role-card-name">{{ role.name }}</h5>
+        <p class="role-card-desc">{{ role.description }}</p>
+
+        <!-- Card Meta -->
+        <div class="role-card-meta">
+          <div class="role-meta-row">
+            <span class="role-meta-label">Status</span>
+            <span class="role-badge" [ngClass]="role.isDeleted ? 'badge-inactive' : 'badge-active'">
+              {{ role.isDeleted ? 'Inactive' : 'Active' }}
+            </span>
+          </div>
+          <div class="role-meta-row">
+            <span class="role-meta-label">Code</span>
+            <span class="role-value">{{ role.code }}</span>
+          </div>
+          <div class="role-meta-row">
+            <span class="role-meta-label">Users</span>
+            <span class="role-value">561</span>
+          </div>
+          <div class="role-meta-row">
+            <span class="role-meta-label">Permissions</span>
+            <span class="role-value">{{ role.numberOfPermissions }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

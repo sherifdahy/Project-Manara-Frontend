@@ -75,7 +75,6 @@ export class UniversitySettingPageComponent implements OnInit {
   onSave(): void {
     if (this.universityForm.valid) {
       var request = this.universityForm.value as UniversityRequest;
-      console.log(request);
       this.universityId$
         .pipe(
           filter((id) => !!id),
@@ -86,6 +85,7 @@ export class UniversitySettingPageComponent implements OnInit {
             next: () => {
               this.store.dispatch(getUniversityAction());
               this.toastrService.success('University information updated successfully');
+              this.universityForm.markAsPristine();
             },
             error: (error) => {
               this.httpErrorService.handle(error);

@@ -1,328 +1,182 @@
-<section>
-  <div class="container-fluid my-4">
-    <h2 class="mb-4 fw-bold">Edit Role</h2>
+<ng-container *ngIf="(data$ | async) as data">
+  <div class="container-fluid px-0">
 
-    <form>
-      <!-- Role Details -->
-      <div class="card mb-4 p-3">
-        <div class="mb-3">
-          <label class="form-label">Role Name</label>
-          <input
-            [(ngModel)]="roleName"
-            name="role-name"
-            type="text"
-            class="form-control"
-            placeholder="Enter role name"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Role Code</label>
-          <input
-            [(ngModel)]="roleCode"
-            name="role-code"
-            type="text"
-            class="form-control"
-            placeholder="Enter role code"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Description</label>
-          <textarea
-            [(ngModel)]="roleDescription"
-            class="form-control"
-            rows="4"
-            name="roleDescription"
-            placeholder="Enter role description"
-          ></textarea>
-        </div>
-      </div>
-
-      <!-- Permissions Section -->
-      <h5 class="mb-3">Permissions</h5>
-
-      <!-- Role Permissions -->
-      <div class="card mb-3 p-3" #roleCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Role Permissions</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(roleCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(roleCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.roles" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('roles:' + item)"
-            [id]="`roles:${item}`"
-            [value]="`roles:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`roles:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-
-      <!-- Permission Management -->
-      <div class="card mb-3 p-3" #permissionCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Permission Management</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(permissionCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(permissionCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.roles" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('permissions:' + item)"
-            [id]="`permissions:${item}`"
-            [value]="`permissions:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`permissions:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-
-      <!-- University Permissions -->
-      <div class="card mb-3 p-3" #universityCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">University Permissions</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(universityCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(universityCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.roles" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('universities:' + item)"
-            [id]="`universities:${item}`"
-            [value]="`universities:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`universities:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-
-      <!-- Faculty Permissions -->
-      <div class="card mb-3 p-3" #facultyCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Faculty Permissions</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(facultyCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(facultyCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.roles" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('faculties:' + item)"
-            [id]="`faculties:${item}`"
-            [value]="`faculties:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`faculties:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-
-      <!-- Departments Permissions -->
-      <div class="card mb-3 p-3" #departmentCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Department Permissions</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(departmentCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(departmentCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.departments" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('departments:' + item)"
-            [id]="`departments:${item}`"
-            [value]="`departments:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`departments:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-
-      <!-- Program Permissions -->
-      <div class="card mb-3 p-3" #programCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Program Permissions</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(programCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(programCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.departments" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('Programs:' + item)"
-            [id]="`Programs:${item}`"
-            [value]="`Programs:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`Programs:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-      <!-- Scopes Permissions -->
-      <div class="card mb-3 p-3" #scopeCard>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Scope Permissions</h6>
-          <div class="btn-group btn-group-sm">
-            <button
-              type="button"
-              class="btn btn-role-style fw-normal me-2 rounded-3"
-              (click)="selectAll(scopeCard)"
-            >
-              Select All
-            </button>
-            <button
-              type="button"
-              class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-              (click)="clearAll(scopeCard)"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-
-        <div *ngFor="let item of permissions3.departments" class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            #check
-            [checked]="permissions.includes('scopes:' + item)"
-            [id]="`scopes:${item}`"
-            [value]="`scopes:${item}`"
-            (change)="onPermissionChange($event)"
-          />
-          <label class="form-check-label" [for]="`scopes:${item}`"
-            >{{ item }}
-          </label>
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="d-flex justify-content-end gap-3 mt-3">
-        <button
-          (click)="clearForm()"
-          type="button"
-          class="btn btn-clear-cancel btn-outline-secondary rounded-3"
-        >
-          Cancel
+    <div class="page-header mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn-back" routerLink="..">
+          <i class="fa-solid fa-arrow-left"></i>
         </button>
-        <button
-          (click)="submit()"
-          type="button"
-          class="btn btn-role-style fw-normal rounded-3"
-        >
-          Save Changes
-        </button>
+        <div>
+          <h1 class="page-title mb-1">{{ data.name }}</h1>
+          <p class="page-description mb-0">{{ data.description }}</p>
+        </div>
       </div>
-    </form>
+    </div>
+
+    <!-- Stats Cards Row -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Total Permissions</span>
+              <h3 class="stats-number">{{ allPermissions.length }}</h3>
+              <span class="stats-meta">Available in system</span>
+            </div>
+            <div class="stats-icon-wrapper bg-primary-soft">
+              <i class="fa-solid fa-shield-alt text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Assigned</span>
+              <h3 class="stats-number">{{ selected.length }}</h3>
+              <span class="stats-meta text-success">Given to this role</span>
+            </div>
+            <div class="stats-icon-wrapper bg-success-soft">
+              <i class="fa-solid fa-check-circle text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Unassigned</span>
+              <h3 class="stats-number">{{ allPermissions.length - selected.length }}</h3>
+              <span class="stats-meta text-warning">Not assigned</span>
+            </div>
+            <div class="stats-icon-wrapper bg-warning-soft">
+              <i class="fa-solid fa-minus-circle text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Role Status</span>
+              <h3 class="stats-number">
+                <span class="table-status-badge" [ngClass]="{
+                  'status-active': !data.isDeleted,
+                  'status-inactive': data.isDeleted
+                }">
+                  {{ data.isDeleted ? 'Disabled' : 'Active' }}
+                </span>
+              </h3>
+              <span class="stats-meta">{{ data.code }}</span>
+            </div>
+            <div class="stats-icon-wrapper bg-info-soft">
+              <i class="fa-solid fa-circle-info text-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Permissions Management Section -->
+    <div class="permissions-card">
+
+      <div class="card-header-bar">
+        <div class="card-header-left">
+          <h4 class="card-header-title">Role Permissions</h4>
+          <p class="card-header-subtitle">Manage permissions assigned to this role</p>
+        </div>
+        <div class="card-header-actions">
+          <button class="btn-action" (click)="selectAll()">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Select All</span>
+          </button>
+          <button class="btn-action" (click)="deselectAll()">
+            <i class="fa-solid fa-times"></i>
+            <span>Deselect All</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="search-bar-wrapper">
+        <div class="search-box">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" placeholder="Search permissions..." [(ngModel)]="searchQuery" />
+        </div>
+      </div>
+
+      <div class="categories">
+        <div class="category" *ngFor="let category of filteredCategories">
+
+          <div class="category-header" (click)="category.expanded = !category.expanded">
+            <div class="category-info">
+              <span class="category-name">{{ category.name }}</span>
+              <span class="category-count">
+                {{ getSelectedCount(category) }}/{{ category.permissions.length }}
+              </span>
+            </div>
+            <div class="category-right">
+              <div class="category-progress">
+                <div class="category-progress-bar"
+                  [style.width.%]="(getSelectedCount(category) / category.permissions.length) * 100"></div>
+              </div>
+              <i class="fa-solid fa-chevron-down category-arrow" [class.expanded]="category.expanded"></i>
+            </div>
+          </div>
+
+          <div class="permissions-grid" *ngIf="category.expanded">
+            <label class="permission-item" *ngFor="let perm of getVisiblePermissions(category)"
+              [class.selected]="isSelected(perm.key)">
+              <input type="checkbox" [checked]="isSelected(perm.key)" (change)="toggle(perm.key)" />
+              <span class="check-icon">
+                <i class="fa-solid fa-check"></i>
+              </span>
+              <div class="perm-text">
+                <span class="perm-name">{{ perm.name }}</span>
+                <span class="perm-key">{{ perm.key }}</span>
+              </div>
+            </label>
+
+            <div class="empty-search" *ngIf="getVisiblePermissions(category).length === 0">
+              <span>No permissions match your search</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="filteredCategories.length === 0">
+          <i class="fa-solid fa-search"></i>
+          <p>No permissions found for "{{ searchQuery }}"</p>
+        </div>
+      </div>
+
+      <div class="card-footer-bar">
+        <div class="footer-info">
+          <span class="footer-changes" *ngIf="hasChanges">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            You have unsaved changes
+          </span>
+          <span class="footer-no-changes" *ngIf="!hasChanges">
+            <i class="fa-solid fa-check-circle"></i>
+            All changes saved
+          </span>
+        </div>
+        <div class="footer-actions">
+          <button class="btn btn-cancel" (click)="reset()" [disabled]="!hasChanges">
+            Reset
+          </button>
+          <button class="btn btn-save" (click)="save()" [disabled]="!hasChanges">
+            <i class="fa-solid fa-save"></i>
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-</section>
+</ng-container>

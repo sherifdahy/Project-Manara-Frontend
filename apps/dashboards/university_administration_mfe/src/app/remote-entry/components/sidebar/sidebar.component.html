@@ -1,18 +1,17 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Header -->
   <div
     class="sidebar-header d-flex align-items-center"
     [ngClass]="{
       'justify-content-between': !isCollapsed,
-      'justify-content-center': isCollapsed,
+      'justify-content-center': isCollapsed
     }"
   >
     <div class="start-section d-flex align-items-center">
       <span>
-        <i class="fa-solid fa-shield"></i>
+        <i class="fa-solid fa-graduation-cap"></i>
       </span>
-      <p class="m-0">
-        {{ 'sidebar.header.portalTitle' | translate }}
-      </p>
+      <p class="m-0">University Portal</p>
     </div>
 
     <button class="bg-transparent border-0" (click)="toggleSidebar()">
@@ -22,35 +21,40 @@
 
   <hr class="m-0" />
 
+  <!-- Links -->
   <div class="sidebar-links">
     <ul>
+      <!-- Overview -->
       <li>
         <a
           routerLink="/university-administration/overview"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <i class="fa-solid fa-gauge-high fa-fw"></i>
-          <span>{{ 'sidebar.links.overview' | translate }}</span>
+          <i class="fa-solid fa-chart-line fa-fw"></i>
+          <span>Overview</span>
         </a>
       </li>
 
+      <!-- Faculties -->
       <li hasPermission="faculties:read">
         <a
           [routerLink]="['/university-administration/faculties']"
           routerLinkActive="active"
         >
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ 'sidebar.links.faculties' | translate }}</span>
+          <i class="fa-solid fa-building-columns fa-fw"></i>
+          <span>Faculties</span>
         </a>
       </li>
+
+      <!-- Settings -->
       <li hasPermission="faculties:update">
         <a
           [routerLink]="['/university-administration/settings']"
           routerLinkActive="active"
         >
-          <i class="fa-solid fa-building-columns"></i>
-          <span>{{ 'sidebar.links.settings' | translate }}</span>
+          <i class="fa-solid fa-gear fa-fw"></i>
+          <span>Settings</span>
         </a>
       </li>
     </ul>

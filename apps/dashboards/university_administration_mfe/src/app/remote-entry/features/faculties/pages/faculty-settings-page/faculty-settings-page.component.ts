@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
-import { FacultyService, HttpErrorService } from '@project-manara-frontend/services';
+import { FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-faculty-settings',
@@ -19,7 +19,7 @@ export class FacultySettingsPageComponent implements OnInit {
     private fb: FormBuilder,
     private facultyService: FacultyService,
     private route: ActivatedRoute,
-    private router: Router,
+    private toastrService: ToastService,
     private httpErrorService: HttpErrorService,
   ) { }
 
@@ -55,9 +55,10 @@ export class FacultySettingsPageComponent implements OnInit {
 
       var request = this.facultyForm.value as FacultyRequest;
 
-      this.facultyService.update(this.facultyId, this.facultyForm.value).subscribe({
+      this.facultyService.update(this.facultyId, request).subscribe({
         next: () => {
-          this.router.navigate(['..'], { relativeTo: this.route });
+          this.toastrService.success('Faculty information updated successfully');
+          this.facultyForm.markAsPristine();
         },
         error: (error) => {
           this.httpErrorService.handle(error);

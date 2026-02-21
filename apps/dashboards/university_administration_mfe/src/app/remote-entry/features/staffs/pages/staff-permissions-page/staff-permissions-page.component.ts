@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import {
   BasePermissionService,
   Category,
+  HttpErrorService,
   ParsedPermissions,
   PermissionService,
-} from '@project-manara-frontend/services';
-import { Observable, tap } from 'rxjs';
+} from "@project-manara-frontend/services";
+import { ToastrService } from "ngx-toastr";
+import { Observable, tap } from "rxjs";
 
 @Component({
   selector: 'app-staff-permissions-page',
@@ -26,8 +28,10 @@ export class StaffPermissionsPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private permissionService: PermissionService,
-    public basePermissionService: BasePermissionService
+    private ps: PermissionService,
+    public base: BasePermissionService,
+    private httpErrorService: HttpErrorService,
+    private toastrService : ToastrService,
   ) {
     this.facultyUserId = Number(
       this.route.parent?.snapshot.paramMap.get('id')
@@ -39,7 +43,7 @@ export class StaffPermissionsPageComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.data$ = this.permissionService.getUserPermissions(this.facultyUserId).pipe(
+    this.data$ = this.ps.getUserPermissions(this.facultyUserId).pipe(
       tap((parsed) => {
         this.defaults = parsed.defaults;
         this.selected = [...parsed.active];
@@ -50,15 +54,15 @@ export class StaffPermissionsPageComponent implements OnInit {
   }
 
   get filteredCategories(): Category[] {
-    return this.basePermissionService.filterCategories(this.categories, this.searchQuery);
+    return this.base.filterCategories(this.categories, this.searchQuery);
   }
 
   getVisiblePermissions(category: Category) {
-    return this.basePermissionService.getVisiblePermissions(category, this.searchQuery);
+    return this.base.getVisiblePermissions(category, this.searchQuery);
   }
 
   getSelectedCount(category: Category): number {
-    return this.basePermissionService.getSelectedCount(category, this.selected);
+    return this.base.getSelectedCount(category, this.selected);
   }
 
   isSelected(key: string): boolean {
@@ -67,22 +71,34 @@ export class StaffPermissionsPageComponent implements OnInit {
 
 
   toggle(key: string): void {
-    this.selected = this.basePermissionService.toggle(this.selected, key);
+    this.selected = this.base.toggle(this.selected, key);
   }
 
   selectAll(): void {
-    this.selected = this.basePermissionService.selectAll(this.selected, this.categories, this.searchQuery);
+    this.selected = this.base.selectAll(
+      this.selected,
+      this.categories,
+      this.searchQuery
+    );
   }
 
   deselectAll(): void {
-    this.selected = this.basePermissionService.deselectAll(this.selected, this.categories, this.searchQuery);
+    this.selected = this.base.deselectAll(
+      this.selected,
+      this.categories,
+      this.searchQuery
+    );
   }
 
   save(): void {
-    this.permissionService.updateForUser(this.facultyUserId, this.defaults, this.selected)
+    this.ps
+      .updateForUser(this.facultyUserId, this.defaults, this.selected)
       .subscribe({
-        next: () => (this.original = [...this.selected]),
-        error: (error) => console.error('Failed to save', error),
+        next: () => {
+          this.original = [...this.selected];
+          this.toastrService.success('Permissions updated successfully');
+        },
+        error: (error) => this.httpErrorService.handle(error),
       });
   }
 }

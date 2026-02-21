@@ -55,24 +55,29 @@
 .tab-container {
   border: 1px solid var(--card-border);
   box-shadow: var(--shadow-sm);
+  background: var(--card-bg);
+  border-radius: var(--radius-lg) !important;
+  padding: var(--space-lg) !important;
 }
 
 .nav-pills {
-  gap: 0.5rem;
+  gap: var(--space-xs);
 }
 
 .nav-link {
-  color: var(--text-secondary);
-  font-size: var(--fs-md);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
-  padding: 0.5rem 1rem;
+  padding: var(--space-sm) var(--space-lg);
   border-radius: var(--radius-md);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   border: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
+
 
 .nav-link i {
   font-size: var(--fs-md);

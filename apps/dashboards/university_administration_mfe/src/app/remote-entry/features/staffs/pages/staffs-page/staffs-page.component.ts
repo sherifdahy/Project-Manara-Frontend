@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FacultyUserResponse, PaginatedList, RequestFilters } from '@project-manara-frontend/models';
 import { FacultyUserService, HttpErrorService } from '@project-manara-frontend/services';
-import { filter, Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
-import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,12 +20,12 @@ export class StaffsPageComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 50];
   facultyId;
   constructor(
-    private route : ActivatedRoute,
     private httpErrorService: HttpErrorService,
     private facultyUserService: FacultyUserService,
     private dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {
-    this.facultyId = Number(this.route.parent?.parent?.snapshot.paramMap.get('id'));
+    this.facultyId = Number(this.route.parent?.parent?.snapshot.params['id']);
   }
 
   ngOnInit(): void {
@@ -34,7 +33,8 @@ export class StaffsPageComponent implements OnInit {
   }
 
   loadStaffs(): void {
-    this.staffs$ = this.facultyUserService.getAll(this.facultyId, this.filters, this.selectedStatus)
+    this.staffs$ = this.facultyUserService.getAll(this.facultyId, this.filters, this.selectedStatus);
+
   }
 
   onSearch(): void {

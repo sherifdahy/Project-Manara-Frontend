@@ -584,9 +584,6 @@
     display: none;
   }
 
-  .page-header .d-flex {
-    flex-direction: row;
-  }
 }
 
 @media (max-width: 575.98px) {
