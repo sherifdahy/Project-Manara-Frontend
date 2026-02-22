@@ -7,15 +7,24 @@
       </div>
       <div class="flex-fill">
         <h2 class="dialog-title mb-1" mat-dialog-title>
-          {{ data.universityId ? 'Edit University' : 'Add New University' }}
+          {{ data?.universityId ? 'Edit University' : 'Add New University' }}
         </h2>
         <p class="dialog-subtitle mb-0">
-          {{ data.universityId ? 'Update university information and settings' : 'Create a new university in the system'
+          {{
+            data?.universityId
+              ? 'Update university information and settings'
+              : 'Create a new university in the system'
           }}
         </p>
       </div>
     </div>
-    <button (click)="onClose()" class="dialog-close-btn" mat-dialog-close type="button" aria-label="Close dialog">
+    <button
+      (click)="onClose()"
+      class="dialog-close-btn"
+      mat-dialog-close
+      type="button"
+      aria-label="Close dialog"
+    >
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
@@ -29,11 +38,23 @@
           <label for="universityName" class="form-label">
             University Name <span class="text-danger">*</span>
           </label>
-          <input id="universityName" type="text" class="form-control" formControlName="name"
+          <input
+            id="universityName"
+            type="text"
+            class="form-control"
+            formControlName="name"
             placeholder="Enter university name"
-            [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched">
-          <div class="invalid-feedback" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
-            <span *ngIf="form.get('name')?.errors?.['required']">This field is required</span>
+            [class.is-invalid]="
+              form.get('name')?.invalid && form.get('name')?.touched
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+          >
+            <span *ngIf="form.get('name')?.errors?.['required']"
+              >This field is required</span
+            >
           </div>
         </div>
 
@@ -42,11 +63,23 @@
           <label for="universityAddress" class="form-label">
             Address <span class="text-danger">*</span>
           </label>
-          <input id="universityAddress" type="text" class="form-control" formControlName="address"
+          <input
+            id="universityAddress"
+            type="text"
+            class="form-control"
+            formControlName="address"
             placeholder="Enter university address"
-            [class.is-invalid]="form.get('address')?.invalid && form.get('address')?.touched">
-          <div class="invalid-feedback" *ngIf="form.get('address')?.invalid && form.get('address')?.touched">
-            <span *ngIf="form.get('address')?.errors?.['required']">This field is required</span>
+            [class.is-invalid]="
+              form.get('address')?.invalid && form.get('address')?.touched
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="form.get('address')?.invalid && form.get('address')?.touched"
+          >
+            <span *ngIf="form.get('address')?.errors?.['required']"
+              >This field is required</span
+            >
           </div>
         </div>
 
@@ -55,11 +88,27 @@
           <label for="universityDescription" class="form-label">
             Description <span class="text-danger">*</span>
           </label>
-          <textarea id="universityDescription" class="form-control" formControlName="description"
-            placeholder="Enter university description" rows="4"
-            [class.is-invalid]="form.get('description')?.invalid && form.get('description')?.touched"></textarea>
-          <div class="invalid-feedback" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
-            <span *ngIf="form.get('description')?.errors?.['required']">This field is required</span>
+          <textarea
+            id="universityDescription"
+            class="form-control"
+            formControlName="description"
+            placeholder="Enter university description"
+            rows="4"
+            [class.is-invalid]="
+              form.get('description')?.invalid &&
+              form.get('description')?.touched
+            "
+          ></textarea>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              form.get('description')?.invalid &&
+              form.get('description')?.touched
+            "
+          >
+            <span *ngIf="form.get('description')?.errors?.['required']"
+              >This field is required</span
+            >
           </div>
         </div>
 
@@ -68,12 +117,26 @@
           <label for="universityEmail" class="form-label">
             Email <span class="text-danger">*</span>
           </label>
-          <input id="universityEmail" type="email" class="form-control" formControlName="email"
+          <input
+            id="universityEmail"
+            type="email"
+            class="form-control"
+            formControlName="email"
             placeholder="Enter university email"
-            [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched">
-          <div class="invalid-feedback" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-            <span *ngIf="form.get('email')?.errors?.['required']">This field is required</span>
-            <span *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email</span>
+            [class.is-invalid]="
+              form.get('email')?.invalid && form.get('email')?.touched
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+          >
+            <span *ngIf="form.get('email')?.errors?.['required']"
+              >This field is required</span
+            >
+            <span *ngIf="form.get('email')?.errors?.['email']"
+              >Please enter a valid email</span
+            >
           </div>
         </div>
 
@@ -82,12 +145,26 @@
           <label for="universityWebsite" class="form-label">
             Website <span class="text-danger">*</span>
           </label>
-          <input id="universityWebsite" type="url" class="form-control" formControlName="website"
+          <input
+            id="universityWebsite"
+            type="url"
+            class="form-control"
+            formControlName="website"
             placeholder="https://example.com"
-            [class.is-invalid]="form.get('website')?.invalid && form.get('website')?.touched">
-          <div class="invalid-feedback" *ngIf="form.get('website')?.invalid && form.get('website')?.touched">
-            <span *ngIf="form.get('website')?.errors?.['required']">This field is required</span>
-            <span *ngIf="form.get('website')?.errors?.['pattern']">Please enter a valid website URL</span>
+            [class.is-invalid]="
+              form.get('website')?.invalid && form.get('website')?.touched
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="form.get('website')?.invalid && form.get('website')?.touched"
+          >
+            <span *ngIf="form.get('website')?.errors?.['required']"
+              >This field is required</span
+            >
+            <span *ngIf="form.get('website')?.errors?.['pattern']"
+              >Please enter a valid website URL</span
+            >
           </div>
         </div>
 
@@ -96,14 +173,35 @@
           <label for="yearOfEstablishment" class="form-label">
             Year of Establishment <span class="text-danger">*</span>
           </label>
-          <input id="yearOfEstablishment" type="number" class="form-control" formControlName="yearOfEstablishment"
-            placeholder="Enter year" min="1800" [max]="currentYear"
-            [class.is-invalid]="form.get('yearOfEstablishment')?.invalid && form.get('yearOfEstablishment')?.touched">
-          <div class="invalid-feedback"
-            *ngIf="form.get('yearOfEstablishment')?.invalid && form.get('yearOfEstablishment')?.touched">
-            <span *ngIf="form.get('yearOfEstablishment')?.errors?.['required']">This field is required</span>
-            <span *ngIf="form.get('yearOfEstablishment')?.errors?.['min']">Year must be after 1800</span>
-            <span *ngIf="form.get('yearOfEstablishment')?.errors?.['max']">Year cannot be in the future</span>
+          <input
+            id="yearOfEstablishment"
+            type="number"
+            class="form-control"
+            formControlName="yearOfEstablishment"
+            placeholder="Enter year"
+            min="1800"
+            [max]="currentYear"
+            [class.is-invalid]="
+              form.get('yearOfEstablishment')?.invalid &&
+              form.get('yearOfEstablishment')?.touched
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              form.get('yearOfEstablishment')?.invalid &&
+              form.get('yearOfEstablishment')?.touched
+            "
+          >
+            <span *ngIf="form.get('yearOfEstablishment')?.errors?.['required']"
+              >This field is required</span
+            >
+            <span *ngIf="form.get('yearOfEstablishment')?.errors?.['min']"
+              >Year must be after 1800</span
+            >
+            <span *ngIf="form.get('yearOfEstablishment')?.errors?.['max']"
+              >Year cannot be in the future</span
+            >
           </div>
         </div>
       </div>
@@ -112,12 +210,25 @@
 
   <!-- Dialog Footer -->
   <div class="dialog-footer" mat-dialog-actions>
-    <button (click)="onClose()" type="button" class="btn btn-outline-secondary" mat-dialog-close>
+    <button
+      (click)="onClose()"
+      type="button"
+      class="btn btn-outline-secondary"
+      mat-dialog-close
+    >
       Cancel
     </button>
-    <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
-      <i class="fa-solid me-2" [ngClass]="data.universityId ? 'fa-check' : 'fa-plus'"></i>
-      <span>{{ data.universityId ? 'Update' : 'Create' }}</span>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="form.invalid"
+      (click)="onSubmit()"
+    >
+      <i
+        class="fa-solid me-2"
+        [ngClass]="data?.universityId ? 'fa-check' : 'fa-plus'"
+      ></i>
+      <span>{{ data?.universityId ? 'Update' : 'Create' }}</span>
     </button>
   </div>
 </div>

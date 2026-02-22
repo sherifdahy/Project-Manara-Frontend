@@ -1,9 +1,11 @@
-<ng-container *ngIf="(universities$ | async) as universities">
+<ng-container *ngIf="universities$ | async as universities">
   <!-- Page Header -->
   <div class="page-header mb-4">
     <div>
       <h1 class="page-title mb-1">Universities</h1>
-      <p class="page-description mb-0">View and manage all system universities</p>
+      <p class="page-description mb-0">
+        View and manage all system universities
+      </p>
     </div>
   </div>
 
@@ -83,32 +85,42 @@
           <h4 class="section-title">All Universities</h4>
           <p class="section-subtitle">Manage and view university information</p>
         </div>
-        <button class="btn-add-university" (click)="openUniversityForm()">
-          <i class="fa-solid fa-plus me-2"></i> Add University
-        </button>
-      </div>
+        <div class="d-flex gap-3 align-items-center">
+          <!-- Search and Filter Bar -->
+          <div class="filters-wrapper mb-3">
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+              <div class="search-bar">
+                <i class="fa-solid fa-search search-icon"></i>
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search universities..."
+                  [(ngModel)]="searchTerm"
+                  (input)="onSearch()"
+                />
+              </div>
+            </div>
 
-      <!-- Search and Filter Bar -->
-      <div class="filters-wrapper mb-3">
-        <!-- Search Bar -->
-        <div class="search-bar-container">
-          <div class="search-bar">
-            <i class="fa-solid fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search universities..." [(ngModel)]="searchTerm"
-              (input)="onSearch()">
+            <!-- Status Filter -->
+            <div class="filter-dropdown-container">
+              <label class="filter-label">Status:</label>
+              <div class="custom-select-wrapper">
+                <select
+                  class="custom-select"
+                  [(ngModel)]="includeDisabled"
+                  (change)="onFilterChange()"
+                >
+                  <option [value]="false">Active Only</option>
+                  <option [value]="true">Include Disabled</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-icon"></i>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <!-- Status Filter -->
-        <div class="filter-dropdown-container">
-          <label class="filter-label">Status:</label>
-          <div class="custom-select-wrapper">
-            <select class="custom-select" [(ngModel)]="includeDisabled" (change)="onFilterChange()">
-              <option [value]="false">Active Only</option>
-              <option [value]="true">Include Disabled</option>
-            </select>
-            <i class="fa-solid fa-chevron-down select-icon"></i>
-          </div>
+          <button class="btn-add-university" (click)="openUniversityForm()">
+            <i class="fa-solid fa-plus me-2"></i> Add University
+          </button>
         </div>
       </div>
 
@@ -134,21 +146,24 @@
                     <i class="fa-solid fa-building-columns"></i>
                   </div>
                   <div class="table-cell-content">
-                    <a [routerLink]="[university.id]" class="table-cell-title">{{ university.name }}</a>
+                    <a
+                      [routerLink]="[university.id]"
+                      class="table-cell-title"
+                      >{{ university.name }}</a
+                    >
                   </div>
                 </div>
               </td>
               <td>
                 <span class="table-location-badge">
-                  <i class="fa-solid fa-location-dot"></i> {{ university.address || 'N/A' }}
+                  <i class="fa-solid fa-location-dot"></i>
+                  {{ university.address || 'N/A' }}
                 </span>
               </td>
               <td>
                 <div class="table-cell-multiline">
                   <span class="table-cell-primary">{{ 'N/A' }}</span>
-                  <span class="table-cell-secondary">
-                    69 years old
-                  </span>
+                  <span class="table-cell-secondary"> 69 years old </span>
                 </div>
               </td>
               <td>
@@ -161,27 +176,45 @@
                 </div>
               </td>
               <td>
-                <span class="table-status-badge" [ngClass]="{
-                  'status-active': !university.isDeleted,
-                  'status-inactive': university.isDeleted
-                }">
+                <span
+                  class="table-status-badge"
+                  [ngClass]="{
+                    'status-active': !university.isDeleted,
+                    'status-inactive': university.isDeleted,
+                  }"
+                >
                   {{ university.isDeleted ? 'Disabled' : 'Active' }}
                 </span>
               </td>
               <td>
                 <div class="table-actions">
-                  <button [routerLink]="[university.id]" class="table-action-btn btn-primary" title="Edit University">
+                  <button
+                    [routerLink]="[university.id]"
+                    class="table-action-btn btn-primary"
+                    title="Edit University"
+                  >
                     <i class="fa-solid fa-pen"></i>
                   </button>
-                  <button class="table-action-btn" [ngClass]="{
+                  <button
+                    class="table-action-btn"
+                    [ngClass]="{
                       'btn-success': university.isDeleted,
-                      'btn-warning': !university.isDeleted
-                    }" (click)="onToggleStatus(university.id)"
-                    [title]="university.isDeleted ? 'Activate University' : 'Disable University'">
-                    <i class="fa-solid" [ngClass]="{
-                      'fa-check': university.isDeleted,
-                      'fa-ban': !university.isDeleted
-                    }"></i>
+                      'btn-warning': !university.isDeleted,
+                    }"
+                    (click)="onToggleStatus(university.id)"
+                    [title]="
+                      university.isDeleted
+                        ? 'Activate University'
+                        : 'Disable University'
+                    "
+                  >
+                    <i
+                      class="fa-solid"
+                      [ngClass]="{
+                        'fa-check': university.isDeleted,
+                        'fa-ban': !university.isDeleted,
+                      }"
+                    ></i>
                   </button>
                 </div>
               </td>
@@ -196,8 +229,12 @@
                   </div>
                   <h3 class="table-empty-title">No Universities Found</h3>
                   <p class="table-empty-text">
-                    {{ searchTerm ? 'No results match your search.' : 'There are no universities to display at the
-                    moment.' }}
+                    {{
+                      searchTerm
+                        ? 'No results match your search.'
+                        : 'There are no universities to display at the
+                    moment.'
+                    }}
                   </p>
                 </div>
               </td>

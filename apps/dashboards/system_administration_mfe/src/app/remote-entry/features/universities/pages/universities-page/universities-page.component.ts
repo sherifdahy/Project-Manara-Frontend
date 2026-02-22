@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UniversityResponse } from '@project-manara-frontend/models';
-import { HttpErrorService, UniversityService } from '@project-manara-frontend/services';
+import {
+  HttpErrorService,
+  UniversityService,
+} from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
 import { UniversityFormDialogComponent } from '../../components/university-form-dialog/university-form-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-universities-page',
   standalone: false,
   templateUrl: './universities-page.component.html',
-  styleUrls: ['./universities-page.component.css']
+  styleUrls: ['./universities-page.component.css'],
 })
 export class UniversitiesPageComponent implements OnInit {
   universities$!: Observable<UniversityResponse[]>;
@@ -22,8 +25,8 @@ export class UniversitiesPageComponent implements OnInit {
     private httpErrorService: HttpErrorService,
     private universityService: UniversityService,
     private matDialog: MatDialog,
-    private route : ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.loadUniversities();
@@ -33,9 +36,7 @@ export class UniversitiesPageComponent implements OnInit {
     this.universities$ = this.universityService.getAll(this.includeDisabled);
   }
 
-  onSearch(): void {
-
-  }
+  onSearch(): void {}
 
   onFilterChange(): void {
     this.loadUniversities();
@@ -46,15 +47,17 @@ export class UniversitiesPageComponent implements OnInit {
   }
 
   openUniversityForm(): void {
-    this.matDialog.open(UniversityFormDialogComponent, {
-      width: '600px',
-      maxWidth: '90vw',
-    }).afterClosed().subscribe((result) => {
-      if (result)
-        this.router.navigate([result.id], { relativeTo: this.route });
-    });
+    this.matDialog
+      .open(UniversityFormDialogComponent, {
+        width: '600px',
+        maxWidth: '90vw',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result)
+          this.router.navigate([result.id], { relativeTo: this.route });
+      });
   }
-
 
   onToggleStatus(id: number): void {
     this.universityService.toggleStatus(id).subscribe({
@@ -63,7 +66,7 @@ export class UniversitiesPageComponent implements OnInit {
       },
       error: (error) => {
         this.httpErrorService.handle(error);
-      }
-    })
+      },
+    });
   }
 }

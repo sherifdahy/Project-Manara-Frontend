@@ -2,13 +2,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
-import { HttpErrorService, UniversityService } from '@project-manara-frontend/services';
+import {
+  HttpErrorService,
+  UniversityService,
+} from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-university-form-dialog',
   standalone: false,
   templateUrl: './university-form-dialog.component.html',
-  styleUrls: ['./university-form-dialog.component.css']
+  styleUrls: ['./university-form-dialog.component.css'],
 })
 export class UniversityFormDialogComponent implements OnInit {
   form!: FormGroup;
@@ -18,9 +21,9 @@ export class UniversityFormDialogComponent implements OnInit {
     private fb: FormBuilder,
     private httpErrorService: HttpErrorService,
     private universityService: UniversityService,
-    @Inject(MAT_DIALOG_DATA) public data: { universityId?: number },
+    @Inject(MAT_DIALOG_DATA) public data: { universityId?: number } | null,
     private dialogRef: MatDialogRef<UniversityFormDialogComponent>,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formInit();
@@ -36,27 +39,36 @@ export class UniversityFormDialogComponent implements OnInit {
       description: ['', Validators.required],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      website: ['', [Validators.required, Validators.pattern(RegexPatternConsts.WEB_SITE_URL_PATTERN)]],
-      yearOfEstablishment: ['', [
-        Validators.required,
-        Validators.min(1800),
-        Validators.max(this.currentYear)
-      ]]
+      website: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(RegexPatternConsts.WEB_SITE_URL_PATTERN),
+        ],
+      ],
+      yearOfEstablishment: [
+        '',
+        [
+          Validators.required,
+          Validators.min(1800),
+          Validators.max(this.currentYear),
+        ],
+      ],
     });
   }
 
-  onClose(){
+  onClose() {
     this.dialogRef.close();
   }
 
   loadUniversity(): void {
-    this.universityService.get(this.data.universityId!).subscribe({
+    this.universityService.get(this.data?.universityId!).subscribe({
       next: (response) => {
         this.form.patchValue(response);
       },
       error: (errors) => {
         this.httpErrorService.handle(errors);
-      }
+      },
     });
   }
 
@@ -76,7 +88,7 @@ export class UniversityFormDialogComponent implements OnInit {
       },
       error: (errors) => {
         this.httpErrorService.handle(errors);
-      }
+      },
     });
   }
 }

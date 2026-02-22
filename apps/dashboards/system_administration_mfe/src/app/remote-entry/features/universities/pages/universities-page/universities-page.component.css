@@ -133,7 +133,7 @@
   border: none;
   font-size: var(--fs-md);
   font-weight: var(--fw-medium);
-  padding: var(--space-sm) var(--space-xl);
+  padding: var(--space-md) var(--space-xl);
   border-radius: var(--radius-md);
   display: inline-flex;
   align-items: center;
