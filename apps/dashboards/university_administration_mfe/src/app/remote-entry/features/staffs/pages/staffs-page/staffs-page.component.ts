@@ -90,7 +90,8 @@ export class StaffsPageComponent implements OnInit {
       width: '600px',
       maxWidth: '90vw',
       minHeight: '90vh',
-      panelClass: 'staff-form-dialog-panel'
+      panelClass: 'staff-form-dialog-panel',
+      data: { facultyId: this.facultyId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
