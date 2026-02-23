@@ -99,7 +99,7 @@ export class StaffsPageComponent implements OnInit {
     });
   }
 
-  onDelete(staff: UniversityUserResponse): void {
+ onDelete(staff: UniversityUserResponse): void {
     this.universityUserService.toggleStatus(staff.id).subscribe({
       next: () => {
         this.loadStaffs();
