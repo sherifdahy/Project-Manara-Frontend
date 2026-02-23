@@ -1,0 +1,148 @@
+<ng-container *ngIf="(data$ | async)">
+  <div class="container-fluid px-0">
+
+    <!-- Stats Cards Row -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Default</span>
+              <h3 class="stats-number">{{ defaults.length }}</h3>
+              <span class="stats-meta">Available permissions</span>
+            </div>
+            <div class="stats-icon-wrapper bg-primary-soft">
+              <i class="fa-solid fa-shield-alt text-primary"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Override</span>
+              <h3 class="stats-number">{{ selected.length }}</h3>
+              <span class="stats-meta text-success">Selected permissions</span>
+            </div>
+            <div class="stats-icon-wrapper bg-success-soft">
+              <i class="fa-solid fa-check-circle text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="stats-card">
+          <div class="stats-header">
+            <div class="stats-info">
+              <span class="stats-label">Unassigned</span>
+              <h3 class="stats-number">{{ defaults.length - selected.length }}</h3>
+              <span class="stats-meta text-warning">Remaining</span>
+            </div>
+            <div class="stats-icon-wrapper bg-warning-soft">
+              <i class="fa-solid fa-minus-circle text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Permissions Management Section -->
+    <div class="permissions-card">
+
+      <div class="card-header-bar">
+        <div class="card-header-left">
+          <h4 class="card-header-title">Override Permissions</h4>
+          <p class="card-header-subtitle">Customize permissions for this role in this faculty</p>
+        </div>
+        <div class="card-header-actions">
+          <button class="btn-action" (click)="selectAll()">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Select All</span>
+          </button>
+          <button class="btn-action" (click)="deselectAll()">
+            <i class="fa-solid fa-times"></i>
+            <span>Deselect All</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="search-bar-wrapper">
+        <div class="search-box">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" placeholder="Search permissions..." [(ngModel)]="searchQuery" />
+        </div>
+      </div>
+
+      <div class="categories">
+        <div class="category" *ngFor="let category of filteredCategories">
+
+          <div class="category-header" (click)="category.expanded = !category.expanded">
+            <div class="category-info">
+              <span class="category-name">{{ category.name }}</span>
+              <span class="category-count">
+                {{ getSelectedCount(category) }}/{{ category.permissions.length }}
+              </span>
+            </div>
+            <div class="category-right">
+              <div class="category-progress">
+                <div class="category-progress-bar"
+                  [style.width.%]="(getSelectedCount(category) / category.permissions.length) * 100"></div>
+              </div>
+              <i class="fa-solid fa-chevron-down category-arrow" [class.expanded]="category.expanded"></i>
+            </div>
+          </div>
+
+          <div class="permissions-grid" *ngIf="category.expanded">
+            <label class="permission-item" *ngFor="let perm of getVisiblePermissions(category)"
+              [class.selected]="isSelected(perm.key)">
+              <input type="checkbox" [checked]="isSelected(perm.key)" (change)="toggle(perm.key)" />
+              <span class="check-icon">
+                <i class="fa-solid fa-check"></i>
+              </span>
+              <div class="perm-text">
+                <span class="perm-name">{{ perm.name }}</span>
+                <span class="perm-key">{{ perm.key }}</span>
+              </div>
+            </label>
+
+            <div class="empty-search" *ngIf="getVisiblePermissions(category).length === 0">
+              <span>No permissions match your search</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="filteredCategories.length === 0">
+          <i class="fa-solid fa-search"></i>
+          <p>No permissions found for "{{ searchQuery }}"</p>
+        </div>
+      </div>
+
+      <div class="card-footer-bar">
+        <div class="footer-info">
+          <span class="footer-changes">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            You have unsaved changes
+          </span>
+          <span class="footer-no-changes">
+            <i class="fa-solid fa-check-circle"></i>
+            All changes saved
+          </span>
+        </div>
+        <div class="footer-actions">
+          <button class="btn btn-cancel" routerLink="/roles">
+            Cancel
+          </button>
+          <button class="btn btn-save" (click)="save()" >
+            <i class="fa-solid fa-save"></i>
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</ng-container>

@@ -24,6 +24,9 @@ export * from './lib/roles/responses/faculty-role-response'
 export * from './lib/scopes/responses/scope-response'
 export * from './lib/scopes/responses/scope-detail-response'
 
+export * from './lib/university-users/requests/university-user-request'
+export * from './lib/university-users/responses/university-user-response'
+
 
 export * from './lib/faculty-users/requests/faculty-user-request'
 export * from './lib/faculty-users/responses/faculty-user-response'

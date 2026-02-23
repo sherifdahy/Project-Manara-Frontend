@@ -1,0 +1,112 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PaginatedList, RequestFilters, UniversityUserResponse } from '@project-manara-frontend/models';
+import { HttpErrorService, UniversityUserService } from '@project-manara-frontend/services';
+import { filter, Observable, of, switchMap } from 'rxjs';
+import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-staffs-page',
+  standalone: false,
+  templateUrl: './staffs-page.component.html',
+  styleUrls: ['./staffs-page.component.css']
+})
+export class StaffsPageComponent implements OnInit {
+
+  filters = new RequestFilters();
+  staffs$!: Observable<PaginatedList<UniversityUserResponse>>;
+  selectedStatus: boolean = false;
+  pageSizeOptions: number[] = [5, 10, 25, 50];
+  universityId: number;
+  constructor(
+    private httpErrorService: HttpErrorService,
+    private universityUserService: UniversityUserService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+  ) {
+    this.universityId = +this.route.parent?.parent?.snapshot.paramMap.get('id')!;
+  }
+
+  ngOnInit(): void {
+    this.loadStaffs();
+  }
+
+  loadStaffs(): void {
+    this.staffs$ = this.universityUserService.getAll(this.universityId, this.filters, this.selectedStatus)
+  }
+
+  onSearch(): void {
+    this.filters.PageNumber = 1;
+    this.loadStaffs();
+  }
+
+  onStatusFilter(): void {
+    this.filters.PageNumber = 1;
+    this.loadStaffs();
+  }
+
+  goToPage(page: number, totalPages: number): void {
+    if (page < 1 || page > totalPages) return;
+    this.filters.PageNumber = page;
+    this.loadStaffs();
+  }
+
+  onPageSizeChange(): void {
+    this.filters.PageNumber = 1;
+    this.loadStaffs();
+  }
+
+  getPages(totalPages: number): number[] {
+    const current = this.filters.PageNumber;
+    const maxVisible = 5;
+
+    let start = Math.max(1, current - Math.floor(maxVisible / 2));
+    let end = start + maxVisible - 1;
+
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(1, end - maxVisible + 1);
+    }
+
+    const pages: number[] = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
+  getStartIndex(response: PaginatedList<UniversityUserResponse>): number {
+    return (response.pageNumber - 1) * this.filters.PageSize + 1;
+  }
+
+  getEndIndex(response: PaginatedList<UniversityUserResponse>): number {
+    return Math.min(response.pageNumber * this.filters.PageSize, response.totalCount);
+  }
+
+  onAddStaff(): void {
+    const dialogRef = this.dialog.open(StaffFormDialogComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      minHeight: '90vh',
+      panelClass: 'staff-form-dialog-panel',
+      data: { universityId: this.universityId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.loadStaffs();
+    });
+  }
+
+  onDelete(staff: UniversityUserResponse): void {
+    this.universityUserService.toggleStatus(staff.id).subscribe({
+      next: () => {
+        this.loadStaffs();
+      },
+      error: (errors) => {
+        this.httpErrorService.handle(errors);
+      }
+    });
+  }
+}

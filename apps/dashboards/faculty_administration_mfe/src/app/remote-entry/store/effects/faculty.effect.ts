@@ -18,7 +18,6 @@ export class FacultyEffect {
           facultyService.my().pipe(
             map((response) =>
             {
-              console.log(response);
               return getFacultySuccessAction({ faculty: response })
             }
             ),

@@ -83,34 +83,34 @@
           <h4 class="section-title">All Faculties</h4>
           <p class="section-subtitle">Manage and view faculty information</p>
         </div>
-        <button class="btn-add-faculty" (click)="openFacultyFormDialog()">
-          <i class="fa-solid fa-plus me-2"></i> Add Faculty
-        </button>
-      </div>
 
-      <!-- Search and Filter Bar -->
-      <div class="filters-wrapper mb-3">
-        <!-- Search Bar -->
-        <div class="search-bar-container">
-          <div class="search-bar">
-            <i class="fa-solid fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Search faculties..." [(ngModel)]="searchTerm"
-              (input)="onSearch()">
+        <div class="d-flex gap-2">
+          <!-- Search Bar -->
+          <div class="search-bar-container">
+            <div class="search-bar">
+              <i class="fa-solid fa-search search-icon"></i>
+              <input type="text" class="search-input" placeholder="Search faculties..." [(ngModel)]="searchTerm"
+                (input)="onSearch()">
+            </div>
           </div>
-        </div>
 
-        <!-- Status Filter -->
-        <div class="filter-dropdown-container">
-          <label class="filter-label">Status:</label>
-          <div class="custom-select-wrapper">
-            <select class="custom-select" [(ngModel)]="includeDisabled" (change)="onFilterChange()">
-              <option [value]="false">Active Only</option>
-              <option [value]="true">Include Disabled</option>
-            </select>
-            <i class="fa-solid fa-chevron-down select-icon"></i>
+          <!-- Status Filter -->
+          <div class="filter-dropdown-container">
+            <div class="custom-select-wrapper">
+              <select class="custom-select" [(ngModel)]="includeDisabled" (change)="onFilterChange()">
+                <option [value]="false">Active Only</option>
+                <option [value]="true">Include Disabled</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-icon"></i>
+            </div>
           </div>
+          <button class="btn-add-faculty" (click)="openFacultyFormDialog()">
+            <i class="fa-solid fa-plus me-2"></i> Add Faculty
+          </button>
         </div>
       </div>
+
+
 
       <!-- Faculties Table -->
       <div class="data-table-wrapper">

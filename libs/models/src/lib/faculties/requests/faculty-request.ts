@@ -4,5 +4,4 @@ export interface FacultyRequest {
   address: string;
   email: string;
   website: string;
-  universityId: number;
 }

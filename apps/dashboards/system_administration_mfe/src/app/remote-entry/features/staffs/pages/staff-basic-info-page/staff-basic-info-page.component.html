@@ -1,0 +1,126 @@
+<div class="page-wrapper">
+  <div class="form-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+      <div class="form-grid">
+
+        <!-- Full Name -->
+        <div class="form-field">
+          <label class="field-label">
+            <i class="fas fa-user"></i>
+            Full Name
+          </label>
+          <input type="text" class="field-input" [class.invalid]="f['name'].touched && f['name'].invalid"
+            formControlName="name" placeholder="Enter full name" />
+          <app-display-error [control]="form.get('name')"></app-display-error>
+        </div>
+
+        <!-- National ID (SSN) -->
+        <div class="form-field">
+          <label class="field-label">
+            <i class="fas fa-hashtag"></i>
+            National ID (SSN)
+          </label>
+          <input type="text" class="field-input" [class.invalid]="f['ssn'].touched && f['ssn'].invalid"
+            formControlName="ssn" placeholder="Enter 14-digit national ID" maxlength="14" />
+          <app-display-error [control]="form.get('ssn')"></app-display-error>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-field">
+          <label class="field-label">
+            <i class="fas fa-envelope"></i>
+            Email Address
+          </label>
+          <input type="email" class="field-input" [class.invalid]="f['email'].touched && f['email'].invalid"
+            formControlName="email" placeholder="example@university.edu" />
+          <app-display-error [control]="form.get('email')"></app-display-error>
+        </div>
+
+        <!-- Password -->
+        <div class="form-field">
+          <label class="field-label">
+            <i class="fas fa-lock"></i>
+            Password
+            <span class="label-note">(Leave empty to keep current)</span>
+          </label>
+          <div class="input-wrapper">
+            <input [type]="showPassword ? 'text' : 'password'" class="field-input"
+              [class.invalid]="f['password'].touched && f['password'].invalid" formControlName="password"
+              placeholder="Leave empty to keep current password" />
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()" tabindex="-1">
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+          <app-display-error [control]="form.get('password')"></app-display-error>
+        </div>
+
+        <!-- Roles -->
+        <div class="form-field">
+          <label class="field-label">
+            <i class="fas fa-shield-alt"></i>
+            Roles
+          </label>
+
+          <ng-select [items]="roles" bindLabel="name" bindValue="name" [multiple]="true" [closeOnSelect]="false"
+            [searchable]="true" [clearable]="true" placeholder="Select roles..."
+            formControlName="roles" class="roles-select" [class.invalid]="f['roles'].touched && f['roles'].invalid"
+            [class.has-value]="f['roles'].value?.length > 0" notFoundText="No roles found"
+            loadingText="Loading roles...">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$">
+              <div class="role-option">
+                <span class="role-checkbox">
+                  <i class="fas fa-check" *ngIf="item$.selected"></i>
+                </span>
+                <span class="role-name">{{ item.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <div class="role-tag" *ngFor="let item of items">
+                {{ item.name }}
+              </div>
+            </ng-template>
+          </ng-select>
+
+          <app-display-error [control]="form.get('roles')"></app-display-error>
+        </div>
+
+        <!-- Account Status -->
+        <div class="form-field">
+          <label class="field-label">
+            <i class="fas fa-toggle-on"></i>
+            Account Status
+          </label>
+          <div class="status-box" [class.active]="!f['isDisabled'].value" [class.inactive]="f['isDisabled'].value">
+            <div class="status-info">
+              <span class="status-indicator" [class.off]="f['isDisabled'].value"></span>
+              <div>
+                <div class="status-label">
+                  {{ f['isDisabled'].value ? 'Disabled' : 'Active' }}
+                </div>
+                <div class="status-desc">
+                  {{ f['isDisabled'].value ? 'This account is currently suspended' : 'This account is fully operational'
+                  }}
+                </div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" formControlName="isDisabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || !form.dirty">
+          Save Changes
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

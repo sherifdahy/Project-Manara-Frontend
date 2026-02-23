@@ -1,17 +1,18 @@
 <ng-container *ngIf="universities$ | async as universities">
+
   <!-- Page Header -->
-  <div class="page-header mb-4">
+  <div class="page-header">
     <div>
-      <h1 class="page-title mb-1">Universities</h1>
-      <p class="page-description mb-0">
+      <h1 class="page-title">Universities</h1>
+      <p class="page-description">
         View and manage all system universities
       </p>
     </div>
   </div>
 
-  <!-- Stats Cards Row -->
+  <!-- Stats Cards -->
   <div class="row g-3 mb-4">
-    <!-- Total Universities -->
+
     <div class="col-12 col-sm-6 col-xl-3">
       <div class="stats-card">
         <div class="stats-header">
@@ -27,7 +28,6 @@
       </div>
     </div>
 
-    <!-- Total Students -->
     <div class="col-12 col-sm-6 col-xl-3">
       <div class="stats-card">
         <div class="stats-header">
@@ -43,7 +43,6 @@
       </div>
     </div>
 
-    <!-- Total Faculties -->
     <div class="col-12 col-sm-6 col-xl-3">
       <div class="stats-card">
         <div class="stats-header">
@@ -59,7 +58,6 @@
       </div>
     </div>
 
-    <!-- Total Programs -->
     <div class="col-12 col-sm-6 col-xl-3">
       <div class="stats-card">
         <div class="stats-header">
@@ -74,21 +72,25 @@
         </div>
       </div>
     </div>
+
   </div>
 
-  <!-- All Universities Section -->
+  <!-- Universities Section -->
   <div class="universities-section">
     <div class="section-card">
+
       <!-- Section Header -->
       <div class="section-header">
+
         <div>
           <h4 class="section-title">All Universities</h4>
           <p class="section-subtitle">Manage and view university information</p>
         </div>
-        <div class="d-flex gap-3 align-items-center">
-          <!-- Search and Filter Bar -->
-          <div class="filters-wrapper mb-3">
-            <!-- Search Bar -->
+
+        <div class="section-actions">
+
+          <div class="filters-wrapper">
+
             <div class="search-bar-container">
               <div class="search-bar">
                 <i class="fa-solid fa-search search-icon"></i>
@@ -102,9 +104,7 @@
               </div>
             </div>
 
-            <!-- Status Filter -->
             <div class="filter-dropdown-container">
-              <label class="filter-label">Status:</label>
               <div class="custom-select-wrapper">
                 <select
                   class="custom-select"
@@ -117,16 +117,25 @@
                 <i class="fa-solid fa-chevron-down select-icon"></i>
               </div>
             </div>
+
           </div>
-          <button class="btn-add-university" (click)="openUniversityForm()">
-            <i class="fa-solid fa-plus me-2"></i> Add University
+
+          <button
+            class="btn-add-university"
+            (click)="openUniversityForm()"
+          >
+            <i class="fa-solid fa-plus me-2"></i>
+            Add University
           </button>
+
         </div>
+
       </div>
 
-      <!-- Universities Table -->
+      <!-- Table -->
       <div class="data-table-wrapper">
         <table class="data-table">
+
           <thead>
             <tr>
               <th>University Name</th>
@@ -138,8 +147,11 @@
               <th class="text-center">Actions</th>
             </tr>
           </thead>
+
           <tbody>
+
             <tr *ngFor="let university of universities">
+
               <td>
                 <div class="table-cell-with-icon">
                   <div class="table-cell-icon">
@@ -149,43 +161,50 @@
                     <a
                       [routerLink]="[university.id]"
                       class="table-cell-title"
-                      >{{ university.name }}</a
                     >
+                      {{ university.name }}
+                    </a>
                   </div>
                 </div>
               </td>
+
               <td>
                 <span class="table-location-badge">
                   <i class="fa-solid fa-location-dot"></i>
                   {{ university.address || 'N/A' }}
                 </span>
               </td>
+
               <td>
                 <div class="table-cell-multiline">
-                  <span class="table-cell-primary">{{ 'N/A' }}</span>
-                  <span class="table-cell-secondary"> 69 years old </span>
+                  <span class="table-cell-primary">N/A</span>
+                  <span class="table-cell-secondary">69 years old</span>
                 </div>
               </td>
+
               <td>
                 <span class="table-value-badge">69</span>
               </td>
+
               <td>
                 <div class="table-cell-multiline">
                   <span class="table-cell-primary">51</span>
                   <span class="table-cell-secondary">365</span>
                 </div>
               </td>
+
               <td>
                 <span
                   class="table-status-badge"
                   [ngClass]="{
                     'status-active': !university.isDeleted,
-                    'status-inactive': university.isDeleted,
+                    'status-inactive': university.isDeleted
                   }"
                 >
                   {{ university.isDeleted ? 'Disabled' : 'Active' }}
                 </span>
               </td>
+
               <td>
                 <div class="table-actions">
                   <button
@@ -195,11 +214,12 @@
                   >
                     <i class="fa-solid fa-pen"></i>
                   </button>
+
                   <button
                     class="table-action-btn"
                     [ngClass]="{
                       'btn-success': university.isDeleted,
-                      'btn-warning': !university.isDeleted,
+                      'btn-warning': !university.isDeleted
                     }"
                     (click)="onToggleStatus(university.id)"
                     [title]="
@@ -212,12 +232,13 @@
                       class="fa-solid"
                       [ngClass]="{
                         'fa-check': university.isDeleted,
-                        'fa-ban': !university.isDeleted,
+                        'fa-ban': !university.isDeleted
                       }"
                     ></i>
                   </button>
                 </div>
               </td>
+
             </tr>
 
             <!-- Empty State -->
@@ -227,21 +248,25 @@
                   <div class="table-empty-icon">
                     <i class="fa-solid fa-inbox"></i>
                   </div>
-                  <h3 class="table-empty-title">No Universities Found</h3>
+                  <h3 class="table-empty-title">
+                    No Universities Found
+                  </h3>
                   <p class="table-empty-text">
                     {{
                       searchTerm
                         ? 'No results match your search.'
-                        : 'There are no universities to display at the
-                    moment.'
+                        : 'There are no universities to display at the moment.'
                     }}
                   </p>
                 </div>
               </td>
             </tr>
+
           </tbody>
         </table>
       </div>
+
     </div>
   </div>
+
 </ng-container>

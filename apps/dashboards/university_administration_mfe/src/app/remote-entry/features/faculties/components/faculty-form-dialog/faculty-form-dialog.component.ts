@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
 import { FacultyRequest } from '@project-manara-frontend/models';
 import { UserService, FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
+import { selectUniversityId } from '../../../../store/selectors/university.selectors';
+import { filter, take } from 'rxjs';
 @Component({
   selector: 'app-faculty-form-dialog',
   templateUrl: './faculty-form-dialog.component.html',
@@ -12,14 +15,14 @@ import { UserService, FacultyService, HttpErrorService, ToastService } from '@pr
 export class FacultyFormDialogComponent implements OnInit {
 
   facultyForm!: FormGroup;
-
+  universityId$ = this.store.select(selectUniversityId);
   constructor(
-    private userService : UserService,
     private fb: FormBuilder,
     private toastService: ToastService,
     private httpErrorService: HttpErrorService,
     private facultyService: FacultyService,
     private dialogRef: MatDialogRef<FacultyFormDialogComponent>,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -38,19 +41,20 @@ export class FacultyFormDialogComponent implements OnInit {
 
   onSubmit(): void {
     if (this.facultyForm.valid) {
-      let payload = this.facultyForm.value as FacultyRequest;
 
-      // payload.universityId = this.userService.currentUser?.universityId ?? 0;
-
-      this.facultyService.create(this.facultyForm.value).subscribe({
-        next: (response) => {
-          this.dialogRef.close(true);
-          this.toastService.success('Faculty created successfully!');
-        },
-        error: (errors) => {
-          this.httpErrorService.handle(errors);
-        },
-      });
+      this.universityId$.pipe(
+        filter(id => !!id),
+        take(1),
+      ).subscribe(universityId =>
+        this.facultyService.create(universityId!, this.facultyForm.value).subscribe({
+          next: () => {
+            this.dialogRef.close(true);
+            this.toastService.success('Faculty created successfully!');
+          },
+          error: (errors) => {
+            this.httpErrorService.handle(errors);
+          },
+        }));
     }
   }
 

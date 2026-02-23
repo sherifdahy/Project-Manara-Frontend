@@ -13,7 +13,7 @@ import { UniversityFormDialogComponent } from '../../components/university-form-
 })
 export class UniversityDetailPageComponent implements OnInit {
   universityId!: number;
-  currentUniversity$!: Observable<UniversityDetailResponse>;
+  university$!: Observable<UniversityDetailResponse>;
   constructor(
     private matDialog: MatDialog,
     private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class UniversityDetailPageComponent implements OnInit {
   }
 
   loadCurrentUniversity() {
-    this.currentUniversity$ = this.universityService.get(this.universityId);
+    this.university$ = this.universityService.get(this.universityId);
   }
 
   openCreateFacultyFormDialog(): void {

@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UiModule } from '@project-manara-frontend/ui';
 import { RouterModule } from '@angular/router';
 import { routes } from './universities.route';
+import { UniversityOverviewPageComponent } from './pages/university-overview-page/university-overview-page.component';
+import { UniversitySettingPageComponent } from './pages/university-setting-page/university-setting-page.component';
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import { routes } from './universities.route';
     UniversitiesPageComponent,
     UniversityDetailPageComponent,
     UniversityFormDialogComponent,
-
+    UniversityOverviewPageComponent,
+    UniversitySettingPageComponent
   ]
 })
 export class UniversitiesModule { }

@@ -24,6 +24,13 @@ export const remoteRoutes: Route[] = [
           ),
       },
       {
+        path: 'students',
+        loadChildren: () =>
+          import('./features/students/students.module').then(
+            (x) => x.StudentsModule
+          ),
+      },
+      {
         path: 'departments',
         loadChildren: () =>
           import('./features/departments/departments.module').then(

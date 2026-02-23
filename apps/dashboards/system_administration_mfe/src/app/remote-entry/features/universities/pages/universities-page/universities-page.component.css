@@ -197,6 +197,45 @@
   }
 }
 
+/* =====================
+Section Header Layout Fix
+===================== */
+
+.section-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.section-actions .filters-wrapper {
+  flex: 1;
+  margin-bottom: 0;
+  align-items: stretch;
+}
+
+.section-actions .btn-add-university {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .section-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-actions .btn-add-university {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-actions .filters-wrapper {
+    width: 100%;
+  }
+}
+
 /* Hide Established & Students on mobile */
 @media (max-width: 767.98px) {
   .universities-section .data-table th:nth-child(3),

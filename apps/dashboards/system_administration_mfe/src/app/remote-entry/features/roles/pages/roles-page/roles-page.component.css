@@ -173,21 +173,6 @@
   pointer-events: none;
 }
 
-/* Add Role Button */
-.btn-add-role {
-  background: var(--main-color);
-  color: white;
-  border: none;
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--radius-md);
-  display: inline-flex;
-  align-items: center;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  white-space: nowrap;
-}
 
 .btn-add-role:hover {
   background: var(--main-light);

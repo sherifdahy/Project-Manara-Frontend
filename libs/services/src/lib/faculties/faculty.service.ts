@@ -25,8 +25,8 @@ export class FacultyService {
     return this.apiClient.get(`${environment.apiUrl}/api/faculties/my`);
   }
 
-  create(request: FacultyRequest) {
-    return this.apiClient.post(`${environment.apiUrl}/api/faculties`, request);
+  create(universityId: number,request: FacultyRequest) {
+    return this.apiClient.post(`${environment.apiUrl}/api/universities/${universityId}/faculties`, request);
   }
 
   update(id: number, request: FacultyRequest) {
