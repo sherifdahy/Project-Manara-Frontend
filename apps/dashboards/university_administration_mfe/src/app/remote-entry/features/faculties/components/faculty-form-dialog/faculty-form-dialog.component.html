@@ -1,5 +1,4 @@
 <div class="faculty-dialog">
-
   <!-- ================= Header ================= -->
   <div class="faculty-dialog-header">
     <div class="d-flex align-items-center gap-3 flex-fill">
@@ -22,9 +21,7 @@
   <!-- ================= Body ================= -->
   <div class="faculty-dialog-body">
     <form [formGroup]="facultyForm">
-
       <div class="faculty-form-grid">
-
         <!-- Name -->
         <div class="faculty-form-field">
           <label class="faculty-field-label">
@@ -37,10 +34,15 @@
             class="faculty-field-input"
             formControlName="name"
             placeholder="Enter faculty name"
-            [class.invalid]="facultyForm.get('name')?.invalid && facultyForm.get('name')?.touched"
+            [class.invalid]="
+              facultyForm.get('name')?.invalid &&
+              facultyForm.get('name')?.touched
+            "
           />
 
-          <app-display-error [control]="facultyForm.get('name')"></app-display-error>
+          <app-display-error
+            [control]="facultyForm.get('name')"
+          ></app-display-error>
         </div>
 
         <!-- Address -->
@@ -57,9 +59,10 @@
             placeholder="Enter address"
           />
 
-          <app-display-error [control]="facultyForm.get('address')"></app-display-error>
+          <app-display-error
+            [control]="facultyForm.get('address')"
+          ></app-display-error>
         </div>
-
 
         <!-- Description -->
         <div class="faculty-form-field full-width">
@@ -73,8 +76,10 @@
             formControlName="description"
             placeholder="Enter description"
           ></textarea>
-          <app-display-error [control]="facultyForm.get('description')"></app-display-error>
-          </div>
+          <app-display-error
+            [control]="facultyForm.get('description')"
+          ></app-display-error>
+        </div>
 
         <!-- Email -->
         <div class="faculty-form-field">
@@ -89,7 +94,9 @@
             formControlName="email"
             placeholder="example@faculty.edu"
           />
-          <app-display-error [control]="facultyForm.get('email')"></app-display-error>
+          <app-display-error
+            [control]="facultyForm.get('email')"
+          ></app-display-error>
         </div>
 
         <!-- Website -->
@@ -105,18 +112,21 @@
             formControlName="website"
             placeholder="https://faculty.edu"
           />
-          <app-display-error [control]="facultyForm.get('website')"></app-display-error>
-
+          <app-display-error
+            [control]="facultyForm.get('website')"
+          ></app-display-error>
         </div>
-
       </div>
-
     </form>
   </div>
 
   <!-- ================= Footer ================= -->
   <div class="faculty-dialog-footer">
-    <button type="button" class="faculty-btn faculty-btn-cancel" (click)="onCancel()">
+    <button
+      type="button"
+      class="faculty-btn faculty-btn-cancel"
+      (click)="onCancel()"
+    >
       Cancel
     </button>
 
@@ -130,5 +140,4 @@
       <span>Create Faculty</span>
     </button>
   </div>
-
 </div>

@@ -1,21 +1,21 @@
 <!-- Page Header -->
 <div class="page-header mb-4">
   <div>
-    <h1 class="page-title mb-1">Faculties</h1>
+    <h1 class="page-title mb-1">Departments</h1>
     <p class="page-description mb-0">
-      View and manage all university faculties
+      View and manage all university departments
     </p>
   </div>
 </div>
 
 <!-- Stats Cards Row -->
 <div class="row g-3 mb-4">
-  <!-- Total Faculties -->
+  <!-- Total Departments -->
   <div class="col-12 col-sm-6 col-xl-3">
     <div class="stats-card">
       <div class="stats-header">
         <div class="stats-info">
-          <span class="stats-label">Total Faculties</span>
+          <span class="stats-label">Total Departments</span>
           <h3 class="stats-number">9563</h3>
           <span class="stats-meta text-success">523 active</span>
         </div>
@@ -33,7 +33,7 @@
         <div class="stats-info">
           <span class="stats-label">Total Students</span>
           <h3 class="stats-number">9563</h3>
-          <span class="stats-meta">Across all faculties</span>
+          <span class="stats-meta">Across all departments</span>
         </div>
         <div class="stats-icon-wrapper bg-success-soft">
           <i class="fa-solid fa-user-graduate text-success"></i>
@@ -49,7 +49,7 @@
         <div class="stats-info">
           <span class="stats-label">Total Staff</span>
           <h3 class="stats-number">95163</h3>
-          <span class="stats-meta">Faculty members</span>
+          <span class="stats-meta">Department members</span>
         </div>
         <div class="stats-icon-wrapper bg-warning-soft">
           <i class="fa-solid fa-users text-warning"></i>
@@ -75,14 +75,14 @@
   </div>
 </div>
 
-<!-- All Faculties Section -->
-<div class="faculties-section">
+<!-- All Departments Section -->
+<div class="departments-section">
   <div class="section-card">
     <!-- Section Header -->
     <div class="section-header">
       <div>
-        <h4 class="section-title">All Faculties</h4>
-        <p class="section-subtitle">Manage and view faculty information</p>
+        <h4 class="section-title">All Departments</h4>
+        <p class="section-subtitle">Manage and view department information</p>
       </div>
 
       <div class="d-flex gap-2">
@@ -93,9 +93,7 @@
             <input
               type="text"
               class="search-input"
-              placeholder="Search faculties..."
-              [(ngModel)]="searchTerm"
-              (input)="onSearch()"
+              placeholder="Search departments..."
             />
           </div>
         </div>
@@ -108,99 +106,86 @@
               [(ngModel)]="includeDisabled"
               (change)="onFilterChange()"
             >
-              <option [value]="false">Active Only</option>
-              <option [value]="true">Include Disabled</option>
+              <option value="false">Active Only</option>
+              <option value="true">Include Disabled</option>
             </select>
             <i class="fa-solid fa-chevron-down select-icon"></i>
           </div>
         </div>
-        <button hasPermission="faculties:create" class="btn-add-faculty" (click)="openFacultyFormDialog()">
-          <i class="fa-solid fa-plus me-2"></i> Add Faculty
+        <button class="btn-add-department" (click)="openDepartmentFormDialog()">
+          <i class="fa-solid fa-plus me-2"></i> Add Department
         </button>
       </div>
     </div>
 
-    <!-- Faculties Table -->
+    <!-- Departments Table -->
     <div class="data-table-wrapper">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Faculty Name</th>
-            <th>Location</th>
-            <th>Students</th>
-            <th>Staff</th>
-            <th>Departments</th>
-            <th>Avg GPA</th>
+            <th>Department Name</th>
+            <th>Head Department</th>
+            <th>Code</th>
+            <th>Email</th>
             <th>Status</th>
-            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="faculties$ | async as faculties">
-            <tr *ngFor="let faculty of faculties">
+          <ng-container *ngIf="departments$ | async as departments">
+            <tr *ngFor="let department of departments">
               <td>
                 <div class="table-cell-with-icon">
                   <div class="table-cell-icon">
                     <i class="fa-solid fa-building"></i>
                   </div>
                   <div class="table-cell-content">
-                    <a [routerLink]="[faculty.id]" class="table-cell-title">{{
-                      faculty.name
+                    <a href="#" class="table-cell-title">{{
+                      department.name
                     }}</a>
                   </div>
                 </div>
               </td>
-              <td>
-                <span class="table-location-badge">
-                  <i class="fa-solid fa-location-dot"></i>
-                  {{ faculty.address || 'N/A' }}
-                </span>
-              </td>
-              <td>{{ faculty.numberOfStudents | number }}</td>
-              <td>{{ faculty.numberOfStaff | number }}</td>
-              <td>
-                <div class="table-cell-multiline">
-                  <span class="table-cell-primary">8542</span>
-                  <span class="table-cell-secondary">9635 programs</span>
-                </div>
-              </td>
-              <td><span class="table-value-badge">3.5</span></td>
+              <td>{{ department.headOfDepartment }}</td>
+              <td>{{ department.code }}</td>
+              <td>{{ department.email }}</td>
               <td>
                 <span
                   class="table-status-badge"
                   [ngClass]="{
-                    'status-active': !faculty.isDeleted,
-                    'status-inactive': faculty.isDeleted,
+                    'status-active': !department.isDeleted,
+                    'status-inactive': department.isDeleted,
                   }"
                 >
-                  {{ faculty.isDeleted ? 'Disabled' : 'Active' }}
+                  {{ department.isDeleted ? 'Disabled' : 'Active' }}
                 </span>
               </td>
               <td>
                 <div class="table-actions">
                   <a
-                    [routerLink]="[faculty.id]"
+                    [routerLink]="[department.id]"
                     class="table-action-btn btn-primary"
-                    title="Edit Faculty"
+                    title="Edit Department"
                   >
                     <i class="fa-solid fa-pen"></i>
                   </a>
                   <button
                     class="table-action-btn"
                     [ngClass]="{
-                      'btn-success': faculty.isDeleted,
-                      'btn-warning': !faculty.isDeleted,
+                      'btn-success': department.isDeleted,
+                      'btn-warning': !department.isDeleted,
                     }"
-                    (click)="onToggleStatus(faculty.id)"
+                    (click)="onToggleStatus(department.id)"
                     [title]="
-                      faculty.isDeleted ? 'Activate Faculty' : 'Disable Faculty'
+                      department.isDeleted
+                        ? 'Activate Department'
+                        : 'Disable Department'
                     "
                   >
                     <i
                       class="fa-solid"
                       [ngClass]="{
-                        'fa-check': faculty.isDeleted,
-                        'fa-ban': !faculty.isDeleted,
+                        'fa-check': department.isDeleted,
+                        'fa-ban': !department.isDeleted,
                       }"
                     ></i>
                   </button>
@@ -209,19 +194,15 @@
             </tr>
 
             <!-- Empty State -->
-            <tr *ngIf="faculties.length === 0">
+            <tr *ngIf="departments.length == 0">
               <td colspan="9">
                 <div class="table-empty-state">
                   <div class="table-empty-icon">
                     <i class="fa-solid fa-inbox"></i>
                   </div>
-                  <h3 class="table-empty-title">No Faculties Found</h3>
+                  <h3 class="table-empty-title">No Departments Found</h3>
                   <p class="table-empty-text">
-                    {{
-                      searchTerm
-                        ? 'No results match your search.'
-                        : 'There are no faculties to display at the moment.'
-                    }}
+                    There are no departments to display at the moment.
                   </p>
                 </div>
               </td>

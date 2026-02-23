@@ -1,0 +1,104 @@
+<div class="p-4">
+  <div class="form-header d-flex align-items-start gap-3">
+    <div class="form-icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-building-columns"></i>
+    </div>
+    <div>
+      <h3 class="form-title m-0 mb-1">Add Department</h3>
+      <p class="form-subtitle m-0 text-muted small">
+        Fill in the department details
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small">
+          Name
+          <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter department name"
+          formControlName="name"
+        />
+        <app-display-error
+          [control]="departmentForm.get('name')"
+        ></app-display-error>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small">Code</label>
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter department code"
+          formControlName="code"
+        />
+        <app-display-error
+          [control]="departmentForm.get('code')"
+        ></app-display-error>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label fw-semibold small">Description</label>
+        <textarea
+          class="form-control form-control-sm"
+          rows="3"
+          placeholder="Enter description"
+          formControlName="description"
+        ></textarea>
+        <app-display-error
+          [control]="departmentForm.get('description')"
+        ></app-display-error>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small">Head of Department</label>
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter head of department name"
+          formControlName="headOfDepartment"
+        />
+        <app-display-error
+          [control]="departmentForm.get('headOfDepartment')"
+        ></app-display-error>
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small">Email</label>
+        <input
+          type="email"
+          class="form-control form-control-sm"
+          placeholder="Enter email"
+          formControlName="email"
+        />
+        <app-display-error
+          [control]="departmentForm.get('email')"
+        ></app-display-error>
+      </div>
+    </div>
+
+    <div
+      class="form-actions d-flex justify-content-end gap-2 mt-4 pt-4 border-top"
+    >
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        [disabled]="departmentForm.invalid"
+        class="btn-submit d-inline-flex align-items-center gap-2"
+      >
+        <i class="fa-solid fa-plus"></i>
+        Create
+      </button>
+    </div>
+  </form>
+</div>
