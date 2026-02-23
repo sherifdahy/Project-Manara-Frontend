@@ -2,98 +2,6 @@
    Faculties Page Styles
 ===================== */
 
-/* Page Header */
-.page-header {
-  margin-bottom: var(--space-2xl);
-}
-
-.page-title {
-  font-size: var(--fs-4xl);
-  font-weight: var(--fw-bold);
-  color: var(--text-primary);
-  margin-bottom: var(--space-xs);
-}
-
-.page-description {
-  font-size: var(--fs-md);
-  color: var(--text-secondary);
-}
-
-/* =====================
-   Stats Cards
-===================== */
-.stats-card {
-  background: white;
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  transition: all 0.3s ease;
-  height: 100%;
-}
-
-.stats-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.stats-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.stats-info {
-  flex: 1;
-}
-
-.stats-label {
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-medium);
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: block;
-  margin-bottom: var(--space-xs);
-}
-
-.stats-number {
-  font-size: var(--fs-4xl);
-  font-weight: var(--fw-bold);
-  color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
-  line-height: 1;
-}
-
-.stats-meta {
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
-}
-
-.stats-icon-wrapper {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--fs-2xl);
-}
-
-.bg-primary-soft {
-  background: rgba(37, 99, 235, 0.1);
-}
-
-.bg-success-soft {
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.bg-warning-soft {
-  background: rgba(245, 158, 11, 0.1);
-}
-
-.bg-info-soft {
-  background: rgba(59, 130, 246, 0.1);
-}
 
 /* =====================
    Section Card
@@ -230,27 +138,7 @@
   }
 }
 
-@media (max-width: 991.98px) {
-  .stats-number {
-    font-size: var(--fs-3xl);
-  }
-}
-
 @media (max-width: 575.98px) {
-  .stats-card,
-  .section-card {
-    padding: var(--space-lg);
-  }
-
-  .stats-number {
-    font-size: var(--fs-2xl);
-  }
-
-  .stats-icon-wrapper {
-    width: 2rem;
-    height: 2rem;
-    font-size: var(--fs-xl);
-  }
 
   .page-title {
     font-size: var(--fs-3xl);

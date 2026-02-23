@@ -1,24 +1,6 @@
 <ng-container *ngIf="(staffs$ | async) as response">
   <div class="container-fluid px-0">
 
-    <!-- Stats Cards -->
-    <div class="row g-3 mb-4">
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="stats-card">
-          <div class="stats-header">
-            <div class="stats-info">
-              <span class="stats-label">Total Staff</span>
-              <h3 class="stats-number">{{ response.totalCount }}</h3>
-              <span class="stats-meta">Registered members</span>
-            </div>
-            <div class="stats-icon-wrapper bg-primary-soft">
-              <i class="fa-solid fa-user-tie text-primary"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Staff Section -->
     <div class="staffs-section">
       <div class="section-card">
