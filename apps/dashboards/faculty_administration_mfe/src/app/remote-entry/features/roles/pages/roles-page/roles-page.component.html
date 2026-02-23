@@ -62,7 +62,7 @@
 
       <!-- Permissions -->
       <div class="col-12 col-sm-6 col-xl-3">
-        <div class="stats-card">
+        <div class="stats-card" hasPermission="permissions:read">
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Permissions</span>
@@ -86,7 +86,6 @@
             <h4 class="section-title">All Roles</h4>
             <p class="section-subtitle">Manage and configure system roles</p>
           </div>
-
         </div>
 
         <!-- Roles Table -->
@@ -104,7 +103,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let role of roles">
+              <tr *ngFor="let role of roles" hasPermission="roles:read">
                 <td>
                   <div class="table-cell-with-icon">
                     <a [routerLink]="[role.id]" class="table-cell-content">
@@ -114,14 +113,14 @@
                 </td>
                 <td>Full system access with all permissions</td>
                 <td>3</td>
-                <td><span class="table-value-badge">42</span></td>
+                <td><span class="table-value-badge" hasPermission="permissions:read">42</span></td>
                 <td>Admin</td>
                 <td>
                   <span class="table-status-badge status-inactive" *ngIf="role.isDeleted">Disabled</span>
                   <span class="table-status-badge status-active" *ngIf="!role.isDeleted">Active</span>
                 </td>
                 <td>
-                  <div class="table-actions">
+                  <div class="table-actions" hasPermission="roles:update">
                     <a [routerLink]="[role.id]" class="table-action-btn btn-primary" title="Edit Role">
                       <i class="fa-solid fa-pen"></i>
                     </a>

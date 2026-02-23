@@ -27,22 +27,12 @@
             <i class="fa-solid fa-chart-line me-2"></i> Overview
           </a>
         </li>
-        <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
+        <li hasPermission="facultyUsers:read" class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
           <button class="nav-link w-100 w-lg-auto" routerLink="staffs" routerLinkActive="active">
             <i class="fa-solid fa-building me-2"></i> Staffs
           </button>
         </li>
-        <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
-          <button class="nav-link w-100 w-lg-auto" disabled routerLink="departments" routerLinkActive="active">
-            <i class="fa-solid fa-building me-2"></i> Departments
-          </button>
-        </li>
-        <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
-          <button class="nav-link w-100 w-lg-auto" disabled routerLink="students" routerLinkActive="active">
-            <i class="fa-solid fa-user-graduate me-2"></i> Students
-          </button>
-        </li>
-        <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
+          <li hasPermission="faculties:update"  class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
           <a class="nav-link w-100 w-lg-auto" routerLink="settings" routerLinkActive="active">
             <i class="fa-solid fa-gear me-2"></i> Settings
           </a>

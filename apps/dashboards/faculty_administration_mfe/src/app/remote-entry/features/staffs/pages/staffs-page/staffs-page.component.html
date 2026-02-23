@@ -63,7 +63,7 @@
               </div>
             </div>
 
-            <button class="btn-add-staff" (click)="onAddStaff()">
+            <button class="btn-add-staff" (click)="onAddStaff()" hasPermission="staffs:create">
               <i class="fa-solid fa-plus"></i>
               <span>Add Staff</span>
             </button>
@@ -88,7 +88,7 @@
               <tr *ngFor="let staff of response.items">
                 <td>
                   <div class="table-cell-with-icon">
-                    <a [routerLink]="[staff.id]" class="table-cell-content">
+                    <a [routerLink]="[staff.id]" class="table-cell-content" hasPermission="staffs:read">
                       <span class="table-cell-title">{{ staff.name }}</span>
                     </a>
                   </div>
@@ -110,10 +110,10 @@
                 </td>
                 <td>
                   <div class="table-actions">
-                    <a [routerLink]="[staff.id]" class="table-action-btn btn-primary" title="Edit Staff">
+                    <a [routerLink]="[staff.id]" class="table-action-btn btn-primary" title="Edit Staff" hasPermission="staffs:update">
                       <i class="fa-solid fa-pen"></i>
                     </a>
-                    <button class="table-action-btn btn-danger" title="Delete Staff" (click)="onDelete(staff)">
+                    <button class="table-action-btn btn-danger" title="Delete Staff" (click)="onDelete(staff)" hasPermission="staffs:delete">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>

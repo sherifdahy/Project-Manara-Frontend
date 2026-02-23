@@ -1,117 +1,143 @@
-<div class="p-4">
-  <div class="form-header d-flex align-items-start gap-3">
-    <div class="form-icon d-flex align-items-center justify-content-center">
-      <i class="fa-solid fa-building-columns"></i>
+<div class="faculty-dialog">
+  <!-- ================= Header ================= -->
+  <div class="faculty-dialog-header">
+    <div class="d-flex align-items-center gap-3 flex-fill">
+      <div class="faculty-dialog-icon">
+        <i class="fa-solid fa-building-columns"></i>
+      </div>
+      <div class="flex-fill">
+        <h2 class="faculty-dialog-title">Create Faculty</h2>
+        <p class="faculty-dialog-subtitle">
+          Fill in the details to create a new faculty
+        </p>
+      </div>
     </div>
-    <div>
-      <h3 class="form-title m-0 mb-1">
-        {{ 'facultyDialog.title' | translate }}
-      </h3>
-      <p class="form-subtitle m-0 text-muted small">
-        {{ 'facultyDialog.formTitle' | translate }}
-      </p>
-    </div>
+
+    <button (click)="onCancel()" class="faculty-dialog-close" type="button">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
   </div>
 
-  <form [formGroup]="facultyForm" (ngSubmit)="onSubmit()">
-    <div class="row g-3">
-      <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.name' | translate }}
-          <span class="text-danger">*</span>
-        </label>
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          formControlName="name"
-          placeholder="{{ 'facultyDialog.placeholders.name' | translate }}"
-        />
-        <app-display-error
-          [control]="facultyForm.get('name')"
-        ></app-display-error>
-      </div>
+  <!-- ================= Body ================= -->
+  <div class="faculty-dialog-body">
+    <form [formGroup]="facultyForm">
+      <div class="faculty-form-grid">
+        <!-- Name -->
+        <div class="faculty-form-field">
+          <label class="faculty-field-label">
+            <i class="fas fa-building"></i>
+            Faculty Name <span class="required-star">*</span>
+          </label>
 
-      <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.address' | translate }}
-        </label>
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          formControlName="address"
-          placeholder="{{ 'facultyDialog.placeholders.address' | translate }}"
-        />
-        <app-display-error
-          [control]="facultyForm.get('address')"
-        ></app-display-error>
-      </div>
+          <input
+            type="text"
+            class="faculty-field-input"
+            formControlName="name"
+            placeholder="Enter faculty name"
+            [class.invalid]="
+              facultyForm.get('name')?.invalid &&
+              facultyForm.get('name')?.touched
+            "
+          />
 
-      <div class="col-12">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.description' | translate }}
-        </label>
-        <textarea
-          class="form-control form-control-sm"
-          formControlName="description"
-          rows="3"
-          placeholder="{{
-            'facultyDialog.placeholders.description' | translate
-          }}"
-        ></textarea>
-        <app-display-error
-          [control]="facultyForm.get('description')"
-        ></app-display-error>
-      </div>
+          <app-display-error
+            [control]="facultyForm.get('name')"
+          ></app-display-error>
+        </div>
 
-      <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.email' | translate }}
-        </label>
-        <input
-          type="email"
-          class="form-control form-control-sm"
-          formControlName="email"
-          placeholder="{{ 'facultyDialog.placeholders.email' | translate }}"
-        />
-        <app-display-error
-          [control]="facultyForm.get('email')"
-        ></app-display-error>
-      </div>
+        <!-- Address -->
+        <div class="faculty-form-field">
+          <label class="faculty-field-label">
+            <i class="fas fa-location-dot"></i>
+            Address
+          </label>
 
-      <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.website' | translate }}
-        </label>
-        <input
-          type="url"
-          class="form-control form-control-sm"
-          formControlName="website"
-          placeholder="{{ 'facultyDialog.placeholders.website' | translate }}"
-        />
-        <app-display-error
-          [control]="facultyForm.get('website')"
-        ></app-display-error>
-      </div>
-    </div>
+          <input
+            type="text"
+            class="faculty-field-input"
+            formControlName="address"
+            placeholder="Enter address"
+          />
 
-    <div
-      class="form-actions d-flex justify-content-end gap-2 mt-4 pt-4 border-top"
+          <app-display-error
+            [control]="facultyForm.get('address')"
+          ></app-display-error>
+        </div>
+
+        <!-- Description -->
+        <div class="faculty-form-field full-width">
+          <label class="faculty-field-label">
+            <i class="fas fa-align-left"></i>
+            Description
+          </label>
+
+          <textarea
+            class="faculty-field-input textarea"
+            formControlName="description"
+            placeholder="Enter description"
+          ></textarea>
+          <app-display-error
+            [control]="facultyForm.get('description')"
+          ></app-display-error>
+        </div>
+
+        <!-- Email -->
+        <div class="faculty-form-field">
+          <label class="faculty-field-label">
+            <i class="fas fa-envelope"></i>
+            Email
+          </label>
+
+          <input
+            type="email"
+            class="faculty-field-input"
+            formControlName="email"
+            placeholder="example@faculty.edu"
+          />
+          <app-display-error
+            [control]="facultyForm.get('email')"
+          ></app-display-error>
+        </div>
+
+        <!-- Website -->
+        <div class="faculty-form-field">
+          <label class="faculty-field-label">
+            <i class="fas fa-globe"></i>
+            Website
+          </label>
+
+          <input
+            type="url"
+            class="faculty-field-input"
+            formControlName="website"
+            placeholder="https://faculty.edu"
+          />
+          <app-display-error
+            [control]="facultyForm.get('website')"
+          ></app-display-error>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <div class="faculty-dialog-footer">
+    <button
+      type="button"
+      class="faculty-btn faculty-btn-cancel"
+      (click)="onCancel()"
     >
-      <button
-        type="button"
-        class="btn btn-outline-secondary btn-sm"
-        (click)="onCancel()"
-      >
-        {{ 'facultyDialog.buttons.cancel' | translate }}
-      </button>
-      <button
-        type="submit"
-        class="btn-submit d-inline-flex align-items-center gap-2"
-        [disabled]="facultyForm.invalid"
-      >
-        <i class="fa-solid fa-plus"></i>
-        {{ 'facultyDialog.buttons.create' | translate }}
-      </button>
-    </div>
-  </form>
+      Cancel
+    </button>
+
+    <button
+      type="button"
+      class="faculty-btn faculty-btn-submit"
+      [disabled]="facultyForm.invalid"
+      (click)="onSubmit()"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <span>Create Faculty</span>
+    </button>
+  </div>
 </div>

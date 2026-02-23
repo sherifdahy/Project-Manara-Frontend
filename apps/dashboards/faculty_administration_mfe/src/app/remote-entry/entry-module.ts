@@ -16,7 +16,7 @@ import { FacultyUserEffect } from './store/effects/faculty-user.effect';
 import { facultyUserReducer } from './store/reducers/faculty-user.reducer';
 import { getFacultyAction } from './store/actions/get-faculty.actions';
 import { getFacultyUserAction } from './store/actions/get-faculty-user.actions';
-
+import { DirectivesModule } from '@project-manara-frontend/directives';
 @NgModule({
   declarations: [
     FacultyOverviewComponent,
@@ -28,6 +28,7 @@ import { getFacultyUserAction } from './store/actions/get-faculty-user.actions';
     RouterModule.forChild(remoteRoutes),
     TranslateModule,
     UiModule,
+    DirectivesModule,
     EffectsModule.forFeature([FacultyEffect, FacultyUserEffect]),
     StoreModule.forFeature('faculty', facultyReducer),
     StoreModule.forFeature('facultyUser', facultyUserReducer),

@@ -58,11 +58,11 @@
           <p class="card-header-subtitle">Customize permissions for this role in this faculty</p>
         </div>
         <div class="card-header-actions">
-          <button class="btn-action" (click)="selectAll()">
+          <button class="btn-action" (click)="selectAll()" hasPermission="permissions:update">
             <i class="fa-solid fa-check-double"></i>
             <span>Select All</span>
           </button>
-          <button class="btn-action" (click)="deselectAll()">
+          <button class="btn-action" (click)="deselectAll()" hasPermission="permissions:update">
             <i class="fa-solid fa-times"></i>
             <span>Deselect All</span>
           </button>
@@ -97,7 +97,7 @@
 
           <div class="permissions-grid" *ngIf="category.expanded">
             <label class="permission-item" *ngFor="let perm of getVisiblePermissions(category)"
-              [class.selected]="isSelected(perm.key)">
+              [class.selected]="isSelected(perm.key)" hasPermission="permissions:update">
               <input type="checkbox" [checked]="isSelected(perm.key)" (change)="toggle(perm.key)" />
               <span class="check-icon">
                 <i class="fa-solid fa-check"></i>
@@ -135,7 +135,7 @@
           <button class="btn btn-cancel" routerLink="/roles">
             Cancel
           </button>
-          <button class="btn btn-save" (click)="save()" >
+          <button class="btn btn-save" (click)="save()" hasPermission="permissions:update">
             <i class="fa-solid fa-save"></i>
             Save Changes
           </button>

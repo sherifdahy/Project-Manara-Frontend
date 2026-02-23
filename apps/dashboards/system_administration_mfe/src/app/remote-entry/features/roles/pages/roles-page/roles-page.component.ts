@@ -28,11 +28,11 @@ export class RolesPageComponent implements OnInit {
   }
 
   loadScopes(): void {
-    this.scopes$ = this.scopeService.getAll().pipe(shareReplay(1));
+    this.scopes$ = this.scopeService.getAll().pipe();
   }
 
   loadRoles(): void {
-    this.roles$ = this.roleService.getAll(this.includeDisabled).pipe(shareReplay(1));
+    this.roles$ = this.roleService.getAll(this.includeDisabled).pipe();
   }
 
   onIncludeDisabledChange(): void {
