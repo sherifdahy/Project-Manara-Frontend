@@ -4,92 +4,79 @@
       <i class="fa-solid fa-building-columns"></i>
     </div>
     <div>
-      <h3 class="form-title m-0 mb-1">
-        {{ 'facultyDialog.title' | translate }}
-      </h3>
+      <h3 class="form-title m-0 mb-1">Add Department</h3>
       <p class="form-subtitle m-0 text-muted small">
-        {{ 'facultyDialog.formTitle' | translate }}
+        Fill in the department details
       </p>
     </div>
   </div>
 
-  <form [formGroup]="facultyForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
     <div class="row g-3">
       <div class="col-12 col-md-6">
         <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.name' | translate }}
+          Name
           <span class="text-danger">*</span>
         </label>
         <input
           type="text"
           class="form-control form-control-sm"
+          placeholder="Enter department name"
           formControlName="name"
-          placeholder="{{ 'facultyDialog.placeholders.name' | translate }}"
         />
         <app-display-error
-          [control]="facultyForm.get('name')"
+          [control]="departmentForm.get('name')"
         ></app-display-error>
       </div>
 
       <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.address' | translate }}
-        </label>
+        <label class="form-label fw-semibold small">Code</label>
         <input
           type="text"
           class="form-control form-control-sm"
-          formControlName="address"
-          placeholder="{{ 'facultyDialog.placeholders.address' | translate }}"
+          placeholder="Enter department code"
+          formControlName="code"
         />
         <app-display-error
-          [control]="facultyForm.get('address')"
+          [control]="departmentForm.get('code')"
         ></app-display-error>
       </div>
 
       <div class="col-12">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.description' | translate }}
-        </label>
+        <label class="form-label fw-semibold small">Description</label>
         <textarea
           class="form-control form-control-sm"
-          formControlName="description"
           rows="3"
-          placeholder="{{
-            'facultyDialog.placeholders.description' | translate
-          }}"
+          placeholder="Enter description"
+          formControlName="description"
         ></textarea>
         <app-display-error
-          [control]="facultyForm.get('description')"
+          [control]="departmentForm.get('description')"
         ></app-display-error>
       </div>
 
       <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.email' | translate }}
-        </label>
+        <label class="form-label fw-semibold small">Head of Department</label>
+        <input
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Enter head of department name"
+          formControlName="headOfDepartment"
+        />
+        <app-display-error
+          [control]="departmentForm.get('headOfDepartment')"
+        ></app-display-error>
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small">Email</label>
         <input
           type="email"
           class="form-control form-control-sm"
+          placeholder="Enter email"
           formControlName="email"
-          placeholder="{{ 'facultyDialog.placeholders.email' | translate }}"
         />
         <app-display-error
-          [control]="facultyForm.get('email')"
-        ></app-display-error>
-      </div>
-
-      <div class="col-12 col-md-6">
-        <label class="form-label fw-semibold small">
-          {{ 'facultyDialog.labels.website' | translate }}
-        </label>
-        <input
-          type="url"
-          class="form-control form-control-sm"
-          formControlName="website"
-          placeholder="{{ 'facultyDialog.placeholders.website' | translate }}"
-        />
-        <app-display-error
-          [control]="facultyForm.get('website')"
+          [control]="departmentForm.get('email')"
         ></app-display-error>
       </div>
     </div>
@@ -102,15 +89,15 @@
         class="btn btn-outline-secondary btn-sm"
         (click)="onCancel()"
       >
-        {{ 'facultyDialog.buttons.cancel' | translate }}
+        Cancel
       </button>
       <button
         type="submit"
+        [disabled]="departmentForm.invalid"
         class="btn-submit d-inline-flex align-items-center gap-2"
-        [disabled]="facultyForm.invalid"
       >
         <i class="fa-solid fa-plus"></i>
-        {{ 'facultyDialog.buttons.create' | translate }}
+        Create
       </button>
     </div>
   </form>
