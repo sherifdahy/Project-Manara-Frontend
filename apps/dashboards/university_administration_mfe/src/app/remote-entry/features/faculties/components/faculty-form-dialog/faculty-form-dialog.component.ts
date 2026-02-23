@@ -6,6 +6,7 @@ import { FacultyRequest } from '@project-manara-frontend/models';
 import { UserService, FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
 import { selectUniversityId } from '../../../../store/selectors/university.selectors';
 import { filter, take } from 'rxjs';
+import { RegexPatternConsts } from '@project-manara-frontend/consts';
 @Component({
   selector: 'app-faculty-form-dialog',
   templateUrl: './faculty-form-dialog.component.html',
@@ -35,7 +36,7 @@ export class FacultyFormDialogComponent implements OnInit {
       address: ['', [Validators.required]],
       description: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      website: ['', [Validators.required]]
+      website: ['', [Validators.required, Validators.pattern(RegexPatternConsts.WEB_SITE_URL_PATTERN)]]
     });
   }
 

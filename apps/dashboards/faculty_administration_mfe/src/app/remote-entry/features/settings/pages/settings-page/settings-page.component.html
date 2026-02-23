@@ -1,11 +1,12 @@
 <div>
   <!-- Settings Form -->
   <form [formGroup]="facultyForm" (ngSubmit)="onSave()">
+
     <div class="row g-3">
       <!-- Left Column - Basic Information -->
       <div class="col-12 col-lg-8">
         <!-- Basic Information Card -->
-        <div class="settings-card mb-3">
+        <div class="settings-card mb-3" hasPermission="faculties:update">
           <div class="card-header-custom">
             <div class="header-icon">
               <i class="fa-solid fa-building"></i>
@@ -22,8 +23,7 @@
               <label class="form-label-custom">
                 Faculty Name <span class="required-mark">*</span>
               </label>
-              <input type="text" class="form-control-custom" formControlName="name" placeholder="Enter faculty name"
-                />
+              <input type="text" class="form-control-custom" formControlName="name" placeholder="Enter faculty name" />
               <app-display-error [control]="facultyForm.get('name')"></app-display-error>
             </div>
 
@@ -32,9 +32,7 @@
               <label class="form-label-custom">
                 Description <span class="required-mark">*</span>
               </label>
-              <textarea class="form-control-custom" formControlName="description" rows="4"
-                placeholder="Enter faculty description"
-                ></textarea>
+              <textarea class="form-control-custom" formControlName="description" rows="4" placeholder="Enter faculty description"></textarea>
               <div class="form-hint">
                 Provide a brief description of the faculty's mission and programs
               </div>
@@ -46,8 +44,7 @@
               <label class="form-label-custom">
                 Address <span class="required-mark">*</span>
               </label>
-              <input type="text" class="form-control-custom" formControlName="address"
-                placeholder="Enter faculty address"/>
+              <input type="text" class="form-control-custom" formControlName="address" placeholder="Enter faculty address"/>
               <div class="form-hint">
                 <i class="fa-solid fa-location-dot me-1"></i>
                 Full address including city and postal code
@@ -58,7 +55,7 @@
         </div>
 
         <!-- Contact Information Card -->
-        <div class="settings-card">
+        <div class="settings-card" hasPermission="faculties:update">
           <div class="card-header-custom">
             <div class="header-icon">
               <i class="fa-solid fa-address-card"></i>
@@ -78,7 +75,7 @@
               <div class="input-with-icon">
                 <i class="fa-solid fa-envelope input-icon"></i>
                 <input type="email" class="form-control-custom with-icon" formControlName="email"
-                  placeholder="faculty@university.edu"  />
+                  placeholder="faculty@university.edu" />
               </div>
               <app-display-error [control]="facultyForm.get('email')"></app-display-error>
             </div>
@@ -91,8 +88,7 @@
               <div class="input-with-icon">
                 <i class="fa-solid fa-globe input-icon"></i>
                 <input type="url" class="form-control-custom with-icon" formControlName="website"
-                  placeholder="https://faculty.university.edu"
-                  />
+                  placeholder="https://faculty.university.edu" />
               </div>
               <div class="form-hint">
                 Optional: Faculty's official website URL
@@ -106,7 +102,7 @@
       <!-- Right Column - Preview & Actions -->
       <div class="col-12 col-lg-4">
         <!-- Preview Card -->
-        <div class="settings-card sticky-card">
+        <div class="settings-card sticky-card" hasPermission="faculties:read">
           <div class="card-header-custom">
             <div class="header-icon">
               <i class="fa-solid fa-eye"></i>
@@ -118,7 +114,6 @@
           </div>
 
           <div class="card-body-custom">
-            <!-- Preview Content -->
             <div class="preview-section">
               <div class="preview-header">
                 <div class="preview-icon">
@@ -152,16 +147,16 @@
         </div>
 
         <!-- Actions Card -->
-        <div class="settings-card mt-3">
+        <div class="settings-card mt-3" hasPermission="faculties:update">
           <div class="card-body-custom">
             <div class="actions-section">
-              <button type="submit" class="btn-primary-custom w-100 mb-2" [disabled]="!facultyForm.valid">
+              <button type="submit" class="btn-primary-custom w-100 mb-2" [disabled]="!facultyForm.valid" hasPermission="faculties:update">
                 <i class="fa-solid fa-check me-2"></i> Save Changes
               </button>
             </div>
 
             <!-- Form Status -->
-            <div class="form-status mt-3" *ngIf="facultyForm.dirty">
+            <div class="form-status mt-3" *ngIf="facultyForm.dirty" hasPermission="faculties:update">
               <div class="alert-warning-custom">
                 <i class="fa-solid fa-exclamation-triangle me-2"></i>
                 You have unsaved changes
@@ -170,6 +165,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </form>
 </div>

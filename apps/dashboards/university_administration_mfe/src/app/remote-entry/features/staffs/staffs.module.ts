@@ -11,6 +11,7 @@ import { UiModule } from '@project-manara-frontend/ui';
 import { StaffBasicInfoPageComponent } from './pages/staff-basic-info-page/staff-basic-info-page.component';
 import { StaffPermissionsPageComponent } from './pages/staff-permissions-page/staff-permissions-page.component';
 import { NgSelectModule } from '@ng-select/ng-select'
+import { DirectivesModule } from "@project-manara-frontend/directives";
 
 @NgModule({
   imports: [
@@ -20,8 +21,9 @@ import { NgSelectModule } from '@ng-select/ng-select'
     FormsModule,
     MatDialogModule,
     UiModule,
-    NgSelectModule
-  ],
+    NgSelectModule,
+    DirectivesModule
+],
   declarations: [
     StaffsPageComponent,
     StaffDetailPageComponent,

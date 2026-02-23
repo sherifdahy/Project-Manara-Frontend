@@ -1,4 +1,4 @@
-<ng-container *ngIf="(staffs$ | async) as response">
+<ng-container *ngIf="(staffs$ | async) as response" >
   <div class="container-fluid px-0">
 
     <!-- Staff Section -->
@@ -33,7 +33,7 @@
               </div>
             </div>
 
-            <button class="btn-add-staff" (click)="onAddStaff()">
+            <button hasPermission="facultyUsers:create" class="btn-add-staff" (click)="onAddStaff()">
               <i class="fa-solid fa-plus"></i>
               <span>Add Staff</span>
             </button>

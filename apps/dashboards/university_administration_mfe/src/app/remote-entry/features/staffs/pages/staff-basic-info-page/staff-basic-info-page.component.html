@@ -63,8 +63,8 @@
           </label>
 
           <ng-select [items]="roles" bindLabel="name" bindValue="name" [multiple]="true" [closeOnSelect]="false"
-            [searchable]="true" [clearable]="true" placeholder="Select roles..."
-            formControlName="roles" class="roles-select" [class.invalid]="f['roles'].touched && f['roles'].invalid"
+            [searchable]="true" [clearable]="true" placeholder="Select roles..." formControlName="roles"
+            class="roles-select" [class.invalid]="f['roles'].touched && f['roles'].invalid"
             [class.has-value]="f['roles'].value?.length > 0" notFoundText="No roles found"
             loadingText="Loading roles...">
             <ng-template ng-option-tmp let-item="item" let-item$="item$">
@@ -115,7 +115,7 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="form-actions">
+      <div class="form-actions" hasPermission="facultyUsers:update">
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid || !form.dirty">
           Save Changes
         </button>

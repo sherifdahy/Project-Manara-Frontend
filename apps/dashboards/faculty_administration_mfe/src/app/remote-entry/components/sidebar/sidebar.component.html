@@ -19,7 +19,7 @@
   <hr class="m-0" />
   <div class="sidebar-links">
     <ul>
-      <li>
+      <li hasPermission="faculties:read">
         <a routerLink="/faculty-administration/overview" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }" data-tooltip="Overview">
           <i class="fa-solid fa-gauge-high fa-fw"></i>
@@ -34,7 +34,7 @@
         </a>
       </li>
 
-      <li hasPermission="students:read">
+      <li hasPermission="programUsers:read">
         <a routerLink="/faculty-administration/students" routerLinkActive="active" data-tooltip="Students">
           <i class="fa-solid fa-users fa-fw"></i>
           <span>Students</span>
@@ -62,7 +62,7 @@
         </a>
       </li>
 
-      <li hasPermission="faculties:read">
+      <li hasPermission="faculties:update">
         <a routerLink="/faculty-administration/settings" routerLinkActive="active" data-tooltip="Settings">
           <i class="fa-solid fa-gear fa-fw"></i>
           <span>Settings</span>

@@ -10,6 +10,7 @@ import { UiModule } from '@project-manara-frontend/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { FacultyFormDialogComponent } from './components/faculty-form-dialog/faculty-form-dialog.component';
 import { FacultySettingsPageComponent } from './pages/faculty-settings-page/faculty-settings-page.component';
+import { DirectivesModule } from "@project-manara-frontend/directives";
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FacultySettingsPageComponent } from './pages/faculty-settings-page/facu
     UiModule,
     ReactiveFormsModule,
     FormsModule,
-  ],
+    DirectivesModule
+],
   declarations: [
     FacultiesPageComponent,
     FacultyDetailPageComponent,

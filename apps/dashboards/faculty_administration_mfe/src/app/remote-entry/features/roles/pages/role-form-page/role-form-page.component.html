@@ -15,7 +15,7 @@
 
     <!-- Stats Cards Row -->
     <div class="row g-3 mb-4">
-      <div class="col-12 col-sm-6 col-xl-3">
+      <div class="col-12 col-sm-6 col-xl-3" hasPermission="permissions:read">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-sm-6 col-xl-3">
+      <div class="col-12 col-sm-6 col-xl-3" hasPermission="permissions:read">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-sm-6 col-xl-3">
+      <div class="col-12 col-sm-6 col-xl-3" hasPermission="permissions:read">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-sm-6 col-xl-3">
+      <div class="col-12 col-sm-6 col-xl-3" hasPermission="roles:read">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Permissions Management Section -->
-    <div class="permissions-card">
+    <div class="permissions-card" hasPermission="permissions:update">
 
       <div class="card-header-bar">
         <div class="card-header-left">
@@ -92,18 +92,18 @@
           <p class="card-header-subtitle">Customize permissions for this role in this faculty</p>
         </div>
         <div class="card-header-actions">
-          <button class="btn-action" (click)="selectAll()">
+          <button class="btn-action" (click)="selectAll()" hasPermission="permissions:update">
             <i class="fa-solid fa-check-double"></i>
             <span>Select All</span>
           </button>
-          <button class="btn-action" (click)="deselectAll()">
+          <button class="btn-action" (click)="deselectAll()" hasPermission="permissions:update">
             <i class="fa-solid fa-times"></i>
             <span>Deselect All</span>
           </button>
         </div>
       </div>
 
-      <div class="search-bar-wrapper">
+      <div class="search-bar-wrapper" hasPermission="permissions:read">
         <div class="search-box">
           <i class="fa-solid fa-search"></i>
           <input type="text" placeholder="Search permissions..." [(ngModel)]="searchQuery" />
@@ -111,7 +111,7 @@
       </div>
 
       <div class="categories">
-        <div class="category" *ngFor="let category of filteredCategories">
+        <div class="category" *ngFor="let category of filteredCategories" hasPermission="permissions:read">
 
           <div class="category-header" (click)="category.expanded = !category.expanded">
             <div class="category-info">
@@ -156,20 +156,20 @@
 
       <div class="card-footer-bar">
         <div class="footer-info">
-          <span class="footer-changes">
+          <span class="footer-changes" hasPermission="permissions:update">
             <i class="fa-solid fa-circle-exclamation"></i>
             You have unsaved changes
           </span>
-          <span class="footer-no-changes" >
+          <span class="footer-no-changes" hasPermission="permissions:update">
             <i class="fa-solid fa-check-circle"></i>
             All changes saved
           </span>
         </div>
         <div class="footer-actions">
-          <button class="btn btn-cancel" routerLink="/roles">
+          <button class="btn btn-cancel" routerLink="/roles" hasPermission="roles:read">
             Cancel
           </button>
-          <button class="btn btn-save" (click)="save()">
+          <button class="btn btn-save" (click)="save()" hasPermission="permissions:update">
             <i class="fa-solid fa-save"></i>
             Save Changes
           </button>
