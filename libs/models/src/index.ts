@@ -13,8 +13,9 @@ export * from './lib/faculties/requests/faculty-request';
 export * from './lib/faculties/responses/faculty-response';
 export * from './lib/faculties/responses/faculty-detail-response';
 
-export * from './lib/departments/responses/department-response';
 export * from './lib/departments/requests/department-request';
+export * from './lib/departments/responses/department-response';
+export * from './lib/departments/responses/department-detail-respnse';
 
 export * from './lib/roles/requests/role-request';
 export * from './lib/roles/responses/role-response';

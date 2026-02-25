@@ -112,7 +112,11 @@
             <i class="fa-solid fa-chevron-down select-icon"></i>
           </div>
         </div>
-        <button class="btn-add-department" (click)="openDepartmentFormDialog()">
+        <button
+          class="btn-add-department"
+          hasPermission="departments:create"
+          (click)="openDepartmentFormDialog()"
+        >
           <i class="fa-solid fa-plus me-2"></i> Add Department
         </button>
       </div>

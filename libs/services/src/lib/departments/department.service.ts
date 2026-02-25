@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
 import {
+  DepartmentDetailResponse,
   DepartmentRequest,
   DepartmentResponse,
 } from '@project-manara-frontend/models';
@@ -22,9 +23,19 @@ export class DepartmentService {
     );
   }
 
+  get(id: number): Observable<DepartmentDetailResponse> {
+    return this.apiClient.get(`${environment.apiUrl}/api/departments/${id}`);
+  }
+
   create(facultyId: number, request: DepartmentRequest) {
     return this.apiClient.post(
       `${environment.apiUrl}/api/faculties/${facultyId}/departments`,
+      request,
+    );
+  }
+  update(id: number, request: DepartmentRequest) {
+    return this.apiClient.put(
+      `${environment.apiUrl}/api/departments/${id}`,
       request,
     );
   }

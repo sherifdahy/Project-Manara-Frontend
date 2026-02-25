@@ -1,0 +1,186 @@
+<div class="container-fluid px-0">
+  <!-- Settings Form -->
+  <form [formGroup]="departmentForm" (ngSubmit)="onSave()">
+    <div class="row g-3">
+      <!-- Left Column - Basic Information -->
+      <div class="col-12 col-lg-8">
+        <!-- Basic Information Card -->
+        <div class="settings-card mb-3">
+          <div class="card-header-custom">
+            <div class="header-icon">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+              <h5 class="card-title-custom">Basic Information</h5>
+              <p class="card-subtitle-custom">
+                General department details and description
+              </p>
+            </div>
+          </div>
+
+          <div class="card-body-custom">
+            <!-- Department Name -->
+            <div class="form-group-custom">
+              <label class="form-label-custom">
+                Department Name <span class="required-mark">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control-custom"
+                formControlName="name"
+                placeholder="Enter department name"
+              />
+              <app-display-error
+                [control]="departmentForm.get('name')"
+              ></app-display-error>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group-custom">
+              <label class="form-label-custom">
+                Description <span class="required-mark">*</span>
+              </label>
+              <textarea
+                formControlName="description"
+                class="form-control-custom"
+                rows="4"
+                placeholder="Enter department description"
+              ></textarea>
+              <div class="form-hint">
+                Provide a brief description of the department's mission and
+                programs
+              </div>
+              <app-display-error
+                [control]="departmentForm.get('description')"
+              ></app-display-error>
+            </div>
+
+            <!-- Code -->
+            <div class="form-group-custom">
+              <label class="form-label-custom">
+                Department Code <span class="required-mark">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control-custom"
+                formControlName="code"
+                placeholder="Enter department address"
+              />
+              <div class="form-hint">
+                <i class="fa-solid fa-location-dot me-1"></i>
+                Unique department code (e.g., CS101)
+              </div>
+              <app-display-error
+                [control]="departmentForm.get('code')"
+              ></app-display-error>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Information Card -->
+        <div class="settings-card">
+          <div class="card-header-custom">
+            <div class="header-icon">
+              <i class="fa-solid fa-address-card"></i>
+            </div>
+            <div>
+              <h5 class="card-title-custom">Contact Information</h5>
+              <p class="card-subtitle-custom">Email</p>
+            </div>
+          </div>
+
+          <div class="card-body-custom">
+            <!-- Email -->
+            <div class="form-group-custom">
+              <label class="form-label-custom">
+                Email Address <span class="required-mark">*</span>
+              </label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <input
+                  type="email"
+                  class="form-control-custom with-icon"
+                  formControlName="email"
+                  placeholder="department@university.edu"
+                />
+              </div>
+              <app-display-error
+                [control]="departmentForm.get('email')"
+              ></app-display-error>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Preview & Actions -->
+      <div class="col-12 col-lg-4">
+        <!-- Preview Card -->
+        <div class="settings-card sticky-card">
+          <div class="card-header-custom">
+            <div class="header-icon">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <div>
+              <h5 class="card-title-custom">Preview</h5>
+              <p class="card-subtitle-custom">How it will appear</p>
+            </div>
+          </div>
+
+          <div class="card-body-custom">
+            <!-- Preview Content -->
+            <div class="preview-section">
+              <div class="preview-header">
+                <div class="preview-icon">
+                  <i class="fa-solid fa-building"></i>
+                </div>
+                <h6 class="preview-title">
+                  {{ departmentForm.get('name')?.value || 'Department Name' }}
+                </h6>
+              </div>
+
+              <div class="preview-description">
+                {{
+                  departmentForm.get('description')?.value ||
+                    'Department description will appear here.'
+                }}
+              </div>
+
+              <div class="preview-info-list">
+                <div class="preview-info-item">
+                  <i class="fa-solid fa-envelope"></i>
+                  <span>{{
+                    departmentForm.get('email')?.value ||
+                      'department@university.edu'
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions Card -->
+        <div class="settings-card mt-3">
+          <div class="card-body-custom">
+            <div class="actions-section">
+              <button
+                type="submit"
+                class="btn-primary-custom w-100 mb-2"
+                [disabled]="!departmentForm.valid || !departmentForm.dirty"
+              >
+                <i class="fa-solid fa-check me-2"></i> Save Changes
+              </button>
+            </div>
+
+            <!-- Form Status -->
+            <div class="form-status mt-3" *ngIf="departmentForm.dirty">
+              <div class="alert-warning-custom">
+                <i class="fa-solid fa-exclamation-triangle me-2"></i>
+                You have unsaved changes
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
