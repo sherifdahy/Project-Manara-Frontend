@@ -4,7 +4,7 @@ import {
   FormGroup,
   Validators,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -12,9 +12,13 @@ import { Store } from '@ngrx/store';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import {
   RoleResponse,
-  ScopeDetailResponse
+  ScopeDetailResponse,
 } from '@project-manara-frontend/models';
-import { HttpErrorService, ScopeService, UniversityUserService } from '@project-manara-frontend/services';
+import {
+  HttpErrorService,
+  ScopeService,
+  UniversityUserService,
+} from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 
@@ -22,10 +26,9 @@ import { filter, switchMap, take, tap } from 'rxjs/operators';
   selector: 'app-staff-form-dialog',
   standalone: false,
   templateUrl: './staff-form-dialog.component.html',
-  styleUrls: ['./staff-form-dialog.component.css']
+  styleUrls: ['./staff-form-dialog.component.css'],
 })
 export class StaffFormDialogComponent implements OnInit {
-
   form!: FormGroup;
   showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
@@ -39,7 +42,7 @@ export class StaffFormDialogComponent implements OnInit {
     private httpErrorService: HttpErrorService,
     private dialogRef: MatDialogRef<StaffFormDialogComponent>,
     private route: ActivatedRoute,
-    @Inject(MAT_DIALOG_DATA) private data: { universityId: number }
+    @Inject(MAT_DIALOG_DATA) private data: { universityId: number },
   ) {
     this.universityId = this.data.universityId;
   }
@@ -54,18 +57,23 @@ export class StaffFormDialogComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3)]],
       ssn: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(RegexPatternConsts.PASSWORD_PATTERN)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(RegexPatternConsts.PASSWORD_PATTERN),
+        ],
+      ],
       roles: [[] as string[], [Validators.required]],
-      isDisabled: [false]
+      isDisabled: [false],
     });
   }
-
 
   private loadScope(): void {
     this.scope$ = this.scopeService.get('university').pipe(
       tap((scope: ScopeDetailResponse) => {
         this.availableRoles = scope.roles || [];
-      })
+      }),
     );
   }
 
@@ -85,10 +93,9 @@ export class StaffFormDialogComponent implements OnInit {
       },
       error: (err) => {
         this.httpErrorService.handle(err);
-      }
-    })
+      },
+    });
   }
-
 
   onClose(): void {
     this.dialogRef.close();

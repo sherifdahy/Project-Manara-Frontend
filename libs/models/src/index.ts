@@ -31,6 +31,9 @@ export * from './lib/university-users/responses/university-user-response';
 export * from './lib/faculty-users/requests/faculty-user-request';
 export * from './lib/faculty-users/responses/faculty-user-response';
 
+export * from './lib/department-users/responses/department-user-response';
+export * from './lib/department-users/requests/department-user-request';
+
 export * from './lib/common/paginated-list';
 export * from './lib/common/request-filters';
 

@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FacultyUserResponse, PaginatedList, RequestFilters } from '@project-manara-frontend/models';
-import { FacultyUserService, HttpErrorService } from '@project-manara-frontend/services';
+import {
+  FacultyUserResponse,
+  PaginatedList,
+  RequestFilters,
+} from '@project-manara-frontend/models';
+import {
+  FacultyUserService,
+  HttpErrorService,
+} from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
 import { ActivatedRoute } from '@angular/router';
@@ -10,10 +17,9 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-staffs-page',
   standalone: false,
   templateUrl: './staffs-page.component.html',
-  styleUrls: ['./staffs-page.component.css']
+  styleUrls: ['./staffs-page.component.css'],
 })
 export class StaffsPageComponent implements OnInit {
-
   filters = new RequestFilters();
   staffs$!: Observable<PaginatedList<FacultyUserResponse>>;
   selectedStatus: boolean = false;
@@ -33,8 +39,11 @@ export class StaffsPageComponent implements OnInit {
   }
 
   loadStaffs(): void {
-    this.staffs$ = this.facultyUserService.getAll(this.facultyId, this.filters, this.selectedStatus);
-
+    this.staffs$ = this.facultyUserService.getAll(
+      this.facultyId,
+      this.filters,
+      this.selectedStatus,
+    );
   }
 
   onSearch(): void {
@@ -82,7 +91,10 @@ export class StaffsPageComponent implements OnInit {
   }
 
   getEndIndex(response: PaginatedList<FacultyUserResponse>): number {
-    return Math.min(response.pageNumber * this.filters.PageSize, response.totalCount);
+    return Math.min(
+      response.pageNumber * this.filters.PageSize,
+      response.totalCount,
+    );
   }
 
   onAddStaff(): void {
@@ -91,10 +103,10 @@ export class StaffsPageComponent implements OnInit {
       maxWidth: '90vw',
       minHeight: '90vh',
       panelClass: 'staff-form-dialog-panel',
-      data: { facultyId: this.facultyId }
+      data: { facultyId: this.facultyId },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) this.loadStaffs();
     });
   }
@@ -106,7 +118,7 @@ export class StaffsPageComponent implements OnInit {
       },
       error: (errors) => {
         this.httpErrorService.handle(errors);
-      }
+      },
     });
   }
 }

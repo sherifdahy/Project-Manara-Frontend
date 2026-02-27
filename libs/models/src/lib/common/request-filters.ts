@@ -3,5 +3,5 @@ export class RequestFilters {
   PageSize: number = 10;
   SearchValue: string | null = null;
   SortColumn: string | null = null;
-  SortDirection: string = "ASC";
+  SortDirection: string = 'ASC';
 }

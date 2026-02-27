@@ -26,6 +26,13 @@ export const routes: Routes = [
         path: 'settings',
         component: DepartmentSettingsPageComponent,
       },
+      {
+        path: 'department-staffs',
+        loadChildren: () =>
+          import('../department-staffs/department-staffs.module').then(
+            (x) => x.DepartmentStaffsModule,
+          ),
+      },
     ],
   },
 ];

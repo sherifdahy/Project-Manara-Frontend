@@ -1,45 +1,36 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-  ValidationErrors,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   RoleResponse,
   ScopeDetailResponse,
 } from '@project-manara-frontend/models';
 import {
-  FacultyUserService,
+  DepartmentUserService,
   HttpErrorService,
   ScopeService,
 } from '@project-manara-frontend/services';
 import { RegexPatternConsts } from 'libs/consts/src/lib/regex-pattern-consts';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-staff-form-dialog',
+  selector: 'app-department-staff-form-dialog',
   standalone: false,
-  templateUrl: './staff-form-dialog.component.html',
-  styleUrls: ['./staff-form-dialog.component.css'],
+  templateUrl: './department-staff-form-dialog.component.html',
+  styleUrls: ['./department-staff-form-dialog.component.css'],
 })
-export class StaffFormDialogComponent implements OnInit {
+export class DepartmentStaffFormDialogComponent implements OnInit {
   form!: FormGroup;
-  showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
-
   availableRoles: RoleResponse[] = [];
-
+  showPassword = false;
   constructor(
     private fb: FormBuilder,
-    private facultyUserService: FacultyUserService,
     private scopeService: ScopeService,
-    private dialogRef: MatDialogRef<StaffFormDialogComponent>,
+    private dialogRef: MatDialogRef<DepartmentStaffFormDialogComponent>,
     private httpErrorService: HttpErrorService,
-    @Inject(MAT_DIALOG_DATA) public data: { facultyId: number },
+    private departmentUserService: DepartmentUserService,
+    @Inject(MAT_DIALOG_DATA) public data: { departmentId: number },
   ) {}
 
   ngOnInit(): void {
@@ -54,8 +45,11 @@ export class StaffFormDialogComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
-        [Validators.required, Validators.minLength(6)],
-        Validators.pattern(RegexPatternConsts.PASSWORD_PATTERN),
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(RegexPatternConsts.PASSWORD_PATTERN),
+        ],
       ],
       roles: [[] as string[], Validators.required],
       isDisabled: [false],
@@ -63,13 +57,12 @@ export class StaffFormDialogComponent implements OnInit {
   }
 
   private loadScope(): void {
-    this.scope$ = this.scopeService.get('faculty').pipe(
+    this.scope$ = this.scopeService.get('department').pipe(
       tap((scope: ScopeDetailResponse) => {
         this.availableRoles = scope.roles || [];
       }),
     );
   }
-
   getSelectedRoles(): string[] {
     return this.form.get('roles')?.value || [];
   }
@@ -81,14 +74,16 @@ export class StaffFormDialogComponent implements OnInit {
 
     const request = this.form.value;
 
-    this.facultyUserService.create(this.data.facultyId, request).subscribe({
-      next: () => {
-        this.dialogRef.close(true);
-      },
-      error: (err) => {
-        this.httpErrorService.handle(err);
-      },
-    });
+    this.departmentUserService
+      .create(this.data.departmentId, request)
+      .subscribe({
+        next: () => {
+          this.dialogRef.close(true);
+        },
+        error: (err) => {
+          this.httpErrorService.handle(err);
+        },
+      });
   }
 
   onClose(): void {

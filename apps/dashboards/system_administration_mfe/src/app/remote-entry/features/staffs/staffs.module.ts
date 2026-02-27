@@ -5,12 +5,12 @@ import { StaffDetailPageComponent } from './pages/staff-detail-page/staff-detail
 import { RouterModule } from '@angular/router';
 import { routes } from './staffs.route';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule } from '@angular/material/dialog';
 import { StaffFormDialogComponent } from './components/staff-form-dialog/staff-form-dialog.component';
 import { UiModule } from '@project-manara-frontend/ui';
 import { StaffBasicInfoPageComponent } from './pages/staff-basic-info-page/staff-basic-info-page.component';
 import { StaffPermissionsPageComponent } from './pages/staff-permissions-page/staff-permissions-page.component';
-import { NgSelectModule } from '@ng-select/ng-select'
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -20,14 +20,14 @@ import { NgSelectModule } from '@ng-select/ng-select'
     FormsModule,
     MatDialogModule,
     UiModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   declarations: [
     StaffsPageComponent,
     StaffDetailPageComponent,
     StaffFormDialogComponent,
     StaffBasicInfoPageComponent,
-    StaffPermissionsPageComponent
-  ]
+    StaffPermissionsPageComponent,
+  ],
 })
-export class StaffsModule { }
+export class StaffsModule {}
