@@ -42,17 +42,15 @@
               formControlName="name"
               placeholder="Enter full name"
             />
-            <span
-              class="field-error"
-              *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-            >
-              <span *ngIf="form.get('name')?.errors?.['required']"
-                >Name is required</span
-              >
-              <span *ngIf="form.get('name')?.errors?.['minlength']"
-                >Minimum 3 characters</span
-              >
-            </span>
+
+            <app-display-error
+              errorMessageStyle="  display: block;
+                      margin-top: 3px;
+                      font-size: var(--fs-xs);
+                      color: var(--error);
+                      line-height: 1.3;"
+              [control]="form.get('name')"
+            ></app-display-error>
           </div>
 
           <!-- SSN -->
@@ -71,14 +69,14 @@
               placeholder="Enter 14-digit national ID"
               maxlength="14"
             />
-            <span
-              class="field-error"
-              *ngIf="form.get('ssn')?.invalid && form.get('ssn')?.touched"
-            >
-              <span *ngIf="form.get('ssn')?.errors?.['required']"
-                >SSN is required</span
-              >
-            </span>
+            <app-display-error
+              errorMessageStyle="  display: block;
+                      margin-top: 3px;
+                      font-size: var(--fs-xs);
+                      color: var(--error);
+                      line-height: 1.3;"
+              [control]="form.get('ssn')"
+            ></app-display-error>
           </div>
 
           <!-- Email -->
@@ -96,17 +94,14 @@
               formControlName="email"
               placeholder="example@university.edu"
             />
-            <span
-              class="field-error"
-              *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-            >
-              <span *ngIf="form.get('email')?.errors?.['required']"
-                >Email is required</span
-              >
-              <span *ngIf="form.get('email')?.errors?.['email']"
-                >Enter a valid email</span
-              >
-            </span>
+            <app-display-error
+              errorMessageStyle="  display: block;
+                      margin-top: 3px;
+                      font-size: var(--fs-xs);
+                      color: var(--error);
+                      line-height: 1.3;"
+              [control]="form.get('email')"
+            ></app-display-error>
           </div>
 
           <!-- Password -->
@@ -137,24 +132,14 @@
                 ></i>
               </button>
             </div>
-            <span
-              class="field-error"
-              *ngIf="
-                form.get('password')?.invalid && form.get('password')?.touched
-              "
-            >
-              <span *ngIf="form.get('password')?.errors?.['required']"
-                >Password is required</span
-              >
-              <span *ngIf="form.get('password')?.errors?.['minlength']"
-                >Minimum 6 characters</span
-              >
-
-              <span *ngIf="form.get('password')?.errors?.['pattern']"
-                >Password must contain at least one uppercase letter, one
-                lowercase letter, and one number</span
-              >
-            </span>
+            <app-display-error
+              errorMessageStyle="  display: block;
+                      margin-top: 3px;
+                      font-size: var(--fs-xs);
+                      color: var(--error);
+                      line-height: 1.3;"
+              [control]="form.get('password')"
+            ></app-display-error>
           </div>
 
           <!-- Roles -->
@@ -203,12 +188,14 @@
               </ng-template>
             </ng-select>
 
-            <span
-              class="field-error"
-              *ngIf="form.get('roles')?.invalid && form.get('roles')?.touched"
-            >
-              Please select at least one role
-            </span>
+            <app-display-error
+              errorMessageStyle="  display: block;
+                      margin-top: 3px;
+                      font-size: var(--fs-xs);
+                      color: var(--error);
+                      line-height: 1.3;"
+              [control]="form.get('roles')"
+            ></app-display-error>
           </div>
 
           <!-- Account Status -->

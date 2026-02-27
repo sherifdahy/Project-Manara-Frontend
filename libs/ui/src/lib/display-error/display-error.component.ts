@@ -11,53 +11,51 @@ interface ErrorConfig {
   selector: 'app-display-error',
   standalone: false,
   templateUrl: './display-error.component.html',
-  styleUrls: ['./display-error.component.css']
+  styleUrls: ['./display-error.component.css'],
 })
 export class DisplayErrorComponent {
-
   @Input() control: AbstractControl | null = null;
   @Input() showOnTouched: boolean = true;
   @Input() showOnDirty: boolean = false;
   @Input() fieldName: string = '';
-
-
+  @Input() errorMessageStyle: string = '';
 
   private errorConfigs: ErrorConfig[] = [
     {
       key: 'required',
-      message: 'validation.required'
+      message: 'validation.required',
     },
     {
       key: 'email',
-      message: 'validation.email'
+      message: 'validation.email',
     },
     {
       key: 'minlength',
       message: 'validation.minLength',
-      params: (errors) => ({ min: errors['minlength']?.requiredLength })
+      params: (errors) => ({ min: errors['minlength']?.requiredLength }),
     },
     {
       key: 'maxlength',
       message: 'validation.maxLength',
-      params: (errors) => ({ max: errors['maxlength']?.requiredLength })
+      params: (errors) => ({ max: errors['maxlength']?.requiredLength }),
     },
     {
       key: 'min',
       message: 'validation.min',
-      params: (errors) => ({ min: errors['min']?.min })
+      params: (errors) => ({ min: errors['min']?.min }),
     },
     {
       key: 'max',
       message: 'validation.max',
-      params: (errors) => ({ max: errors['max']?.max })
+      params: (errors) => ({ max: errors['max']?.max }),
     },
     {
       key: 'pattern',
-      message: 'validation.pattern'
+      message: 'validation.pattern',
     },
     {
       key: 'UnmatchedPassword',
-      message: 'validation.unmatchedPassword'
+      message: 'validation.unmatchedPassword',
     },
   ];
 
@@ -86,7 +84,7 @@ export class DisplayErrorComponent {
       if (controlErrors[config.key]) {
         result.push({
           message: config.message,
-          params: config.params ? config.params(controlErrors) : {}
+          params: config.params ? config.params(controlErrors) : {},
         });
       }
     }
@@ -95,7 +93,7 @@ export class DisplayErrorComponent {
     if (controlErrors['custom']) {
       result.push({
         message: controlErrors['custom'],
-        params: {}
+        params: {},
       });
     }
 
@@ -103,7 +101,7 @@ export class DisplayErrorComponent {
     if (controlErrors['server']) {
       const serverErrors = controlErrors['server'];
       if (Array.isArray(serverErrors)) {
-        serverErrors.forEach(err => {
+        serverErrors.forEach((err) => {
           result.push({ message: err, params: {} });
         });
       } else {

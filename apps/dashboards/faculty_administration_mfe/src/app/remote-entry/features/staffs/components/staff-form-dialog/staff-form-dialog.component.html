@@ -1,7 +1,5 @@
 <ng-container *ngIf="scope$ | async">
-
   <div class="staff-dialog">
-
     <!-- Dialog Header -->
     <div class="staff-dialog-header">
       <div class="d-flex align-items-center gap-3 flex-fill">
@@ -10,10 +8,17 @@
         </div>
         <div class="flex-fill">
           <h2 class="staff-dialog-title">Add New Staff</h2>
-          <p class="staff-dialog-subtitle">Fill in the details to create a new staff member</p>
+          <p class="staff-dialog-subtitle">
+            Fill in the details to create a new staff member
+          </p>
         </div>
       </div>
-      <button (click)="onClose()" class="staff-dialog-close" type="button" aria-label="Close dialog">
+      <button
+        (click)="onClose()"
+        class="staff-dialog-close"
+        type="button"
+        aria-label="Close dialog"
+      >
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -22,16 +27,21 @@
     <div class="staff-dialog-body">
       <form [formGroup]="form">
         <div class="form-grid">
-
           <!-- Full Name -->
           <div class="form-field">
             <label class="field-label">
               <i class="fas fa-user"></i>
               Full Name <span class="required-star">*</span>
             </label>
-            <input type="text" class="field-input"
-              [class.invalid]="form.get('name')?.invalid && form.get('name')?.touched" formControlName="name"
-              placeholder="Enter full name" />
+            <input
+              type="text"
+              class="field-input"
+              [class.invalid]="
+                form.get('name')?.invalid && form.get('name')?.touched
+              "
+              formControlName="name"
+              placeholder="Enter full name"
+            />
             <app-display-error [control]="form.get('name')"></app-display-error>
           </div>
 
@@ -41,9 +51,16 @@
               <i class="fas fa-hashtag"></i>
               SSN <span class="required-star">*</span>
             </label>
-            <input type="text" class="field-input"
-              [class.invalid]="form.get('ssn')?.invalid && form.get('ssn')?.touched" formControlName="ssn"
-              placeholder="Enter 14-digit national ID" maxlength="14" />
+            <input
+              type="text"
+              class="field-input"
+              [class.invalid]="
+                form.get('ssn')?.invalid && form.get('ssn')?.touched
+              "
+              formControlName="ssn"
+              placeholder="Enter 14-digit national ID"
+              maxlength="14"
+            />
             <app-display-error [control]="form.get('ssn')"></app-display-error>
           </div>
 
@@ -53,10 +70,18 @@
               <i class="fas fa-envelope"></i>
               Email Address <span class="required-star">*</span>
             </label>
-            <input type="email" class="field-input"
-              [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched" formControlName="email"
-              placeholder="example@university.edu" />
-            <app-display-error [control]="form.get('email')"></app-display-error>
+            <input
+              type="email"
+              class="field-input"
+              [class.invalid]="
+                form.get('email')?.invalid && form.get('email')?.touched
+              "
+              formControlName="email"
+              placeholder="example@university.edu"
+            />
+            <app-display-error
+              [control]="form.get('email')"
+            ></app-display-error>
           </div>
 
           <!-- Password -->
@@ -66,14 +91,30 @@
               Password <span class="required-star">*</span>
             </label>
             <div class="input-wrapper">
-              <input [type]="showPassword ? 'text' : 'password'" class="field-input"
-                [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched"
-                formControlName="password" placeholder="Enter password" />
-              <button type="button" class="toggle-password" (click)="showPassword = !showPassword" tabindex="-1">
-                <i class="fa-solid" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="field-input"
+                [class.invalid]="
+                  form.get('password')?.invalid && form.get('password')?.touched
+                "
+                formControlName="password"
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                (click)="showPassword = !showPassword"
+                tabindex="-1"
+              >
+                <i
+                  class="fa-solid"
+                  [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                ></i>
               </button>
             </div>
-            <app-display-error [control]="form.get('password')"></app-display-error>
+            <app-display-error
+              [control]="form.get('password')"
+            ></app-display-error>
           </div>
 
           <!-- Roles -->
@@ -83,12 +124,24 @@
               Roles <span class="required-star">*</span>
             </label>
 
-            <ng-select [items]="availableRoles" bindLabel="name" bindValue="name" [multiple]="true"
-              [closeOnSelect]="false" [searchable]="true" [clearable]="true" placeholder="Select roles..."
-              formControlName="roles" class="roles-select"
-              [class.invalid]="form.get('roles')?.invalid && form.get('roles')?.touched"
-              [class.has-value]="form.get('roles')?.value.length > 0" notFoundText="No roles found"
-              loadingText="Loading roles...">
+            <ng-select
+              [items]="availableRoles"
+              bindLabel="name"
+              bindValue="name"
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [searchable]="true"
+              [clearable]="true"
+              placeholder="Select roles..."
+              formControlName="roles"
+              class="roles-select"
+              [class.invalid]="
+                form.get('roles')?.invalid && form.get('roles')?.touched
+              "
+              [class.has-value]="form.get('roles')?.value.length > 0"
+              notFoundText="No roles found"
+              loadingText="Loading roles..."
+            >
               <ng-template ng-option-tmp let-item="item" let-item$="item$">
                 <div class="role-option">
                   <span class="role-checkbox">
@@ -98,7 +151,11 @@
                 </div>
               </ng-template>
 
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <ng-template
+                ng-multi-label-tmp
+                let-items="items"
+                let-clear="clear"
+              >
                 <div class="role-tag" *ngFor="let item of items">
                   {{ item.name }}
                   <span class="remove-tag" (click)="clear(item.name)">×</span>
@@ -106,7 +163,9 @@
               </ng-template>
             </ng-select>
 
-            <app-display-error [control]="form.get('roles')"></app-display-error>
+            <app-display-error
+              [control]="form.get('roles')"
+            ></app-display-error>
           </div>
 
           <!-- Account Status -->
@@ -115,27 +174,36 @@
               <i class="fas fa-toggle-on"></i>
               Account Status
             </label>
-            <div class="status-box" [class.active]="!form.get('isDisabled')?.value"
-              [class.inactive]="form.get('isDisabled')?.value">
+            <div
+              class="status-box"
+              [class.active]="!form.get('isDisabled')?.value"
+              [class.inactive]="form.get('isDisabled')?.value"
+            >
               <div class="status-info">
-                <span class="status-indicator" [class.off]="form.get('isDisabled')?.value"></span>
+                <span
+                  class="status-indicator"
+                  [class.off]="form.get('isDisabled')?.value"
+                ></span>
                 <div>
                   <div class="status-label">
                     {{ form.get('isDisabled')?.value ? 'Disabled' : 'Active' }}
                   </div>
                   <div class="status-desc">
-                    {{ form.get('isDisabled')?.value ? 'This account is currently suspended' : 'This account is
-                    fullyoperational' }}
+                    {{
+                      form.get('isDisabled')?.value
+                        ? 'This account is currently suspended'
+                        : 'This account is
+                    fullyoperational'
+                    }}
                   </div>
                 </div>
               </div>
               <label class="switch">
-                <input type="checkbox" formControlName="isDisabled">
+                <input type="checkbox" formControlName="isDisabled" />
                 <span class="slider"></span>
               </label>
             </div>
           </div>
-
         </div>
       </form>
     </div>
@@ -145,7 +213,12 @@
       <button (click)="onClose()" type="button" class="btn btn-cancel">
         Cancel
       </button>
-      <button type="button" class="btn btn-submit" [disabled]="form.invalid" (click)="onSubmit()">
+      <button
+        type="button"
+        class="btn btn-submit"
+        [disabled]="form.invalid"
+        (click)="onSubmit()"
+      >
         <i class="fa-solid fa-plus"></i>
         <span>Create Staff</span>
       </button>
