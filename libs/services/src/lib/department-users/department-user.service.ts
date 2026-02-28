@@ -43,9 +43,22 @@ export class DepartmentUserService {
       params,
     );
   }
+
+  get(id: number): Observable<DepartmentUserResponse> {
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/departmentUsers/${id}`,
+    );
+  }
+
   create(departmentId: number, request: DepartmentUserRequest) {
     return this.apiClient.post(
       `${environment.apiUrl}/api/departments/${departmentId}/departmentUsers`,
+      request,
+    );
+  }
+  update(id: number, request: DepartmentUserRequest) {
+    return this.apiClient.put(
+      `${environment.apiUrl}/api/departmentUsers/${id}`,
       request,
     );
   }

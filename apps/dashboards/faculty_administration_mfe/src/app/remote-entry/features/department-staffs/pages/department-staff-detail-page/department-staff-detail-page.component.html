@@ -1,0 +1,30 @@
+<div class="layout-wrapper">
+  <!-- Sidebar Tabs - يمين -->
+  <div class="tab-sidebar">
+    <ul class="nav nav-pills flex-column">
+      <li hasPermission="facultyUsers:read" class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="basic-info"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="fa-solid fa-user me-2"></i>
+          Basic Information
+        </a>
+      </li>
+
+      <li hasPermission="facultyUsers:read" class="nav-item">
+        <a class="nav-link" routerLink="permissions" routerLinkActive="active">
+          <i class="fa-solid fa-shield-halved me-2"></i>
+          Permissions
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Content - شمال -->
+  <div class="tab-content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>

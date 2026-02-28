@@ -3,38 +3,38 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import {
-  FacultyUserResponse,
+  DepartmentUserResponse,
   RoleResponse,
 } from '@project-manara-frontend/models';
 import {
-  FacultyUserService,
+  DepartmentUserService,
   HttpErrorService,
   ScopeService,
 } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject, forkJoin, takeUntil } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-staff-basic-info-page',
+  selector: 'app-department-staff-basic-info-page',
   standalone: false,
-  templateUrl: './staff-basic-info-page.component.html',
-  styleUrls: ['./staff-basic-info-page.component.css'],
+  templateUrl: './department-staff-basic-info-page.component.html',
+  styleUrls: ['./department-staff-basic-info-page.component.css'],
 })
-export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
+export class DepartmentStaffBasicInfoPageComponent
+  implements OnInit, OnDestroy
+{
   form!: FormGroup;
   showPassword = false;
-
   roles: RoleResponse[] = [];
-
   private staffId!: number;
   private destroy$ = new Subject<void>();
 
   constructor(
-    private fb: FormBuilder,
     private route: ActivatedRoute,
+    private fb: FormBuilder,
     private scopeService: ScopeService,
-    private facultyUserService: FacultyUserService,
     private httpErrorService: HttpErrorService,
+    private departmentUserService: DepartmentUserService,
     private toastrService: ToastrService,
   ) {}
 
@@ -62,8 +62,8 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
 
   private loadData(): void {
     forkJoin({
-      staff: this.facultyUserService.get(this.staffId),
-      scope: this.scopeService.get('faculty'),
+      staff: this.departmentUserService.get(this.staffId),
+      scope: this.scopeService.get('department'),
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -76,8 +76,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
         },
       });
   }
-
-  private populateForm(staff: FacultyUserResponse): void {
+  private populateForm(staff: DepartmentUserResponse): void {
     this.form.patchValue({
       name: staff.name || '',
       ssn: staff.ssn || '',
@@ -104,10 +103,8 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
       this.form.markAllAsTouched();
       return;
     }
-
     const formValue = this.form.value;
-
-    this.facultyUserService
+    this.departmentUserService
       .update(this.staffId, formValue)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
