@@ -11,6 +11,7 @@ import { routes } from './department-staffs.route';
 import { DepartmentStaffFormDialogComponent } from './components/department-staff-form-dialog/department-staff-form-dialog.component';
 import { DepartmentStaffDetailPageComponent } from './pages/department-staff-detail-page/department-staff-detail-page.component';
 import { DepartmentStaffBasicInfoPageComponent } from './pages/department-staff-basic-info-page/department-staff-basic-info-page.component';
+import { DepartmentStaffPermissionsPageComponent } from './pages/department-staff-permissions-page/department-staff-permissions-page.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { DepartmentStaffBasicInfoPageComponent } from './pages/department-staff-
     DepartmentStaffFormDialogComponent,
     DepartmentStaffDetailPageComponent,
     DepartmentStaffBasicInfoPageComponent,
+    DepartmentStaffPermissionsPageComponent,
   ],
 })
 export class DepartmentStaffsModule {}

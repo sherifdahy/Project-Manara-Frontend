@@ -21,7 +21,6 @@ export interface ParsedPermissions {
   providedIn: 'root',
 })
 export class BasePermissionService {
-
   parse(defaults: string[], overrides: string[]): ParsedPermissions {
     return {
       defaults,
@@ -39,7 +38,7 @@ export class BasePermissionService {
   selectAll(
     selected: string[],
     categories: Category[],
-    searchQuery: string
+    searchQuery: string,
   ): string[] {
     const visible = this.getVisibleKeys(categories, searchQuery);
     return [...new Set([...selected, ...visible])];
@@ -48,12 +47,11 @@ export class BasePermissionService {
   deselectAll(
     selected: string[],
     categories: Category[],
-    searchQuery: string
+    searchQuery: string,
   ): string[] {
     const visible = this.getVisibleKeys(categories, searchQuery);
     return selected.filter((key) => !visible.includes(key));
   }
-
 
   getOverrides(defaults: string[], selected: string[]): string[] {
     return defaults.filter((p) => !selected.includes(p));
@@ -63,7 +61,7 @@ export class BasePermissionService {
     if (!searchQuery.trim()) return categories;
 
     return categories.filter(
-      (cat) => this.getVisiblePermissions(cat, searchQuery).length > 0
+      (cat) => this.getVisiblePermissions(cat, searchQuery).length > 0,
     );
   }
 
@@ -75,7 +73,7 @@ export class BasePermissionService {
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.key.toLowerCase().includes(q) ||
-        category.name.toLowerCase().includes(q)
+        category.name.toLowerCase().includes(q),
     );
   }
 
@@ -106,11 +104,11 @@ export class BasePermissionService {
     const categories = Array.from(groupMap.entries()).map(
       ([_, permissions]) => ({
         name: this.formatName(
-          permissions[0].key.substring(0, permissions[0].key.indexOf(':'))
+          permissions[0].key.substring(0, permissions[0].key.indexOf(':')),
         ),
         expanded: false,
         permissions,
-      })
+      }),
     );
 
     if (categories.length > 0) {
@@ -127,7 +125,10 @@ export class BasePermissionService {
       .trim();
   }
 
-  private getVisibleKeys(categories: Category[], searchQuery: string): string[] {
+  private getVisibleKeys(
+    categories: Category[],
+    searchQuery: string,
+  ): string[] {
     return this.filterCategories(categories, searchQuery)
       .flatMap((c) => this.getVisiblePermissions(c, searchQuery))
       .map((p) => p.key);

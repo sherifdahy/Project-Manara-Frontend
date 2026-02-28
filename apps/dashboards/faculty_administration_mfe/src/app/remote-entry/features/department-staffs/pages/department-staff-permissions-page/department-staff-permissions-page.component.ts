@@ -11,14 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-staff-permissions-page',
+  selector: 'app-department-staff-permissions-page',
   standalone: false,
-  templateUrl: './staff-permissions-page.component.html',
-  styleUrls: ['./staff-permissions-page.component.css'],
+  templateUrl: './department-staff-permissions-page.component.html',
+  styleUrls: ['./department-staff-permissions-page.component.css'],
 })
-export class StaffPermissionsPageComponent implements OnInit {
+export class DepartmentStaffPermissionsPageComponent implements OnInit {
   data$!: Observable<ParsedPermissions>;
-  facultyUserId: number;
+  departmentUserId: number;
   searchQuery = '';
 
   defaults: string[] = [];
@@ -27,21 +27,22 @@ export class StaffPermissionsPageComponent implements OnInit {
   categories: Category[] = [];
 
   constructor(
-    private route: ActivatedRoute,
     private ps: PermissionService,
-    public base: BasePermissionService,
-    private httpErrorService: HttpErrorService,
+    private route: ActivatedRoute,
+    private base: BasePermissionService,
     private toastrService: ToastrService,
+    private httpErrorService: HttpErrorService,
   ) {
-    this.facultyUserId = Number(this.route.parent?.snapshot.paramMap.get('id'));
+    this.departmentUserId = Number(
+      this.route.parent?.snapshot.paramMap.get('id'),
+    );
   }
 
   ngOnInit(): void {
     this.loadData();
   }
-
   private loadData(): void {
-    this.data$ = this.ps.getUserPermissions(this.facultyUserId).pipe(
+    this.data$ = this.ps.getUserPermissions(this.departmentUserId).pipe(
       tap((parsed) => {
         this.defaults = parsed.defaults;
         this.selected = [...parsed.active];
@@ -89,7 +90,7 @@ export class StaffPermissionsPageComponent implements OnInit {
 
   save(): void {
     this.ps
-      .updateForUser(this.facultyUserId, this.defaults, this.selected)
+      .updateForUser(this.departmentUserId, this.defaults, this.selected)
       .subscribe({
         next: () => {
           this.original = [...this.selected];
