@@ -33,6 +33,11 @@ export const routes: Routes = [
             (x) => x.DepartmentStaffsModule,
           ),
       },
+      {
+        path: 'programs',
+        loadChildren: () =>
+          import('../programs/programs.module').then((x) => x.ProgramsModule),
+      },
     ],
   },
 ];

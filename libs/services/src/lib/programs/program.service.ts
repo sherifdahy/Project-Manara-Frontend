@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { ApiClientService } from '../api/api-client.service';
+import { ProgramResponse } from '@project-manara-frontend/models';
+import { Observable } from 'rxjs';
+import { environment } from 'environments/environment';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProgramService {
+  constructor(private apiClient: ApiClientService) {}
+
+  getAll(
+    departmentId: number,
+    includeDisabled: boolean,
+  ): Observable<ProgramResponse[]> {
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/departments/${departmentId}/programs?includeDisabled=${includeDisabled}`,
+    );
+  }
+
+  toggleStatus(id: number) {
+    return this.apiClient.delete(
+      `${environment.apiUrl}/api/programs/${id}/toggle-status`,
+    );
+  }
+}

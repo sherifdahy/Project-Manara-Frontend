@@ -8,6 +8,7 @@ export * from './lib/universities/university.service';
 export * from './lib/students/student.service';
 export * from './lib/faculties/faculty.service';
 export * from './lib/departments/department.service';
+export * from './lib/programs/program.service';
 export * from './lib/configuration/toast.service';
 export * from './lib/configuration/swal.service';
 export * from './lib/configuration/http-error.service';

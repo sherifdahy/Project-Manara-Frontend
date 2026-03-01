@@ -1,0 +1,211 @@
+<!-- Page Header -->
+<div class="page-header mb-4">
+  <div>
+    <h1 class="page-title mb-1">Programs</h1>
+    <p class="page-description mb-0">View and manage all university programs</p>
+  </div>
+</div>
+
+<!-- Stats Cards Row -->
+<div class="row g-3 mb-4">
+  <!-- Total programs -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Programs</span>
+          <h3 class="stats-number">9563</h3>
+          <span class="stats-meta text-success">523 active</span>
+        </div>
+        <div class="stats-icon-wrapper bg-primary-soft">
+          <i class="fa-solid fa-building text-primary"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Students -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Students</span>
+          <h3 class="stats-number">9563</h3>
+          <span class="stats-meta">Across all programs</span>
+        </div>
+        <div class="stats-icon-wrapper bg-success-soft">
+          <i class="fa-solid fa-user-graduate text-success"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Staff -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Staff</span>
+          <h3 class="stats-number">95163</h3>
+          <span class="stats-meta">program members</span>
+        </div>
+        <div class="stats-icon-wrapper bg-warning-soft">
+          <i class="fa-solid fa-users text-warning"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Programs -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Programs</span>
+          <h3 class="stats-number">515</h3>
+          <span class="stats-meta">Academic programs</span>
+        </div>
+        <div class="stats-icon-wrapper bg-info-soft">
+          <i class="fa-solid fa-book-open text-info"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- All programs Section -->
+<div class="programs-section">
+  <div class="section-card">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div>
+        <h4 class="section-title">All Programs</h4>
+        <p class="section-subtitle">Manage and view program information</p>
+      </div>
+
+      <div class="d-flex gap-2">
+        <!-- Search Bar -->
+        <div class="search-bar-container">
+          <div class="search-bar">
+            <i class="fa-solid fa-search search-icon"></i>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search programs..."
+            />
+          </div>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="filter-dropdown-container">
+          <div class="custom-select-wrapper">
+            <select
+              class="custom-select"
+              [(ngModel)]="includeDisabled"
+              (change)="onFilterChange()"
+            >
+              <option value="false">Active Only</option>
+              <option value="true">Include Disabled</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-icon"></i>
+          </div>
+        </div>
+        <button
+          class="btn-add-program"
+          hasPermission="Programs:create"
+          (click)="openProgramFormDialog()"
+        >
+          <i class="fa-solid fa-plus me-2"></i> Add Program
+        </button>
+      </div>
+    </div>
+
+    <!-- programs Table -->
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>program Name</th>
+            <th>Code</th>
+            <th>Credit Hours</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="programs$ | async as programs">
+            <tr *ngFor="let program of programs">
+              <td>
+                <div class="table-cell-with-icon">
+                  <div class="table-cell-icon">
+                    <i class="fa-solid fa-building"></i>
+                  </div>
+                  <div class="table-cell-content">
+                    <a href="#" class="table-cell-title">{{ program.name }}</a>
+                  </div>
+                </div>
+              </td>
+              <td>{{ program.code }}</td>
+              <td>{{ program.creditHours }}</td>
+              <td>
+                <span
+                  class="table-status-badge"
+                  [ngClass]="{
+                    'status-active': !program.isDeleted,
+                    'status-inactive': program.isDeleted,
+                  }"
+                >
+                  {{ program.isDeleted ? 'Disabled' : 'Active' }}
+                </span>
+              </td>
+              <td>
+                <div class="table-actions">
+                  <a
+                    [routerLink]="[program.id]"
+                    class="table-action-btn btn-primary"
+                    title="Edit Program"
+                  >
+                    <i class="fa-solid fa-pen"></i>
+                  </a>
+                  <button
+                    class="table-action-btn"
+                    [ngClass]="{
+                      'btn-success': program.isDeleted,
+                      'btn-warning': !program.isDeleted,
+                    }"
+                    (click)="onToggleStatus(program.id)"
+                    [title]="
+                      program.isDeleted ? 'Activate Program' : 'Disable Program'
+                    "
+                  >
+                    <i
+                      class="fa-solid"
+                      [ngClass]="{
+                        'fa-check': program.isDeleted,
+                        'fa-ban': !program.isDeleted,
+                      }"
+                    ></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="programs.length == 0">
+              <td colspan="9">
+                <div class="table-empty-state">
+                  <div class="table-empty-icon">
+                    <i class="fa-solid fa-inbox"></i>
+                  </div>
+                  <h3 class="table-empty-title">No Programs Found</h3>
+                  <p class="table-empty-text">
+                    There are no programs to display at the moment.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
