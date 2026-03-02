@@ -21,6 +21,7 @@ import {
 } from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
+import { Religion } from '@project-manara-frontend/enums';
 
 @Component({
   selector: 'app-staff-form-dialog',
@@ -32,6 +33,9 @@ export class StaffFormDialogComponent implements OnInit {
   form!: FormGroup;
   showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
+  religionOptions = Object.entries(Religion)
+    .filter(([key, value]) => typeof value === 'number')
+    .map(([key, value]) => ({ label: key, value }));
 
   availableRoles: RoleResponse[] = [];
   universityId: number;
