@@ -27,9 +27,8 @@ export class StaffFormDialogComponent implements OnInit {
   form!: FormGroup;
   showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
-
   religionOptions = Object.entries(Religion)
-    .filter(([, value]) => typeof value === 'number')
+    .filter(([key, value]) => typeof value === 'number')
     .map(([key, value]) => ({ label: key, value }));
 
   genderOptions = Object.entries(Gender)
