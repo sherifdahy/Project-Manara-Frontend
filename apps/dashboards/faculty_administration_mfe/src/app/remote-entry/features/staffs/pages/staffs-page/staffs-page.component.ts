@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FacultyUserResponse, PaginatedList, RequestFilters } from '@project-manara-frontend/models';
-import { FacultyUserService, HttpErrorService } from '@project-manara-frontend/services';
+import {
+  FacultyUserResponse,
+  PaginatedList,
+  RequestFilters,
+} from '@project-manara-frontend/models';
+import {
+  FacultyUserService,
+  HttpErrorService,
+} from '@project-manara-frontend/services';
 import { filter, Observable, switchMap } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
 import { Store } from '@ngrx/store';
@@ -11,10 +18,9 @@ import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
   selector: 'app-staffs-page',
   standalone: false,
   templateUrl: './staffs-page.component.html',
-  styleUrls: ['./staffs-page.component.css']
+  styleUrls: ['./staffs-page.component.css'],
 })
 export class StaffsPageComponent implements OnInit {
-
   filters = new RequestFilters();
   staffs$!: Observable<PaginatedList<FacultyUserResponse>>;
   selectedStatus: boolean = false;
@@ -25,7 +31,7 @@ export class StaffsPageComponent implements OnInit {
     private facultyUserService: FacultyUserService,
     private dialog: MatDialog,
     private store: Store,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadStaffs();
@@ -33,11 +39,11 @@ export class StaffsPageComponent implements OnInit {
 
   loadStaffs(): void {
     this.staffs$ = this.facultyId$.pipe(
-      filter(id => !!id),
+      filter((id) => !!id),
       switchMap((id) =>
-        this.facultyUserService.getAll(id!, this.filters, this.selectedStatus)
-      )
-    )
+        this.facultyUserService.getAll(id!, this.filters, this.selectedStatus),
+      ),
+    );
   }
 
   onSearch(): void {
@@ -85,7 +91,10 @@ export class StaffsPageComponent implements OnInit {
   }
 
   getEndIndex(response: PaginatedList<FacultyUserResponse>): number {
-    return Math.min(response.pageNumber * this.filters.PageSize, response.totalCount);
+    return Math.min(
+      response.pageNumber * this.filters.PageSize,
+      response.totalCount,
+    );
   }
 
   onAddStaff(): void {
@@ -93,10 +102,10 @@ export class StaffsPageComponent implements OnInit {
       width: '600px',
       maxWidth: '90vw',
       minHeight: '90vh',
-      panelClass: 'staff-form-dialog-panel'
+      panelClass: 'staff-form-dialog-panel',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) this.loadStaffs();
     });
   }
@@ -108,7 +117,7 @@ export class StaffsPageComponent implements OnInit {
       },
       error: (errors) => {
         this.httpErrorService.handle(errors);
-      }
+      },
     });
   }
 }
