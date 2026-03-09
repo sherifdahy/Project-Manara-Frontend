@@ -1,0 +1,210 @@
+<div class="row g-4">
+
+  <!-- ===== Left Panel: Available Subjects ===== -->
+  <div class="col-lg-7">
+    <div class="panel-card">
+
+      <!-- Panel Header -->
+      <div class="panel-header">
+        <h5 class="panel-title">Available Subjects</h5>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="panel-search">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search by name or code..."
+          />
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="data-table-wrapper">
+        <table class="data-table subjects-table">
+          <thead>
+            <tr>
+              <th class="col-name">Subject Name</th>
+              <th class="col-code">Code</th>
+              <th class="col-credits">Credits</th>
+              <th class="col-action">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text orange">
+                  Introduction to Computer Science
+                </span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS101</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">3</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text orange">
+                  Data Structures and Algorithms
+                </span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS201</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">4</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text orange">
+                  Database Management Systems
+                </span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS301</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">3</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text">Operating Systems</span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS302</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">3</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text">Computer Networks</span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS303</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">3</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text orange">
+                  Software Engineering
+                </span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS401</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">4</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-name">
+                <span class="subject-name-text">Artificial Intelligence</span>
+              </td>
+              <td class="col-code">
+                <span class="subject-code">CS402</span>
+              </td>
+              <td class="col-credits">
+                <span class="subject-credits">3</span>
+              </td>
+              <td class="col-action">
+                <button class="add-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== Right Panel: Selected Subjects ===== -->
+  <div class="col-lg-5">
+    <div class="panel-card">
+
+      <!-- Panel Header -->
+      <div class="panel-header d-flex justify-content-between align-items-center">
+        <h5 class="panel-title">Selected Subjects</h5>
+        <span class="selected-count">0 subject(s)</span>
+      </div>
+
+      <!-- Table -->
+      <div class="data-table-wrapper">
+        <table class="data-table subjects-table">
+          <thead>
+            <tr>
+              <th class="col-name">Subject Name</th>
+              <th class="col-code">Code</th>
+              <th class="col-credits">Credits</th>
+              <th class="col-action">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Empty State -->
+            <tr class="empty-row">
+              <td colspan="4">
+                <div class="empty-state">
+                  <div class="empty-icon-wrapper">
+                    <i class="fas fa-plus empty-plus-icon"></i>
+                  </div>
+                  <p class="empty-title">No subjects selected</p>
+                  <p class="empty-subtitle">Add subjects to get started</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,266 @@
+/* =====================
+   Panel Card
+===================== */
+.panel-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* =====================
+   Panel Header
+===================== */
+.panel-header {
+  padding: var(--space-xl) var(--space-2xl);
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-title {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.selected-count {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+/* =====================
+   Search Bar
+===================== */
+.panel-search {
+  padding: var(--space-sm) var(--space-sm);
+  background: var(--card-bg);
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-md) var(--space-xl) var(--space-md) 2.4rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-input:focus {
+  border-color: var(--main-lighter);
+  box-shadow: 0 0 0 3px rgba(37, 99, 246, 0.08);
+}
+
+/* =====================
+   Subjects Table Column Widths
+===================== */
+.subjects-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Left Panel columns */
+.subjects-table .col-name {
+  width: 55%;
+  text-align: left;
+}
+
+.subjects-table .col-code {
+  width: 17%;
+  text-align: center;
+}
+
+.subjects-table .col-credits {
+  width: 13%;
+  text-align: center;
+}
+
+.subjects-table .col-action {
+  width: 15%;
+  text-align: center;
+}
+
+/* Header alignment */
+.subjects-table thead th.col-code,
+.subjects-table thead th.col-credits,
+.subjects-table thead th.col-action {
+  text-align: center;
+}
+
+/* Body cell alignment */
+.subjects-table tbody td.col-code,
+.subjects-table tbody td.col-credits,
+.subjects-table tbody td.col-action {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* =====================
+   Subject Name Text
+===================== */
+.subject-name-text {
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  font-weight: var(--fw-normal);
+}
+
+.subject-name-text.orange {
+  color: var(--orange-color);
+}
+
+/* =====================
+   Subject Code & Credits
+===================== */
+.subject-code {
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+}
+
+.subject-credits {
+  font-size: var(--fs-md);
+  color: var(--text-secondary);
+}
+
+/* =====================
+   Add Button
+===================== */
+.add-btn {
+  width: 2rem;
+  height: 2rem;
+  background: var(--main-color);
+  border: none;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.add-btn:hover {
+  background: var(--main-light);
+  transform: translateY(-1px);
+}
+
+.add-btn:active {
+  transform: translateY(0);
+}
+
+/* =====================
+   Empty State
+===================== */
+.empty-row td {
+  border-bottom: none !important;
+  padding: 0 !important;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  gap: var(--space-xs);
+  min-height: 200px;
+}
+
+.empty-icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+}
+
+.empty-plus-icon {
+  font-size: var(--fs-lg);
+  color: var(--text-light);
+}
+
+.empty-title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.empty-subtitle {
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* =====================
+   Override data-table for panels
+===================== */
+.panel-card .data-table-wrapper {
+  border-radius: 0;
+  border: none;
+}
+
+.panel-card .data-table {
+  border-radius: 0;
+}
+
+.panel-card .data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* =====================
+   Responsive
+===================== */
+@media (max-width: 991.98px) {
+  .subjects-table .col-name {
+    width: 50%;
+  }
+
+  .panel-header {
+    padding: var(--space-lg) var(--space-xl);
+  }
+
+  .panel-search {
+    padding: var(--space-md) var(--space-xl);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .subjects-table {
+    table-layout: auto;
+  }
+}

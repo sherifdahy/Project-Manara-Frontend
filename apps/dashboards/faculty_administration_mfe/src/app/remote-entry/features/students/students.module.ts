@@ -10,6 +10,7 @@ import { StudentDetailPageComponent } from './pages/student-detail-page/student-
 import { StudentOverviewComponent } from './pages/student-overview/student-overview.component';
 import { CreateStudentPageComponent } from './pages/create-student-page/create-student-page.component';
 import { EditStudentPageComponent } from './pages/edit-student-page/edit-student-page.component';
+import { StudentPermissionsPageComponent } from './pages/student-permissions-page/student-permissions-page.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { EditStudentPageComponent } from './pages/edit-student-page/edit-student
     CreateStudentPageComponent,
     EditStudentPageComponent,
     StudentDetailPageComponent,
-    StudentOverviewComponent
+    StudentOverviewComponent,
+    StudentPermissionsPageComponent
   ]
 })
 export class StudentsModule { }

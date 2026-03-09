@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { FacultyService } from "@project-manara-frontend/services";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { getFacultyAction, getFacultyFaildAction, getFacultySuccessAction } from "../actions/get-faculty.actions";
-import { catchError, map, of, switchMap } from "rxjs";
+import { catchError, map, of, retry, switchMap } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class FacultyEffect {
         ofType(getFacultyAction),
         switchMap(() =>
           facultyService.my().pipe(
+            retry(3),
             map((response) =>
             {
               return getFacultySuccessAction({ faculty: response })

@@ -69,16 +69,16 @@ export class ProgramUserService {
     return this.apiClient.get(`${environment.apiUrl}/api/programUsers/${id}`);
   }
 
-  create(programId: number, request: ProgramUserRequest) {
+  create(facultyId: number, request: ProgramUserRequest) {
     return this.apiClient.post(
-      `${environment.apiUrl}/api/programs/${programId}/programUsers`,
+      `${environment.apiUrl}/api/faculties/${facultyId}/programUsers`,
       request,
     );
   }
 
-  update(programId: number,programUserId : number, request: ProgramUserRequest) {
+  update(programUserId : number, request: ProgramUserRequest) {
     return this.apiClient.put(
-      `${environment.apiUrl}/api/programs/${programId}/programUsers/${programUserId}`,
+      `${environment.apiUrl}/api/programUsers/${programUserId}`,
       request,
     );
   }

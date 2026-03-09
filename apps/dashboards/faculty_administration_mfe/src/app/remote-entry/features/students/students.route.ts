@@ -4,6 +4,7 @@ import { StudentDetailPageComponent } from "./pages/student-detail-page/student-
 import { StudentOverviewComponent } from "./pages/student-overview/student-overview.component";
 import { EditStudentPageComponent } from "./pages/edit-student-page/edit-student-page.component";
 import { CreateStudentPageComponent } from "./pages/create-student-page/create-student-page.component";
+import { StudentPermissionsPageComponent } from "./pages/student-permissions-page/student-permissions-page.component";
 
 export const routes: Routes = [
   {
@@ -28,8 +29,12 @@ export const routes: Routes = [
         component: StudentOverviewComponent
       },
       {
-        path: 'settings',
+        path: 'basic-information',
         component: EditStudentPageComponent
+      },
+      {
+        path: 'permissions',
+        component: StudentPermissionsPageComponent
       }
     ]
   }

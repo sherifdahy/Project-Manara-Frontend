@@ -3,23 +3,25 @@
   <div class="tab-sidebar">
     <ul class="nav nav-pills flex-column">
       <li hasPermission="Programs:read" class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="overview"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
+        <a class="nav-link" routerLink="overview" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <i class="fa-solid fa-user me-2"></i>
           Overview
         </a>
       </li>
-
+      <li hasPermission="Programs:update" class="nav-item">
+        <a class="nav-link" routerLink="subjects" routerLinkActive="active">
+          <i class="fa-solid fa-book me-2"></i>
+          Subjects
+        </a>
+      </li>
       <li hasPermission="Programs:update" class="nav-item">
         <a class="nav-link" routerLink="settings" routerLinkActive="active">
           <i class="fa-solid fa-shield-halved me-2"></i>
           Settings
         </a>
       </li>
+
+
     </ul>
   </div>
 

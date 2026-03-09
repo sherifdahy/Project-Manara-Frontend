@@ -10,6 +10,7 @@ import { ProgramDetailPageComponent } from './pages/program-detail-page/program-
 import { ProgramOverviewPageComponent } from './pages/program-overview-page/program-overview-page.component';
 import { ProgramSettingsPageComponent } from './pages/program-settings-page/program-settings-page.component';
 import { ProgramsPageComponent } from './pages/programs-page/programs-page.component';
+import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/program-subjects-page.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { ProgramsPageComponent } from './pages/programs-page/programs-page.compo
     ProgramOverviewPageComponent,
     ProgramSettingsPageComponent,
     ProgramsPageComponent,
+    ProgramSubjectsPageComponent
   ],
 })
 export class ProgramsModule {}
