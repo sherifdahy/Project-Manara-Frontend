@@ -47,3 +47,7 @@ export * from './lib/permissions/responses/user-permissions-response';
 
 export * from './lib/program-users/requests/program-user-request';
 export * from './lib/program-users/responses/program-user-response';
+
+export * from './lib/subjects/requests/subject-request';
+export * from './lib/subjects/responses/subject-response';
+export * from './lib/subjects/responses/subject-detail-response';
