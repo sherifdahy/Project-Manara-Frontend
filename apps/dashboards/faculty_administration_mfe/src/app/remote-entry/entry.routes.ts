@@ -19,43 +19,46 @@ export const remoteRoutes: Route[] = [
       {
         path: 'staffs',
         loadChildren: () =>
-          import('./features/staffs/staffs.module').then(
-            (x) => x.StaffsModule
-          ),
+          import('./features/staffs/staffs.module').then((x) => x.StaffsModule),
       },
       {
         path: 'students',
         loadChildren: () =>
           import('./features/students/students.module').then(
-            (x) => x.StudentsModule
+            (x) => x.StudentsModule,
+          ),
+      },
+      {
+        path: 'subjects',
+        loadChildren: () =>
+          import('./features/subjects/subjects.module').then(
+            (x) => x.SubjectsModule,
           ),
       },
       {
         path: 'departments',
         loadChildren: () =>
           import('./features/departments/departments.module').then(
-            (x) => x.DepartmentsModule
+            (x) => x.DepartmentsModule,
           ),
       },
       {
         path: 'roles',
         loadChildren: () =>
-          import('./features/roles/roles.module').then(
-            (x) => x.RolesModule
-          ),
+          import('./features/roles/roles.module').then((x) => x.RolesModule),
       },
       {
         path: 'reports',
         loadChildren: () =>
           import('./features/reports/reports.module').then(
-            (x) => x.ReportsModule
+            (x) => x.ReportsModule,
           ),
       },
       {
         path: 'settings',
         loadChildren: () =>
           import('./features/settings/settings.module').then(
-            (x) => x.SettingsModule
+            (x) => x.SettingsModule,
           ),
       },
     ],

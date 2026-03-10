@@ -27,7 +27,7 @@ import { StudentPermissionsPageComponent } from './pages/student-permissions-pag
     EditStudentPageComponent,
     StudentDetailPageComponent,
     StudentOverviewComponent,
-    StudentPermissionsPageComponent
-  ]
+    StudentPermissionsPageComponent,
+  ],
 })
-export class StudentsModule { }
+export class StudentsModule {}

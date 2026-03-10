@@ -1,15 +1,16 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
-  <div class="sidebar-header d-flex align-items-center" [ngClass]="{
+  <div
+    class="sidebar-header d-flex align-items-center"
+    [ngClass]="{
       'justify-content-between': !isCollapsed,
-      'justify-content-center': isCollapsed
-    }">
+      'justify-content-center': isCollapsed,
+    }"
+  >
     <div class="start-section d-flex align-items-center">
       <span>
         <i class="fa-solid fa-shield"></i>
       </span>
-      <p class="m-0">
-        Faculty Portal
-      </p>
+      <p class="m-0">Faculty Portal</p>
     </div>
 
     <button class="bg-transparent border-0" (click)="toggleSidebar()">
@@ -20,50 +21,89 @@
   <div class="sidebar-links">
     <ul>
       <li hasPermission="faculties:read">
-        <a routerLink="/faculty-administration/overview" routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }" data-tooltip="Overview">
+        <a
+          routerLink="/faculty-administration/overview"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          data-tooltip="Overview"
+        >
           <i class="fa-solid fa-gauge-high fa-fw"></i>
           <span>Overview</span>
         </a>
       </li>
 
       <li hasPermission="facultyUsers:read">
-        <a routerLink="/faculty-administration/staffs" routerLinkActive="active" data-tooltip="Staffs">
+        <a
+          routerLink="/faculty-administration/staffs"
+          routerLinkActive="active"
+          data-tooltip="Staffs"
+        >
           <i class="fa-solid fa-users fa-fw"></i>
           <span>Staffs</span>
         </a>
       </li>
 
       <li hasPermission="programUsers:read">
-        <a routerLink="/faculty-administration/students" routerLinkActive="active" data-tooltip="Students">
+        <a
+          routerLink="/faculty-administration/students"
+          routerLinkActive="active"
+          data-tooltip="Students"
+        >
           <i class="fa-solid fa-users fa-fw"></i>
           <span>Students</span>
         </a>
       </li>
 
+      <li hasPermission="subjects:read">
+        <a
+          routerLink="/faculty-administration/subjects"
+          routerLinkActive="active"
+          data-tooltip="Subjects"
+        >
+          <i class="fa-solid fa-users fa-fw"></i>
+          <span>Subjects</span>
+        </a>
+      </li>
+
       <li hasPermission="departments:read">
-        <a routerLink="/faculty-administration/departments" routerLinkActive="active" data-tooltip="Departments">
+        <a
+          routerLink="/faculty-administration/departments"
+          routerLinkActive="active"
+          data-tooltip="Departments"
+        >
           <i class="fa-solid fa-sitemap fa-fw"></i>
           <span>Departments</span>
         </a>
       </li>
 
       <li hasPermission="roles:read">
-        <a routerLink="/faculty-administration/roles" routerLinkActive="active" data-tooltip="Roles">
+        <a
+          routerLink="/faculty-administration/roles"
+          routerLinkActive="active"
+          data-tooltip="Roles"
+        >
           <i class="fa-solid fa-user-shield fa-fw"></i>
           <span>Roles</span>
         </a>
       </li>
 
       <li hasPermission="reports:read">
-        <a routerLink="/faculty-administration/reports" routerLinkActive="active" data-tooltip="Reports">
+        <a
+          routerLink="/faculty-administration/reports"
+          routerLinkActive="active"
+          data-tooltip="Reports"
+        >
           <i class="fa-solid fa-chart-bar fa-fw"></i>
           <span>Reports</span>
         </a>
       </li>
 
       <li hasPermission="faculties:update">
-        <a routerLink="/faculty-administration/settings" routerLinkActive="active" data-tooltip="Settings">
+        <a
+          routerLink="/faculty-administration/settings"
+          routerLinkActive="active"
+          data-tooltip="Settings"
+        >
           <i class="fa-solid fa-gear fa-fw"></i>
           <span>Settings</span>
         </a>
