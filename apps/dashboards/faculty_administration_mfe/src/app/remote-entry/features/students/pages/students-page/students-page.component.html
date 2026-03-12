@@ -2,9 +2,7 @@
 <div class="page-header mb-4">
   <div>
     <h1 class="page-title mb-1">Students</h1>
-    <p class="page-description mb-0">
-      View and manage all students
-    </p>
+    <p class="page-description mb-0">View and manage all students</p>
   </div>
 </div>
 
@@ -16,7 +14,9 @@
       <div class="stats-header">
         <div class="stats-info">
           <span class="stats-label">Total Students</span>
-          <h3 class="stats-number">{{ (students$ | async)?.totalCount || 0 }}</h3>
+          <h3 class="stats-number">
+            {{ (students$ | async)?.totalCount || 0 }}
+          </h3>
           <span class="stats-meta text-success">Enrolled students</span>
         </div>
         <div class="stats-icon-wrapper bg-primary-soft">
@@ -78,7 +78,6 @@
 <!-- All Students Section -->
 <div class="students-section">
   <div class="section-card">
-
     <!-- Section Header -->
     <div class="section-header">
       <div>
@@ -142,9 +141,7 @@
         </thead>
         <tbody>
           <ng-container *ngIf="students$ | async as response">
-
             <tr *ngFor="let student of response.items">
-
               <!-- Student Name -->
               <td>
                 <div class="table-cell-with-icon">
@@ -164,29 +161,41 @@
 
               <!-- Phone -->
               <td>
-                <span class="student-phone">{{ student.phoneNumber || '—' }}</span>
+                <span class="student-phone">{{
+                  student.phoneNumber || '—'
+                }}</span>
               </td>
 
               <!-- National ID -->
               <td>
-                <span class="student-national-id">{{ student.nationalId || '—' }}</span>
+                <span class="student-national-id">{{
+                  student.nationalId || '—'
+                }}</span>
               </td>
 
               <!-- Birth Date -->
               <td>
                 <span class="student-birth-date">
-                  {{ student.birthDate ? (student.birthDate | date: 'mediumDate') : '—' }}
+                  {{
+                    student.birthDate
+                      ? (student.birthDate | date: 'mediumDate')
+                      : '—'
+                  }}
                 </span>
               </td>
 
               <!-- Gender -->
               <td>
-                <span class="student-gender">{{ getGenderLabel(student.gender) }}</span>
+                <span class="student-gender">{{
+                  getGenderLabel(student.gender)
+                }}</span>
               </td>
 
               <!-- Religion -->
               <td>
-                <span class="student-religion">{{ getReligionLabel(student.religion) }}</span>
+                <span class="student-religion">{{
+                  getReligionLabel(student.religion)
+                }}</span>
               </td>
 
               <!-- Status -->
@@ -195,7 +204,7 @@
                   class="table-status-badge"
                   [ngClass]="{
                     'status-active': !student.isDeleted,
-                    'status-deleted': student.isDeleted
+                    'status-deleted': student.isDeleted,
                   }"
                 >
                   {{ student.isDeleted ? 'Deleted' : 'Active' }}
@@ -237,7 +246,6 @@
                 </div>
               </td>
             </tr>
-
           </ng-container>
         </tbody>
       </table>
@@ -246,13 +254,11 @@
     <!-- Pagination -->
     <ng-container *ngIf="students$ | async as response">
       <div class="table-pagination" *ngIf="response.items.length > 0">
-
         <!-- Left: Info + Page Size -->
         <div class="pagination-left">
           <div class="table-pagination-info">
             Showing {{ getStartIndex(response) }} to
-            {{ getEndIndex(response) }} of
-            {{ response.totalCount }} students
+            {{ getEndIndex(response) }} of {{ response.totalCount }} students
           </div>
 
           <div class="page-size-wrapper">
@@ -319,9 +325,7 @@
             <i class="fa-solid fa-angles-right"></i>
           </button>
         </div>
-
       </div>
     </ng-container>
-
   </div>
 </div>

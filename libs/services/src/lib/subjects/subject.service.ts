@@ -1,16 +1,20 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PaginatedList, RequestFilters, SubjectRequest, SubjectResponse } from '@project-manara-frontend/models';
+import {
+  PaginatedList,
+  RequestFilters,
+  SubjectRequest,
+  SubjectResponse,
+} from '@project-manara-frontend/models';
 import { ApiClientService } from '@project-manara-frontend/services';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubjectService {
-
-  constructor(private apiClient: ApiClientService) { }
+  constructor(private apiClient: ApiClientService) {}
 
   getAll(
     facultyId: number,
@@ -60,7 +64,7 @@ export class SubjectService {
 
   toggleStatus(id: number) {
     return this.apiClient.delete(
-      `${environment.apiUrl}/api/subjects/${id}`,
+      `${environment.apiUrl}/api/subjects/${id}/toggle-status`,
     );
   }
 }
