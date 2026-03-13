@@ -77,8 +77,8 @@ export class EditSubjectPageComponent implements OnInit {
         this.selectedSubjects = subject.prerequisites.map((p) => ({
           id: p.id,
           name: p.name,
-          code: undefined,
-          creditHours: undefined,
+          code: p.code,
+          creditHours: p.creditHours,
         }));
       },
       error: (err) => {
