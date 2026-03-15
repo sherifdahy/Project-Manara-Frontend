@@ -12,14 +12,9 @@ on:
     branches: [main]
 
 env:
-  NODE_VERSION: '20'
-  # ────────────────────────────────────────────────────────────
-  #  Verify NX_APP_NAME by running:  npx nx show projects
-  #  Verify S3_DIST_PATH by running a local build and checking
-  #  what folder is created inside dist/apps/
-  # ────────────────────────────────────────────────────────────
-  NX_APP_NAME: 'Project-Manara-Frontend'
-  S3_DIST_PATH: 'dist/apps/Project-Manara-Frontend/browser'
+  NODE_VERSION: '24'
+  NX_APP_NAME: 'shell'                      # confirmed from Vercel: nx build shell --prod
+  S3_DIST_PATH: 'dist/apps/shell/browser'   # Angular 17+ puts output in /browser subfolder
 
 jobs:
   # ════════════════════════════════════════════
@@ -74,10 +69,6 @@ jobs:
       - name: Install dependencies (fallback if cache missed)
         run: npm ci
 
-      # --skip-nx-cache   → forces Nx to actually run tests, never skip due to cache
-      # --watch=false     → run once and exit (required in CI)
-      # --browsers=ChromeHeadless → Chrome is pre-installed on ubuntu-latest
-      # --no-progress     → clean CI logs without progress spinners
       - name: Run unit tests (headless Chrome)
         run: |
           npx nx test ${{ env.NX_APP_NAME }} \
@@ -122,8 +113,6 @@ jobs:
       - name: Install dependencies (fallback if cache missed)
         run: npm ci
 
-      # --skip-nx-cache → forces a real production build every time
-      # --no-progress   → clean CI logs
       - name: Build production bundle
         run: |
           npx nx build ${{ env.NX_APP_NAME }} \
@@ -131,17 +120,21 @@ jobs:
             --skip-nx-cache \
             --no-progress
 
-      # Verify the expected output folder actually exists before uploading
-      - name: Verify build output exists
+      # Check dist/apps/shell/browser first (Angular 17+)
+      # Fall back to dist/apps/shell if /browser subfolder doesn't exist
+      - name: Verify and resolve build output path
         run: |
-          if [ ! -d "${{ env.S3_DIST_PATH }}" ]; then
-            echo "ERROR: Build output not found at ${{ env.S3_DIST_PATH }}"
-            echo "Actual dist contents:"
+          if [ -d "dist/apps/shell/browser" ]; then
+            echo "S3_DIST_PATH=dist/apps/shell/browser" >> $GITHUB_ENV
+            echo "Output found at dist/apps/shell/browser"
+          elif [ -d "dist/apps/shell" ]; then
+            echo "S3_DIST_PATH=dist/apps/shell" >> $GITHUB_ENV
+            echo "Output found at dist/apps/shell"
+          else
+            echo "ERROR: Build output not found. Actual dist contents:"
             find dist/ -type f | head -30
             exit 1
           fi
-          echo "Build output verified at ${{ env.S3_DIST_PATH }}"
-          ls ${{ env.S3_DIST_PATH }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -174,9 +167,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Sync all files EXCEPT index.html with long-lived cache headers
-      # Nx adds content hashes to filenames (main.abc123.js) so they can be
-      # cached forever — a new deploy creates new filenames automatically
+      # Sync all hashed assets with 1-year cache (safe because Nx fingerprints filenames)
       - name: Deploy static assets to S3
         run: |
           aws s3 sync dist-output/ s3://${{ secrets.S3_BUCKET_NAME }} \
@@ -184,14 +175,13 @@ jobs:
             --exclude "index.html" \
             --cache-control "public, max-age=31536000, immutable"
 
-      # index.html must NEVER be long-cached — it points to all the hashed
-      # asset filenames. If cached, users won't receive new deployments.
+      # index.html must never be cached — it references the current hashed filenames
       - name: Deploy index.html (no-cache)
         run: |
           aws s3 cp dist-output/index.html s3://${{ secrets.S3_BUCKET_NAME }}/index.html \
             --cache-control "no-cache, no-store, must-revalidate"
 
-      # Bust CloudFront edge cache so all users get the new version immediately
+      # Clear all CloudFront edge caches so users get the new version immediately
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
