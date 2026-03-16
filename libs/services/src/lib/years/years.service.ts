@@ -3,6 +3,7 @@ import { ApiClientService } from '../api/api-client.service';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import {
+  TermResponse,
   YearDetailResponse,
   YearRequest,
   YearResponse,
@@ -13,6 +14,10 @@ import {
 })
 export class YearsService {
   constructor(private apiClient: ApiClientService) {}
+
+  getAllTerms(): Observable<TermResponse[]> {
+    return this.apiClient.get(`${environment.apiUrl}/api/Years/terms`);
+  }
 
   getAll(
     facultId: number,

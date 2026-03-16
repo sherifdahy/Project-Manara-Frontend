@@ -1,3 +1,122 @@
-<p>
-  year-form-dialog works!
-</p>
+<div class="year-dialog">
+  <!-- ================= Header ================= -->
+  <div class="year-dialog-header">
+    <div class="d-flex align-items-center gap-3 flex-fill">
+      <div class="year-dialog-icon">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div class="flex-fill">
+        <h2 class="year-dialog-title">Add Academic Year</h2>
+        <p class="year-dialog-subtitle">Fill in the academic year details</p>
+      </div>
+    </div>
+
+    <button (click)="onCancel()" class="year-dialog-close" type="button">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- ================= Body ================= -->
+  <div class="year-dialog-body">
+    <form [formGroup]="yearForm">
+      <div class="year-form-grid">
+        <!-- Name -->
+        <div class="year-form-field full-width">
+          <label class="year-field-label">
+            <i class="fas fa-pen"></i>
+            Year Name <span class="required-star">*</span>
+          </label>
+          <input
+            type="text"
+            class="year-field-input"
+            placeholder="Enter year name e.g. 2025"
+            formControlName="name"
+            [class.invalid]="
+              yearForm.get('name')?.invalid && yearForm.get('name')?.touched
+            "
+          />
+          <app-display-error
+            [control]="yearForm.get('name')"
+          ></app-display-error>
+        </div>
+
+        <!-- Start Date -->
+        <div class="year-form-field">
+          <label class="year-field-label">
+            <i class="fas fa-calendar-plus"></i>
+            Start Date <span class="required-star">*</span>
+          </label>
+          <input
+            type="date"
+            class="year-field-input"
+            formControlName="startDate"
+            [class.invalid]="
+              yearForm.get('startDate')?.invalid &&
+              yearForm.get('startDate')?.touched
+            "
+          />
+          <app-display-error
+            [control]="yearForm.get('startDate')"
+          ></app-display-error>
+        </div>
+
+        <!-- End Date -->
+        <div class="year-form-field">
+          <label class="year-field-label">
+            <i class="fas fa-calendar-minus"></i>
+            End Date <span class="required-star">*</span>
+          </label>
+          <input
+            type="date"
+            class="year-field-input"
+            formControlName="endDate"
+            [class.invalid]="
+              yearForm.get('endDate')?.invalid &&
+              yearForm.get('endDate')?.touched
+            "
+          />
+          <app-display-error
+            [control]="yearForm.get('endDate')"
+          ></app-display-error>
+        </div>
+
+        <!-- Active Term -->
+        <div class="year-form-field full-width">
+          <label class="year-field-label">
+            <i class="fas fa-layer-group"></i>
+            Active Term <span class="required-star">*</span>
+          </label>
+          <div class="custom-select-wrapper">
+            <select
+              formControlName="activeTermId"
+              class="year-field-input year-field-select"
+            >
+              <option value="" disabled selected>Select active term</option>
+              <option *ngFor="let term of terms$ | async" [value]="term.id">
+                {{ term.name }}
+              </option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <div class="year-dialog-footer">
+    <button (click)="onCancel()" type="button" class="year-btn year-btn-cancel">
+      Cancel
+    </button>
+
+    <button
+      [disabled]="yearForm.invalid"
+      (click)="onSubmit()"
+      type="button"
+      class="year-btn year-btn-submit"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <span>Create</span>
+    </button>
+  </div>
+</div>
