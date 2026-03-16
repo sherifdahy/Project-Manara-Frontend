@@ -55,6 +55,11 @@ export const remoteRoutes: Route[] = [
           ),
       },
       {
+        path: 'years',
+        loadChildren: () =>
+          import('./features/years/years.module').then((x) => x.YearsModule),
+      },
+      {
         path: 'settings',
         loadChildren: () =>
           import('./features/settings/settings.module').then(

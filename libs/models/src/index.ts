@@ -44,10 +44,13 @@ export * from './lib/common/request-filters';
 export * from './lib/permissions/requests/permissions-request';
 export * from './lib/permissions/responses/user-permissions-response';
 
-
 export * from './lib/program-users/requests/program-user-request';
 export * from './lib/program-users/responses/program-user-response';
 
 export * from './lib/subjects/requests/subject-request';
 export * from './lib/subjects/responses/subject-response';
 export * from './lib/subjects/responses/subject-detail-response';
+
+export * from './lib/years/requests/year-request';
+export * from './lib/years/responses/year-detail-response';
+export * from './lib/years/responses/year-response';
