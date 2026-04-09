@@ -221,13 +221,15 @@
     <button
       type="button"
       class="btn btn-primary"
-      [disabled]="form.invalid"
+      [disabled]="form.invalid || isLoading"
       (click)="onSubmit()"
     >
       <i
+        *ngIf="!isLoading"
         class="fa-solid me-2"
         [ngClass]="data?.universityId ? 'fa-check' : 'fa-plus'"
       ></i>
+      <i *ngIf="isLoading" class="fa-solid fa-spin fa-spinner"></i>
       <span>{{ data?.universityId ? 'Update' : 'Create' }}</span>
     </button>
   </div>

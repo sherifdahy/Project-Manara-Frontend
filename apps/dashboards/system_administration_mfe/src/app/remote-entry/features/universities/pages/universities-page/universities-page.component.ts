@@ -5,7 +5,7 @@ import {
   HttpErrorService,
   UniversityService,
 } from '@project-manara-frontend/services';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { UniversityFormDialogComponent } from '../../components/university-form-dialog/university-form-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -19,6 +19,7 @@ export class UniversitiesPageComponent implements OnInit {
   universities$!: Observable<UniversityResponse[]>;
   searchTerm: string = '';
   includeDisabled: boolean = false;
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -33,7 +34,14 @@ export class UniversitiesPageComponent implements OnInit {
   }
 
   loadUniversities(): void {
-    this.universities$ = this.universityService.getAll(this.includeDisabled);
+    this.isLoading = true;
+    this.universities$ = this.universityService
+      .getAll(this.includeDisabled)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+      );
   }
 
   onSearch(): void {}

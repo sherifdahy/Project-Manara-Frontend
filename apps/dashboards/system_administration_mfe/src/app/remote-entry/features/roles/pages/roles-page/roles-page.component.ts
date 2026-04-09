@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleResponse, ScopeResponse } from '@project-manara-frontend/models';
-import { HttpErrorService, RoleService, ScopeService } from '@project-manara-frontend/services';
-import { map, Observable, shareReplay } from 'rxjs';
+import {
+  HttpErrorService,
+  RoleService,
+  ScopeService,
+} from '@project-manara-frontend/services';
+import { finalize, map, Observable, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-roles-page',
@@ -10,8 +14,8 @@ import { map, Observable, shareReplay } from 'rxjs';
   styleUrls: ['./roles-page.component.css'],
 })
 export class RolesPageComponent implements OnInit {
-
   includeDisabled = false;
+  isLoading = false;
   rolesScope = 'All';
   roles$!: Observable<RoleResponse[]>;
   scopes$!: Observable<ScopeResponse[]>;
@@ -20,7 +24,7 @@ export class RolesPageComponent implements OnInit {
     private roleService: RoleService,
     private scopeService: ScopeService,
     private httpErrorService: HttpErrorService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadScopes();
@@ -32,7 +36,10 @@ export class RolesPageComponent implements OnInit {
   }
 
   loadRoles(): void {
-    this.roles$ = this.roleService.getAll(this.includeDisabled).pipe();
+    this.isLoading = true;
+    this.roles$ = this.roleService
+      .getAll(this.includeDisabled)
+      .pipe(finalize(() => (this.isLoading = false)));
   }
 
   onIncludeDisabledChange(): void {
@@ -53,13 +60,13 @@ export class RolesPageComponent implements OnInit {
 
   private loadByScope(): void {
     this.roles$ = this.scopeService.get(this.rolesScope).pipe(
-      map(scope => {
+      map((scope) => {
         if (!this.includeDisabled) {
-          return scope.roles.filter(r => !r.isDeleted);
+          return scope.roles.filter((r) => !r.isDeleted);
         }
         return scope.roles;
       }),
-      shareReplay(1)
+      shareReplay(1),
     );
   }
 
