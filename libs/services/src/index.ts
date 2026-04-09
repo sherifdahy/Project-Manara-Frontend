@@ -23,3 +23,4 @@ export * from './lib/university-users/university-user.service';
 export * from './lib/program-users/program-user.service';
 export * from './lib/subjects/subject.service';
 export * from './lib/years/years.service';
+export * from './lib/periods/periods.service';

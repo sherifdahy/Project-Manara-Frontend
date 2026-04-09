@@ -1,0 +1,207 @@
+<!-- Page Header -->
+<div class="page-header mb-4">
+  <div>
+    <h1 class="page-title mb-1">Academic Periods</h1>
+    <p class="page-description mb-0">
+      View and manage all university academic periods
+    </p>
+  </div>
+</div>
+
+<!-- Stats Cards Row -->
+<div class="row g-3 mb-4">
+  <!-- Total Periods -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Periods</span>
+          <h3 class="stats-number">9563</h3>
+          <span class="stats-meta text-success">523 active</span>
+        </div>
+        <div class="stats-icon-wrapper bg-primary-soft">
+          <i class="fa-solid fa-building text-primary"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Students -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Students</span>
+          <h3 class="stats-number">9563</h3>
+          <span class="stats-meta">Across all periods</span>
+        </div>
+        <div class="stats-icon-wrapper bg-success-soft">
+          <i class="fa-solid fa-user-graduate text-success"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Staff -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Staff</span>
+          <h3 class="stats-number">95163</h3>
+          <span class="stats-meta">Period members</span>
+        </div>
+        <div class="stats-icon-wrapper bg-warning-soft">
+          <i class="fa-solid fa-users text-warning"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Programs -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+        <div class="stats-info">
+          <span class="stats-label">Total Programs</span>
+          <h3 class="stats-number">515</h3>
+          <span class="stats-meta">Academic programs</span>
+        </div>
+        <div class="stats-icon-wrapper bg-info-soft">
+          <i class="fa-solid fa-book-open text-info"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- All Periods Section -->
+<div class="periods-section">
+  <div class="section-card">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div>
+        <h4 class="section-title">All Academic Periods</h4>
+        <p class="section-subtitle">
+          Manage and view academic period information
+        </p>
+      </div>
+
+      <div class="d-flex gap-2">
+        <!-- Search Bar -->
+        <div class="search-bar-container">
+          <div class="search-bar">
+            <i class="fa-solid fa-search search-icon"></i>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search periods..."
+            />
+          </div>
+        </div>
+
+        <!-- Status Filter -->
+        <!-- Status Filter -->
+        <div class="filter-dropdown-container">
+          <div class="custom-select-wrapper">
+            <select
+              class="custom-select"
+              [(ngModel)]="includeDisabled"
+              (change)="onFilterChange()"
+            >
+              <option value="false">Active Only</option>
+              <option value="true">Include Disabled</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-icon"></i>
+          </div>
+        </div>
+
+        <button
+          hasPermission="periods:create"
+          (click)="openPeriodFormDialog()"
+          class="btn-add-period"
+        >
+          <i class="fa-solid fa-plus me-2"></i> Add Period
+        </button>
+      </div>
+    </div>
+
+    <!-- Periods Table -->
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>StartDate</th>
+            <th>EndDate</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="periods$ | async as periods">
+            <tr *ngFor="let period of periods">
+              <td>{{ period.startTime }}</td>
+              <td>{{ period.endTime }}</td>
+              <td>
+                <span
+                  class="table-status-badge"
+                  [ngClass]="{
+                    'status-active': !period.isDeleted,
+                    'status-inactive': period.isDeleted,
+                  }"
+                >
+                  {{ period.isDeleted ? 'Disabled' : 'Active' }}
+                </span>
+              </td>
+              <td>
+                <div class="table-actions">
+                  <a
+                    class="table-action-btn btn-primary"
+                    hasPermission="periods:update"
+                    title="Edit Period"
+                  >
+                    <i class="fa-solid fa-pen"></i>
+                  </a>
+                  <button
+                    hasPermission="periods:toggleStatus"
+                    (click)="onToggleStatus(period.startTime, period.endTime)"
+                    class="table-action-btn"
+                    [ngClass]="{
+                      'btn-success': period.isDeleted,
+                      'btn-warning': !period.isDeleted,
+                    }"
+                    [title]="
+                      period.isDeleted ? 'Activate Period' : 'Disable Period'
+                    "
+                  >
+                    <i
+                      class="fa-solid"
+                      [ngClass]="{
+                        'fa-check': period.isDeleted,
+                        'fa-ban': !period.isDeleted,
+                      }"
+                    ></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="periods.length == 0">
+              <td colspan="9">
+                <div class="table-empty-state">
+                  <div class="table-empty-icon">
+                    <i class="fa-solid fa-inbox"></i>
+                  </div>
+                  <h3 class="table-empty-title">No Years Found</h3>
+                  <p class="table-empty-text">
+                    There are no academic years to display at the moment.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -60,6 +60,13 @@ export const remoteRoutes: Route[] = [
           import('./features/years/years.module').then((x) => x.YearsModule),
       },
       {
+        path: 'periods',
+        loadChildren: () =>
+          import('./features/periods/periods.module').then(
+            (x) => x.PeriodsModule,
+          ),
+      },
+      {
         path: 'settings',
         loadChildren: () =>
           import('./features/settings/settings.module').then(
