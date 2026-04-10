@@ -2,16 +2,20 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LoginRequest } from '@project-manara-frontend/models';
-import { AuthNavigationService, AuthService, HttpErrorService } from '@project-manara-frontend/services';
+import {
+  AuthNavigationService,
+  AuthService,
+  HttpErrorService,
+} from '@project-manara-frontend/services';
 
 @Component({
   selector: 'app-login-form',
   standalone: false,
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent implements OnInit {
-
+  isLoading = false;
   form!: FormGroup;
   @ViewChild('errorMessage') errorMessageRef!: ElementRef<HTMLDivElement>;
   constructor(
@@ -20,7 +24,7 @@ export class LoginFormComponent implements OnInit {
     private httpErrorService: HttpErrorService,
     private authNavigationService: AuthNavigationService,
     private activatedRoute: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -44,15 +48,18 @@ export class LoginFormComponent implements OnInit {
     }
 
     let request = this.form.value as LoginRequest;
+    this.isLoading = true;
 
     this.authService.login(request).subscribe({
       next: (response) => {
+        this.isLoading = false;
         let returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
         this.authNavigationService.redirect(returnUrl);
       },
       error: (error) => {
+        this.isLoading = false;
         this.httpErrorService.handle(error);
-      }
+      },
     });
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   HttpErrorService,
+  LoaderService,
   ToastService,
   UniversityService,
 } from '@project-manara-frontend/services';
@@ -27,7 +28,8 @@ export class UniversitySettingPageComponent implements OnInit {
     private universityService: UniversityService,
     private toastrService: ToastService,
     private httpErrorService: HttpErrorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loaderService: LoaderService,
   ) {
     this.universityId = +this.route.parent?.snapshot.paramMap.get('id')!;
   }
@@ -55,11 +57,14 @@ export class UniversitySettingPageComponent implements OnInit {
   }
 
   loadUniversityData(): void {
+    this.loaderService.loading();
     this.universityService.get(this.universityId).subscribe({
       next: (university) => {
+        this.loaderService.hide();
         this.universityForm.patchValue(university);
       },
       error: (error) => {
+        this.loaderService.hide();
         this.httpErrorService.handle(error);
       },
     });
@@ -70,14 +75,16 @@ export class UniversitySettingPageComponent implements OnInit {
       var request = this.universityForm.value as UniversityRequest;
       this.universityService.update(this.universityId, request).subscribe({
         next: () => {
-          this.toastrService.success('University information updated successfully');
+          this.toastrService.success(
+            'University information updated successfully',
+          );
           this.universityForm.markAsPristine();
         },
         error: (error) => {
           this.httpErrorService.handle(error);
         },
       });
-    };
+    }
     this.universityForm.markAllAsTouched();
   }
 }

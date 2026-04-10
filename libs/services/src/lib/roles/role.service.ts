@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
-import { FacultyRoleResponse, RoleDetailResponse, RoleRequest, RoleResponse } from '@project-manara-frontend/models';
+import {
+  FacultyRoleResponse,
+  RoleDetailResponse,
+  RoleRequest,
+  RoleResponse,
+} from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoleService {
-
-  constructor(private apiClient: ApiClientService) { }
+  constructor(private apiClient: ApiClientService) {}
 
   getAll(includeDisabled: boolean): Observable<RoleResponse[]> {
-    return this.apiClient.get(`${environment.apiUrl}/api/roles?includeDisabled=${includeDisabled}`);
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/roles?includeDisabled=${includeDisabled}`,
+    );
   }
 
   get(id: number): Observable<RoleDetailResponse> {
@@ -31,10 +37,12 @@ export class RoleService {
     return this.apiClient.delete(`${environment.apiUrl}/api/roles/${id}`);
   }
 
-  getFacultyRole(facultyId: number, roleId: number): Observable<FacultyRoleResponse> {
+  getFacultyRole(
+    facultyId: number,
+    roleId: number,
+  ): Observable<FacultyRoleResponse> {
     return this.apiClient.get(
-      `${environment.apiUrl}/api/faculties/${facultyId}/roles/${roleId}`
+      `${environment.apiUrl}/api/faculties/${facultyId}/roles/${roleId}`,
     );
   }
-
 }

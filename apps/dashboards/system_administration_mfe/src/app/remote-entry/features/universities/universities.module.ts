@@ -18,14 +18,14 @@ import { UniversitySettingPageComponent } from './pages/university-setting-page/
     ReactiveFormsModule,
     UiModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     UniversitiesPageComponent,
     UniversityDetailPageComponent,
     UniversityFormDialogComponent,
     UniversityOverviewPageComponent,
-    UniversitySettingPageComponent
-  ]
+    UniversitySettingPageComponent,
+  ],
 })
-export class UniversitiesModule { }
+export class UniversitiesModule {}

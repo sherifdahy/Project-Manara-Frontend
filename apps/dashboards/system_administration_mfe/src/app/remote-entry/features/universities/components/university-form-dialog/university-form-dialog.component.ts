@@ -16,7 +16,7 @@ import {
 export class UniversityFormDialogComponent implements OnInit {
   form!: FormGroup;
   currentYear = new Date().getFullYear();
-
+  isLoading = false;
   constructor(
     private fb: FormBuilder,
     private httpErrorService: HttpErrorService,
@@ -78,15 +78,19 @@ export class UniversityFormDialogComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
     const submitObservable = this.data?.universityId
       ? this.universityService.update(this.data.universityId, this.form.value)
       : this.universityService.create(this.form.value);
 
     submitObservable.subscribe({
       next: (response) => {
+        this.isLoading = false;
+
         this.dialogRef.close(response);
       },
       error: (errors) => {
+        this.isLoading = false;
         this.httpErrorService.handle(errors);
       },
     });
