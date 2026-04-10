@@ -1,5 +1,4 @@
-<ng-container *ngIf="faculties$ | async as faculties">
-
+<ng-container>
   <!-- All Faculties Section -->
   <div class="faculties-section">
     <div class="section-card">
@@ -15,15 +14,24 @@
           <div class="search-bar-container">
             <div class="search-bar">
               <i class="fa-solid fa-search search-icon"></i>
-              <input type="text" class="search-input" placeholder="Search faculties..." [(ngModel)]="searchTerm"
-                (input)="onSearch()">
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Search faculties..."
+                [(ngModel)]="searchTerm"
+                (input)="onSearch()"
+              />
             </div>
           </div>
 
           <!-- Status Filter -->
           <div class="filter-dropdown-container">
             <div class="custom-select-wrapper">
-              <select class="custom-select" [(ngModel)]="includeDisabled" (change)="onFilterChange()">
+              <select
+                class="custom-select"
+                [(ngModel)]="includeDisabled"
+                (change)="onFilterChange()"
+              >
                 <option [value]="false">Active Only</option>
                 <option [value]="true">Include Disabled</option>
               </select>
@@ -35,8 +43,6 @@
           </button>
         </div>
       </div>
-
-
 
       <!-- Faculties Table -->
       <div class="data-table-wrapper">
@@ -54,73 +60,151 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let faculty of faculties">
-              <td>
-                <div class="table-cell-with-icon">
-                  <div class="table-cell-icon">
-                    <i class="fa-solid fa-building"></i>
+            <ng-container *ngIf="faculties$ | async as faculties">
+              <tr *ngFor="let faculty of faculties">
+                <td>
+                  <div class="table-cell-with-icon">
+                    <div class="table-cell-icon">
+                      <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div class="table-cell-content">
+                      <a [routerLink]="[faculty.id]" class="table-cell-title">{{
+                        faculty.name
+                      }}</a>
+                    </div>
                   </div>
-                  <div class="table-cell-content">
-                    <a [routerLink]="[faculty.id]" class="table-cell-title">{{ faculty.name }}</a>
+                </td>
+                <td>
+                  <span class="table-location-badge">
+                    <i class="fa-solid fa-location-dot"></i>
+                    {{ faculty.address || 'N/A' }}
+                  </span>
+                </td>
+                <td>{{ faculty.numberOfStudents | number }}</td>
+                <td>{{ faculty.numberOfStaff | number }}</td>
+                <td>
+                  <div class="table-cell-multiline">
+                    <span class="table-cell-primary">8542</span>
+                    <span class="table-cell-secondary">9635 programs</span>
                   </div>
-                </div>
-              </td>
-              <td>
-                <span class="table-location-badge">
-                  <i class="fa-solid fa-location-dot"></i> {{ faculty.address || 'N/A' }}
-                </span>
-              </td>
-              <td>{{ faculty.numberOfStudents | number }}</td>
-              <td>{{ faculty.numberOfStaff | number }}</td>
-              <td>
-                <div class="table-cell-multiline">
-                  <span class="table-cell-primary">8542</span>
-                  <span class="table-cell-secondary">9635 programs</span>
-                </div>
-              </td>
-              <td><span class="table-value-badge">3.5</span></td>
-              <td>
-                <span class="table-status-badge" [ngClass]="{
-                    'status-active': !faculty.isDeleted,
-                    'status-inactive': faculty.isDeleted
-                  }">
-                  {{ faculty.isDeleted ? 'Disabled' : 'Active' }}
-                </span>
-              </td>
-              <td>
-                <div class="table-actions">
-                  <a [routerLink]="[faculty.id]" class="table-action-btn btn-primary" title="Edit Faculty">
-                    <i class="fa-solid fa-pen"></i>
-                  </a>
-                  <button class="table-action-btn" [ngClass]="{
-                      'btn-success': faculty.isDeleted,
-                      'btn-warning': !faculty.isDeleted
-                    }" (click)="onToggleStatus(faculty.id)"
-                    [title]="faculty.isDeleted ? 'Activate Faculty' : 'Disable Faculty'">
-                    <i class="fa-solid" [ngClass]="{
-                      'fa-check': faculty.isDeleted,
-                      'fa-ban': !faculty.isDeleted
-                    }"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
+                </td>
+                <td><span class="table-value-badge">3.5</span></td>
+                <td>
+                  <span
+                    class="table-status-badge"
+                    [ngClass]="{
+                      'status-active': !faculty.isDeleted,
+                      'status-inactive': faculty.isDeleted,
+                    }"
+                  >
+                    {{ faculty.isDeleted ? 'Disabled' : 'Active' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="table-actions">
+                    <a
+                      [routerLink]="[faculty.id]"
+                      class="table-action-btn btn-primary"
+                      title="Edit Faculty"
+                    >
+                      <i class="fa-solid fa-pen"></i>
+                    </a>
+                    <button
+                      class="table-action-btn"
+                      [ngClass]="{
+                        'btn-success': faculty.isDeleted,
+                        'btn-warning': !faculty.isDeleted,
+                      }"
+                      (click)="onToggleStatus(faculty.id)"
+                      [title]="
+                        faculty.isDeleted
+                          ? 'Activate Faculty'
+                          : 'Disable Faculty'
+                      "
+                    >
+                      <i
+                        class="fa-solid"
+                        [ngClass]="{
+                          'fa-check': faculty.isDeleted,
+                          'fa-ban': !faculty.isDeleted,
+                        }"
+                      ></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
 
-            <!-- Empty State -->
-            <tr *ngIf="faculties.length === 0">
-              <td colspan="9">
-                <div class="table-empty-state">
-                  <div class="table-empty-icon">
-                    <i class="fa-solid fa-inbox"></i>
+              <!-- Empty State -->
+              <tr *ngIf="faculties.length === 0">
+                <td colspan="9">
+                  <div class="table-empty-state">
+                    <div class="table-empty-icon">
+                      <i class="fa-solid fa-inbox"></i>
+                    </div>
+                    <h3 class="table-empty-title">No Faculties Found</h3>
+                    <p class="table-empty-text">
+                      {{
+                        searchTerm
+                          ? 'No results match your search.'
+                          : 'There are no faculties to display at the moment.'
+                      }}
+                    </p>
                   </div>
-                  <h3 class="table-empty-title">No Faculties Found</h3>
-                  <p class="table-empty-text">
-                    {{ searchTerm ? 'No results match your search.' : 'There are no faculties to display at the moment.'
-                    }}
-                  </p>
-                </div>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            </ng-container>
+            <!-- Skelton -->
+            <ng-container *ngIf="isLoading">
+              <tr
+                *ngFor="let row of [1, 2, 3]"
+                class="table-skeleton-row placeholder-glow"
+              >
+                <td>
+                  <div class="table-cell-with-icon">
+                    <div class="table-cell-content">
+                      <div class="table-cell-title sk-pill"></div>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="table-cell-multiline">
+                    <div class="table-cell-secondary sk-pill"></div>
+                  </div>
+                </td>
+                <td>
+                  <div class="table-cell-multiline">
+                    <div class="table-cell-secondary sk-pill"></div>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="table-value-badge sk-pill sm"></div>
+                </td>
+
+                <td>
+                  <div class="table-cell-multiline">
+                    <div class="table-cell-primary sk-pill sm"></div>
+                    <div class="table-cell-primary sk-pill"></div>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="table-status-badge sk-pill sm"></div>
+                </td>
+
+                <td>
+                  <div class="table-status-badge sk-pill sm"></div>
+                </td>
+
+                <td>
+                  <div class="table-actions">
+                    <div class="table-action-btn sk-btn"></div>
+                    <div class="table-action-btn sk-btn"></div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>

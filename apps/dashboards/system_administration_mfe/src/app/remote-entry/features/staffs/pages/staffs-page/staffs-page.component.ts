@@ -9,7 +9,7 @@ import {
   HttpErrorService,
   UniversityUserService,
 } from '@project-manara-frontend/services';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { Gender, Religion } from '@project-manara-frontend/enums';
@@ -26,6 +26,7 @@ export class StaffsPageComponent implements OnInit {
   selectedStatus: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25, 50];
   universityId: number;
+  isLoading = false;
 
   constructor(
     private httpErrorService: HttpErrorService,
@@ -42,11 +43,10 @@ export class StaffsPageComponent implements OnInit {
   }
 
   loadStaffs(): void {
-    this.staffs$ = this.universityUserService.getAll(
-      this.universityId,
-      this.filters,
-      this.selectedStatus,
-    );
+    this.isLoading = true;
+    this.staffs$ = this.universityUserService
+      .getAll(this.universityId, this.filters, this.selectedStatus)
+      .pipe(finalize(() => (this.isLoading = false)));
   }
 
   onSearch(): void {

@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ForgetPasswordRequest } from '@project-manara-frontend/models';
 import { AuthService } from '@project-manara-frontend/services';
@@ -18,8 +24,8 @@ export class ForgetPasswordFormComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.buildForm();
