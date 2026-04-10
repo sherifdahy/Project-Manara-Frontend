@@ -1,3 +1,87 @@
-<p>
-  period-form-dialog works!
-</p>
+<div class="period-dialog">
+  <!-- ================= Header ================= -->
+  <div class="period-dialog-header">
+    <div class="d-flex align-items-center gap-3 flex-fill">
+      <div class="period-dialog-icon">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div class="flex-fill">
+        <h2 class="period-dialog-title">Add Academic period</h2>
+        <p class="period-dialog-subtitle">
+          Fill in the academic period details
+        </p>
+      </div>
+    </div>
+
+    <button (click)="onCancel()" class="period-dialog-close" type="button">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- ================= Body ================= -->
+  <div class="period-dialog-body">
+    <form [formGroup]="periodForm">
+      <div class="period-form-grid">
+        <!-- Start Date -->
+        <div class="period-form-field">
+          <label class="period-field-label">
+            <i class="fas fa-calendar-plus"></i>
+            Start Date <span class="required-star">*</span>
+          </label>
+          <input
+            formControlName="startTime"
+            [class.invalid]="
+              periodForm.get('startTime')?.invalid &&
+              periodForm.get('startTime')?.touched
+            "
+            type="time"
+            class="period-field-input"
+          />
+          <app-display-error
+            [control]="periodForm.get('startTime')"
+          ></app-display-error>
+        </div>
+
+        <!-- End Date -->
+        <div class="period-form-field">
+          <label class="period-field-label">
+            <i class="fas fa-calendar-minus"></i>
+            End Date <span class="required-star">*</span>
+          </label>
+          <input
+            formControlName="endTime"
+            [class.invalid]="
+              periodForm.get('endTime')?.invalid &&
+              periodForm.get('endTime')?.touched
+            "
+            type="time"
+            class="period-field-input"
+          />
+          <app-display-error
+            [control]="periodForm.get('endTime')"
+          ></app-display-error>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <div class="period-dialog-footer">
+    <button
+      (click)="onCancel()"
+      type="button"
+      class="period-btn period-btn-cancel"
+    >
+      Cancel
+    </button>
+
+    <button
+      (click)="onSubmit()"
+      type="button"
+      class="period-btn period-btn-submit"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <span>Create</span>
+    </button>
+  </div>
+</div>

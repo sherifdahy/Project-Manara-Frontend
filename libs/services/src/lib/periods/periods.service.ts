@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
-import { PeriodResponse } from '@project-manara-frontend/models';
+import { PeriodRequest, PeriodResponse } from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 
@@ -16,6 +16,12 @@ export class PeriodsService {
   ): Observable<PeriodResponse[]> {
     return this.apiClient.get(
       `${environment.apiUrl}/api/faculties/${facultId}/periods?includeDisabled=${includeDisabled}`,
+    );
+  }
+  create(facultyId: number, request: PeriodRequest) {
+    return this.apiClient.post(
+      `${environment.apiUrl}/api/faculties/${facultyId}/periods`,
+      request,
     );
   }
 

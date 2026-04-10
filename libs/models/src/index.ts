@@ -57,3 +57,4 @@ export * from './lib/years/responses/year-response';
 export * from './lib/years/responses/term-response';
 
 export * from './lib/periods/responses/period-response';
+export * from './lib/periods/requests/period-request';
