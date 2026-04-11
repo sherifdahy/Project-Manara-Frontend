@@ -18,6 +18,30 @@ export class PeriodsService {
       `${environment.apiUrl}/api/faculties/${facultId}/periods?includeDisabled=${includeDisabled}`,
     );
   }
+
+  get(
+    facultyId: number,
+    startTime: string,
+    endTime: string,
+  ): Observable<PeriodResponse> {
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/faculties/${facultyId}/periods/${startTime}/${endTime}`,
+    );
+  }
+
+  update(
+    facultyId: number,
+    oldStartTime: string,
+    oldEndTime: string,
+    request: PeriodRequest,
+  ) {
+    return this.apiClient.put(
+      `${environment.apiUrl}/api/faculties/${facultyId}/periods/${oldStartTime}/${oldEndTime}
+`,
+      request,
+    );
+  }
+
   create(facultyId: number, request: PeriodRequest) {
     return this.apiClient.post(
       `${environment.apiUrl}/api/faculties/${facultyId}/periods`,

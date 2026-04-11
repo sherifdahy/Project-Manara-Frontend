@@ -1,0 +1,124 @@
+<div class="container-fluid px-0">
+  <form [formGroup]="periodForm" (ngSubmit)="onSave()">
+    <div class="row g-3">
+      <!-- Left Column - Basic Information -->
+      <div class="col-12 col-lg-8">
+        <!-- Basic Information Card -->
+        <div class="settings-card mb-3">
+          <div class="card-header-custom">
+            <div class="header-icon">
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <div>
+              <h5 class="card-title-custom">Basic Information</h5>
+              <p class="card-subtitle-custom">
+                General period details and description
+              </p>
+            </div>
+          </div>
+
+          <div class="card-body-custom">
+            <!-- Start Time -->
+            <div class="form-group-custom">
+              <label class="form-label-custom">
+                <i class="fas fa-calendar-plus me-1"></i>
+                Start Time <span class="required-mark">*</span>
+              </label>
+              <input
+                formControlName="startTime"
+                [class.invalid]="
+                  periodForm.get('startTime')?.invalid &&
+                  periodForm.get('startTime')?.touched
+                "
+                type="time"
+                class="form-control-custom"
+              />
+              <app-display-error
+                [control]="periodForm.get('startTime')"
+              ></app-display-error>
+            </div>
+
+            <!-- End Time -->
+            <div class="form-group-custom">
+              <label class="form-label-custom">
+                <i class="fas fa-calendar-minus me-1"></i>
+                End Time <span class="required-mark">*</span>
+              </label>
+              <input
+                formControlName="endTime"
+                [class.invalid]="
+                  periodForm.get('endTime')?.invalid &&
+                  periodForm.get('endTime')?.touched
+                "
+                type="time"
+                class="form-control-custom"
+              />
+              <app-display-error
+                [control]="periodForm.get('endTime')"
+              ></app-display-error>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Preview & Actions -->
+      <div class="col-12 col-lg-4">
+        <!-- Preview Card -->
+        <div class="settings-card sticky-card">
+          <div class="card-header-custom">
+            <div class="header-icon">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <div>
+              <h5 class="card-title-custom">Preview</h5>
+              <p class="card-subtitle-custom">How it will appear</p>
+            </div>
+          </div>
+
+          <div class="card-body-custom">
+            <!-- Preview Content -->
+            <div class="preview-section">
+              <div class="preview-info-list">
+                <div class="preview-info-item">
+                  <i class="fa-solid fa-calendar-plus"></i>
+                  <span>{{
+                    periodForm.get('startTime')?.value || 'startTime'
+                  }}</span>
+                </div>
+                <div class="preview-info-item">
+                  <i class="fa-solid fa-calendar-minus"></i>
+                  <span>{{
+                    periodForm.get('endTime')?.value || 'endTime'
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions Card -->
+        <div class="settings-card mt-3">
+          <div class="card-body-custom">
+            <div class="actions-section">
+              <button
+                type="submit"
+                class="btn-primary-custom w-100 mb-2"
+                [disabled]="!periodForm.valid || !periodForm.dirty"
+              >
+                <i class="fa-solid fa-check me-2"></i> Save Changes
+              </button>
+            </div>
+
+            <!-- Form Status -->
+            <div class="form-status mt-3" *ngIf="periodForm.dirty">
+              <div class="alert-warning-custom">
+                <i class="fa-solid fa-exclamation-triangle me-2"></i>
+                You have unsaved changes
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

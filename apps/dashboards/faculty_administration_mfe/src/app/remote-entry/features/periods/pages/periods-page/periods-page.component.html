@@ -158,6 +158,7 @@
                     class="table-action-btn btn-primary"
                     hasPermission="periods:update"
                     title="Edit Period"
+                    [routerLink]="[period.startTime, period.endTime]"
                   >
                     <i class="fa-solid fa-pen"></i>
                   </a>
