@@ -1,0 +1,191 @@
+/* =====================
+   Cards Skelton
+===================== */
+.role-skeleton-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP */
+.skeleton-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skeleton-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  background: #e9ecef;
+}
+
+.skeleton-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skeleton-btn {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 6px;
+  background: #e9ecef;
+}
+
+/* BODY */
+.skeleton-title {
+  width: 60%;
+  height: 16px;
+  border-radius: 6px;
+  background: #e9ecef;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-desc {
+  height: 12px;
+  border-radius: 6px;
+  background: #e9ecef;
+  width: 85%;
+}
+
+/* META */
+.skeleton-meta {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeleton-label {
+  width: 30%;
+  height: 12px;
+  background: #e9ecef;
+  border-radius: 6px;
+}
+
+.skeleton-value {
+  width: 40%;
+  height: 12px;
+  background: #e9ecef;
+  border-radius: 6px;
+}
+
+.skeleton-value.small {
+  width: 25%;
+}
+
+/* GLOW (Bootstrap-like effect) */
+.placeholder-glow .skeleton-icon,
+.placeholder-glow .skeleton-btn,
+.placeholder-glow .skeleton-title,
+.placeholder-glow .skeleton-desc,
+.placeholder-glow .skeleton-label,
+.placeholder-glow .skeleton-value {
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-glow .skeleton-icon::after,
+.placeholder-glow .skeleton-btn::after,
+.placeholder-glow .skeleton-title::after,
+.placeholder-glow .skeleton-desc::after,
+.placeholder-glow .skeleton-label::after,
+.placeholder-glow .skeleton-value::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* =====================
+   Table Row Skelton
+===================== */
+
+/* ===== BASE SHIMMER ===== */
+.placeholder-glow .sk-line,
+.placeholder-glow .sk-box,
+.placeholder-glow .sk-pill,
+.placeholder-glow .sk-btn {
+  position: relative;
+  overflow: hidden;
+  background: #e9ecef;
+}
+
+/* ===== ICON ===== */
+.sk-box {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+}
+
+/* ===== PILLS / BADGES ===== */
+.sk-pill {
+  height: 18px;
+  width: 90px;
+  border-radius: 999px;
+}
+
+.sk-pill.sm {
+  width: 40px;
+}
+
+/* ===== BUTTONS ===== */
+.sk-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+}
+
+/* ===== SHIMMER EFFECT ONLY ===== */
+.placeholder-glow .sk-line::after,
+.placeholder-glow .sk-box::after,
+.placeholder-glow .sk-pill::after,
+.placeholder-glow .sk-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}

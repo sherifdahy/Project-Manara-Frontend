@@ -16,7 +16,7 @@ import {
   ToastService,
 } from '@project-manara-frontend/services';
 import { selectUniversityId } from '../../../../store/selectors/university.selectors';
-import { filter, take } from 'rxjs';
+import { filter, finalize, switchMap, take } from 'rxjs';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 @Component({
   selector: 'app-faculty-form-dialog',
@@ -27,6 +27,7 @@ import { RegexPatternConsts } from '@project-manara-frontend/consts';
 export class FacultyFormDialogComponent implements OnInit {
   facultyForm!: FormGroup;
   universityId$ = this.store.select(selectUniversityId);
+  isLoading = false;
   constructor(
     private fb: FormBuilder,
     private toastService: ToastService,
@@ -58,26 +59,32 @@ export class FacultyFormDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.facultyForm.valid) {
-      this.universityId$
-        .pipe(
-          filter((id) => !!id),
-          take(1),
-        )
-        .subscribe((universityId) =>
-          this.facultyService
-            .create(universityId!, this.facultyForm.value)
-            .subscribe({
-              next: () => {
-                this.dialogRef.close(true);
-                this.toastService.success('Faculty created successfully!');
-              },
-              error: (errors) => {
-                this.httpErrorService.handle(errors);
-              },
-            }),
-        );
+    if (this.facultyForm.invalid) {
+      this.facultyForm.markAllAsTouched();
+      return;
     }
+
+    this.universityId$
+      .pipe(
+        filter((id): id is number => !!id),
+        take(1),
+        switchMap((universityId) => {
+          this.isLoading = true;
+
+          return this.facultyService
+            .create(universityId, this.facultyForm.value)
+            .pipe(finalize(() => (this.isLoading = false)));
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.dialogRef.close(true);
+          this.toastService.success('Faculty created successfully!');
+        },
+        error: (errors) => {
+          this.httpErrorService.handle(errors);
+        },
+      });
   }
 
   onCancel(): void {

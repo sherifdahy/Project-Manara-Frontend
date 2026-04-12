@@ -8,7 +8,7 @@ import {
   HttpErrorService,
   UniversityService,
 } from '@project-manara-frontend/services';
-import { filter, Observable, switchMap } from 'rxjs';
+import { filter, finalize, Observable, switchMap } from 'rxjs';
 import { FacultyFormDialogComponent } from '../../components/faculty-form-dialog/faculty-form-dialog.component';
 import { Store } from '@ngrx/store';
 import { selectUniversityIdState } from '../../../../store/selectors/university.selectors';
@@ -23,6 +23,7 @@ export class FacultiesPageComponent implements OnInit {
   searchTerm!: string;
   faculties$!: Observable<FacultyResponse[]>;
   universityId$ = this.store.select(selectUniversityIdState);
+  isLoading = false;
   constructor(
     private matDialog: MatDialog,
     private httpErrorService: HttpErrorService,
@@ -38,7 +39,13 @@ export class FacultiesPageComponent implements OnInit {
   loadFaculties(): void {
     this.faculties$ = this.universityId$.pipe(
       filter((id): id is number => !!id),
-      switchMap((id) => this.facultyService.getAll(id, this.includeDisabled)),
+      switchMap((id) => {
+        this.isLoading = true;
+
+        return this.facultyService
+          .getAll(id, this.includeDisabled)
+          .pipe(finalize(() => (this.isLoading = false)));
+      }),
     );
   }
 

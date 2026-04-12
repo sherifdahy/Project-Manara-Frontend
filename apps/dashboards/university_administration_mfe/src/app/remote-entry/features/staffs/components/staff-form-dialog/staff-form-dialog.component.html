@@ -382,10 +382,11 @@
       <button
         type="button"
         class="btn btn-submit"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || isLoading"
         (click)="onSubmit()"
       >
-        <i class="fa-solid fa-plus"></i>
+        <i *ngIf="!isLoading" class="fa-solid fa-plus"></i>
+        <i *ngIf="isLoading" class="fa-solid fa-spin fa-spinner"></i>
         <span>Create Staff</span>
       </button>
     </div>

@@ -8,7 +8,7 @@ import {
   PermissionService,
 } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, tap } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-staff-permissions-page',
@@ -25,7 +25,7 @@ export class StaffPermissionsPageComponent implements OnInit {
   selected: string[] = [];
   original: string[] = [];
   categories: Category[] = [];
-
+  isLoading = false;
   constructor(
     private route: ActivatedRoute,
     private ps: PermissionService,
@@ -88,8 +88,11 @@ export class StaffPermissionsPageComponent implements OnInit {
   }
 
   save(): void {
+    this.isLoading = true;
+
     this.ps
       .updateForUser(this.facultyUserId, this.defaults, this.selected)
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this.original = [...this.selected];

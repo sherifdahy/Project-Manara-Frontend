@@ -114,7 +114,11 @@
             <i class="fa-solid fa-chevron-down select-icon"></i>
           </div>
         </div>
-        <button hasPermission="faculties:create" class="btn-add-faculty" (click)="openFacultyFormDialog()">
+        <button
+          hasPermission="faculties:create"
+          class="btn-add-faculty"
+          (click)="openFacultyFormDialog()"
+        >
           <i class="fa-solid fa-plus me-2"></i> Add Faculty
         </button>
       </div>
@@ -223,6 +227,57 @@
                         : 'There are no faculties to display at the moment.'
                     }}
                   </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          <!-- Skelton -->
+          <ng-container *ngIf="isLoading">
+            <tr
+              *ngFor="let row of [1, 2, 3]"
+              class="table-skeleton-row placeholder-glow"
+            >
+              <td>
+                <div class="table-cell-with-icon">
+                  <div class="table-cell-icon sk-box"></div>
+                  <div class="table-cell-content">
+                    <div class="table-cell-title sk-pill"></div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-location-badge sk-pill"></div>
+              </td>
+
+              <td>
+                <div class="table-cell-multiline">
+                  <div class="table-cell-primary sk-pill sm"></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-value-badge sk-pill sm"></div>
+              </td>
+
+              <td>
+                <div class="table-cell-multiline">
+                  <div class="table-cell-secondary sk-pill sm"></div>
+                  <div class="table-cell-primary sk-pill"></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-status-badge sk-pill sm"></div>
+              </td>
+              <td>
+                <div class="table-status-badge sk-pill sm"></div>
+              </td>
+
+              <td>
+                <div class="table-actions">
+                  <div class="table-action-btn sk-btn"></div>
+                  <div class="table-action-btn sk-btn"></div>
                 </div>
               </td>
             </tr>

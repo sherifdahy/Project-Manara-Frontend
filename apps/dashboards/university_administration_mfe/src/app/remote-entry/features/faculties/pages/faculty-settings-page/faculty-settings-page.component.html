@@ -12,7 +12,9 @@
             </div>
             <div>
               <h5 class="card-title-custom">Basic Information</h5>
-              <p class="card-subtitle-custom">General faculty details and description</p>
+              <p class="card-subtitle-custom">
+                General faculty details and description
+              </p>
             </div>
           </div>
 
@@ -22,8 +24,15 @@
               <label class="form-label-custom">
                 Faculty Name <span class="required-mark">*</span>
               </label>
-              <input type="text" class="form-control-custom" formControlName="name" placeholder="Enter faculty name" />
-              <app-display-error [control]="facultyForm.get('name')"></app-display-error>
+              <input
+                type="text"
+                class="form-control-custom"
+                formControlName="name"
+                placeholder="Enter faculty name"
+              />
+              <app-display-error
+                [control]="facultyForm.get('name')"
+              ></app-display-error>
             </div>
 
             <!-- Description -->
@@ -31,12 +40,19 @@
               <label class="form-label-custom">
                 Description <span class="required-mark">*</span>
               </label>
-              <textarea class="form-control-custom" formControlName="description" rows="4"
-                placeholder="Enter faculty description"></textarea>
+              <textarea
+                class="form-control-custom"
+                formControlName="description"
+                rows="4"
+                placeholder="Enter faculty description"
+              ></textarea>
               <div class="form-hint">
-                Provide a brief description of the faculty's mission and programs
+                Provide a brief description of the faculty's mission and
+                programs
               </div>
-              <app-display-error [control]="facultyForm.get('description')"></app-display-error>
+              <app-display-error
+                [control]="facultyForm.get('description')"
+              ></app-display-error>
             </div>
 
             <!-- Address -->
@@ -44,13 +60,19 @@
               <label class="form-label-custom">
                 Address <span class="required-mark">*</span>
               </label>
-              <input type="text" class="form-control-custom" formControlName="address"
-                placeholder="Enter faculty address" />
+              <input
+                type="text"
+                class="form-control-custom"
+                formControlName="address"
+                placeholder="Enter faculty address"
+              />
               <div class="form-hint">
                 <i class="fa-solid fa-location-dot me-1"></i>
                 Full address including city and postal code
               </div>
-              <app-display-error [control]="facultyForm.get('address')"></app-display-error>
+              <app-display-error
+                [control]="facultyForm.get('address')"
+              ></app-display-error>
             </div>
           </div>
         </div>
@@ -75,26 +97,36 @@
               </label>
               <div class="input-with-icon">
                 <i class="fa-solid fa-envelope input-icon"></i>
-                <input type="email" class="form-control-custom with-icon" formControlName="email"
-                  placeholder="faculty@university.edu" />
+                <input
+                  type="email"
+                  class="form-control-custom with-icon"
+                  formControlName="email"
+                  placeholder="faculty@university.edu"
+                />
               </div>
-              <app-display-error [control]="facultyForm.get('email')"></app-display-error>
+              <app-display-error
+                [control]="facultyForm.get('email')"
+              ></app-display-error>
             </div>
 
             <!-- Website -->
             <div class="form-group-custom">
-              <label class="form-label-custom">
-                Website URL
-              </label>
+              <label class="form-label-custom"> Website URL </label>
               <div class="input-with-icon">
                 <i class="fa-solid fa-globe input-icon"></i>
-                <input type="url" class="form-control-custom with-icon" formControlName="website"
-                  placeholder="https://faculty.university.edu" />
+                <input
+                  type="url"
+                  class="form-control-custom with-icon"
+                  formControlName="website"
+                  placeholder="https://faculty.university.edu"
+                />
               </div>
               <div class="form-hint">
                 Optional: Faculty's official website URL
               </div>
-              <app-display-error [control]="facultyForm.get('website')"></app-display-error>
+              <app-display-error
+                [control]="facultyForm.get('website')"
+              ></app-display-error>
             </div>
           </div>
         </div>
@@ -127,19 +159,31 @@
               </div>
 
               <div class="preview-description">
-                {{ facultyForm.get('description')?.value || 'Faculty description will appear here...' }}
+                {{
+                  facultyForm.get('description')?.value ||
+                    'Faculty description will appear here...'
+                }}
               </div>
 
               <div class="preview-info-list">
-                <div class="preview-info-item" *ngIf="facultyForm.get('address')?.value">
+                <div
+                  class="preview-info-item"
+                  *ngIf="facultyForm.get('address')?.value"
+                >
                   <i class="fa-solid fa-location-dot"></i>
                   <span>{{ facultyForm.get('address')?.value }}</span>
                 </div>
-                <div class="preview-info-item" *ngIf="facultyForm.get('email')?.value">
+                <div
+                  class="preview-info-item"
+                  *ngIf="facultyForm.get('email')?.value"
+                >
                   <i class="fa-solid fa-envelope"></i>
                   <span>{{ facultyForm.get('email')?.value }}</span>
                 </div>
-                <div class="preview-info-item" *ngIf="facultyForm.get('website')?.value">
+                <div
+                  class="preview-info-item"
+                  *ngIf="facultyForm.get('website')?.value"
+                >
                   <i class="fa-solid fa-globe"></i>
                   <span>{{ facultyForm.get('website')?.value }}</span>
                 </div>
@@ -152,8 +196,20 @@
         <div class="settings-card mt-3" hasPermission="faculties:update">
           <div class="card-body-custom">
             <div class="actions-section">
-              <button type="submit" class="btn-primary-custom w-100 mb-2" [disabled]="!facultyForm.valid || !facultyForm.dirty">
-                <i class="fa-solid fa-check me-2"></i> Save Changes
+              <button
+                type="submit"
+                class="btn-primary-custom w-100 mb-2"
+                [disabled]="
+                  !facultyForm.valid || !facultyForm.dirty || isLoading
+                "
+              >
+                <i *ngIf="!isLoading" class="fa-solid fa-check me-2"></i>
+                <i
+                  *ngIf="isLoading"
+                  class="fa-solid fa-spin fa-spinner me-2"
+                ></i>
+
+                Save Changes
               </button>
             </div>
 

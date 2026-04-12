@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { selectUniversityId } from '../../../../store/selectors/university.selectors';
 import {
   HttpErrorService,
+  LoaderService,
   ToastService,
   UniversityService,
 } from '@project-manara-frontend/services';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
-import { filter, take } from 'rxjs';
+import { filter, finalize, switchMap, take } from 'rxjs';
 import { UniversityRequest } from '@project-manara-frontend/models';
 import { getUniversityAction } from '../../../../store/actions/get-university.actions';
 import { Router } from '@angular/router';
@@ -22,6 +23,7 @@ import { Router } from '@angular/router';
 export class UniversitySettingPageComponent implements OnInit {
   universityForm!: FormGroup;
   universityId$ = this.store.select(selectUniversityId);
+  isLoading = false;
 
   constructor(
     private store: Store,
@@ -30,6 +32,7 @@ export class UniversitySettingPageComponent implements OnInit {
     private toastrService: ToastService,
     private httpErrorService: HttpErrorService,
     private router: Router,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit(): void {
@@ -59,41 +62,54 @@ export class UniversitySettingPageComponent implements OnInit {
       .pipe(
         filter((id) => !!id),
         take(1),
-      )
-      .subscribe((id) =>
-        this.universityService.get(id!).subscribe({
-          next: (university) => {
-            this.universityForm.patchValue(university);
-          },
-          error: (error) => {
-            this.httpErrorService.handle(error);
-          },
+        switchMap((id) => {
+          this.loaderService.loading();
+          return this.universityService
+            .get(id!)
+            .pipe(finalize(() => this.loaderService.hide()));
         }),
-      );
+      )
+      .subscribe({
+        next: (university) => {
+          this.universityForm.patchValue(university);
+        },
+        error: (error) => {
+          this.httpErrorService.handle(error);
+        },
+      });
   }
 
   onSave(): void {
-    if (this.universityForm.valid) {
-      var request = this.universityForm.value as UniversityRequest;
-      this.universityId$
-        .pipe(
-          filter((id) => !!id),
-          take(1),
-        )
-        .subscribe((id) => {
-          this.universityService.update(id!, request).subscribe({
-            next: () => {
-              this.store.dispatch(getUniversityAction());
-              this.toastrService.success('University information updated successfully');
-              this.universityForm.markAsPristine();
-            },
-            error: (error) => {
-              this.httpErrorService.handle(error);
-            },
-          });
-        });
+    if (this.universityForm.invalid) {
+      this.universityForm.markAllAsTouched();
+      return;
     }
 
-    this.universityForm.markAllAsTouched();
+    const request = this.universityForm.value as UniversityRequest;
+
+    this.universityId$
+      .pipe(
+        filter((id): id is number => !!id),
+        take(1),
+        switchMap((id) => {
+          this.isLoading = true;
+
+          return this.universityService
+            .update(id, request)
+            .pipe(finalize(() => (this.isLoading = false)));
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.store.dispatch(getUniversityAction());
+          this.toastrService.success(
+            'University information updated successfully',
+          );
+          this.universityForm.markAsPristine();
+        },
+        error: (error) => {
+          this.httpErrorService.handle(error);
+        },
+      });
   }
 }

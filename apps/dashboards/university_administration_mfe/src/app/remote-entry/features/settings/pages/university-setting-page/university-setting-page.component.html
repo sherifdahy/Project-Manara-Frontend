@@ -209,14 +209,21 @@
               <button
                 type="submit"
                 class="btn-primary-custom w-100 mb-2"
-                [disabled]="!universityForm.valid || !universityForm.dirty"
+                [disabled]="
+                  !universityForm.valid || !universityForm.dirty || isLoading
+                "
               >
-                <i class="fa-solid fa-check me-2"></i> Save Changes
+                <i *ngIf="!isLoading" class="fa-solid fa-check me-2"></i>
+                <i
+                  *ngIf="isLoading"
+                  class="fa-solid fa-spin fa-spinner me-2"
+                ></i>
+                Save Changes
               </button>
             </div>
 
             <!-- Form Status -->
-            <div class="form-status mt-3" *ngIf="universityForm.dirty ">
+            <div class="form-status mt-3" *ngIf="universityForm.dirty">
               <div class="alert-warning-custom">
                 <i class="fa-solid fa-exclamation-triangle me-2"></i>
                 You have unsaved changes

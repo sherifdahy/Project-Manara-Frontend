@@ -133,10 +133,11 @@
     <button
       type="button"
       class="faculty-btn faculty-btn-submit"
-      [disabled]="facultyForm.invalid"
+      [disabled]="facultyForm.invalid || isLoading"
       (click)="onSubmit()"
     >
-      <i class="fa-solid fa-plus"></i>
+      <i *ngIf="!isLoading" class="fa-solid fa-plus"></i>
+      <i *ngIf="isLoading" class="fa-solid fa-spin fa-spinner"></i>
       <span>Create Faculty</span>
     </button>
   </div>

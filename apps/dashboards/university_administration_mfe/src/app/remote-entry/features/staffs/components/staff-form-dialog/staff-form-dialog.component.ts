@@ -13,7 +13,7 @@ import {
 } from '@project-manara-frontend/services';
 import { RegexPatternConsts } from 'libs/consts/src/lib/regex-pattern-consts';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-staff-form-dialog',
@@ -25,7 +25,7 @@ export class StaffFormDialogComponent implements OnInit {
   form!: FormGroup;
   showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
-
+  isLoading = false;
   religionOptions = Object.entries(Religion)
     .filter(([, value]) => typeof value === 'number')
     .map(([key, value]) => ({ label: key, value }));
@@ -89,14 +89,19 @@ export class StaffFormDialogComponent implements OnInit {
 
     const request = this.form.value;
 
-    this.facultyUserService.create(this.data.facultyId, request).subscribe({
-      next: () => {
-        this.dialogRef.close(true);
-      },
-      error: (err) => {
-        this.httpErrorService.handle(err);
-      },
-    });
+    this.isLoading = true;
+
+    this.facultyUserService
+      .create(this.data.facultyId, request)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.dialogRef.close(true);
+        },
+        error: (err) => {
+          this.httpErrorService.handle(err);
+        },
+      });
   }
 
   onClose(): void {

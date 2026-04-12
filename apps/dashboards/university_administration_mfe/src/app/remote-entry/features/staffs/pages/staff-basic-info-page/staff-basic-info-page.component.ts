@@ -10,10 +10,11 @@ import {
 import {
   FacultyUserService,
   HttpErrorService,
+  LoaderService,
   ScopeService,
 } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
-import { Subject, forkJoin, takeUntil } from 'rxjs';
+import { Subject, finalize, forkJoin, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-staff-basic-info-page',
@@ -45,6 +46,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
     private facultyUserService: FacultyUserService,
     private httpErrorService: HttpErrorService,
     private toastrService: ToastrService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit(): void {
@@ -74,11 +76,16 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
   }
 
   private loadData(): void {
+    this.loaderService.loading();
+
     forkJoin({
       staff: this.facultyUserService.get(this.staffId),
       scope: this.scopeService.get('faculty'),
     })
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.loaderService.hide()),
+      )
       .subscribe({
         next: ({ staff, scope }) => {
           this.roles = scope?.roles || [];
