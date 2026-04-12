@@ -4,6 +4,7 @@ import { ProgramDetailPageComponent } from './pages/program-detail-page/program-
 import { ProgramOverviewPageComponent } from './pages/program-overview-page/program-overview-page.component';
 import { ProgramSettingsPageComponent } from './pages/program-settings-page/program-settings-page.component';
 import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/program-subjects-page.component';
+import { ProgramSchedulePageComponent } from './pages/program-schedule-page/program-schedule-page.component';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,10 @@ export const routes: Routes = [
       {
         path: 'subjects',
         component: ProgramSubjectsPageComponent,
+      },
+      {
+        path: 'schedule',
+        component: ProgramSchedulePageComponent,
       },
       // {
       //   path: 'department-staffs',

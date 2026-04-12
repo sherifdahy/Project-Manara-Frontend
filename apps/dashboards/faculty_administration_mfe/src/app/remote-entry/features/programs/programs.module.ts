@@ -11,7 +11,8 @@ import { ProgramOverviewPageComponent } from './pages/program-overview-page/prog
 import { ProgramSettingsPageComponent } from './pages/program-settings-page/program-settings-page.component';
 import { ProgramsPageComponent } from './pages/programs-page/programs-page.component';
 import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/program-subjects-page.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProgramSchedulePageComponent } from './pages/program-schedule-page/program-schedule-page.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,7 @@ import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/prog
     ReactiveFormsModule,
     UiModule,
     DirectivesModule,
+    DragDropModule
   ],
   declarations: [
     ProgramFormDialogComponent,
@@ -27,7 +29,8 @@ import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/prog
     ProgramOverviewPageComponent,
     ProgramSettingsPageComponent,
     ProgramsPageComponent,
-    ProgramSubjectsPageComponent
+    ProgramSubjectsPageComponent,
+    ProgramSchedulePageComponent
   ],
 })
 export class ProgramsModule {}
