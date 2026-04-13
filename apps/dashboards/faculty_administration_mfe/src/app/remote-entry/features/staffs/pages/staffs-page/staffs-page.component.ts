@@ -10,7 +10,7 @@ import {
   FacultyUserService,
   HttpErrorService,
 } from '@project-manara-frontend/services';
-import { filter, Observable, switchMap } from 'rxjs';
+import { filter, finalize, Observable, switchMap } from 'rxjs';
 import { StaffFormDialogComponent } from '../../components/staff-form-dialog/staff-form-dialog.component';
 import { Store } from '@ngrx/store';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
@@ -27,7 +27,7 @@ export class StaffsPageComponent implements OnInit {
   selectedStatus: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25, 50];
   facultyId$ = this.store.select(selectFacultyId);
-
+  isLoading = false;
   constructor(
     private httpErrorService: HttpErrorService,
     private facultyUserService: FacultyUserService,
@@ -40,10 +40,13 @@ export class StaffsPageComponent implements OnInit {
   }
 
   loadStaffs(): void {
+    this.isLoading = true;
     this.staffs$ = this.facultyId$.pipe(
       filter((id) => !!id),
       switchMap((id) =>
-        this.facultyUserService.getAll(id!, this.filters, this.selectedStatus),
+        this.facultyUserService
+          .getAll(id!, this.filters, this.selectedStatus)
+          .pipe(finalize(() => (this.isLoading = false))),
       ),
     );
   }

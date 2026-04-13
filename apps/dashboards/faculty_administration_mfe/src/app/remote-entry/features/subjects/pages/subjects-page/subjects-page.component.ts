@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { filter, Observable, take } from 'rxjs';
+import { filter, finalize, Observable, take } from 'rxjs';
 import {
   HttpErrorService,
   SubjectService,
@@ -20,6 +20,7 @@ import {
 })
 export class SubjectsPageComponent implements OnInit {
   filters = new RequestFilters();
+  isLoading = false;
   private facultyId!: number;
   selectedStatus: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25, 50];
@@ -45,11 +46,15 @@ export class SubjectsPageComponent implements OnInit {
   }
 
   loadSubjects(): void {
-    this.subjects$ = this.subjectService.getAll(
-      this.facultyId,
-      this.filters,
-      this.selectedStatus,
-    );
+    this.isLoading = true;
+
+    this.subjects$ = this.subjectService
+      .getAll(this.facultyId, this.filters, this.selectedStatus)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+      );
   }
 
   onSearch(): void {

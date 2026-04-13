@@ -7,6 +7,7 @@ import {
   ProgramService,
   ToastService,
 } from '@project-manara-frontend/services';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-program-form-dialog',
@@ -17,6 +18,7 @@ import {
 export class ProgramFormDialogComponent implements OnInit {
   programForm!: FormGroup;
   departmentId!: number;
+  isLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProgramFormDialogComponent>,
@@ -44,8 +46,14 @@ export class ProgramFormDialogComponent implements OnInit {
 
   onSubmit(): void {
     if (this.programForm.valid) {
+      this.isLoading = true;
       this.programService
         .create(this.departmentId, this.programForm.value)
+        .pipe(
+          finalize(() => {
+            this.isLoading = false;
+          }),
+        )
         .subscribe({
           next: () => {
             this.dialogRef.close(true);

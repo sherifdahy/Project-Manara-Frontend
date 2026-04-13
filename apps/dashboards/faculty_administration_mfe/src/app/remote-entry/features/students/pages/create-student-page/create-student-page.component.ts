@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProgramUserRequest } from '@project-manara-frontend/models';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { filter, take } from 'rxjs';
+import { filter, finalize, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Gender } from 'libs/enums/src/lib/gender';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
@@ -22,7 +22,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateStudentPageComponent implements OnInit {
   form!: FormGroup;
   showPassword = false;
-
+  isLoading = false;
   private facultyId!: number;
 
   religionOptions = Object.entries(Religion)
@@ -84,15 +84,18 @@ export class CreateStudentPageComponent implements OnInit {
     if (this.form.invalid) return;
 
     const request: ProgramUserRequest = this.form.value;
-
-    this.programUserService.create(this.facultyId, request).subscribe({
-      next: () => {
-        this.router.navigate(['../'], { relativeTo: this.route });
-      },
-      error: (err) => {
-        this.httpErrorService.handle(err);
-      },
-    });
+    this.isLoading = true;
+    this.programUserService
+      .create(this.facultyId, request)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        },
+        error: (err) => {
+          this.httpErrorService.handle(err);
+        },
+      });
   }
 
   onCancel(): void {

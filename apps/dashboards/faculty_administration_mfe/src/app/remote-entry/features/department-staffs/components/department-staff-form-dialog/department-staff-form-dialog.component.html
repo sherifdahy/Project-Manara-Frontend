@@ -382,10 +382,14 @@
       <button
         type="button"
         class="btn btn-submit"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || isLoading"
         (click)="onSubmit()"
       >
-        <i class="fa-solid fa-plus"></i>
+        <i
+          [class]="
+            isLoading ? 'fa-solid fa-spinner fa-spin' : 'fa-solid fa-plus'
+          "
+        ></i>
         <span>Create Staff</span>
       </button>
     </div>

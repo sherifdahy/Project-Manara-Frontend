@@ -14,7 +14,7 @@ import {
   ScopeService,
 } from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
-import { filter, switchMap, take, tap } from 'rxjs/operators';
+import { filter, finalize, switchMap, take, tap } from 'rxjs/operators';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 
 @Component({
@@ -27,7 +27,7 @@ export class StaffFormDialogComponent implements OnInit {
   form!: FormGroup;
   showPassword = false;
   scope$!: Observable<ScopeDetailResponse>;
-
+  isLoading = false;
   religionOptions = Object.entries(Religion)
     .filter(([, value]) => typeof value === 'number')
     .map(([key, value]) => ({ label: key, value }));
@@ -89,7 +89,7 @@ export class StaffFormDialogComponent implements OnInit {
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
-
+    this.isLoading = true;
     const request = this.form.value;
 
     this.facultyId$
@@ -97,7 +97,9 @@ export class StaffFormDialogComponent implements OnInit {
         filter((id) => !!id),
         take(1),
         switchMap((facultyId) =>
-          this.facultyUserService.create(facultyId!, request),
+          this.facultyUserService
+            .create(facultyId!, request)
+            .pipe(finalize(() => (this.isLoading = false))),
         ),
       )
       .subscribe({

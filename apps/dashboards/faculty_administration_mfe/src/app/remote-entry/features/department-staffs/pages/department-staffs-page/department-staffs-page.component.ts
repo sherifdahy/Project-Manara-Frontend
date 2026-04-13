@@ -10,7 +10,7 @@ import {
   DepartmentUserService,
   HttpErrorService,
 } from '@project-manara-frontend/services';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { DepartmentStaffFormDialogComponent } from '../../components/department-staff-form-dialog/department-staff-form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -25,6 +25,7 @@ export class DepartmentStaffsPageComponent implements OnInit {
   staffs$!: Observable<PaginatedList<DepartmentUserResponse>>;
   departmentId!: number;
   selectedStatus: boolean = false;
+  isLoading: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25, 50];
 
   constructor(
@@ -43,11 +44,15 @@ export class DepartmentStaffsPageComponent implements OnInit {
   }
 
   loadStaffs(): void {
-    this.staffs$ = this.departmentUserService.getAll(
-      this.departmentId,
-      this.filters,
-      this.selectedStatus,
-    );
+    this.isLoading = true;
+
+    this.staffs$ = this.departmentUserService
+      .getAll(this.departmentId, this.filters, this.selectedStatus)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+      );
   }
 
   onSearch(): void {

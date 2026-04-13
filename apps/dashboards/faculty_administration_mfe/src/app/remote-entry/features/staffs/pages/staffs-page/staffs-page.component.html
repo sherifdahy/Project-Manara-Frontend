@@ -1,4 +1,4 @@
-<ng-container *ngIf="staffs$ | async as response">
+<ng-container>
   <div class="container-fluid px-0">
     <!-- Page Header -->
     <div class="page-header mb-4">
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="row g-3 mb-4">
+    <div class="row g-3 mb-4" *ngIf="staffs$ | async as response">
       <div class="col-12 col-sm-6 col-xl-3">
         <div class="stats-card">
           <div class="stats-header">
@@ -99,220 +99,283 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let staff of response.items">
-                <!-- Staff Member -->
-                <td>
-                  <div class="table-cell-with-icon">
-                    <a
-                      [routerLink]="[staff.id]"
-                      class="table-cell-content"
-                      hasPermission="staffs:read"
-                    >
-                      <span class="table-cell-title">{{ staff.name }}</span>
-                    </a>
-                  </div>
-                </td>
-
-                <!-- Email -->
-                <td>
-                  <span class="staff-email">{{ staff.email || '—' }}</span>
-                </td>
-
-                <!-- Phone -->
-                <td>
-                  <span class="staff-phone">{{
-                    staff.phoneNumber || '—'
-                  }}</span>
-                </td>
-
-                <!-- National ID -->
-                <td>
-                  <span class="staff-national-id">{{
-                    staff.nationalId || '—'
-                  }}</span>
-                </td>
-
-                <!-- Birth Date -->
-                <td>
-                  <span class="staff-birth-date">
-                    {{
-                      staff.birthDate
-                        ? (staff.birthDate | date: 'mediumDate')
-                        : '—'
-                    }}
-                  </span>
-                </td>
-
-                <!-- Gender -->
-                <td>
-                  <span class="staff-gender">{{
-                    getGenderLabel(staff.gender)
-                  }}</span>
-                </td>
-
-                <!-- Religion -->
-                <td>
-                  <span class="staff-religion">{{
-                    getReligionLabel(staff.religion)
-                  }}</span>
-                </td>
-
-                <!-- Roles -->
-                <td>
-                  <div class="roles-list">
-                    <ng-container
-                      *ngIf="
-                        staff.roles && staff.roles.length > 0;
-                        else noRoles
-                      "
-                    >
-                      <span
-                        class="table-value-badge"
-                        *ngFor="let role of staff.roles"
+              <ng-container *ngIf="staffs$ | async as response">
+                <tr *ngFor="let staff of response.items">
+                  <!-- Staff Member -->
+                  <td>
+                    <div class="table-cell-with-icon">
+                      <a
+                        [routerLink]="[staff.id]"
+                        class="table-cell-content"
+                        hasPermission="staffs:read"
                       >
-                        {{ getRoleName(role) }}
-                      </span>
-                    </ng-container>
-                    <ng-template #noRoles>—</ng-template>
-                  </div>
-                </td>
-
-                <!-- Status — untouched -->
-                <td>
-                  <span
-                    class="table-status-badge status-deleted"
-                    *ngIf="staff.isDeleted"
-                    >Deleted</span
-                  >
-                  <span
-                    class="table-status-badge status-active"
-                    *ngIf="!staff.isDeleted"
-                    >Active</span
-                  >
-                </td>
-
-                <!-- Actions -->
-                <td>
-                  <div class="table-actions">
-                    <a
-                      [routerLink]="[staff.id]"
-                      class="table-action-btn btn-primary"
-                      title="Edit Staff"
-                      hasPermission="staffs:update"
-                    >
-                      <i class="fa-solid fa-pen"></i>
-                    </a>
-                    <button
-                      class="table-action-btn btn-danger"
-                      title="Delete Staff"
-                      (click)="onDelete(staff)"
-                      hasPermission="staffs:delete"
-                    >
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Empty State -->
-              <tr *ngIf="response.items.length === 0">
-                <td colspan="10">
-                  <div class="table-empty-state">
-                    <div class="table-empty-icon">
-                      <i class="fa-solid fa-user-slash"></i>
+                        <span class="table-cell-title">{{ staff.name }}</span>
+                      </a>
                     </div>
-                    <h3 class="table-empty-title">No Staff Found</h3>
-                    <p class="table-empty-text">
-                      There are no staff members matching your criteria.
-                    </p>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+
+                  <!-- Email -->
+                  <td>
+                    <span class="staff-email">{{ staff.email || '—' }}</span>
+                  </td>
+
+                  <!-- Phone -->
+                  <td>
+                    <span class="staff-phone">{{
+                      staff.phoneNumber || '—'
+                    }}</span>
+                  </td>
+
+                  <!-- National ID -->
+                  <td>
+                    <span class="staff-national-id">{{
+                      staff.nationalId || '—'
+                    }}</span>
+                  </td>
+
+                  <!-- Birth Date -->
+                  <td>
+                    <span class="staff-birth-date">
+                      {{
+                        staff.birthDate
+                          ? (staff.birthDate | date: 'mediumDate')
+                          : '—'
+                      }}
+                    </span>
+                  </td>
+
+                  <!-- Gender -->
+                  <td>
+                    <span class="staff-gender">{{
+                      getGenderLabel(staff.gender)
+                    }}</span>
+                  </td>
+
+                  <!-- Religion -->
+                  <td>
+                    <span class="staff-religion">{{
+                      getReligionLabel(staff.religion)
+                    }}</span>
+                  </td>
+
+                  <!-- Roles -->
+                  <td>
+                    <div class="roles-list">
+                      <ng-container
+                        *ngIf="
+                          staff.roles && staff.roles.length > 0;
+                          else noRoles
+                        "
+                      >
+                        <span
+                          class="table-value-badge"
+                          *ngFor="let role of staff.roles"
+                        >
+                          {{ getRoleName(role) }}
+                        </span>
+                      </ng-container>
+                      <ng-template #noRoles>—</ng-template>
+                    </div>
+                  </td>
+
+                  <!-- Status — untouched -->
+                  <td>
+                    <span
+                      class="table-status-badge status-deleted"
+                      *ngIf="staff.isDeleted"
+                      >Deleted</span
+                    >
+                    <span
+                      class="table-status-badge status-active"
+                      *ngIf="!staff.isDeleted"
+                      >Active</span
+                    >
+                  </td>
+
+                  <!-- Actions -->
+                  <td>
+                    <div class="table-actions">
+                      <a
+                        [routerLink]="[staff.id]"
+                        class="table-action-btn btn-primary"
+                        title="Edit Staff"
+                        hasPermission="staffs:update"
+                      >
+                        <i class="fa-solid fa-pen"></i>
+                      </a>
+                      <button
+                        class="table-action-btn btn-danger"
+                        title="Delete Staff"
+                        (click)="onDelete(staff)"
+                        hasPermission="staffs:delete"
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Empty State -->
+                <tr *ngIf="response.items.length === 0">
+                  <td colspan="10">
+                    <div class="table-empty-state">
+                      <div class="table-empty-icon">
+                        <i class="fa-solid fa-user-slash"></i>
+                      </div>
+                      <h3 class="table-empty-title">No Staff Found</h3>
+                      <p class="table-empty-text">
+                        There are no staff members matching your criteria.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+
+              <!-- Skelton -->
+              <ng-container *ngIf="isLoading">
+                <tr
+                  *ngFor="let row of [1, 2, 3]"
+                  class="table-skeleton-row placeholder-glow"
+                >
+                  <td>
+                    <div class="table-cell-with-icon">
+                      <div class="table-cell-content">
+                        <div class="table-cell-title sk-pill"></div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-location-badge sk-pill"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-cell-multiline">
+                      <div class="table-cell-secondary sk-pill"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-value-badge sk-pill"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-cell-multiline">
+                      <div class="table-cell-primary sk-pill"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-status-badge sk-pill sm"></div>
+                  </td>
+                  <td>
+                    <div class="table-status-badge sk-pill sm"></div>
+                  </td>
+                  <td>
+                    <div class="table-status-badge sk-pill"></div>
+                  </td>
+                  <td>
+                    <div class="table-status-badge sk-pill sm"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-actions">
+                      <div class="table-action-btn sk-btn"></div>
+                      <div class="table-action-btn sk-btn"></div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
         </div>
 
-        <!-- Pagination -->
-        <div class="table-pagination" *ngIf="response.items.length > 0">
-          <!-- Left: Info + Page Size -->
-          <div class="pagination-left">
-            <div class="table-pagination-info">
-              Showing {{ getStartIndex(response) }} to
-              {{ getEndIndex(response) }} of {{ response.totalCount }} staff
-              members
-            </div>
+        <ng-container *ngIf="staffs$ | async as response">
+          <!-- Pagination -->
+          <div class="table-pagination" *ngIf="response.items.length > 0">
+            <!-- Left: Info + Page Size -->
+            <div class="pagination-left">
+              <div class="table-pagination-info">
+                Showing {{ getStartIndex(response) }} to
+                {{ getEndIndex(response) }} of {{ response.totalCount }} staff
+                members
+              </div>
 
-            <!-- Page Size Dropdown -->
-            <div class="page-size-wrapper">
-              <span class="page-size-label">Rows per page:</span>
-              <div class="custom-select-wrapper page-size-select">
-                <select
-                  class="custom-select"
-                  [(ngModel)]="filters.PageSize"
-                  (change)="onPageSizeChange()"
-                >
-                  <option *ngFor="let size of pageSizeOptions" [ngValue]="size">
-                    {{ size }}
-                  </option>
-                </select>
-                <i class="fa-solid fa-chevron-down select-icon"></i>
+              <!-- Page Size Dropdown -->
+              <div class="page-size-wrapper">
+                <span class="page-size-label">Rows per page:</span>
+                <div class="custom-select-wrapper page-size-select">
+                  <select
+                    class="custom-select"
+                    [(ngModel)]="filters.PageSize"
+                    (change)="onPageSizeChange()"
+                  >
+                    <option
+                      *ngFor="let size of pageSizeOptions"
+                      [ngValue]="size"
+                    >
+                      {{ size }}
+                    </option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
               </div>
             </div>
+
+            <!-- Right: Page Controls -->
+            <div class="table-pagination-controls">
+              <!-- First Page -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasPreviousPage"
+                (click)="goToPage(1, response.totalPages)"
+                title="First Page"
+              >
+                <i class="fa-solid fa-angles-left"></i>
+              </button>
+
+              <!-- Previous -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasPreviousPage"
+                (click)="goToPage(filters.PageNumber - 1, response.totalPages)"
+                title="Previous Page"
+              >
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <!-- Page Numbers -->
+              <button
+                *ngFor="let page of getPages(response.totalPages)"
+                class="table-pagination-btn"
+                [class.active]="page === filters.PageNumber"
+                (click)="goToPage(page, response.totalPages)"
+              >
+                {{ page }}
+              </button>
+
+              <!-- Next -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasNextPage"
+                (click)="goToPage(filters.PageNumber + 1, response.totalPages)"
+                title="Next Page"
+              >
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+
+              <!-- Last Page -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasNextPage"
+                (click)="goToPage(response.totalPages, response.totalPages)"
+                title="Last Page"
+              >
+                <i class="fa-solid fa-angles-right"></i>
+              </button>
+            </div>
           </div>
-
-          <!-- Right: Page Controls -->
-          <div class="table-pagination-controls">
-            <!-- First Page -->
-            <button
-              class="table-pagination-btn"
-              [disabled]="!response.hasPreviousPage"
-              (click)="goToPage(1, response.totalPages)"
-              title="First Page"
-            >
-              <i class="fa-solid fa-angles-left"></i>
-            </button>
-
-            <!-- Previous -->
-            <button
-              class="table-pagination-btn"
-              [disabled]="!response.hasPreviousPage"
-              (click)="goToPage(filters.PageNumber - 1, response.totalPages)"
-              title="Previous Page"
-            >
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-
-            <!-- Page Numbers -->
-            <button
-              *ngFor="let page of getPages(response.totalPages)"
-              class="table-pagination-btn"
-              [class.active]="page === filters.PageNumber"
-              (click)="goToPage(page, response.totalPages)"
-            >
-              {{ page }}
-            </button>
-
-            <!-- Next -->
-            <button
-              class="table-pagination-btn"
-              [disabled]="!response.hasNextPage"
-              (click)="goToPage(filters.PageNumber + 1, response.totalPages)"
-              title="Next Page"
-            >
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-
-            <!-- Last Page -->
-            <button
-              class="table-pagination-btn"
-              [disabled]="!response.hasNextPage"
-              (click)="goToPage(response.totalPages, response.totalPages)"
-              title="Last Page"
-            >
-              <i class="fa-solid fa-angles-right"></i>
-            </button>
-          </div>
-        </div>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@ import {
   HttpErrorService,
   ProgramUserService,
 } from '@project-manara-frontend/services';
-import { filter, Observable, take } from 'rxjs';
+import { filter, finalize, Observable, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 
 @Component({
@@ -24,21 +24,22 @@ export class StudentsPageComponent implements OnInit {
   students$!: Observable<PaginatedList<ProgramUserResponse>>;
   selectedStatus: boolean = false;
   pageSizeOptions: number[] = [5, 10, 25, 50];
+  isLoading: boolean = false;
 
   private facultyId!: number;
 
   constructor(
     private store: Store,
     private httpErrorService: HttpErrorService,
-    private programUserService: ProgramUserService
-  ) { }
+    private programUserService: ProgramUserService,
+  ) {}
 
   ngOnInit(): void {
     this.store
       .select(selectFacultyId)
       .pipe(
         filter((id) => !!id),
-        take(1)
+        take(1),
       )
       .subscribe((facultyId) => {
         this.facultyId = facultyId!;
@@ -47,12 +48,16 @@ export class StudentsPageComponent implements OnInit {
   }
 
   loadStudents(): void {
-    this.students$ = this.programUserService.getAllByFacultyId(
-      this.facultyId,
-      this.filters,
-      this.selectedStatus
-    );
-  };
+    this.isLoading = true;
+
+    this.students$ = this.programUserService
+      .getAllByFacultyId(this.facultyId, this.filters, this.selectedStatus)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+      );
+  }
 
   onSearch(): void {
     this.filters.PageNumber = 1;
@@ -101,7 +106,7 @@ export class StudentsPageComponent implements OnInit {
   getEndIndex(response: PaginatedList<ProgramUserResponse>): number {
     return Math.min(
       response.pageNumber * this.filters.PageSize,
-      response.totalCount
+      response.totalCount,
     );
   }
 

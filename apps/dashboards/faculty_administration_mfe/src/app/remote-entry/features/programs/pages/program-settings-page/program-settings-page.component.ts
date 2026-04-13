@@ -4,9 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ProgramRequest } from '@project-manara-frontend/models';
 import {
   HttpErrorService,
+  LoaderService,
   ProgramService,
   ToastService,
 } from '@project-manara-frontend/services';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-program-settings-page',
@@ -17,12 +19,14 @@ import {
 export class ProgramSettingsPageComponent implements OnInit {
   programForm!: FormGroup;
   programId!: number;
+  isLoading: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private httpErrorService: HttpErrorService,
     private programService: ProgramService,
     private toastrService: ToastService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit() {
@@ -41,19 +45,36 @@ export class ProgramSettingsPageComponent implements OnInit {
   }
 
   loadProgramData(): void {
-    this.programService.get(this.programId).subscribe({
-      next: (program) => {
-        this.programForm.patchValue(program);
-      },
-      error: (error) => {
-        this.httpErrorService.handle(error);
-      },
-    });
+    this.loaderService.loading();
+    this.programService
+      .get(this.programId)
+      .pipe(finalize(() => this.loaderService.hide()))
+      .subscribe({
+        next: (program) => {
+          this.programForm.patchValue(program);
+        },
+        error: (error) => {
+          this.httpErrorService.handle(error);
+        },
+      });
   }
   onSave() {
-    if (this.programForm.valid) {
-      var request = this.programForm.value as ProgramRequest;
-      this.programService.update(this.programId, request).subscribe({
+    this.programForm.markAllAsTouched();
+
+    if (this.programForm.invalid) return;
+
+    const request = this.programForm.value as ProgramRequest;
+
+    this.isLoading = true;
+
+    this.programService
+      .update(this.programId, request)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe({
         next: () => {
           this.toastrService.success(
             'Program information updated successfully',
@@ -64,7 +85,5 @@ export class ProgramSettingsPageComponent implements OnInit {
           this.httpErrorService.handle(error);
         },
       });
-    }
-    this.programForm.markAllAsTouched();
   }
 }

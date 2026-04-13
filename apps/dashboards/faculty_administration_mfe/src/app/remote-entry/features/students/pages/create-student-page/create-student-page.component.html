@@ -11,12 +11,10 @@
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-layout">
-
     <!-- ========================
          LEFT COLUMN
          ======================== -->
     <div class="form-left">
-
       <!-- Section: Personal Info -->
       <div class="form-section">
         <div class="section-header">
@@ -30,7 +28,6 @@
         </div>
 
         <div class="fields-grid">
-
           <!-- Full Name -->
           <div class="form-field">
             <label class="field-label">
@@ -39,7 +36,9 @@
             <input
               type="text"
               class="field-input"
-              [class.invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+              [class.invalid]="
+                form.get('name')?.invalid && form.get('name')?.touched
+              "
               formControlName="name"
               placeholder="Enter full name"
             />
@@ -54,12 +53,17 @@
             <input
               type="text"
               class="field-input"
-              [class.invalid]="form.get('nationalId')?.invalid && form.get('nationalId')?.touched"
+              [class.invalid]="
+                form.get('nationalId')?.invalid &&
+                form.get('nationalId')?.touched
+              "
               formControlName="nationalId"
               placeholder="Enter 14-digit national ID"
               maxlength="14"
             />
-            <app-display-error [control]="form.get('nationalId')"></app-display-error>
+            <app-display-error
+              [control]="form.get('nationalId')"
+            ></app-display-error>
           </div>
 
           <!-- Birth Date -->
@@ -70,10 +74,14 @@
             <input
               type="date"
               class="field-input"
-              [class.invalid]="form.get('birthDate')?.invalid && form.get('birthDate')?.touched"
+              [class.invalid]="
+                form.get('birthDate')?.invalid && form.get('birthDate')?.touched
+              "
               formControlName="birthDate"
             />
-            <app-display-error [control]="form.get('birthDate')"></app-display-error>
+            <app-display-error
+              [control]="form.get('birthDate')"
+            ></app-display-error>
           </div>
 
           <!-- Phone Number -->
@@ -84,11 +92,16 @@
             <input
               type="tel"
               class="field-input"
-              [class.invalid]="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched"
+              [class.invalid]="
+                form.get('phoneNumber')?.invalid &&
+                form.get('phoneNumber')?.touched
+              "
               formControlName="phoneNumber"
               placeholder="Enter phone number"
             />
-            <app-display-error [control]="form.get('phoneNumber')"></app-display-error>
+            <app-display-error
+              [control]="form.get('phoneNumber')"
+            ></app-display-error>
           </div>
 
           <!-- Gender -->
@@ -99,7 +112,9 @@
             <div class="custom-select-wrapper">
               <select
                 class="field-input field-select"
-                [class.invalid]="form.get('gender')?.invalid && form.get('gender')?.touched"
+                [class.invalid]="
+                  form.get('gender')?.invalid && form.get('gender')?.touched
+                "
                 formControlName="gender"
               >
                 <option [ngValue]="null" disabled>Select gender...</option>
@@ -109,7 +124,9 @@
               </select>
               <i class="fa-solid fa-chevron-down select-arrow"></i>
             </div>
-            <app-display-error [control]="form.get('gender')"></app-display-error>
+            <app-display-error
+              [control]="form.get('gender')"
+            ></app-display-error>
           </div>
 
           <!-- Religion -->
@@ -120,7 +137,9 @@
             <div class="custom-select-wrapper">
               <select
                 class="field-input field-select"
-                [class.invalid]="form.get('religion')?.invalid && form.get('religion')?.touched"
+                [class.invalid]="
+                  form.get('religion')?.invalid && form.get('religion')?.touched
+                "
                 formControlName="religion"
               >
                 <option [ngValue]="null" disabled>Select religion...</option>
@@ -130,19 +149,18 @@
               </select>
               <i class="fa-solid fa-chevron-down select-arrow"></i>
             </div>
-            <app-display-error [control]="form.get('religion')"></app-display-error>
+            <app-display-error
+              [control]="form.get('religion')"
+            ></app-display-error>
           </div>
-
         </div>
       </div>
-
     </div>
 
     <!-- ========================
          RIGHT COLUMN
          ======================== -->
     <div class="form-right">
-
       <!-- Section: Account Credentials -->
       <div class="form-section">
         <div class="section-header">
@@ -156,7 +174,6 @@
         </div>
 
         <div class="fields-grid-1col">
-
           <!-- Email -->
           <div class="form-field">
             <label class="field-label">
@@ -167,12 +184,16 @@
               <input
                 type="email"
                 class="field-input field-input-icon"
-                [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+                [class.invalid]="
+                  form.get('email')?.invalid && form.get('email')?.touched
+                "
                 formControlName="email"
                 placeholder="example@university.edu"
               />
             </div>
-            <app-display-error [control]="form.get('email')"></app-display-error>
+            <app-display-error
+              [control]="form.get('email')"
+            ></app-display-error>
           </div>
 
           <!-- Password -->
@@ -185,7 +206,9 @@
               <input
                 [type]="showPassword ? 'text' : 'password'"
                 class="field-input field-input-icon field-input-icon-right"
-                [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+                [class.invalid]="
+                  form.get('password')?.invalid && form.get('password')?.touched
+                "
                 formControlName="password"
                 placeholder="Enter password"
               />
@@ -195,12 +218,16 @@
                 (click)="showPassword = !showPassword"
                 tabindex="-1"
               >
-                <i class="fa-solid" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                <i
+                  class="fa-solid"
+                  [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                ></i>
               </button>
             </div>
-            <app-display-error [control]="form.get('password')"></app-display-error>
+            <app-display-error
+              [control]="form.get('password')"
+            ></app-display-error>
           </div>
-
         </div>
       </div>
 
@@ -251,12 +278,16 @@
         <button type="button" class="btn btn-cancel" (click)="onCancel()">
           Cancel
         </button>
-        <button type="submit" class="btn btn-submit" [disabled]="form.invalid">
-          <i class="fa-solid fa-user-plus"></i>
+        <button
+          type="submit"
+          class="btn btn-submit"
+          [disabled]="form.invalid || isLoading"
+        >
+          <i *ngIf="!isLoading" class="fa-solid fa-user-plus"></i>
+          <i *ngIf="isLoading" class="fa-solid fa-spin fa-spinner"></i>
           <span>Enroll Student</span>
         </button>
       </div>
-
     </div>
   </div>
 </form>

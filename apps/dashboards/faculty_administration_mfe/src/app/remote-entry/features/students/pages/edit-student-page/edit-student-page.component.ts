@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { filter, take, switchMap } from 'rxjs';
+import { filter, take, switchMap, finalize } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Gender } from 'libs/enums/src/lib/gender';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { Religion } from '@project-manara-frontend/enums';
 import {
   HttpErrorService,
+  LoaderService,
   ProgramUserService,
   ToastService,
 } from '@project-manara-frontend/services';
@@ -22,7 +23,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditStudentPageComponent implements OnInit {
   form!: FormGroup;
   showPassword = false;
-
+  isLoading = false;
   private studentId!: number;
 
   religionOptions = Object.entries(Religion)
@@ -41,6 +42,7 @@ export class EditStudentPageComponent implements OnInit {
     private toastrService: ToastService,
     private httpErrorService: HttpErrorService,
     private programUserService: ProgramUserService,
+    private loaderService: LoaderService,
   ) {
     this.studentId = Number(this.route.parent?.snapshot.paramMap.get('id'));
   }
@@ -66,12 +68,20 @@ export class EditStudentPageComponent implements OnInit {
   }
 
   private loadPageData(): void {
+    this.loaderService.loading();
+
     this.store
       .select(selectFacultyId)
       .pipe(
         filter((id) => !!id),
         take(1),
-        switchMap(() => this.programUserService.get(this.studentId))
+        switchMap(() =>
+          this.programUserService.get(this.studentId).pipe(
+            finalize(() => {
+              this.loaderService.hide();
+            }),
+          ),
+        ),
       )
       .subscribe({
         next: (student) => {
@@ -96,15 +106,20 @@ export class EditStudentPageComponent implements OnInit {
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
+    this.isLoading = true;
+    this.programUserService
+      .update(this.studentId, this.form.value)
 
-    this.programUserService.update(this.studentId, this.form.value).subscribe({
-      next: () => {
-        this.toastrService.success('Student updated successfully');
-      },
-      error: (err) => {
-        this.httpErrorService.handle(err);
-      },
-    });
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.toastrService.success('Student updated successfully');
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.httpErrorService.handle(err);
+        },
+      });
   }
 
   onCancel(): void {

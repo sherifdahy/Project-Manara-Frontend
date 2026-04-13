@@ -6,7 +6,7 @@ import {
   HttpErrorService,
   ProgramService,
 } from '@project-manara-frontend/services';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { ProgramFormDialogComponent } from '../../components/program-form-dialog/program-form-dialog.component';
 
 @Component({
@@ -17,6 +17,7 @@ import { ProgramFormDialogComponent } from '../../components/program-form-dialog
 })
 export class ProgramsPageComponent implements OnInit {
   includeDisabled: boolean = false;
+  isLoading: boolean = false;
   departmentId!: number;
   programs$!: Observable<ProgramResponse[]>;
 
@@ -36,10 +37,10 @@ export class ProgramsPageComponent implements OnInit {
   }
 
   loadPrograms(): void {
-    this.programs$ = this.programService.getAll(
-      this.departmentId,
-      this.includeDisabled,
-    );
+    this.isLoading = true;
+    this.programs$ = this.programService
+      .getAll(this.departmentId, this.includeDisabled)
+      .pipe(finalize(() => (this.isLoading = false)));
   }
   onFilterChange() {
     this.loadPrograms();

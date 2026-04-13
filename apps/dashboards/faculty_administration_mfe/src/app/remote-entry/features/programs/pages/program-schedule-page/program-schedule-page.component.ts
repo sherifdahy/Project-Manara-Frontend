@@ -7,13 +7,28 @@ import {
   CdkDropList,
   moveItemInArray,
   transferArrayItem,
-  copyArrayItem
+  copyArrayItem,
 } from '@angular/cdk/drag-drop';
-import { SubjectResponse, PeriodResponse } from '@project-manara-frontend/models';
-import { ProgramService } from '@project-manara-frontend/services';
+import {
+  SubjectResponse,
+  PeriodResponse,
+} from '@project-manara-frontend/models';
+import {
+  LoaderService,
+  ProgramService,
+} from '@project-manara-frontend/services';
 import { PeriodsService } from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { Observable, forkJoin, switchMap, tap, map, filter, take } from 'rxjs';
+import {
+  Observable,
+  forkJoin,
+  switchMap,
+  tap,
+  map,
+  filter,
+  take,
+  finalize,
+} from 'rxjs';
 
 interface SubjectItem {
   id: number;
@@ -56,10 +71,9 @@ interface AssignmentRecord {
   selector: 'app-program-schedule-page',
   templateUrl: './program-schedule-page.component.html',
   styleUrls: ['./program-schedule-page.component.css'],
-  standalone: false
+  standalone: false,
 })
 export class ProgramSchedulePageComponent implements OnInit {
-
   programId!: number;
   facultyId!: number;
 
@@ -70,7 +84,7 @@ export class ProgramSchedulePageComponent implements OnInit {
 
   // Pool: القائمة الأصلية اللي مش بتتغير
   poolEntries: ScheduleEntry[] = [];
-  
+
   // المصفوفة اللي بتتعرض في الشاشة (عشان البحث)
   filteredPoolEntries: ScheduleEntry[] = [];
   searchQuery: string = '';
@@ -81,41 +95,49 @@ export class ProgramSchedulePageComponent implements OnInit {
   data$!: Observable<{ subjects: SubjectItem[]; periods: string[] }>;
 
   private _uidCounter = 0;
-  private _predicateCache: Map<string, (drag: CdkDrag, drop: CdkDropList) => boolean> = new Map();
+  private _predicateCache: Map<
+    string,
+    (drag: CdkDrag, drop: CdkDropList) => boolean
+  > = new Map();
 
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     private programService: ProgramService,
-    private periodsService: PeriodsService
+    private periodsService: PeriodsService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit(): void {
     this.programId = Number(this.route.parent?.snapshot.paramMap.get('id'));
 
+    this.loaderService.loading();
     this.data$ = this.store.select(selectFacultyId).pipe(
       filter((id): id is number => !!id),
       take(1),
-      tap(facultyId => this.facultyId = facultyId),
-      switchMap(facultyId =>
+      tap((facultyId) => (this.facultyId = facultyId)),
+      switchMap((facultyId) =>
         forkJoin({
           subjects: this.programService.getSubjects(this.programId),
-          periods: this.periodsService.getAll(facultyId, false)
-        })
+          periods: this.periodsService.getAll(facultyId, false),
+        }).pipe(finalize(() => this.loaderService.hide())),
       ),
       map(({ subjects, periods }) => {
         const mappedSubjects: SubjectItem[] = subjects
-          .filter(s => !s.isDeleted)
-          .map(s => ({
+          .filter((s) => !s.isDeleted)
+          .map((s) => ({
             id: s.id,
             name: s.name,
             code: s.code,
-            creditHours: s.creditHours
+            creditHours: s.creditHours,
           }));
 
         const mappedPeriods: string[] = periods
-          .filter(p => !p.isDeleted)
-          .map(p => `${this.formatTime(p.startTime)} - ${this.formatTime(p.endTime)}`)
+          .filter((p) => !p.isDeleted)
+          .map(
+            (p) =>
+              `${this.formatTime(p.startTime)} - ${this.formatTime(p.endTime)}`,
+          )
           .sort();
 
         return { subjects: mappedSubjects, periods: mappedPeriods };
@@ -126,7 +148,7 @@ export class ProgramSchedulePageComponent implements OnInit {
 
         this.buildPool();
         this.buildGrid();
-      })
+      }),
     );
   }
 
@@ -141,9 +163,10 @@ export class ProgramSchedulePageComponent implements OnInit {
       this.filteredPoolEntries = [...this.poolEntries];
     } else {
       const q = this.searchQuery.toLowerCase();
-      this.filteredPoolEntries = this.poolEntries.filter(entry => 
-        entry.name.toLowerCase().includes(q) || 
-        entry.code.toLowerCase().includes(q)
+      this.filteredPoolEntries = this.poolEntries.filter(
+        (entry) =>
+          entry.name.toLowerCase().includes(q) ||
+          entry.code.toLowerCase().includes(q),
       );
     }
   }
@@ -151,12 +174,12 @@ export class ProgramSchedulePageComponent implements OnInit {
   // ====== Pool Management ======
 
   private buildPool(): void {
-    this.poolEntries = this.allSubjects.map(subject => ({
+    this.poolEntries = this.allSubjects.map((subject) => ({
       uid: `pool_${subject.id}`,
       subjectId: subject.id,
       name: subject.name,
       code: subject.code,
-      creditHours: subject.creditHours
+      creditHours: subject.creditHours,
     }));
     // تحديث مصفوفة العرض
     this.filterPool();
@@ -189,7 +212,7 @@ export class ProgramSchedulePageComponent implements OnInit {
           entries: [],
           facultyAvailable: true,
           conflictMessage: null,
-          dragOverState: null
+          dragOverState: null,
         };
       });
     });
@@ -201,16 +224,20 @@ export class ProgramSchedulePageComponent implements OnInit {
 
   // ====== Enter Predicate ======
 
-  createEnterPredicate(di: number, ti: number): (drag: CdkDrag, drop: CdkDropList) => boolean {
+  createEnterPredicate(
+    di: number,
+    ti: number,
+  ): (drag: CdkDrag, drop: CdkDropList) => boolean {
     const key = `${di}_${ti}`;
     if (!this._predicateCache.has(key)) {
       this._predicateCache.set(key, (drag: CdkDrag): boolean => {
         const cell = this.slotGrid[di]?.[ti];
         if (!cell || !cell.facultyAvailable) return false;
-        
+
         const dragged: ScheduleEntry = drag.data;
-        if (cell.entries.some(e => e.subjectId === dragged.subjectId)) return false;
-        
+        if (cell.entries.some((e) => e.subjectId === dragged.subjectId))
+          return false;
+
         return true;
       });
     }
@@ -233,7 +260,11 @@ export class ProgramSchedulePageComponent implements OnInit {
 
   // ====== Drop Handlers ======
 
-  onDropToSlot(event: CdkDragDrop<ScheduleEntry[]>, di: number, ti: number): void {
+  onDropToSlot(
+    event: CdkDragDrop<ScheduleEntry[]>,
+    di: number,
+    ti: number,
+  ): void {
     this.clearDragStates();
     const cell = this.slotGrid[di][ti];
     if (!cell.facultyAvailable) return;
@@ -244,21 +275,24 @@ export class ProgramSchedulePageComponent implements OnInit {
     }
 
     const isFromPool = event.previousContainer.id === 'subjects-pool-list';
-    
+
     if (isFromPool) {
       copyArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
-      
-      const newEntry = { ...event.container.data[event.currentIndex], uid: this.generateUid() };
+
+      const newEntry = {
+        ...event.container.data[event.currentIndex],
+        uid: this.generateUid(),
+      };
       event.container.data[event.currentIndex] = newEntry;
 
       this.actionHistory.push({
         type: 'assign',
-        payload: { entry: newEntry, toDi: di, toTi: ti }
+        payload: { entry: newEntry, toDi: di, toTi: ti },
       });
     } else {
       const entry: ScheduleEntry = event.item.data;
@@ -273,8 +307,8 @@ export class ProgramSchedulePageComponent implements OnInit {
             fromTi: sourceLoc.ti,
             fromIndex: event.previousIndex,
             toDi: di,
-            toTi: ti
-          }
+            toTi: ti,
+          },
         });
       }
 
@@ -282,7 +316,7 @@ export class ProgramSchedulePageComponent implements OnInit {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
     }
   }
@@ -302,8 +336,8 @@ export class ProgramSchedulePageComponent implements OnInit {
           entry: { ...entry },
           fromDi: sourceLoc.di,
           fromTi: sourceLoc.ti,
-          fromIndex: event.previousIndex
-        }
+          fromIndex: event.previousIndex,
+        },
       });
       event.previousContainer.data.splice(event.previousIndex, 1);
     }
@@ -311,10 +345,14 @@ export class ProgramSchedulePageComponent implements OnInit {
 
   // ====== Grid Search ======
 
-  private findEntryInGrid(uid: string): { di: number; ti: number; index: number } | null {
+  private findEntryInGrid(
+    uid: string,
+  ): { di: number; ti: number; index: number } | null {
     for (let di = 0; di < this.slotGrid.length; di++) {
       for (let ti = 0; ti < this.slotGrid[di].length; ti++) {
-        const idx = this.slotGrid[di][ti].entries.findIndex(e => e.uid === uid);
+        const idx = this.slotGrid[di][ti].entries.findIndex(
+          (e) => e.uid === uid,
+        );
         if (idx !== -1) return { di, ti, index: idx };
       }
     }
@@ -331,7 +369,9 @@ export class ProgramSchedulePageComponent implements OnInit {
       case 'assign': {
         const cell = this.slotGrid[last.payload.toDi]?.[last.payload.toTi];
         if (cell) {
-          const idx = cell.entries.findIndex(e => e.uid === last.payload.entry.uid);
+          const idx = cell.entries.findIndex(
+            (e) => e.uid === last.payload.entry.uid,
+          );
           if (idx !== -1) cell.entries.splice(idx, 1);
         }
         break;
@@ -339,7 +379,10 @@ export class ProgramSchedulePageComponent implements OnInit {
       case 'remove': {
         const cell = this.slotGrid[last.payload.fromDi]?.[last.payload.fromTi];
         if (cell) {
-          const insertIdx = Math.min(last.payload.fromIndex ?? cell.entries.length, cell.entries.length);
+          const insertIdx = Math.min(
+            last.payload.fromIndex ?? cell.entries.length,
+            cell.entries.length,
+          );
           cell.entries.splice(insertIdx, 0, last.payload.entry);
         }
         break;
@@ -349,8 +392,12 @@ export class ProgramSchedulePageComponent implements OnInit {
         if (curLoc) {
           const curCell = this.slotGrid[curLoc.di][curLoc.ti];
           const [e] = curCell.entries.splice(curLoc.index, 1);
-          const origCell = this.slotGrid[last.payload.fromDi][last.payload.fromTi];
-          const insertIdx = Math.min(last.payload.fromIndex ?? origCell.entries.length, origCell.entries.length);
+          const origCell =
+            this.slotGrid[last.payload.fromDi][last.payload.fromTi];
+          const insertIdx = Math.min(
+            last.payload.fromIndex ?? origCell.entries.length,
+            origCell.entries.length,
+          );
           origCell.entries.splice(insertIdx, 0, e);
         }
         break;
@@ -375,7 +422,7 @@ export class ProgramSchedulePageComponent implements OnInit {
           records.push({
             dayIndex: cell.dayIndex,
             timeIndex: cell.timeIndex,
-            entry: { ...entry }
+            entry: { ...entry },
           });
         }
       }
@@ -402,7 +449,7 @@ export class ProgramSchedulePageComponent implements OnInit {
             subjectCode: entry.code,
             subjectName: entry.name,
             day: cell.day,
-            time: cell.time
+            time: cell.time,
           });
         }
       }

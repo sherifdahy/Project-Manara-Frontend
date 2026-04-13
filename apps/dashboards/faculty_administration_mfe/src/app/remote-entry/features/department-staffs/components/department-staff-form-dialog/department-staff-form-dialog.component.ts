@@ -12,7 +12,7 @@ import {
   ScopeService,
 } from '@project-manara-frontend/services';
 import { RegexPatternConsts } from 'libs/consts/src/lib/regex-pattern-consts';
-import { Observable, tap } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-department-staff-form-dialog',
@@ -25,6 +25,7 @@ export class DepartmentStaffFormDialogComponent implements OnInit {
   scope$!: Observable<ScopeDetailResponse>;
   availableRoles: RoleResponse[] = [];
   showPassword = false;
+  isLoading = false;
 
   religionOptions = Object.entries(Religion)
     .filter(([, value]) => typeof value === 'number')
@@ -87,9 +88,10 @@ export class DepartmentStaffFormDialogComponent implements OnInit {
     if (this.form.invalid) return;
 
     const request = this.form.value;
-
+    this.isLoading = true;
     this.departmentUserService
       .create(this.data.departmentId, request)
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
           this.dialogRef.close(true);

@@ -8,19 +8,29 @@
         </div>
         <div>
           <h1 class="page-title">Program Schedule Builder</h1>
-          <p class="page-subtitle">Drag and drop subjects into available time slots</p>
+          <p class="page-subtitle">
+            Drag and drop subjects into available time slots
+          </p>
         </div>
       </div>
     </div>
 
     <div class="header-actions">
-      <button type="button" class="btn action-btn btn-secondary-lite" (click)="resetSchedule()">
-        <i class="bi bi-arrow-counterclockwise"></i>
+      <button
+        type="button"
+        class="btn action-btn btn-secondary-lite"
+        (click)="resetSchedule()"
+      >
+        <i class="fa-solid fa-arrow-rotate-right"></i>
         <span>Reset</span>
       </button>
 
-      <button type="button" class="btn action-btn btn-primary-orange" (click)="saveSchedule()">
-        <i class="bi bi-floppy"></i>
+      <button
+        type="button"
+        class="btn action-btn btn-primary-orange"
+        (click)="saveSchedule()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
         <span>Save Schedule</span>
       </button>
     </div>
@@ -30,23 +40,24 @@
   <ng-container *ngIf="data$ | async as data">
     <div class="page-content">
       <div class="row g-2">
-
         <!-- Left: Subjects Pool (Infinite Source) -->
         <div class="col-12 col-lg-3">
           <div class="dashboard-card h-100">
             <div class="card-head">
               <h2 class="card-title">Available Subjects</h2>
-              <p class="card-subtitle mb-2">Drag subjects to schedule (Drag back to remove)</p>
-              
+              <p class="card-subtitle mb-2">
+                Drag subjects to schedule (Drag back to remove)
+              </p>
+
               <!-- Search Box -->
               <div class="subject-search-box mt-2">
                 <i class="bi bi-search"></i>
-                <input 
-                  type="text" 
-                  class="search-input" 
-                  placeholder="Search name or code..." 
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search name or code..."
                   (input)="onSearch($event)"
-                >
+                />
               </div>
             </div>
 
@@ -107,19 +118,35 @@
             <div class="card-head card-head-flex">
               <div>
                 <h2 class="card-title">Weekly Schedule</h2>
-                <p class="card-subtitle">Multiple subjects per slot (different rooms)</p>
+                <p class="card-subtitle">
+                  Multiple subjects per slot (different rooms)
+                </p>
               </div>
-              <button type="button" class="btn action-btn btn-secondary-lite" (click)="undoLastAction()">
+              <button
+                type="button"
+                class="btn action-btn btn-secondary-lite"
+                (click)="undoLastAction()"
+              >
                 <i class="bi bi-arrow-90deg-left"></i>
                 <span>Undo</span>
               </button>
             </div>
 
-            <div class="schedule-grid-wrap" *ngIf="timeSlots.length > 0; else noPeriods">
-              <div class="schedule-grid" [style.grid-template-columns]="'85px repeat(' + days.length + ', 1fr)'">
+            <div
+              class="schedule-grid-wrap"
+              *ngIf="timeSlots.length > 0; else noPeriods"
+            >
+              <div
+                class="schedule-grid"
+                [style.grid-template-columns]="
+                  '85px repeat(' + days.length + ', 1fr)'
+                "
+              >
                 <!-- Header row -->
                 <div class="grid-header-cell time-header-cell">Time</div>
-                <div class="grid-header-cell" *ngFor="let day of days">{{ day.substring(0, 3) }}</div>
+                <div class="grid-header-cell" *ngFor="let day of days">
+                  {{ day.substring(0, 3) }}
+                </div>
 
                 <!-- Data rows -->
                 <ng-container *ngFor="let time of timeSlots; let ti = index">
@@ -137,25 +164,46 @@
                     >
                       <div
                         class="slot-dropzone"
-                        [class.drop-valid]="slotGrid[di][ti].dragOverState === 'valid'"
-                        [class.drop-invalid]="slotGrid[di][ti].dragOverState === 'invalid'"
-                        [class.slot-has-subjects]="slotGrid[di][ti].entries.length > 0"
+                        [class.drop-valid]="
+                          slotGrid[di][ti].dragOverState === 'valid'
+                        "
+                        [class.drop-invalid]="
+                          slotGrid[di][ti].dragOverState === 'invalid'
+                        "
+                        [class.slot-has-subjects]="
+                          slotGrid[di][ti].entries.length > 0
+                        "
                         [class.slot-multi]="slotGrid[di][ti].entries.length > 1"
-                        [class.slot-unavailable]="!slotGrid[di][ti].facultyAvailable"
+                        [class.slot-unavailable]="
+                          !slotGrid[di][ti].facultyAvailable
+                        "
                         cdkDropList
                         [cdkDropListData]="slotGrid[di][ti].entries"
-                        [cdkDropListEnterPredicate]="createEnterPredicate(di, ti)"
+                        [cdkDropListEnterPredicate]="
+                          createEnterPredicate(di, ti)
+                        "
                         (cdkDropListDropped)="onDropToSlot($event, di, ti)"
                         (cdkDropListEntered)="onSlotEnter(di, ti)"
                         (cdkDropListExited)="onSlotExit(di, ti)"
                       >
-                        <ng-container *ngIf="slotGrid[di][ti].entries.length > 0; else emptySlot">
-                          <div class="slot-count-badge" *ngIf="slotGrid[di][ti].entries.length > 1">
+                        <ng-container
+                          *ngIf="
+                            slotGrid[di][ti].entries.length > 0;
+                            else emptySlot
+                          "
+                        >
+                          <div
+                            class="slot-count-badge"
+                            *ngIf="slotGrid[di][ti].entries.length > 1"
+                          >
                             {{ slotGrid[di][ti].entries.length }}
                           </div>
 
                           <div
-                            *ngFor="let entry of slotGrid[di][ti].entries; trackBy: trackByUid"
+                            *ngFor="
+                              let entry of slotGrid[di][ti].entries;
+                              trackBy: trackByUid
+                            "
                             class="assigned-subject-card"
                             cdkDrag
                             [cdkDragData]="entry"
@@ -167,8 +215,12 @@
 
                             <ng-template cdkDragPreview>
                               <div class="drag-preview-card assigned-preview">
-                                <div class="drag-preview-code">{{ entry.code }}</div>
-                                <div class="drag-preview-name">{{ entry.name }}</div>
+                                <div class="drag-preview-code">
+                                  {{ entry.code }}
+                                </div>
+                                <div class="drag-preview-name">
+                                  {{ entry.name }}
+                                </div>
                               </div>
                             </ng-template>
 
@@ -179,16 +231,25 @@
                         </ng-container>
 
                         <ng-template #emptySlot>
-                          <div class="slot-empty-state" *ngIf="slotGrid[di][ti].facultyAvailable">
+                          <div
+                            class="slot-empty-state"
+                            *ngIf="slotGrid[di][ti].facultyAvailable"
+                          >
                             Drop here
                           </div>
-                          <div class="slot-unavailable-state" *ngIf="!slotGrid[di][ti].facultyAvailable">
+                          <div
+                            class="slot-unavailable-state"
+                            *ngIf="!slotGrid[di][ti].facultyAvailable"
+                          >
                             Unavailable
                           </div>
                         </ng-template>
                       </div>
 
-                      <div class="slot-conflict-msg" *ngIf="slotGrid[di][ti].conflictMessage">
+                      <div
+                        class="slot-conflict-msg"
+                        *ngIf="slotGrid[di][ti].conflictMessage"
+                      >
                         {{ slotGrid[di][ti].conflictMessage }}
                       </div>
                     </div>
@@ -203,10 +264,8 @@
                 <p>No time periods configured for this faculty</p>
               </div>
             </ng-template>
-
           </div>
         </div>
-
       </div>
     </div>
   </ng-container>

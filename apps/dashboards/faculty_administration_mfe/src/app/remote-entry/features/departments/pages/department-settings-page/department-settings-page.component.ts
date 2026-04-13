@@ -4,9 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import {
   DepartmentService,
   HttpErrorService,
+  LoaderService,
   ToastService,
 } from '@project-manara-frontend/services';
 import { DepartmentRequest } from 'libs/models/src/lib/departments/requests/department-request';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-department-settings-page',
@@ -17,12 +19,14 @@ import { DepartmentRequest } from 'libs/models/src/lib/departments/requests/depa
 export class DepartmentSettingsPageComponent implements OnInit {
   departmentForm!: FormGroup;
   departmentId!: number;
+  isLoading: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private departmentService: DepartmentService,
     private httpErrorService: HttpErrorService,
     private toastrService: ToastService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit() {
@@ -42,31 +46,42 @@ export class DepartmentSettingsPageComponent implements OnInit {
   }
 
   loadDepartmentData(): void {
-    this.departmentService.get(this.departmentId).subscribe({
-      next: (department) => {
-        this.departmentForm.patchValue(department);
-      },
-      error: (error) => {
-        this.httpErrorService.handle(error);
-      },
-    });
-  }
-
-  onSave() {
-    if (this.departmentForm.valid) {
-      var request = this.departmentForm.value as DepartmentRequest;
-
-      this.departmentService.update(this.departmentId, request).subscribe({
-        next: () => {
-          this.toastrService.success(
-            'Department information updated successfully',
-          );
-          this.departmentForm.markAsPristine();
+    this.loaderService.loading();
+    this.departmentService
+      .get(this.departmentId)
+      .pipe(finalize(() => this.loaderService.hide()))
+      .subscribe({
+        next: (department) => {
+          this.departmentForm.patchValue(department);
         },
         error: (error) => {
           this.httpErrorService.handle(error);
         },
       });
+  }
+
+  onSave() {
+    if (this.departmentForm.valid) {
+      var request = this.departmentForm.value as DepartmentRequest;
+      this.isLoading = true;
+      this.departmentService
+        .update(this.departmentId, request)
+        .pipe(
+          finalize(() => {
+            this.isLoading = false;
+          }),
+        )
+        .subscribe({
+          next: () => {
+            this.toastrService.success(
+              'Department information updated successfully',
+            );
+            this.departmentForm.markAsPristine();
+          },
+          error: (error) => {
+            this.httpErrorService.handle(error);
+          },
+        });
     }
 
     this.departmentForm.markAllAsTouched();

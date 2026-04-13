@@ -1,19 +1,33 @@
+import { LoaderService } from './../../../../../../../../../../libs/services/src/lib/configuration/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { ProgramService, SubjectService } from '@project-manara-frontend/services';
+import {
+  ProgramService,
+  SubjectService,
+} from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { filter, Observable, shareReplay, switchMap, take } from 'rxjs';
-import { PaginatedList, RequestFilters, SubjectResponse } from '@project-manara-frontend/models';
+import {
+  filter,
+  finalize,
+  Observable,
+  shareReplay,
+  switchMap,
+  take,
+} from 'rxjs';
+import {
+  PaginatedList,
+  RequestFilters,
+  SubjectResponse,
+} from '@project-manara-frontend/models';
 
 @Component({
   selector: 'app-program-subjects-page',
   standalone: false,
   templateUrl: './program-subjects-page.component.html',
-  styleUrls: ['./program-subjects-page.component.css']
+  styleUrls: ['./program-subjects-page.component.css'],
 })
 export class ProgramSubjectsPageComponent implements OnInit {
-
   subjects$!: Observable<PaginatedList<SubjectResponse>>;
   filters = new RequestFilters();
   pageSizeOptions: number[] = [5, 10, 25, 50];
@@ -28,7 +42,8 @@ export class ProgramSubjectsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private subjectService: SubjectService,
     private programService: ProgramService,
-  ) { }
+    private loaderService: LoaderService,
+  ) {}
 
   ngOnInit() {
     this.programId = +this.route.parent?.snapshot.params['id'];
@@ -40,41 +55,37 @@ export class ProgramSubjectsPageComponent implements OnInit {
     this.subjects$ = this.facultyId$.pipe(
       filter((id) => !!id),
       take(1),
-      switchMap((id) => this.subjectService.getAll(id!, this.filters))
+      switchMap((id) => this.subjectService.getAll(id!, this.filters)),
     );
   }
 
-
   loadSelectedSubjects() {
-    this.selectedSubjects$ = this.programService.getSubjects(this.programId).pipe(
-      shareReplay(1)
-    );
+    // this.loaderService.loading();
+    this.selectedSubjects$ = this.programService
+      .getSubjects(this.programId)
+      .pipe(shareReplay(1));
   }
 
   addSubject(subject: SubjectResponse) {
     this.programService.addSubject(this.programId, subject.id).subscribe({
-      next: () => this.loadSelectedSubjects()
+      next: () => this.loadSelectedSubjects(),
     });
   }
-
 
   removeSubject(subject: SubjectResponse) {
     this.programService.removeSubject(this.programId, subject.id).subscribe({
-      next: () => this.loadSelectedSubjects()
+      next: () => this.loadSelectedSubjects(),
     });
   }
 
-
   isSelected(subjectId: number, selected: SubjectResponse[]): boolean {
-    return selected.some(s => s.id === subjectId);
+    return selected.some((s) => s.id === subjectId);
   }
-
 
   onSearch() {
     this.filters.PageNumber = 1;
     this.loadSubjects();
   }
-
 
   goToPage(page: number, totalPages: number) {
     if (page < 1 || page > totalPages) return;
@@ -106,6 +117,9 @@ export class ProgramSubjectsPageComponent implements OnInit {
   }
 
   getEndIndex(response: PaginatedList<SubjectResponse>): number {
-    return Math.min(response.pageNumber * this.filters.PageSize, response.totalCount);
+    return Math.min(
+      response.pageNumber * this.filters.PageSize,
+      response.totalCount,
+    );
   }
 }

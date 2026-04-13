@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   BasePermissionService,
   Category,
   HttpErrorService,
+  LoaderService,
   ParsedPermissions,
   PermissionService,
-} from "@project-manara-frontend/services";
-import { ToastrService } from "ngx-toastr";
-import { Observable, tap } from "rxjs";
+} from '@project-manara-frontend/services';
+import { ToastrService } from 'ngx-toastr';
+import { finalize, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-staff-permissions-page',
@@ -31,11 +32,10 @@ export class StaffPermissionsPageComponent implements OnInit {
     private ps: PermissionService,
     public base: BasePermissionService,
     private httpErrorService: HttpErrorService,
-    private toastrService : ToastrService,
+    private toastrService: ToastrService,
+    private loaderService: LoaderService,
   ) {
-    this.facultyUserId = Number(
-      this.route.parent?.snapshot.paramMap.get('id')
-    );
+    this.facultyUserId = Number(this.route.parent?.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
@@ -43,13 +43,15 @@ export class StaffPermissionsPageComponent implements OnInit {
   }
 
   private loadData(): void {
+    this.loaderService.loading();
     this.data$ = this.ps.getUserPermissions(this.facultyUserId).pipe(
       tap((parsed) => {
         this.defaults = parsed.defaults;
         this.selected = [...parsed.active];
         this.original = [...parsed.active];
         this.categories = parsed.categories;
-      })
+      }),
+      finalize(() => this.loaderService.hide()),
     );
   }
 
@@ -69,7 +71,6 @@ export class StaffPermissionsPageComponent implements OnInit {
     return this.selected.includes(key);
   }
 
-
   toggle(key: string): void {
     this.selected = this.base.toggle(this.selected, key);
   }
@@ -78,7 +79,7 @@ export class StaffPermissionsPageComponent implements OnInit {
     this.selected = this.base.selectAll(
       this.selected,
       this.categories,
-      this.searchQuery
+      this.searchQuery,
     );
   }
 
@@ -86,7 +87,7 @@ export class StaffPermissionsPageComponent implements OnInit {
     this.selected = this.base.deselectAll(
       this.selected,
       this.categories,
-      this.searchQuery
+      this.searchQuery,
     );
   }
 

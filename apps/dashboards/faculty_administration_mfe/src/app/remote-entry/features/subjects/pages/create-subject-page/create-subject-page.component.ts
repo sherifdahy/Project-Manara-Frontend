@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, Observable, switchMap, take } from 'rxjs';
+import { filter, finalize, Observable, switchMap, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import {
   PaginatedList,
@@ -28,6 +28,7 @@ export class CreateSubjectPageComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 50];
   form!: FormGroup;
   selectedSubjects: SubjectResponse[] = [];
+  isLoading = false;
   constructor(
     private store: Store,
     private subjectService: SubjectService,
@@ -127,12 +128,17 @@ export class CreateSubjectPageComponent implements OnInit {
     if (this.form.invalid) return;
     const request: SubjectRequest = this.form.value;
     request.prerequisiteIds = this.selectedSubjects.map((s) => s.id);
+    this.isLoading = true;
 
     this.facultyId$
       .pipe(
         filter((id) => !!id),
         take(1),
-        switchMap((id) => this.subjectService.create(id!, request)),
+        switchMap((id) =>
+          this.subjectService
+            .create(id!, request)
+            .pipe(finalize(() => (this.isLoading = false))),
+        ),
       )
       .subscribe({
         next: () => {

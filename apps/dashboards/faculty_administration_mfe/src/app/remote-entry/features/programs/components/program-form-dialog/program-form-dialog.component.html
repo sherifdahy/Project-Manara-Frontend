@@ -115,10 +115,12 @@
     <button
       type="button"
       class="program-btn program-btn-submit"
-      [disabled]="programForm.invalid"
+      [disabled]="programForm.invalid || isLoading"
       (click)="onSubmit()"
     >
-      <i class="fa-solid fa-plus"></i>
+      <i
+        [class]="isLoading ? 'fa-solid fa-spin fa-spinner' : 'fa-solid fa-plus'"
+      ></i>
       <span>Create</span>
     </button>
   </div>

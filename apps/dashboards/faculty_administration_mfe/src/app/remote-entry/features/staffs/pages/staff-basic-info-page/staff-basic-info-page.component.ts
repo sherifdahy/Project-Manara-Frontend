@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../../../../../../../../libs/services/src/lib/configuration/loader.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -45,6 +46,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
     private facultyUserService: FacultyUserService,
     private httpErrorService: HttpErrorService,
     private toastrService: ToastrService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +76,7 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
   }
 
   private loadData(): void {
+    this.loaderService.loading();
     forkJoin({
       staff: this.facultyUserService.get(this.staffId),
       scope: this.scopeService.get('faculty'),
@@ -81,10 +84,12 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: ({ staff, scope }) => {
+          this.loaderService.hide();
           this.roles = scope?.roles || [];
           this.populateForm(staff);
         },
         error: (error) => {
+          this.loaderService.hide();
           this.httpErrorService.handle(error);
         },
       });

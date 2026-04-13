@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { filter, Observable, switchMap } from 'rxjs';
+import { filter, finalize, Observable, switchMap } from 'rxjs';
 import { DepartmentResponse } from '@project-manara-frontend/models';
 import {
   DepartmentService,
@@ -20,6 +20,7 @@ export class DepartmentsPageComponent implements OnInit {
   includeDisabled: boolean = false;
   facultyId$ = this.store.select(selectFacultyId);
   departments$!: Observable<DepartmentResponse[]>;
+  isLoading = false;
   constructor(
     private store: Store,
     private departmentService: DepartmentService,
@@ -32,10 +33,13 @@ export class DepartmentsPageComponent implements OnInit {
   }
 
   loadDepartments(): void {
+    this.isLoading = true;
     this.departments$ = this.facultyId$.pipe(
       filter((id): id is number => !!id),
       switchMap((id) =>
-        this.departmentService.getAll(id, this.includeDisabled),
+        this.departmentService
+          .getAll(id, this.includeDisabled)
+          .pipe(finalize(() => (this.isLoading = false))),
       ),
     );
   }

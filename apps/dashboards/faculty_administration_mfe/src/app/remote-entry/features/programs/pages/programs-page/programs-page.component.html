@@ -129,6 +129,7 @@
             <th>Code</th>
             <th>Credit Hours</th>
             <th>Status</th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -140,7 +141,9 @@
                     <i class="fa-solid fa-building"></i>
                   </div>
                   <div class="table-cell-content">
-                    <a href="#" class="table-cell-title">{{ program.name }}</a>
+                    <a [routerLink]="[program.id]" class="table-cell-title">{{
+                      program.name
+                    }}</a>
                   </div>
                 </div>
               </td>
@@ -200,6 +203,44 @@
                   <p class="table-empty-text">
                     There are no programs to display at the moment.
                   </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+
+          <!-- Skelton -->
+          <ng-container *ngIf="isLoading">
+            <tr
+              *ngFor="let row of [1, 2, 3]"
+              class="table-skeleton-row placeholder-glow"
+            >
+              <td>
+                <div class="table-cell-with-icon">
+                  <div class="table-cell-icon sk-box"></div>
+                  <div class="table-cell-content">
+                    <div class="table-cell-title sk-pill"></div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-location-badge sk-pill sm"></div>
+              </td>
+
+              <td>
+                <div class="table-cell-multiline">
+                  <div class="table-cell-primary sk-pill sm"></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-value-badge sk-pill sm"></div>
+              </td>
+
+              <td>
+                <div class="table-actions">
+                  <div class="table-action-btn sk-btn"></div>
+                  <div class="table-action-btn sk-btn"></div>
                 </div>
               </td>
             </tr>

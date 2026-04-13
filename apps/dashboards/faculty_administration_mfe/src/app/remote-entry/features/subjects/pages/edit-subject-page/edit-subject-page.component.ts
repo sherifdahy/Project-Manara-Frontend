@@ -11,9 +11,10 @@ import {
 } from '@project-manara-frontend/models';
 import {
   HttpErrorService,
+  LoaderService,
   SubjectService,
 } from '@project-manara-frontend/services';
-import { filter, Observable, switchMap, take } from 'rxjs';
+import { filter, finalize, Observable, switchMap, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 
 interface SelectedPrerequisite {
@@ -38,6 +39,7 @@ export class EditSubjectPageComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 50];
   filters = new RequestFilters();
   subjectName: string = '';
+  isLoading = false;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -45,6 +47,7 @@ export class EditSubjectPageComponent implements OnInit {
     private httpErrorService: HttpErrorService,
     private store: Store,
     private router: Router,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit() {
@@ -64,27 +67,31 @@ export class EditSubjectPageComponent implements OnInit {
   }
 
   private loadSubjectData(): void {
-    this.subjectService.get(this.subjectId).subscribe({
-      next: (subject: SubjectDetailResponse) => {
-        this.subjectName = subject.name;
-        this.form.patchValue({
-          name: subject.name,
-          code: subject.code,
-          description: subject.description,
-          creditHours: subject.creditHours,
-        });
-        // map prerequisites — code & creditHours not available from API
-        this.selectedSubjects = subject.prerequisites.map((p) => ({
-          id: p.id,
-          name: p.name,
-          code: p.code,
-          creditHours: p.creditHours,
-        }));
-      },
-      error: (err) => {
-        this.httpErrorService.handle(err);
-      },
-    });
+    this.loaderService.loading();
+    this.subjectService
+      .get(this.subjectId)
+      .pipe(finalize(() => this.loaderService.hide()))
+      .subscribe({
+        next: (subject: SubjectDetailResponse) => {
+          this.subjectName = subject.name;
+          this.form.patchValue({
+            name: subject.name,
+            code: subject.code,
+            description: subject.description,
+            creditHours: subject.creditHours,
+          });
+          // map prerequisites — code & creditHours not available from API
+          this.selectedSubjects = subject.prerequisites.map((p) => ({
+            id: p.id,
+            name: p.name,
+            code: p.code,
+            creditHours: p.creditHours,
+          }));
+        },
+        error: (err) => {
+          this.httpErrorService.handle(err);
+        },
+      });
   }
   loadSubjects(): void {
     this.subjects$ = this.facultyId$.pipe(
@@ -160,17 +167,21 @@ export class EditSubjectPageComponent implements OnInit {
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
+    this.isLoading = true;
     const request: SubjectRequest = {
       ...this.form.value,
       prerequisiteIds: this.selectedSubjects.map((s) => s.id),
     };
-    this.subjectService.update(this.subjectId, request).subscribe({
-      next: () => {
-        this.router.navigate(['../../'], { relativeTo: this.route });
-      },
-      error: (err) => {
-        this.httpErrorService.handle(err);
-      },
-    });
+    this.subjectService
+      .update(this.subjectId, request)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        },
+        error: (err) => {
+          this.httpErrorService.handle(err);
+        },
+      });
   }
 }

@@ -135,9 +135,18 @@
               <button
                 type="submit"
                 class="btn-primary-custom w-100 mb-2"
-                [disabled]="!programForm.valid || !programForm.dirty"
+                [disabled]="
+                  !programForm.valid || !programForm.dirty || isLoading
+                "
               >
-                <i class="fa-solid fa-check me-2"></i> Save Changes
+                <i
+                  [class]="
+                    isLoading
+                      ? 'fa-solid fa-spin fa-spinner'
+                      : 'fa-solid fa-check me-2'
+                  "
+                ></i>
+                Save Changes
               </button>
             </div>
 
