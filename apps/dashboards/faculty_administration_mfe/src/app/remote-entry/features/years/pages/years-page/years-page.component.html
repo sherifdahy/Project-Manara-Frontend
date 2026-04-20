@@ -133,6 +133,8 @@
             <th>Year Name</th>
             <th>StartDate</th>
             <th>EndDate</th>
+            <th>Status</th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -203,6 +205,44 @@
                   <p class="table-empty-text">
                     There are no academic years to display at the moment.
                   </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+
+          <!-- Skelton -->
+          <ng-container *ngIf="isLoading">
+            <tr
+              *ngFor="let row of [1, 2, 3]"
+              class="table-skeleton-row placeholder-glow"
+            >
+              <td>
+                <div class="table-cell-with-icon">
+                  <div class="table-cell-icon sk-box"></div>
+                  <div class="table-cell-content">
+                    <div class="table-cell-title sk-pill"></div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-location-badge sk-pill"></div>
+              </td>
+
+              <td>
+                <div class="table-cell-multiline">
+                  <div class="table-cell-secondary sk-pill"></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="table-value-badge sk-pill sm"></div>
+              </td>
+
+              <td>
+                <div class="table-actions">
+                  <div class="table-action-btn sk-btn"></div>
+                  <div class="table-action-btn sk-btn"></div>
                 </div>
               </td>
             </tr>

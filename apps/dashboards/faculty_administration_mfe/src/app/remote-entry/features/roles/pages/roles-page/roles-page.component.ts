@@ -1,25 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleResponse, ScopeDetailResponse } from '@project-manara-frontend/models';
+import {
+  RoleResponse,
+  ScopeDetailResponse,
+} from '@project-manara-frontend/models';
 import { RoleService, ScopeService } from '@project-manara-frontend/services';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-roles-page',
   standalone: false,
   templateUrl: './roles-page.component.html',
-  styleUrls: ['./roles-page.component.css']
+  styleUrls: ['./roles-page.component.css'],
 })
 export class RolesPageComponent implements OnInit {
   roles$!: Observable<RoleResponse[]>;
-  constructor(
-    private roleService: RoleService
-  ) { }
+  isLoading: boolean = false;
+  constructor(private roleService: RoleService) {}
 
   ngOnInit() {
     this.loadRoles();
   }
 
   loadRoles() {
-    this.roles$ = this.roleService.getAll(false);
+    this.isLoading = true;
+    this.roles$ = this.roleService
+      .getAll(false)
+      .pipe(finalize(() => (this.isLoading = false)));
   }
 }

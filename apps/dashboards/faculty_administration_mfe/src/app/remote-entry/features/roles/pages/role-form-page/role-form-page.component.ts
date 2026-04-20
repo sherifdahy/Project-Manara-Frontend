@@ -6,10 +6,11 @@ import {
   BasePermissionService,
   Category,
   HttpErrorService,
+  LoaderService,
   PermissionService,
 } from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, finalize, map, switchMap, take, tap } from 'rxjs/operators';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { ToastrService } from 'ngx-toastr';
 
@@ -36,7 +37,8 @@ export class RoleFormPageComponent implements OnInit {
     private ps: PermissionService,
     public base: BasePermissionService,
     private httpErrorService: HttpErrorService,
-    private toastrService :ToastrService
+    private toastrService: ToastrService,
+    private loaderService: LoaderService,
   ) {
     this.roleId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -46,17 +48,22 @@ export class RoleFormPageComponent implements OnInit {
   }
 
   private loadData(): void {
+    this.loaderService.loading();
+
     this.data$ = this.facultyId$.pipe(
       filter((id) => !!id),
       take(1),
-      switchMap((id) => this.ps.getFacultyRoleWithPermissions(id!, this.roleId)),
+      switchMap((id) =>
+        this.ps.getFacultyRoleWithPermissions(id!, this.roleId),
+      ),
       tap(({ parsed }) => {
         this.defaults = parsed.defaults;
         this.selected = [...parsed.active];
         this.original = [...parsed.active];
         this.categories = parsed.categories;
       }),
-      map(({ role }) => role)
+      map(({ role }) => role),
+      finalize(() => this.loaderService.hide()),
     );
   }
 
@@ -81,27 +88,41 @@ export class RoleFormPageComponent implements OnInit {
   }
 
   selectAll(): void {
-    this.selected = this.base.selectAll(this.selected, this.categories, this.searchQuery);
+    this.selected = this.base.selectAll(
+      this.selected,
+      this.categories,
+      this.searchQuery,
+    );
   }
 
   deselectAll(): void {
-    this.selected = this.base.deselectAll(this.selected, this.categories, this.searchQuery);
+    this.selected = this.base.deselectAll(
+      this.selected,
+      this.categories,
+      this.searchQuery,
+    );
   }
 
   save(): void {
-
-    this.facultyId$.pipe(
-      filter((id) => !!id),
-      take(1),
-      switchMap((id) =>
-        this.ps.updateForFaculty(this.roleId, id!, this.defaults, this.selected)
+    this.facultyId$
+      .pipe(
+        filter((id) => !!id),
+        take(1),
+        switchMap((id) =>
+          this.ps.updateForFaculty(
+            this.roleId,
+            id!,
+            this.defaults,
+            this.selected,
+          ),
+        ),
       )
-    ).subscribe({
-      next: () => {
-        this.original = [...this.selected];
-        this.toastrService.success('Permissions updated successfully');
-      },
-      error: (error) => this.httpErrorService.handle(error),
-    });
+      .subscribe({
+        next: () => {
+          this.original = [...this.selected];
+          this.toastrService.success('Permissions updated successfully');
+        },
+        error: (error) => this.httpErrorService.handle(error),
+      });
   }
 }

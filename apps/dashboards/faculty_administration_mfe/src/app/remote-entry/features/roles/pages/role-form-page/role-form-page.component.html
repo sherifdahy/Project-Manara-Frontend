@@ -1,6 +1,5 @@
-<ng-container *ngIf="(data$ | async) as data">
+<ng-container *ngIf="data$ | async as data">
   <div class="container-fluid px-0">
-
     <div class="page-header mb-4">
       <div class="d-flex align-items-center gap-3">
         <button class="btn-back" routerLink="..">
@@ -50,7 +49,9 @@
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Unassigned</span>
-              <h3 class="stats-number">{{ defaults.length - selected.length }}</h3>
+              <h3 class="stats-number">
+                {{ defaults.length - selected.length }}
+              </h3>
               <span class="stats-meta text-warning">Remaining</span>
             </div>
             <div class="stats-icon-wrapper bg-warning-soft">
@@ -66,10 +67,13 @@
             <div class="stats-info">
               <span class="stats-label">Role Status</span>
               <h3 class="stats-number">
-                <span class="table-status-badge" [ngClass]="{
-                  'status-active': !data.isDeleted,
-                  'status-inactive': data.isDeleted
-                }">
+                <span
+                  class="table-status-badge"
+                  [ngClass]="{
+                    'status-active': !data.isDeleted,
+                    'status-inactive': data.isDeleted,
+                  }"
+                >
                   {{ data.isDeleted ? 'Disabled' : 'Active' }}
                 </span>
               </h3>
@@ -85,18 +89,27 @@
 
     <!-- Permissions Management Section -->
     <div class="permissions-card" hasPermission="permissions:update">
-
       <div class="card-header-bar">
         <div class="card-header-left">
           <h4 class="card-header-title">Override Permissions</h4>
-          <p class="card-header-subtitle">Customize permissions for this role in this faculty</p>
+          <p class="card-header-subtitle">
+            Customize permissions for this role in this faculty
+          </p>
         </div>
         <div class="card-header-actions">
-          <button class="btn-action" (click)="selectAll()" hasPermission="permissions:update">
+          <button
+            class="btn-action"
+            (click)="selectAll()"
+            hasPermission="permissions:update"
+          >
             <i class="fa-solid fa-check-double"></i>
             <span>Select All</span>
           </button>
-          <button class="btn-action" (click)="deselectAll()" hasPermission="permissions:update">
+          <button
+            class="btn-action"
+            (click)="deselectAll()"
+            hasPermission="permissions:update"
+          >
             <i class="fa-solid fa-times"></i>
             <span>Deselect All</span>
           </button>
@@ -106,33 +119,60 @@
       <div class="search-bar-wrapper" hasPermission="permissions:read">
         <div class="search-box">
           <i class="fa-solid fa-search"></i>
-          <input type="text" placeholder="Search permissions..." [(ngModel)]="searchQuery" />
+          <input
+            type="text"
+            placeholder="Search permissions..."
+            [(ngModel)]="searchQuery"
+          />
         </div>
       </div>
 
       <div class="categories">
-        <div class="category" *ngFor="let category of filteredCategories" hasPermission="permissions:read">
-
-          <div class="category-header" (click)="category.expanded = !category.expanded">
+        <div
+          class="category"
+          *ngFor="let category of filteredCategories"
+          hasPermission="permissions:read"
+        >
+          <div
+            class="category-header"
+            (click)="category.expanded = !category.expanded"
+          >
             <div class="category-info">
               <span class="category-name">{{ category.name }}</span>
               <span class="category-count">
-                {{ getSelectedCount(category) }}/{{ category.permissions.length }}
+                {{ getSelectedCount(category) }}/{{
+                  category.permissions.length
+                }}
               </span>
             </div>
             <div class="category-right">
               <div class="category-progress">
-                <div class="category-progress-bar"
-                  [style.width.%]="(getSelectedCount(category) / category.permissions.length) * 100"></div>
+                <div
+                  class="category-progress-bar"
+                  [style.width.%]="
+                    (getSelectedCount(category) / category.permissions.length) *
+                    100
+                  "
+                ></div>
               </div>
-              <i class="fa-solid fa-chevron-down category-arrow" [class.expanded]="category.expanded"></i>
+              <i
+                class="fa-solid fa-chevron-down category-arrow"
+                [class.expanded]="category.expanded"
+              ></i>
             </div>
           </div>
 
           <div class="permissions-grid" *ngIf="category.expanded">
-            <label class="permission-item" *ngFor="let perm of getVisiblePermissions(category)"
-              [class.selected]="isSelected(perm.key)">
-              <input type="checkbox" [checked]="isSelected(perm.key)" (change)="toggle(perm.key)" />
+            <label
+              class="permission-item"
+              *ngFor="let perm of getVisiblePermissions(category)"
+              [class.selected]="isSelected(perm.key)"
+            >
+              <input
+                type="checkbox"
+                [checked]="isSelected(perm.key)"
+                (change)="toggle(perm.key)"
+              />
               <span class="check-icon">
                 <i class="fa-solid fa-check"></i>
               </span>
@@ -142,7 +182,10 @@
               </div>
             </label>
 
-            <div class="empty-search" *ngIf="getVisiblePermissions(category).length === 0">
+            <div
+              class="empty-search"
+              *ngIf="getVisiblePermissions(category).length === 0"
+            >
               <span>No permissions match your search</span>
             </div>
           </div>
@@ -166,17 +209,23 @@
           </span>
         </div>
         <div class="footer-actions">
-          <button class="btn btn-cancel" routerLink="/roles" hasPermission="roles:read">
+          <button
+            class="btn btn-cancel"
+            routerLink="/roles"
+            hasPermission="roles:read"
+          >
             Cancel
           </button>
-          <button class="btn btn-save" (click)="save()" hasPermission="permissions:update">
+          <button
+            class="btn btn-save"
+            (click)="save()"
+            hasPermission="permissions:update"
+          >
             <i class="fa-solid fa-save"></i>
             Save Changes
           </button>
         </div>
       </div>
-
     </div>
-
   </div>
 </ng-container>

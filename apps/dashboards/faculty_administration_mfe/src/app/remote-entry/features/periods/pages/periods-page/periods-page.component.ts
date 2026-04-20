@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, Observable, switchMap, take } from 'rxjs';
+import { filter, finalize, Observable, switchMap, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { PeriodResponse } from '@project-manara-frontend/models';
 import {
@@ -20,6 +20,7 @@ export class PeriodsPageComponent implements OnInit {
   periods$!: Observable<PeriodResponse[]>;
   facultyId$ = this.store.select(selectFacultyId);
   includeDisabled: boolean = false;
+  isLoading: boolean = false;
   constructor(
     private store: Store,
     private periodsService: PeriodsService,
@@ -32,9 +33,14 @@ export class PeriodsPageComponent implements OnInit {
   }
 
   loadPeriods(): void {
+    this.isLoading = true;
     this.periods$ = this.facultyId$.pipe(
       filter((id): id is number => !!id),
-      switchMap((id) => this.periodsService.getAll(id, this.includeDisabled)),
+      switchMap((id) =>
+        this.periodsService
+          .getAll(id, this.includeDisabled)
+          .pipe(finalize(() => (this.isLoading = false))),
+      ),
     );
   }
 

@@ -3,7 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
-import { FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
+import {
+  FacultyService,
+  HttpErrorService,
+  LoaderService,
+  ToastService,
+} from '@project-manara-frontend/services';
 import { filter, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { getFacultyAction } from '../../../../store/actions/get-faculty.actions';
@@ -12,10 +17,9 @@ import { getFacultyAction } from '../../../../store/actions/get-faculty.actions'
   selector: 'app-settings-page',
   standalone: false,
   templateUrl: './settings-page.component.html',
-  styleUrls: ['./settings-page.component.css']
+  styleUrls: ['./settings-page.component.css'],
 })
 export class SettingsPageComponent implements OnInit {
-
   facultyForm!: FormGroup;
   facultyId$ = this.store.select(selectFacultyId);
 
@@ -25,7 +29,8 @@ export class SettingsPageComponent implements OnInit {
     private facultyService: FacultyService,
     private toastrService: ToastService,
     private httpErrorService: HttpErrorService,
-  ) { }
+    private loaderService: LoaderService,
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -38,52 +43,59 @@ export class SettingsPageComponent implements OnInit {
       description: ['', [Validators.required]],
       address: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      website: ['', [Validators.required, Validators.pattern(RegexPatternConsts.WEB_SITE_URL_PATTERN)]],
+      website: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(RegexPatternConsts.WEB_SITE_URL_PATTERN),
+        ],
+      ],
     });
   }
 
   loadFacultyData(): void {
-    this.facultyId$.pipe(
-      filter((id) => !!id),
-      take(1)
-    ).subscribe(
-      (id) =>
+    this.loaderService.loading();
+    this.facultyId$
+      .pipe(
+        filter((id) => !!id),
+        take(1),
+      )
+      .subscribe((id) =>
         this.facultyService.get(id!).subscribe({
           next: (faculty) => {
-            this.facultyForm.patchValue(faculty)
+            this.loaderService.hide();
+            this.facultyForm.patchValue(faculty);
           },
           error: (error) => {
+            this.loaderService.hide();
             this.httpErrorService.handle(error);
-          }
-        })
-    )
+          },
+        }),
+      );
   }
 
   onSave(): void {
     if (this.facultyForm.valid) {
-
       var request = this.facultyForm.value as FacultyRequest;
 
-
-      this.facultyId$.pipe(
-        filter((id) => !!id),
-        take(1)
-      ).subscribe((id) => {
-        this.facultyService.update(id!, request).subscribe({
-          next: () => {
-            this.store.dispatch(getFacultyAction());
-            this.toastrService.success('done');
-          },
-          error: (error) => {
-            this.httpErrorService.handle(error);
-          }
+      this.facultyId$
+        .pipe(
+          filter((id) => !!id),
+          take(1),
+        )
+        .subscribe((id) => {
+          this.facultyService.update(id!, request).subscribe({
+            next: () => {
+              this.store.dispatch(getFacultyAction());
+              this.toastrService.success('done');
+            },
+            error: (error) => {
+              this.httpErrorService.handle(error);
+            },
+          });
         });
-      })
-
-
     }
 
     this.facultyForm.markAllAsTouched();
   }
-
 }

@@ -5,7 +5,7 @@ import {
   HttpErrorService,
   YearsService,
 } from '@project-manara-frontend/services';
-import { filter, Observable, switchMap } from 'rxjs';
+import { filter, finalize, Observable, switchMap } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { YearFormDialogComponent } from '../../components/year-form-dialog/year-form-dialog.component';
@@ -20,7 +20,7 @@ export class YearsPageComponent implements OnInit {
   years$!: Observable<YearResponse[]>;
   facultyId$ = this.store.select(selectFacultyId);
   includeDisabled: boolean = false;
-
+  isLoading: boolean = false;
   constructor(
     private yearService: YearsService,
     private store: Store,
@@ -33,9 +33,14 @@ export class YearsPageComponent implements OnInit {
   }
 
   loadYears(): void {
+    this.isLoading = true;
     this.years$ = this.facultyId$.pipe(
       filter((id): id is number => !!id),
-      switchMap((id) => this.yearService.getAll(id, this.includeDisabled)),
+      switchMap((id) =>
+        this.yearService
+          .getAll(id, this.includeDisabled)
+          .pipe(finalize(() => (this.isLoading = false))),
+      ),
     );
   }
 

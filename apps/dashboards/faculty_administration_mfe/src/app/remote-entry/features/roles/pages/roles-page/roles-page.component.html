@@ -1,12 +1,13 @@
-<ng-container *ngIf="(roles$ | async) as roles">
+<ng-container>
   <!-- roles.component.html -->
   <div class="container-fluid px-0">
-
     <!-- Page Header -->
     <div class="page-header mb-4">
       <div>
         <h1 class="page-title mb-1">Roles & Permissions</h1>
-        <p class="page-description mb-0">Configure system roles, hierarchy, and access permissions</p>
+        <p class="page-description mb-0">
+          Configure system roles, hierarchy, and access permissions
+        </p>
       </div>
     </div>
 
@@ -103,44 +104,110 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let role of roles" hasPermission="roles:read">
-                <td>
-                  <div class="table-cell-with-icon">
-                    <a [routerLink]="[role.id]" class="table-cell-content">
-                      <span class="table-cell-title">{{role.name}}</span>
-                    </a>
-                  </div>
-                </td>
-                <td>Full system access with all permissions</td>
-                <td>3</td>
-                <td><span class="table-value-badge" hasPermission="permissions:read">42</span></td>
-                <td>Admin</td>
-                <td>
-                  <span class="table-status-badge status-inactive" *ngIf="role.isDeleted">Disabled</span>
-                  <span class="table-status-badge status-active" *ngIf="!role.isDeleted">Active</span>
-                </td>
-                <td>
-                  <div class="table-actions" hasPermission="roles:update">
-                    <a [routerLink]="[role.id]" class="table-action-btn btn-primary" title="Edit Role">
-                      <i class="fa-solid fa-pen"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-
-              <tr *ngIf="roles.length == 0">
-                <td colspan="9">
-                  <div class="table-empty-state">
-                    <div class="table-empty-icon">
-                      <i class="fa-solid fa-inbox"></i>
+              <ng-container *ngIf="roles$ | async as roles">
+                <tr *ngFor="let role of roles" hasPermission="roles:read">
+                  <td>
+                    <div class="table-cell-with-icon">
+                      <a [routerLink]="[role.id]" class="table-cell-content">
+                        <span class="table-cell-title">{{ role.name }}</span>
+                      </a>
                     </div>
-                    <h3 class="table-empty-title">No Roles Found</h3>
-                    <p class="table-empty-text">
-                      There are no roles to display at the moment.
-                    </p>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                  <td>Full system access with all permissions</td>
+                  <td>3</td>
+                  <td>
+                    <span
+                      class="table-value-badge"
+                      hasPermission="permissions:read"
+                      >42</span
+                    >
+                  </td>
+                  <td>Admin</td>
+                  <td>
+                    <span
+                      class="table-status-badge status-inactive"
+                      *ngIf="role.isDeleted"
+                      >Disabled</span
+                    >
+                    <span
+                      class="table-status-badge status-active"
+                      *ngIf="!role.isDeleted"
+                      >Active</span
+                    >
+                  </td>
+                  <td>
+                    <div class="table-actions" hasPermission="roles:update">
+                      <a
+                        [routerLink]="[role.id]"
+                        class="table-action-btn btn-primary"
+                        title="Edit Role"
+                      >
+                        <i class="fa-solid fa-pen"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngIf="roles.length == 0">
+                  <td colspan="9">
+                    <div class="table-empty-state">
+                      <div class="table-empty-icon">
+                        <i class="fa-solid fa-inbox"></i>
+                      </div>
+                      <h3 class="table-empty-title">No Roles Found</h3>
+                      <p class="table-empty-text">
+                        There are no roles to display at the moment.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+
+              <!-- Skelton -->
+              <ng-container *ngIf="isLoading">
+                <tr
+                  *ngFor="let row of [1, 2, 3]"
+                  class="table-skeleton-row placeholder-glow"
+                >
+                  <td>
+                    <div class="table-cell-with-icon">
+                      <div class="table-cell-content">
+                        <div class="table-cell-title sk-pill"></div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-location-badge sk-pill"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-cell-multiline">
+                      <div class="table-cell-primary sk-pill sm"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-value-badge sk-pill sm"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-cell-multiline">
+                      <div class="table-cell-primary sk-pill sm"></div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-status-badge sk-pill sm"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-actions">
+                      <div class="table-action-btn sk-btn"></div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
         </div>

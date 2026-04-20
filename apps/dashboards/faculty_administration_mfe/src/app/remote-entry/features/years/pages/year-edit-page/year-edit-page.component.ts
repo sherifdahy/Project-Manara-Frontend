@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { TermResponse, YearRequest } from '@project-manara-frontend/models';
 import {
   HttpErrorService,
+  LoaderService,
   YearsService,
 } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-year-edit-page',
@@ -26,6 +27,7 @@ export class YearEditPageComponent implements OnInit {
     private route: ActivatedRoute,
     private httpErrorService: HttpErrorService,
     private toastrService: ToastrService,
+    private loaderService: LoaderService,
   ) {}
 
   ngOnInit() {
@@ -60,7 +62,10 @@ export class YearEditPageComponent implements OnInit {
   }
 
   private loadTerms() {
-    this.terms$ = this.yearService.getAllTerms();
+    this.loaderService.loading();
+    this.terms$ = this.yearService
+      .getAllTerms()
+      .pipe(finalize(() => this.loaderService.hide()));
   }
 
   private formatDate(date: string): string {
