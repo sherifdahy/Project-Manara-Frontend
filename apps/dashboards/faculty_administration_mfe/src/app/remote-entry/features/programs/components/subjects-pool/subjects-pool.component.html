@@ -1,0 +1,66 @@
+<div class="dashboard-card h-100">
+  <div class="card-head">
+    <h2 class="card-title">Available Subjects</h2>
+    <p class="card-subtitle mb-2">
+      Drag subjects to schedule (Drag back to remove)
+    </p>
+
+    <div class="subject-search-box mt-2">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search name or code..."
+        (input)="onSearch($event)"
+      />
+    </div>
+  </div>
+
+  <div
+    [id]="poolId"
+    class="subjects-pool"
+    cdkDropList
+    [cdkDropListData]="entries"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <div
+      *ngFor="let entry of entries; trackBy: trackByUid"
+      class="subject-card"
+      cdkDrag
+      [cdkDragData]="entry"
+    >
+      <div class="subject-card-inner">
+        <div class="subject-drag-handle">
+          <i class="bi bi-grip-vertical"></i>
+        </div>
+        <div class="subject-content">
+          <div class="subject-name-row">
+            <h3 class="subject-name">{{ entry.name }}</h3>
+          </div>
+          <div class="subject-meta">
+            <span class="subject-code-pill">{{ entry.code }}</span>
+            <span class="subject-hours">
+              <i class="bi bi-clock"></i>
+              {{ entry.creditHours }}h
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ng-template cdkDragPreview>
+        <div class="drag-preview-card">
+          <div class="drag-preview-code">{{ entry.code }}</div>
+          <div class="drag-preview-name">{{ entry.name }}</div>
+        </div>
+      </ng-template>
+
+      <ng-template cdkDragPlaceholder>
+        <div class="subject-placeholder"></div>
+      </ng-template>
+    </div>
+
+    <div class="pool-empty" *ngIf="entries.length === 0">
+      No subjects found
+    </div>
+  </div>
+</div>

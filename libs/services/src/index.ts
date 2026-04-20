@@ -16,7 +16,7 @@ export * from './lib/state-manegment/user.service';
 export * from './lib/roles/role.service';
 export * from './lib/scopes/scope.service';
 export * from './lib/faculty-users/faculty-user.service';
-export * from './lib/department-users/department-user.service';
+export * from './lib/departments/department.service';
 export * from './lib/permissions/permission.service';
 export * from './lib/permissions/base-permission.service';
 export * from './lib/university-users/university-user.service';
@@ -24,3 +24,9 @@ export * from './lib/program-users/program-user.service';
 export * from './lib/subjects/subject.service';
 export * from './lib/years/years.service';
 export * from './lib/periods/periods.service';
+export * from './lib/days/day.service';
+export * from './lib/department-users/department-user.service';
+export * from './lib/drag-and-drop/drag-drop-grid.service';
+
+
+

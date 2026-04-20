@@ -1,0 +1,167 @@
+<div class="dashboard-card">
+  <div class="card-head card-head-flex">
+    <div>
+      <h2 class="card-title">Weekly Schedule</h2>
+      <p class="card-subtitle">
+        Multiple subjects per slot (different rooms)
+      </p>
+    </div>
+    <button
+      type="button"
+      class="btn action-btn btn-secondary-lite"
+      [disabled]="!canUndo"
+      (click)="undo.emit()"
+    >
+      <i class="bi bi-arrow-90deg-left"></i>
+      <span>Undo</span>
+    </button>
+  </div>
+
+  <ng-container *ngIf="periods.length > 0; else noPeriods">
+    <div class="schedule-grid-wrap">
+      <div
+        class="schedule-grid"
+        [style.grid-template-columns]="
+          '85px repeat(' + days.length + ', 1fr)'
+        "
+      >
+        <!-- Header Row -->
+        <div class="grid-header-cell time-header-cell">Time</div>
+        <div class="grid-header-cell" *ngFor="let day of days">
+          {{ day.value | slice: 0 : 3 }}
+        </div>
+
+        <!-- Data Rows -->
+        <ng-container *ngFor="let period of periods; let ti = index">
+          <div class="time-column-cell">
+            <div class="time-cell-lines">
+              <span>{{ period.label.split(' - ')[0] }}</span>
+              <span>{{ period.label.split(' - ')[1] }}</span>
+            </div>
+          </div>
+
+          <ng-container *ngFor="let day of days; let di = index">
+            <div
+              class="grid-slot-cell"
+              [class.slot-disabled]="!slotGrid[di][ti].isAvailable"
+            >
+              <div
+                class="slot-dropzone"
+                [class.drop-valid]="
+                  slotGrid[di][ti].dragOverState === 'valid'
+                "
+                [class.drop-invalid]="
+                  slotGrid[di][ti].dragOverState === 'invalid'
+                "
+                [class.slot-has-subjects]="
+                  slotGrid[di][ti].items.length > 0
+                "
+                [class.slot-multi]="slotGrid[di][ti].items.length > 1"
+                [class.slot-unavailable]="!slotGrid[di][ti].isAvailable"
+                cdkDropList
+                [cdkDropListData]="slotGrid[di][ti].items"
+                [cdkDropListEnterPredicate]="getDropPredicate(di, ti)"
+                (cdkDropListDropped)="onDrop($event, di, ti)"
+                (cdkDropListEntered)="onEnter(di, ti)"
+                (cdkDropListExited)="onLeave(di, ti)"
+              >
+                <ng-container
+                  *ngIf="
+                    slotGrid[di][ti].items.length > 0;
+                    else emptySlot
+                  "
+                >
+                  <div
+                    class="slot-count-badge"
+                    *ngIf="slotGrid[di][ti].items.length > 1"
+                  >
+                    {{ slotGrid[di][ti].items.length }}
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let entry of slotGrid[di][ti].items;
+                      trackBy: trackByUid
+                    "
+                    class="assigned-subject-card"
+                    cdkDrag
+                    [cdkDragData]="entry"
+                    (click)="onSlotClick(entry, di, ti)"
+                  >
+                    <div class="assigned-code">{{ entry.code }}</div>
+                    <div class="assigned-name">{{ entry.name }}</div>
+
+                    <!-- Staff Badges -->
+                    <div
+                      class="assigned-staff"
+                      *ngIf="entry.doctorName || entry.assistantName"
+                    >
+                      <span
+                        class="staff-badge doctor-badge"
+                        *ngIf="entry.doctorName"
+                      >
+                        <i class="bi bi-mortarboard"></i>
+                        {{ entry.doctorName }}
+                      </span>
+                      <span
+                        class="staff-badge ta-badge"
+                        *ngIf="entry.assistantName"
+                      >
+                        <i class="bi bi-person-badge"></i>
+                        {{ entry.assistantName }}
+                      </span>
+                    </div>
+
+                    <ng-template cdkDragPreview>
+                      <div class="drag-preview-card assigned-preview">
+                        <div class="drag-preview-code">
+                          {{ entry.code }}
+                        </div>
+                        <div class="drag-preview-name">
+                          {{ entry.name }}
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <ng-template cdkDragPlaceholder>
+                      <div class="assigned-placeholder"></div>
+                    </ng-template>
+                  </div>
+                </ng-container>
+
+                <ng-template #emptySlot>
+                  <div
+                    class="slot-empty-state"
+                    *ngIf="slotGrid[di][ti].isAvailable"
+                  >
+                    Drop here
+                  </div>
+                  <div
+                    class="slot-unavailable-state"
+                    *ngIf="!slotGrid[di][ti].isAvailable"
+                  >
+                    Unavailable
+                  </div>
+                </ng-template>
+              </div>
+
+              <div
+                class="slot-conflict-msg"
+                *ngIf="slotGrid[di][ti].conflictMessage"
+              >
+                {{ slotGrid[di][ti].conflictMessage }}
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noPeriods>
+    <div class="no-periods-state">
+      <i class="bi bi-clock-history"></i>
+      <p>No time periods configured for this faculty</p>
+    </div>
+  </ng-template>
+</div>

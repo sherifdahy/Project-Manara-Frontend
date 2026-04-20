@@ -4,6 +4,8 @@ import {
   ProgramDetailResponse,
   ProgramRequest,
   ProgramResponse,
+  ProgramScheduleRequest,
+  ProgramScheduleResponse,
   SubjectResponse,
 } from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
@@ -13,7 +15,7 @@ import { environment } from 'environments/environment';
   providedIn: 'root',
 })
 export class ProgramService {
-  constructor(private apiClient: ApiClientService) { }
+  constructor(private apiClient: ApiClientService) {}
 
   getAll(
     departmentId: number,
@@ -48,8 +50,7 @@ export class ProgramService {
     );
   }
 
-
-  getSubjects(programId: number) : Observable<SubjectResponse[]> {
+  getSubjects(programId: number): Observable<SubjectResponse[]> {
     return this.apiClient.get(
       `${environment.apiUrl}/api/programs/${programId}/subjects`,
     );
@@ -66,5 +67,15 @@ export class ProgramService {
     return this.apiClient.delete(
       `${environment.apiUrl}/api/programs/${programId}/subjects/${subjectId}`,
     );
+  }
+
+  getSchedule(programId: number): Observable<ProgramScheduleResponse> {
+    return this.apiClient.get<ProgramScheduleResponse>(
+      `${environment.apiUrl}/api/programs/${programId}/schedule`,
+    );
+  }
+
+  saveSchedule(programId: number,request: ProgramScheduleRequest): Observable<void> {
+    return this.apiClient.post<void>( `${environment.apiUrl}/api/programs/${programId}/schedule`, request);
   }
 }

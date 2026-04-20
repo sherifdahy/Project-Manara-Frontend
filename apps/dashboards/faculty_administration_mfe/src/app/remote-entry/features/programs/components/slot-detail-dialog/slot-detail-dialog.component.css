@@ -1,0 +1,226 @@
+.slot-dialog {
+  min-width: 420px;
+  max-width: 520px;
+}
+
+/* ══════════════════════════════════════════
+   Header
+══════════════════════════════════════════ */
+.dialog-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
+  border-bottom: 1px solid var(--card-border);
+  position: relative;
+}
+
+.dialog-header-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: #edf4ff;
+  color: var(--main-lighter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xl);
+  flex-shrink: 0;
+}
+
+.dialog-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.dialog-title {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--main-color);
+  margin: 0 0 2px;
+}
+
+.dialog-subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.dialog-close-btn {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dialog-close-btn:hover {
+  background: #f5f6f8;
+  color: var(--text-primary);
+}
+
+/* ══════════════════════════════════════════
+   Info Section
+══════════════════════════════════════════ */
+.dialog-info-section {
+  padding: var(--space-lg) var(--space-xl);
+  background: #f9fbfd;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+}
+
+.info-row + .info-row {
+  border-top: 1px solid #eef1f5;
+}
+
+.info-label {
+  min-width: 100px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+}
+
+.info-value {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  color: var(--main-color);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.info-code-pill {
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: #2e4798;
+  color: #fff;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+}
+
+/* ══════════════════════════════════════════
+   Form Section
+══════════════════════════════════════════ */
+.dialog-form-section {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.field-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--main-color);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.field-label i {
+  color: var(--main-lighter);
+  font-size: var(--fs-md);
+}
+
+/* ══════════════════════════════════════════
+   Custom Select Styling
+══════════════════════════════════════════ */
+.custom-select-field {
+  width: 100%;
+}
+
+/* Option content with icon */
+.option-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-icon {
+  color: var(--main-lighter);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.none-option {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════════
+   Actions
+══════════════════════════════════════════ */
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xl);
+  border-top: 1px solid var(--card-border);
+  background: #fcfcfd;
+}
+
+.dialog-btn {
+  height: 36px;
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-xl);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-cancel {
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+}
+
+.btn-cancel:hover {
+  background: #f5f6f8;
+  color: var(--text-primary);
+}
+
+.btn-save {
+  background: var(--orange-color);
+  color: #fff;
+  border: 1px solid var(--orange-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-save:hover {
+  background: var(--orange-alt-color);
+  border-color: var(--orange-alt-color);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 500px) {
+  .slot-dialog {
+    min-width: unset;
+    width: 100%;
+  }
+}

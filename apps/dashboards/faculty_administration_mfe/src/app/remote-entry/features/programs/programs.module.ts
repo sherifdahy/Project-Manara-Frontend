@@ -13,6 +13,17 @@ import { ProgramsPageComponent } from './pages/programs-page/programs-page.compo
 import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/program-subjects-page.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProgramSchedulePageComponent } from './pages/program-schedule-page/program-schedule-page.component';
+import { SubjectsPoolComponent } from './components/subjects-pool/subjects-pool.component';
+import { ScheduleGridComponent } from './components/schedule-grid/schedule-grid.component';
+import { ScheduleHeaderComponent } from './components/schedule-header/schedule-header.component';
+import { SlotDetailDialogComponent } from './components/slot-detail-dialog/slot-detail-dialog.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'; 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +32,12 @@ import { ProgramSchedulePageComponent } from './pages/program-schedule-page/prog
     ReactiveFormsModule,
     UiModule,
     DirectivesModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    NgxMatSelectSearchModule
   ],
   declarations: [
     ProgramFormDialogComponent,
@@ -30,7 +46,11 @@ import { ProgramSchedulePageComponent } from './pages/program-schedule-page/prog
     ProgramSettingsPageComponent,
     ProgramsPageComponent,
     ProgramSubjectsPageComponent,
-    ProgramSchedulePageComponent
+    ProgramSchedulePageComponent,
+    SubjectsPoolComponent,
+    ScheduleGridComponent,
+    ScheduleHeaderComponent,
+    SlotDetailDialogComponent,
   ],
 })
 export class ProgramsModule {}

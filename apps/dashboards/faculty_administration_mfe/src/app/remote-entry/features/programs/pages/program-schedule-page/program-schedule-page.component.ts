@@ -1,71 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
 import {
-  CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
-  copyArrayItem,
-} from '@angular/cdk/drag-drop';
-import {
-  SubjectResponse,
-  PeriodResponse,
-} from '@project-manara-frontend/models';
-import {
-  LoaderService,
-  ProgramService,
-} from '@project-manara-frontend/services';
-import { PeriodsService } from '@project-manara-frontend/services';
-import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import {
-  Observable,
-  forkJoin,
-  switchMap,
-  tap,
-  map,
   filter,
-  take,
   finalize,
+  forkJoin,
+  map,
+  Observable,
+  switchMap,
+  take,
+  tap,
 } from 'rxjs';
 
-interface SubjectItem {
-  id: number;
-  name: string;
-  code: string;
-  creditHours: number;
-}
+import {
+  DayService,
+  LoaderService,
+  ProgramService,
+  PeriodsService,
+} from '@project-manara-frontend/services';
+import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
+import { DayResponse } from '@project-manara-frontend/models';
 
-interface ScheduleEntry {
-  uid: string;
-  subjectId: number;
-  name: string;
-  code: string;
-  creditHours: number;
-}
+import {
+  SubjectItem,
+  ScheduleEntry,
+  SlotCell,
+  SchedulePageData,
+  PeriodItem,
+  StaffMember,
+  SlotDialogData,
+  SlotDialogResult,
+} from '@project-manara-frontend/view-models';
+import {
+  ScheduleItemResponse,
+  ProgramScheduleRequest,
+  ScheduleItemRequest,
+} from '@project-manara-frontend/models';
+import { GridCell } from '@project-manara-frontend/view-models';
+import { DragDropGridService } from '@project-manara-frontend/services';
+import { SlotDetailDialogComponent } from '../../components/slot-detail-dialog/slot-detail-dialog.component';
 
-interface SlotCell {
-  day: string;
-  dayIndex: number;
-  time: string;
-  timeIndex: number;
-  entries: ScheduleEntry[];
-  facultyAvailable: boolean;
-  conflictMessage: string | null;
-  dragOverState: 'valid' | 'invalid' | null;
-}
-
-interface ActionHistoryItem {
-  type: 'assign' | 'move' | 'remove' | 'reset';
-  payload: any;
-}
-
-interface AssignmentRecord {
-  dayIndex: number;
-  timeIndex: number;
-  entry: ScheduleEntry;
-}
+const SCHEDULE_POOL_ID = 'schedule-subjects-pool';
 
 @Component({
   selector: 'app-program-schedule-page',
@@ -74,395 +51,361 @@ interface AssignmentRecord {
   standalone: false,
 })
 export class ProgramSchedulePageComponent implements OnInit {
+  // ─── IDs ───────────────────────────────────────────────
   programId!: number;
   facultyId!: number;
+  readonly poolId = SCHEDULE_POOL_ID;
 
-  days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
-  timeSlots: string[] = [];
+  // ─── Streams ───────────────────────────────────────────
+  data$!: Observable<SchedulePageData>;
 
-  allSubjects: SubjectItem[] = [];
-
-  // Pool: القائمة الأصلية اللي مش بتتغير
-  poolEntries: ScheduleEntry[] = [];
-
-  // المصفوفة اللي بتتعرض في الشاشة (عشان البحث)
+  // ─── Pool ──────────────────────────────────────────────
+  private allPoolEntries: ScheduleEntry[] = [];
   filteredPoolEntries: ScheduleEntry[] = [];
-  searchQuery: string = '';
+  private searchQuery = '';
 
-  slotGrid: SlotCell[][] = [];
-  actionHistory: ActionHistoryItem[] = [];
+  // ─── Staff Data ────────────────────────────────────────
+  doctors: StaffMember[] = [];
+  assistants: StaffMember[] = [];
 
-  data$!: Observable<{ subjects: SubjectItem[]; periods: string[] }>;
+  // ─── Lookup Maps ───────────────────────────────────────
+  private dayIndexMap = new Map<number, number>();   // dayId → rowIndex
+  private periodIndexMap = new Map<number, number>(); // periodId → colIndex
 
-  private _uidCounter = 0;
-  private _predicateCache: Map<
-    string,
-    (drag: CdkDrag, drop: CdkDropList) => boolean
-  > = new Map();
+  // ─── Saved Schedule ────────────────────────────────────
+  private savedScheduleItems: ScheduleItemResponse[] = [];
+
+  // ─── DragDrop Service ──────────────────────────────────
+  readonly dnd = new DragDropGridService<ScheduleEntry>();
+
+  get slotGrid(): SlotCell[][] {
+    return this.dnd.grid as unknown as SlotCell[][];
+  }
+
+  get canUndo(): boolean {
+    return this.dnd.canUndo;
+  }
+
+  // ─── Constructor ───────────────────────────────────────
 
   constructor(
-    private route: ActivatedRoute,
-    private store: Store,
-    private programService: ProgramService,
-    private periodsService: PeriodsService,
-    private loaderService: LoaderService,
+    private readonly route: ActivatedRoute,
+    private readonly store: Store,
+    private readonly programService: ProgramService,
+    private readonly periodsService: PeriodsService,
+    private readonly dayService: DayService,
+    private readonly loaderService: LoaderService,
+    private readonly dialog: MatDialog,
   ) {}
+
+  // ─── Init ──────────────────────────────────────────────
 
   ngOnInit(): void {
     this.programId = Number(this.route.parent?.snapshot.paramMap.get('id'));
-
     this.loaderService.loading();
-    this.data$ = this.store.select(selectFacultyId).pipe(
+
+    this.dnd.configure({
+      sourcePoolId: SCHEDULE_POOL_ID,
+      canDropItem: (item, targetCell) =>
+        !targetCell.items.some((e) => e.subjectId === item.subjectId),
+      transformOnAdd: (source, newUid) => ({ ...source, uid: newUid }),
+    });
+
+    this.data$ = this.buildDataStream();
+    this.loadStaff();
+  }
+
+  // ─── Load Staff ────────────────────────────────────────
+
+  private loadStaff(): void {
+    // TODO: استبدل بالـ API الحقيقي
+    this.doctors = [
+      { id: 1, name: 'Dr. Ahmed Hassan' },
+      { id: 2, name: 'Dr. Mohamed Ali' },
+      { id: 3, name: 'Dr. Sara Ibrahim' },
+      { id: 4, name: 'Dr. Fatma Khalil' },
+    ];
+
+    this.assistants = [
+      { id: 1, name: 'Eng. Omar Youssef' },
+      { id: 2, name: 'Eng. Nour Adel' },
+      { id: 3, name: 'Eng. Khaled Mostafa' },
+    ];
+  }
+
+  // ─── Data Stream ───────────────────────────────────────
+
+  private buildDataStream(): Observable<SchedulePageData> {
+    return this.store.select(selectFacultyId).pipe(
       filter((id): id is number => !!id),
       take(1),
-      tap((facultyId) => (this.facultyId = facultyId)),
+      tap((id) => (this.facultyId = id)),
       switchMap((facultyId) =>
         forkJoin({
+          days: this.dayService.getAll(),
           subjects: this.programService.getSubjects(this.programId),
           periods: this.periodsService.getAll(facultyId, false),
+          savedSchedule: this.programService.getSchedule(this.programId),
         }).pipe(finalize(() => this.loaderService.hide())),
       ),
-      map(({ subjects, periods }) => {
-        const mappedSubjects: SubjectItem[] = subjects
-          .filter((s) => !s.isDeleted)
-          .map((s) => ({
-            id: s.id,
-            name: s.name,
-            code: s.code,
-            creditHours: s.creditHours,
-          }));
+      map(({ days, subjects, periods, savedSchedule }) => {
+        // حفظ الـ saved schedule items
+        this.savedScheduleItems = savedSchedule.schedules ?? [];
 
-        const mappedPeriods: string[] = periods
-          .filter((p) => !p.isDeleted)
-          .map(
-            (p) =>
-              `${this.formatTime(p.startTime)} - ${this.formatTime(p.endTime)}`,
-          )
-          .sort();
-
-        return { subjects: mappedSubjects, periods: mappedPeriods };
+        return {
+          days,
+          subjects: subjects
+            .filter((s) => !s.isDeleted)
+            .map(
+              (s): SubjectItem => ({
+                id: s.id,
+                name: s.name,
+                code: s.code,
+                creditHours: s.creditHours,
+              }),
+            ),
+          periods: periods
+            .filter((p) => !p.isDeleted)
+            .map(
+              (p): PeriodItem => ({
+                id: p.id,
+                label: `${this.formatTime(p.startTime)} - ${this.formatTime(p.endTime)}`,
+                startTime: p.startTime,
+                endTime: p.endTime,
+              }),
+            )
+            .sort((a, b) => a.label.localeCompare(b.label)),
+        };
       }),
-      tap(({ subjects, periods }) => {
-        this.allSubjects = subjects;
-        this.timeSlots = periods;
-
-        this.buildPool();
-        this.buildGrid();
+      tap(({ days, subjects, periods }) => {
+        this.buildLookupMaps(days, periods);
+        this.buildPool(subjects);
+        this.buildGrid(days, periods);
+        this.loadSavedEntries(subjects);
       }),
     );
   }
 
-  // ====== Search Functionality ======
-  onSearch(event: Event): void {
-    this.searchQuery = (event.target as HTMLInputElement).value;
-    this.filterPool();
+  // ─── Lookup Maps ───────────────────────────────────────
+
+  private buildLookupMaps(days: DayResponse[], periods: PeriodItem[]): void {
+    this.dayIndexMap.clear();
+    this.periodIndexMap.clear();
+
+    days.forEach((day, index) => this.dayIndexMap.set(day.id, index));
+    periods.forEach((period, index) => this.periodIndexMap.set(period.id, index));
   }
 
-  private filterPool(): void {
-    if (!this.searchQuery.trim()) {
-      this.filteredPoolEntries = [...this.poolEntries];
-    } else {
-      const q = this.searchQuery.toLowerCase();
-      this.filteredPoolEntries = this.poolEntries.filter(
-        (entry) =>
-          entry.name.toLowerCase().includes(q) ||
-          entry.code.toLowerCase().includes(q),
+  // ─── Load Saved Entries into Grid ──────────────────────
+
+  private loadSavedEntries(subjects: SubjectItem[]): void {
+    const subjectMap = new Map<number, SubjectItem>();
+    subjects.forEach((s) => subjectMap.set(s.id, s));
+
+    for (const item of this.savedScheduleItems) {
+      const subject = item.subject;
+      if (!subject || subject.isDeleted) continue;
+
+      const dayIndex = this.dayIndexMap.get(item.dayId);
+      const periodIndex = this.periodIndexMap.get(item.periodId);
+
+      if (dayIndex === undefined || periodIndex === undefined) continue;
+
+      const cell = this.slotGrid[dayIndex]?.[periodIndex];
+      if (!cell) continue;
+
+      // تأكد إن المادة مش موجودة في نفس الـ cell
+      const alreadyExists = cell.items.some(
+        (e) => e.subjectId === subject.id,
       );
-    }
-  }
+      if (alreadyExists) continue;
 
-  // ====== Pool Management ======
-
-  private buildPool(): void {
-    this.poolEntries = this.allSubjects.map((subject) => ({
-      uid: `pool_${subject.id}`,
-      subjectId: subject.id,
-      name: subject.name,
-      code: subject.code,
-      creditHours: subject.creditHours,
-    }));
-    // تحديث مصفوفة العرض
-    this.filterPool();
-  }
-
-  private generateUid(): string {
-    return `entry_${++this._uidCounter}_${Date.now()}`;
-  }
-
-  // ====== Grid Setup ======
-
-  private formatTime(time: string): string {
-    if (!time) return '';
-    const parts = time.split(':');
-    return `${parts[0]}:${parts[1]}`;
-  }
-
-  private buildGrid(): void {
-    this.slotGrid = [];
-    this._predicateCache.clear();
-
-    this.days.forEach((day, di) => {
-      this.slotGrid[di] = [];
-      this.timeSlots.forEach((time, ti) => {
-        this.slotGrid[di][ti] = {
-          day,
-          dayIndex: di,
-          time,
-          timeIndex: ti,
-          entries: [],
-          facultyAvailable: true,
-          conflictMessage: null,
-          dragOverState: null,
-        };
-      });
-    });
-  }
-
-  trackByUid(_: number, e: ScheduleEntry): string {
-    return e.uid;
-  }
-
-  // ====== Enter Predicate ======
-
-  createEnterPredicate(
-    di: number,
-    ti: number,
-  ): (drag: CdkDrag, drop: CdkDropList) => boolean {
-    const key = `${di}_${ti}`;
-    if (!this._predicateCache.has(key)) {
-      this._predicateCache.set(key, (drag: CdkDrag): boolean => {
-        const cell = this.slotGrid[di]?.[ti];
-        if (!cell || !cell.facultyAvailable) return false;
-
-        const dragged: ScheduleEntry = drag.data;
-        if (cell.entries.some((e) => e.subjectId === dragged.subjectId))
-          return false;
-
-        return true;
-      });
-    }
-    return this._predicateCache.get(key)!;
-  }
-
-  onSlotEnter(di: number, ti: number): void {
-    const cell = this.slotGrid[di]?.[ti];
-    if (!cell) return;
-    cell.dragOverState = cell.facultyAvailable ? 'valid' : 'invalid';
-  }
-
-  onSlotExit(di: number, ti: number): void {
-    const cell = this.slotGrid[di]?.[ti];
-    if (cell) {
-      cell.dragOverState = null;
-      cell.conflictMessage = null;
-    }
-  }
-
-  // ====== Drop Handlers ======
-
-  onDropToSlot(
-    event: CdkDragDrop<ScheduleEntry[]>,
-    di: number,
-    ti: number,
-  ): void {
-    this.clearDragStates();
-    const cell = this.slotGrid[di][ti];
-    if (!cell.facultyAvailable) return;
-
-    if (event.previousContainer === event.container) {
-      moveItemInArray(cell.entries, event.previousIndex, event.currentIndex);
-      return;
-    }
-
-    const isFromPool = event.previousContainer.id === 'subjects-pool-list';
-
-    if (isFromPool) {
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-
-      const newEntry = {
-        ...event.container.data[event.currentIndex],
-        uid: this.generateUid(),
+      const entry: ScheduleEntry = {
+        uid: this.dnd.generateUid(),
+        subjectId: subject.id,
+        name: subject.name,
+        code: subject.code,
+        creditHours: subject.creditHours,
       };
-      event.container.data[event.currentIndex] = newEntry;
 
-      this.actionHistory.push({
-        type: 'assign',
-        payload: { entry: newEntry, toDi: di, toTi: ti },
+      cell.items.push(entry);
+    }
+  }
+
+  // ─── Pool ──────────────────────────────────────────────
+
+  private buildPool(subjects: SubjectItem[]): void {
+    this.allPoolEntries = subjects.map((s) => ({
+      uid: `pool_${s.id}`,
+      subjectId: s.id,
+      name: s.name,
+      code: s.code,
+      creditHours: s.creditHours,
+    }));
+    this.applySearch();
+  }
+
+  onSearch(query: string): void {
+    this.searchQuery = query;
+    this.applySearch();
+  }
+
+  private applySearch(): void {
+    const q = this.searchQuery.trim().toLowerCase();
+    this.filteredPoolEntries = q
+      ? this.allPoolEntries.filter(
+          (e) =>
+            e.name.toLowerCase().includes(q) ||
+            e.code.toLowerCase().includes(q),
+        )
+      : [...this.allPoolEntries];
+  }
+
+  // ─── Grid ──────────────────────────────────────────────
+
+  private buildGrid(days: DayResponse[], periods: PeriodItem[]): void {
+    this.dnd.initGrid(days.length, periods.length, (row, col) => ({
+      day: days[row],
+      time: periods[col].label,
+      periodId: periods[col].id,
+    }));
+  }
+
+  // ─── Drop Events ──────────────────────────────────────
+
+  onDropToCell(payload: {
+    event: CdkDragDrop<ScheduleEntry[]>;
+    dayIndex: number;
+    timeIndex: number;
+  }): void {
+    this.dnd.onDropToCell(payload.event, payload.dayIndex, payload.timeIndex);
+  }
+
+  onDropBackToPool(event: CdkDragDrop<ScheduleEntry[]>): void {
+    this.dnd.onDropBackToPool(event);
+  }
+
+  onDragEnterCell(payload: { dayIndex: number; timeIndex: number }): void {
+    this.dnd.onDragEnterCell(payload.dayIndex, payload.timeIndex);
+  }
+
+  onDragLeaveCell(payload: { dayIndex: number; timeIndex: number }): void {
+    this.dnd.onDragLeaveCell(payload.dayIndex, payload.timeIndex);
+  }
+
+  getDropPredicate = (
+    di: number,
+    ti: number,
+  ): ((drag: CdkDrag, drop: CdkDropList) => boolean) => {
+    return this.dnd.getDropPredicate(di, ti);
+  };
+
+  // ─── Slot Click → Open Dialog ──────────────────────────
+
+  onSlotClicked(payload: {
+    entry: ScheduleEntry;
+    dayIndex: number;
+    timeIndex: number;
+  }): void {
+    const { entry, dayIndex, timeIndex } = payload;
+    const cell = this.slotGrid[dayIndex][timeIndex];
+
+    const dialogData: SlotDialogData = {
+      entry,
+      day: cell.day,
+      time: cell.time,
+      doctors: this.doctors,
+      assistants: this.assistants,
+      selectedDoctorId: entry.doctorId ?? null,
+      selectedAssistantId: entry.assistantId ?? null,
+    };
+
+    const dialogRef = this.dialog.open(SlotDetailDialogComponent, {
+      data: dialogData,
+      width: '480px',
+      panelClass: 'slot-dialog-panel',
+      autoFocus: false,
+    });
+
+    dialogRef
+      .afterClosed()
+      .subscribe((result: SlotDialogResult | undefined) => {
+        if (!result) return;
+        this.applyAssignment(entry, result);
       });
-    } else {
-      const entry: ScheduleEntry = event.item.data;
-      const sourceLoc = this.findEntryInGrid(entry.uid);
-
-      if (sourceLoc) {
-        this.actionHistory.push({
-          type: 'move',
-          payload: {
-            entry: { ...entry },
-            fromDi: sourceLoc.di,
-            fromTi: sourceLoc.ti,
-            fromIndex: event.previousIndex,
-            toDi: di,
-            toTi: ti,
-          },
-        });
-      }
-
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
   }
 
-  onDropToPool(event: CdkDragDrop<ScheduleEntry[]>): void {
-    this.clearDragStates();
+  private applyAssignment(
+    entry: ScheduleEntry,
+    result: SlotDialogResult,
+  ): void {
+    const location = this.dnd.findItemInGrid(entry.uid);
+    if (!location) return;
 
-    if (event.previousContainer === event.container) return;
+    const cell = this.slotGrid[location.rowIndex][location.colIndex];
+    const item = cell.items[location.itemIndex];
 
-    const entry: ScheduleEntry = event.item.data;
-    const sourceLoc = this.findEntryInGrid(entry.uid);
+    item.doctorId = result.doctorId;
+    item.doctorName =
+      this.doctors.find((d) => d.id === result.doctorId)?.name ?? null;
 
-    if (sourceLoc) {
-      this.actionHistory.push({
-        type: 'remove',
-        payload: {
-          entry: { ...entry },
-          fromDi: sourceLoc.di,
-          fromTi: sourceLoc.ti,
-          fromIndex: event.previousIndex,
-        },
-      });
-      event.previousContainer.data.splice(event.previousIndex, 1);
-    }
+    item.assistantId = result.assistantId;
+    item.assistantName =
+      this.assistants.find((a) => a.id === result.assistantId)?.name ?? null;
   }
 
-  // ====== Grid Search ======
-
-  private findEntryInGrid(
-    uid: string,
-  ): { di: number; ti: number; index: number } | null {
-    for (let di = 0; di < this.slotGrid.length; di++) {
-      for (let ti = 0; ti < this.slotGrid[di].length; ti++) {
-        const idx = this.slotGrid[di][ti].entries.findIndex(
-          (e) => e.uid === uid,
-        );
-        if (idx !== -1) return { di, ti, index: idx };
-      }
-    }
-    return null;
-  }
-
-  // ====== Actions ======
+  // ─── Actions ───────────────────────────────────────────
 
   undoLastAction(): void {
-    const last = this.actionHistory.pop();
-    if (!last) return;
-
-    switch (last.type) {
-      case 'assign': {
-        const cell = this.slotGrid[last.payload.toDi]?.[last.payload.toTi];
-        if (cell) {
-          const idx = cell.entries.findIndex(
-            (e) => e.uid === last.payload.entry.uid,
-          );
-          if (idx !== -1) cell.entries.splice(idx, 1);
-        }
-        break;
-      }
-      case 'remove': {
-        const cell = this.slotGrid[last.payload.fromDi]?.[last.payload.fromTi];
-        if (cell) {
-          const insertIdx = Math.min(
-            last.payload.fromIndex ?? cell.entries.length,
-            cell.entries.length,
-          );
-          cell.entries.splice(insertIdx, 0, last.payload.entry);
-        }
-        break;
-      }
-      case 'move': {
-        const curLoc = this.findEntryInGrid(last.payload.entry.uid);
-        if (curLoc) {
-          const curCell = this.slotGrid[curLoc.di][curLoc.ti];
-          const [e] = curCell.entries.splice(curLoc.index, 1);
-          const origCell =
-            this.slotGrid[last.payload.fromDi][last.payload.fromTi];
-          const insertIdx = Math.min(
-            last.payload.fromIndex ?? origCell.entries.length,
-            origCell.entries.length,
-          );
-          origCell.entries.splice(insertIdx, 0, e);
-        }
-        break;
-      }
-      case 'reset': {
-        this.buildGrid();
-        const prev = last.payload.records as AssignmentRecord[];
-        for (const r of prev) {
-          const cell = this.slotGrid[r.dayIndex]?.[r.timeIndex];
-          if (cell) cell.entries.push(r.entry);
-        }
-        break;
-      }
-    }
+    this.dnd.undo();
   }
 
   resetSchedule(): void {
-    const records: AssignmentRecord[] = [];
-    for (const row of this.slotGrid) {
-      for (const cell of row) {
-        for (const entry of cell.entries) {
-          records.push({
-            dayIndex: cell.dayIndex,
-            timeIndex: cell.timeIndex,
-            entry: { ...entry },
-          });
-        }
-      }
-    }
-
-    this.actionHistory.push({ type: 'reset', payload: { records } });
-
-    for (const row of this.slotGrid) {
-      for (const cell of row) {
-        cell.entries = [];
-        cell.conflictMessage = null;
-        cell.dragOverState = null;
-      }
-    }
+    this.dnd.reset();
   }
 
   saveSchedule(): void {
-    const assignments: any[] = [];
-    for (const row of this.slotGrid) {
-      for (const cell of row) {
-        for (const entry of cell.entries) {
-          assignments.push({
-            subjectId: entry.subjectId,
-            subjectCode: entry.code,
-            subjectName: entry.name,
-            day: cell.day,
-            time: cell.time,
+    const schedules: ScheduleItemRequest[] = [];
+
+    // لف على كل cell في الـ grid
+    for (let dayIdx = 0; dayIdx < this.slotGrid.length; dayIdx++) {
+      for (let periodIdx = 0; periodIdx < this.slotGrid[dayIdx].length; periodIdx++) {
+        const cell = this.slotGrid[dayIdx][periodIdx];
+
+        for (const item of cell.items) {
+          schedules.push({
+            subjectId: item.subjectId,
+            periodId: cell.periodId,
+            dayId: cell.day.id,
           });
         }
       }
     }
-    console.log('Saved:', { programId: this.programId, assignments });
-    alert('Schedule saved successfully!');
+
+    const request: ProgramScheduleRequest = { schedules };
+
+    this.loaderService.loading();
+
+    this.programService
+      .saveSchedule(this.programId, request)
+      .pipe(finalize(() => this.loaderService.hide()))
+      .subscribe({
+        next: () => {
+          console.log('Schedule saved successfully!', request);
+          // TODO: أضف toast / snackbar للنجاح
+        },
+        error: (err) => {
+          console.error('Failed to save schedule', err);
+          // TODO: أضف toast / snackbar للخطأ
+        },
+      });
   }
 
-  private clearDragStates(): void {
-    for (const row of this.slotGrid) {
-      for (const cell of row) {
-        cell.dragOverState = null;
-      }
-    }
+  // ─── Helpers ───────────────────────────────────────────
+
+  private formatTime(time: string): string {
+    if (!time) return '';
+    const [h, m] = time.split(':');
+    return `${h}:${m}`;
   }
 }

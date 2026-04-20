@@ -1,0 +1,35 @@
+<div class="page-header bg-white">
+  <div class="header-left">
+    <div class="header-title-wrap">
+      <div class="header-icon">
+        <i class="bi bi-calendar-week"></i>
+      </div>
+      <div>
+        <h1 class="page-title">Program Schedule Builder</h1>
+        <p class="page-subtitle">
+          Drag and drop subjects into available time slots
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button
+      type="button"
+      class="btn action-btn btn-secondary-lite"
+      (click)="reset.emit()"
+    >
+      <i class="fa-solid fa-arrow-rotate-right"></i>
+      <span>Reset</span>
+    </button>
+
+    <button
+      type="button"
+      class="btn action-btn btn-primary-orange"
+      (click)="save.emit()"
+    >
+      <i class="fa-solid fa-floppy-disk"></i>
+      <span>Save Schedule</span>
+    </button>
+  </div>
+</div>

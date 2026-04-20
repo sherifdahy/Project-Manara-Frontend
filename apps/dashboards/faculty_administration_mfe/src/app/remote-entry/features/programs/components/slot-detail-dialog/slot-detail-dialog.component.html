@@ -1,0 +1,143 @@
+<div class="slot-dialog">
+  <!-- ── Header ── -->
+  <div class="dialog-header">
+    <div class="dialog-header-icon">
+      <i class="bi bi-calendar-check"></i>
+    </div>
+    <div class="dialog-header-text">
+      <h2 class="dialog-title">Slot Details</h2>
+      <p class="dialog-subtitle">Assign doctor & assistant</p>
+    </div>
+    <button class="dialog-close-btn" (click)="onCancel()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <!-- ── Subject Info ── -->
+  <div class="dialog-info-section">
+    <div class="info-row">
+      <div class="info-label">Subject</div>
+      <div class="info-value">
+        <span class="info-code-pill">{{ data.entry.code }}</span>
+        <span>{{ data.entry.name }}</span>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-label">Day</div>
+      <div class="info-value">{{ data.day.value }}</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-label">Time</div>
+      <div class="info-value">{{ data.time }}</div>
+    </div>
+
+    <div class="info-row" *ngIf="data.entry.creditHours">
+      <div class="info-label">Credit Hours</div>
+      <div class="info-value">{{ data.entry.creditHours }}h</div>
+    </div>
+  </div>
+
+  <!-- ── Assignment Form ── -->
+  <form [formGroup]="form" class="dialog-form-section">
+
+    <!-- Doctor Select -->
+    <div class="form-field">
+      <label class="field-label">
+        <i class="bi bi-mortarboard"></i>
+        Doctor
+      </label>
+      <mat-form-field appearance="outline" class="custom-select-field">
+        <mat-select
+          formControlName="doctorId"
+          placeholder="Select doctor..."
+          panelClass="search-select-panel"
+        >
+          <!-- Search Input -->
+          <mat-option class="search-option" disabled>
+            <ngx-mat-select-search
+              [formControl]="doctorSearchCtrl"
+              placeholderLabel="Search doctors..."
+              noEntriesFoundLabel="No doctors found"
+              [showToggleAllCheckbox]="false"
+            ></ngx-mat-select-search>
+          </mat-option>
+
+          <mat-option [value]="null">
+            <span class="none-option">— None —</span>
+          </mat-option>
+
+          <mat-option
+            *ngFor="let doc of filteredDoctors"
+            [value]="doc.id"
+          >
+            <div class="option-content">
+              <i class="bi bi-mortarboard option-icon"></i>
+              <span>{{ doc.name }}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Assistant Select -->
+    <div class="form-field">
+      <label class="field-label">
+        <i class="bi bi-person-badge"></i>
+        Teaching Assistant
+      </label>
+      <mat-form-field appearance="outline" class="custom-select-field">
+        <mat-select
+          formControlName="assistantId"
+          placeholder="Select assistant..."
+          panelClass="search-select-panel"
+        >
+          <!-- Search Input -->
+          <mat-option class="search-option" disabled>
+            <ngx-mat-select-search
+              [formControl]="assistantSearchCtrl"
+              placeholderLabel="Search assistants..."
+              noEntriesFoundLabel="No assistants found"
+              [showToggleAllCheckbox]="false"
+            ></ngx-mat-select-search>
+          </mat-option>
+
+          <mat-option [value]="null">
+            <span class="none-option">— None —</span>
+          </mat-option>
+
+          <mat-option
+            *ngFor="let ta of filteredAssistants"
+            [value]="ta.id"
+          >
+            <div class="option-content">
+              <i class="bi bi-person-badge option-icon"></i>
+              <span>{{ ta.name }}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </form>
+
+  <!-- ── Actions ── -->
+  <div class="dialog-actions">
+    <button
+      type="button"
+      class="btn dialog-btn btn-cancel"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn dialog-btn btn-save"
+      (click)="onSave()"
+    >
+      <i class="bi bi-check-lg"></i>
+      Save Assignment
+    </button>
+  </div>
+</div>

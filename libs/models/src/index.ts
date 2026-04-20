@@ -20,6 +20,11 @@ export * from './lib/departments/responses/department-detail-respnse';
 export * from './lib/programs/responses/program-response';
 export * from './lib/programs/requests/program-request';
 export * from './lib/programs/responses/program-detail-response';
+export * from './lib/programs/responses/program-schedule-response';
+export * from './lib/programs/requests/program-schedule-request';
+export * from './lib/programs/responses/schedule-item-response';
+export * from './lib/programs/requests/schedule-item-request';
+
 
 export * from './lib/roles/requests/role-request';
 export * from './lib/roles/responses/role-response';
@@ -58,3 +63,6 @@ export * from './lib/years/responses/term-response';
 
 export * from './lib/periods/responses/period-response';
 export * from './lib/periods/requests/period-request';
+
+export * from './lib/days/responses/day-response';
+
