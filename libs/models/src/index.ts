@@ -25,7 +25,6 @@ export * from './lib/programs/requests/program-schedule-request';
 export * from './lib/programs/responses/schedule-item-response';
 export * from './lib/programs/requests/schedule-item-request';
 
-
 export * from './lib/roles/requests/role-request';
 export * from './lib/roles/responses/role-response';
 export * from './lib/roles/responses/role-detail-response';
@@ -65,4 +64,4 @@ export * from './lib/periods/responses/period-response';
 export * from './lib/periods/requests/period-request';
 
 export * from './lib/days/responses/day-response';
-
+export * from './lib/profile/responses/university-detail-response';

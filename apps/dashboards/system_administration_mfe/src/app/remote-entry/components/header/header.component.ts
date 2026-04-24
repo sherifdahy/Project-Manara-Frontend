@@ -8,14 +8,17 @@ import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
   selector: 'app-header',
   standalone: false,
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-
   currentLang: string = 'en';
   acceptedLanguageConsts = AcceptedLanguageConsts;
 
-  constructor(private router: Router, private authService: AuthService, private appTranslateService: AppTranslateService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private appTranslateService: AppTranslateService,
+  ) {}
 
   ngOnInit() {
     this.appTranslateService.language$.subscribe((result) => {
@@ -27,10 +30,12 @@ export class HeaderComponent implements OnInit {
     this.appTranslateService.changeLanguage(lang);
   }
 
-
   logout() {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/auth/login']);
     });
+  }
+  goTo(path: string) {
+    this.router.navigate([`/system-administration/${path}`]);
   }
 }

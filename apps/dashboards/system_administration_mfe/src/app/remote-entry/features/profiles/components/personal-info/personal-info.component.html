@@ -1,0 +1,71 @@
+<div class="card p-3 p-md-4">
+  <h2 class="section-title d-flex align-items-center gap-2 mb-4">
+    <i class="fa-solid fa-user"></i>
+    Personal Information
+  </h2>
+
+  <form [formGroup]="personalInfoForm" (ngSubmit)="updateUserData()">
+    <!-- Name -->
+    <div class="mb-3">
+      <div class="">
+        <label class="form-label">Full Name</label>
+        <input
+          readonly
+          type="text"
+          formControlName="name"
+          class="form-control"
+          placeholder="Enter your name"
+        />
+      </div>
+      <p class="text-danger" style="font-size: 12px">Name cannot be changed.</p>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-4">
+      <label class="form-label">Email Address</label>
+      <div class="position-relative">
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fa-solid fa-envelope"></i>
+          </span>
+          <input
+            type="email"
+            class="form-control pe-5"
+            formControlName="email"
+            placeholder="Enter your email"
+            readonly
+          />
+        </div>
+      </div>
+
+      <p class="text-danger" style="font-size: 12px">
+        Email cannot be changed without verification.
+      </p>
+    </div>
+
+    <!-- Phone number -->
+    <div class="mb-3">
+      <label class="form-label">Phone Number</label>
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="fa-solid fa-phone"></i>
+        </span>
+        <input
+          type="tel"
+          class="form-control"
+          placeholder="01X XXX XXXX"
+          formControlName="phoneNumber"
+        />
+      </div>
+    </div>
+
+    <!-- Save -->
+    <div class="text-end">
+      <button [disabled]="isLoading" type="submit" class="btn btn-save">
+        <i *ngIf="isLoading" class="me-2 fa-solid fa-spinner fa-spin"></i>
+        <i *ngIf="!isLoading" class="fa-solid fa-floppy-disk me-2'"></i>
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>

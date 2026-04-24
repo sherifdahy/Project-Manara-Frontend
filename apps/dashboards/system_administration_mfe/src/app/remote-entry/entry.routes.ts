@@ -10,20 +10,31 @@ export const remoteRoutes: Route[] = [
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        component: DashboardPageComponent
+        component: DashboardPageComponent,
       },
       {
         path: 'roles',
-        loadChildren: () => import('./features/roles/roles.module').then(x => x.RolesModule)
+        loadChildren: () =>
+          import('./features/roles/roles.module').then((x) => x.RolesModule),
       },
       {
         path: 'universities',
-        loadChildren: () => import('./features/universities/universities.module').then(x => x.UniversitiesModule)
-      }
-    ]
-  }
+        loadChildren: () =>
+          import('./features/universities/universities.module').then(
+            (x) => x.UniversitiesModule,
+          ),
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./features/profiles/profiles.module').then(
+            (x) => x.ProfilesModule,
+          ),
+      },
+    ],
+  },
 ];

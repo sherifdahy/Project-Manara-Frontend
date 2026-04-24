@@ -27,6 +27,4 @@ export * from './lib/periods/periods.service';
 export * from './lib/days/day.service';
 export * from './lib/department-users/department-user.service';
 export * from './lib/drag-and-drop/drag-drop-grid.service';
-
-
-
+export * from './lib/profile/profile.service';
