@@ -40,7 +40,7 @@ export class PersonalInfoComponent implements OnInit {
     this.profileService.getMyInfo().subscribe({
       next: (res: UserInfoResponse) => {
         this.personalInfoForm.patchValue({
-          name: res.name || 'system admin',
+          name: res.name || 'university admin',
           email: res.email,
           phoneNumber: res.phoneNumber,
         });

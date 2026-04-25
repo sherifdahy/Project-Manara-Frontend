@@ -1,10 +1,12 @@
 <div class="app-header">
   <div class="header-content-wrapper">
     <!-- Left Side - University Info -->
-    <ng-container *ngIf="(faculty$ | async) as faculty">
+    <ng-container *ngIf="faculty$ | async as faculty">
       <div class="university-info">
         <h1 class="university-title">{{ faculty.name }}</h1>
-        <span class="university-subtitle">{{ faculty.description || 'Administrative Control Panel' }}</span>
+        <span class="university-subtitle">{{
+          faculty.description || 'Administrative Control Panel'
+        }}</span>
       </div>
     </ng-container>
 
@@ -15,7 +17,12 @@
 
       <!-- Notifications -->
       <div class="notification-wrapper">
-        <button class="notification-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button
+          class="notification-btn"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
           <i class="fa-regular fa-bell"></i>
           <span class="notification-badge"></span>
         </button>
@@ -54,8 +61,15 @@
 
       <!-- User Menu -->
       <div class="user-menu dropdown">
-        <button class="user-avatar-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <span class="avatar-text">{{ getInitials(currentUser?.fullName) }}</span>
+        <button
+          class="user-avatar-btn dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span class="avatar-text">{{
+            getInitials(currentUser?.fullName)
+          }}</span>
         </button>
 
         <div class="user-dropdown dropdown-menu dropdown-menu-end">
@@ -72,19 +86,19 @@
 
           <!-- Menu Items -->
           <div class="dropdown-body">
-            <button class="dropdown-item">
+            <button class="dropdown-item" (click)="goTo('profile')">
               <i class="fa-solid fa-user"></i>
-              <span>{{ "header.user.myProfile" | translate }}</span>
+              <span>{{ 'header.user.myProfile' | translate }}</span>
             </button>
 
             <button class="dropdown-item">
               <i class="fa-solid fa-gear"></i>
-              <span>{{ "header.user.settings" | translate }}</span>
+              <span>{{ 'header.user.settings' | translate }}</span>
             </button>
 
             <button class="dropdown-item">
               <i class="fa-solid fa-circle-question"></i>
-              <span>{{ "header.user.helpSupport" | translate }}</span>
+              <span>{{ 'header.user.helpSupport' | translate }}</span>
             </button>
           </div>
 
@@ -92,7 +106,7 @@
           <div class="dropdown-footer">
             <button class="dropdown-item logout-btn" (click)="logout()">
               <i class="fa-solid fa-right-from-bracket"></i>
-              <span>{{ "header.user.logout" | translate }}</span>
+              <span>{{ 'header.user.logout' | translate }}</span>
             </button>
           </div>
         </div>

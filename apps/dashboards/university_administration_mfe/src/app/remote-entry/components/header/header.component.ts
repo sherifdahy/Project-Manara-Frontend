@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, HttpErrorService, UniversityService, UserService } from '@project-manara-frontend/services';
+import {
+  AuthService,
+  HttpErrorService,
+  UniversityService,
+  UserService,
+} from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { catchError, EMPTY, empty, Observable, tap } from 'rxjs';
-import { CurrentUserResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
+import {
+  CurrentUserResponse,
+  UniversityDetailResponse,
+} from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
 import { selectUniversityState } from '../../store/selectors/university.selectors';
 import { getUniversityAction } from '../../store/actions/get-university.actions';
@@ -13,7 +21,7 @@ import { getUniversityAction } from '../../store/actions/get-university.actions'
   selector: 'app-header',
   standalone: false,
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   currentLang: string = 'en';
@@ -27,8 +35,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private appTranslateService: AppTranslateService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(getUniversityAction());
@@ -55,15 +62,16 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout()
-      .subscribe({
-        next: () => {
-          this.router.navigateByUrl('auth/login');
-        },
-        error: (error) => {
-          this.httpErrorService.handle(error);
-        }
-      });
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigateByUrl('auth/login');
+      },
+      error: (error) => {
+        this.httpErrorService.handle(error);
+      },
+    });
+  }
+  goTo(path: string) {
+    this.router.navigate([`/university-administration/${path}`]);
   }
 }
-

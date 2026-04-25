@@ -1,4 +1,5 @@
-import { UserInfoResponse } from './../../../../models/src/lib/profile/responses/university-detail-response';
+import { ChangePasswordRequest } from './../../../../models/src/lib/profile/requests/change-password-request';
+import { UserInfoResponse } from '../../../../models/src/lib/profile/responses/user-info-response';
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
 import { Observable } from 'rxjs';
@@ -13,5 +14,7 @@ export class ProfileService {
   updateMyInfo(data: { phoneNumber: string }): Observable<any> {
     return this.apiClient.put(`${environment.apiUrl}/me/info`, data);
   }
-  changePass() {}
+  changePass(data: ChangePasswordRequest): Observable<any> {
+    return this.apiClient.put(`${environment.apiUrl}/me/change-password`, data);
+  }
 }

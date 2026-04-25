@@ -1,0 +1,33 @@
+<div class="row g-4">
+  <!-- Sidebar -->
+  <aside class="col-12 col-md-3">
+    <ul class="list-unstyled d-flex flex-row flex-md-column gap-2 mb-0">
+      <li class="flex-fill flex-md-auto">
+        <a
+          routerLink="personal-info"
+          routerLinkActive="active"
+          class="nav-pill w-100 d-flex align-items-center gap-2 px-3 py-2 text-start"
+        >
+          <i class="fa-solid fa-user"></i>
+          <span>Personal Information</span>
+        </a>
+      </li>
+
+      <li class="flex-fill flex-md-auto">
+        <button
+          routerLink="change-password"
+          routerLinkActive="active"
+          class="nav-pill w-100 d-flex align-items-center gap-2 px-3 py-2 text-start"
+        >
+          <i class="fa-solid fa-lock"></i>
+          <span>Security & Password</span>
+        </button>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Content -->
+  <section class="col-12 col-md-9">
+    <router-outlet></router-outlet>
+  </section>
+</div>

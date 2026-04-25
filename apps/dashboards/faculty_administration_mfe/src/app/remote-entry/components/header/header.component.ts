@@ -1,10 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, FacultyService, HttpErrorService, UniversityService, UserService } from '@project-manara-frontend/services';
+import {
+  AuthService,
+  FacultyService,
+  HttpErrorService,
+  UniversityService,
+  UserService,
+} from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { Observable } from 'rxjs';
-import { CurrentUserResponse, FacultyDetailResponse, UniversityDetailResponse } from '@project-manara-frontend/models';
+import {
+  CurrentUserResponse,
+  FacultyDetailResponse,
+  UniversityDetailResponse,
+} from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { selectFaculty } from '../../store/selectors/faculty.selectors';
@@ -13,7 +23,7 @@ import { selectFaculty } from '../../store/selectors/faculty.selectors';
   selector: 'app-header',
   standalone: false,
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   currentLang: string = 'en';
@@ -21,13 +31,13 @@ export class HeaderComponent implements OnInit {
   currentUser!: CurrentUserResponse | null;
   faculty$ = this.store.select(selectFaculty);
   constructor(
-    private httpErrorService : HttpErrorService,
+    private httpErrorService: HttpErrorService,
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
     private appTranslateService: AppTranslateService,
-    private store: Store
-  ) { }
+    private store: Store,
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.userService.currentUser;
@@ -58,7 +68,11 @@ export class HeaderComponent implements OnInit {
       },
       error: (error) => {
         this.httpErrorService.handle(error);
-      }
+      },
     });
+  }
+
+  goTo(path: string) {
+    this.router.navigate([`/faculty-administration/${path}`]);
   }
 }

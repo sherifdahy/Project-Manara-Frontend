@@ -73,6 +73,13 @@ export const remoteRoutes: Route[] = [
             (x) => x.SettingsModule,
           ),
       },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./features/profiles/profiles.module').then(
+            (x) => x.ProfilesModule,
+          ),
+      },
     ],
   },
 ];
