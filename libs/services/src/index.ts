@@ -24,3 +24,4 @@ export * from './lib/program-users/program-user.service';
 export * from './lib/subjects/subject.service';
 export * from './lib/years/years.service';
 export * from './lib/periods/periods.service';
+export * from './lib/program-enrollments/program-enrollments.service';

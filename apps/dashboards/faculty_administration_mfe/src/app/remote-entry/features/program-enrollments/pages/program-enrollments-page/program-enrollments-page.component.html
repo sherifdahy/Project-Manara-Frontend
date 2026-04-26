@@ -1,0 +1,345 @@
+<ng-container>
+  <div class="container-fluid px-0">
+    <!-- Program Enrollments Section -->
+    <div class="program-enrollments-section">
+      <div class="section-card">
+        <!-- Section Header -->
+        <div class="section-header">
+          <div>
+            <h4 class="section-title">All Program Enrollments</h4>
+            <p class="section-subtitle">
+              Manage and view all program enrollments
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <!-- Search -->
+            <div class="search-bar-wrapper">
+              <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search by student name..."
+                  [(ngModel)]="filters.SearchValue"
+                  (change)="onSearch()"
+                />
+              </div>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="filter-dropdown-container">
+              <div class="custom-select-wrapper">
+                <select
+                  class="custom-select"
+                  [(ngModel)]="selectedStatus"
+                  (ngModelChange)="onStatusFilter()"
+                >
+                  <option [value]="false">Active Only</option>
+                  <option [value]="true">All</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-icon"></i>
+              </div>
+            </div>
+
+            <button
+              class="btn-add-program-enrollment"
+              hasPermission="enrollments:create"
+              routerLink="create"
+            >
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Enrollment</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Program Enrollments Table -->
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="sortable" (click)="onSort('User.User.Name')">
+                  Student Name
+                  <i
+                    class="fa-solid sort-icon"
+                    [ngClass]="{
+                      'fa-sort': sortColumn !== 'studentName',
+                      'fa-sort-up':
+                        sortColumn === 'studentName' && sortDirection === 'asc',
+                      'fa-sort-down':
+                        sortColumn === 'studentName' &&
+                        sortDirection === 'desc',
+                    }"
+                  ></i>
+                </th>
+                <th class="sortable" (click)="onSort('User.User.Id')">
+                  Student ID
+                  <i
+                    class="fa-solid sort-icon"
+                    [ngClass]="{
+                      'fa-sort': sortColumn !== 'studentId',
+                      'fa-sort-up':
+                        sortColumn === 'studentId' && sortDirection === 'asc',
+                      'fa-sort-down':
+                        sortColumn === 'studentId' && sortDirection === 'desc',
+                    }"
+                  ></i>
+                </th>
+                <th
+                  class="sortable"
+                  (click)="onSort('YearTerm.Year.StartDate')"
+                >
+                  Year
+                  <i
+                    class="fa-solid sort-icon"
+                    [ngClass]="{
+                      'fa-sort': sortColumn !== 'yearName',
+                      'fa-sort-up':
+                        sortColumn === 'yearName' && sortDirection === 'asc',
+                      'fa-sort-down':
+                        sortColumn === 'yearName' && sortDirection === 'desc',
+                    }"
+                  ></i>
+                </th>
+                <th class="sortable" (click)="onSort('YearTerm.Term.Id')">
+                  Term
+                  <i
+                    class="fa-solid sort-icon"
+                    [ngClass]="{
+                      'fa-sort': sortColumn !== 'termName',
+                      'fa-sort-up':
+                        sortColumn === 'termName' && sortDirection === 'asc',
+                      'fa-sort-down':
+                        sortColumn === 'termName' && sortDirection === 'desc',
+                    }"
+                  ></i>
+                </th>
+                <th>Status</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="programEnrollments$ | async as response">
+                <tr *ngFor="let enrollment of response.items">
+                  <!-- Student Name -->
+                  <td>
+                    <div class="table-cell-with-icon">
+                      <a
+                        [routerLink]="[enrollment.id]"
+                        class="table-cell-content"
+                      >
+                        <span class="table-cell-title">{{
+                          enrollment.studentName || '—'
+                        }}</span>
+                      </a>
+                    </div>
+                  </td>
+
+                  <!-- Student ID -->
+                  <td>
+                    <span class="program-enrollment-student-id">{{
+                      enrollment.studentId || '—'
+                    }}</span>
+                  </td>
+
+                  <!-- Year -->
+                  <td>
+                    <span class="program-enrollment-year">{{
+                      enrollment.yearName || '—'
+                    }}</span>
+                  </td>
+
+                  <!-- Term -->
+                  <td>
+                    <span class="program-enrollment-term">{{
+                      enrollment.termName || '—'
+                    }}</span>
+                  </td>
+
+                  <!-- Status -->
+                  <td>
+                    <span
+                      class="table-status-badge status-deleted"
+                      *ngIf="enrollment.isDeleted"
+                      >Deleted</span
+                    >
+                    <span
+                      class="table-status-badge status-active"
+                      *ngIf="!enrollment.isDeleted"
+                      >Active</span
+                    >
+                  </td>
+
+                  <!-- Actions -->
+                  <td>
+                    <div class="table-actions">
+                      <a
+                        [routerLink]="[enrollment.id]"
+                        hasPermission="enrollments:update"
+                        class="table-action-btn btn-primary"
+                        title="Edit Enrollment"
+                      >
+                        <i class="fa-solid fa-pen"></i>
+                      </a>
+                      <button
+                        hasPermission="enrollments:toggleStatus"
+                        class="table-action-btn btn-danger"
+                        title="Delete Enrollment"
+                        (click)="onDelete(enrollment)"
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Empty State -->
+                <tr *ngIf="response.items.length === 0">
+                  <td colspan="6">
+                    <div class="table-empty-state">
+                      <div class="table-empty-icon">
+                        <i class="fa-solid fa-user-slash"></i>
+                      </div>
+                      <h3 class="table-empty-title">
+                        No Program Enrollments Found
+                      </h3>
+                      <p class="table-empty-text">
+                        There are no program enrollments matching your criteria.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+
+              <!-- Skeleton -->
+              <ng-container *ngIf="isLoading">
+                <tr
+                  *ngFor="let row of [1, 2, 3]"
+                  class="table-skeleton-row placeholder-glow"
+                >
+                  <td>
+                    <div class="table-cell-with-icon">
+                      <div class="table-cell-content">
+                        <div class="table-cell-title sk-pill"></div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="table-value-badge sk-pill"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-value-badge sk-pill"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-value-badge sk-pill"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-status-badge sk-pill sm"></div>
+                  </td>
+
+                  <td>
+                    <div class="table-actions">
+                      <div class="table-action-btn sk-btn"></div>
+                      <div class="table-action-btn sk-btn"></div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <ng-container *ngIf="programEnrollments$ | async as response">
+          <div class="table-pagination" *ngIf="response.items.length > 0">
+            <!-- Left: Info + Page Size -->
+            <div class="pagination-left">
+              <div class="table-pagination-info">
+                Showing {{ getStartIndex(response) }} to
+                {{ getEndIndex(response) }} of {{ response.totalCount }} program
+                enrollments
+              </div>
+
+              <!-- Page Size Dropdown -->
+              <div class="page-size-wrapper">
+                <span class="page-size-label">Rows per page:</span>
+                <div class="custom-select-wrapper page-size-select">
+                  <select
+                    class="custom-select"
+                    [(ngModel)]="filters.PageSize"
+                    (change)="onPageSizeChange()"
+                  >
+                    <option
+                      *ngFor="let size of pageSizeOptions"
+                      [ngValue]="size"
+                    >
+                      {{ size }}
+                    </option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Page Controls -->
+            <div class="table-pagination-controls">
+              <!-- First Page -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasPreviousPage"
+                (click)="goToPage(1, response.totalPages)"
+                title="First Page"
+              >
+                <i class="fa-solid fa-angles-left"></i>
+              </button>
+
+              <!-- Previous -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasPreviousPage"
+                (click)="goToPage(filters.PageNumber - 1, response.totalPages)"
+                title="Previous Page"
+              >
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <!-- Page Numbers -->
+              <button
+                *ngFor="let page of getPages(response.totalPages)"
+                class="table-pagination-btn"
+                [class.active]="page === filters.PageNumber"
+                (click)="goToPage(page, response.totalPages)"
+              >
+                {{ page }}
+              </button>
+
+              <!-- Next -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasNextPage"
+                (click)="goToPage(filters.PageNumber + 1, response.totalPages)"
+                title="Next Page"
+              >
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+
+              <!-- Last Page -->
+              <button
+                class="table-pagination-btn"
+                [disabled]="!response.hasNextPage"
+                (click)="goToPage(response.totalPages, response.totalPages)"
+                title="Last Page"
+              >
+                <i class="fa-solid fa-angles-right"></i>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>

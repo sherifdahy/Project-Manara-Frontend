@@ -58,3 +58,8 @@ export * from './lib/years/responses/term-response';
 
 export * from './lib/periods/responses/period-response';
 export * from './lib/periods/requests/period-request';
+
+export * from './lib/program-enrollments/requests/program-enrollment-request';
+export * from './lib/program-enrollments/responses/program-enrollments-response';
+
+export * from './lib/students/responses/student-response';
