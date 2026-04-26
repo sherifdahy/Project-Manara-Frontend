@@ -2,15 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-student-overview',
-  standalone : false,
+  standalone: false,
   templateUrl: './student-overview.component.html',
-  styleUrls: ['./student-overview.component.css']
+  styleUrls: ['./student-overview.component.css'],
 })
 export class StudentOverviewComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

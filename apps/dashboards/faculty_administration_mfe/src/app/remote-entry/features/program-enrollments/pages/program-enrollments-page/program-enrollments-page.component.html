@@ -181,6 +181,17 @@
                       >
                         <i class="fa-solid fa-pen"></i>
                       </a>
+                      <a
+                        [routerLink]="[
+                          '/faculty-administration/students',
+                          enrollment.studentId,
+                          'enrollment',
+                        ]"
+                        class="table-action-btn btn-primary"
+                        title="View Details"
+                      >
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
                       <button
                         hasPermission="enrollments:toggleStatus"
                         class="table-action-btn btn-danger"

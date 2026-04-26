@@ -5,10 +5,8 @@ import { filter, finalize, Observable, switchMap, take } from 'rxjs';
 import {
   PaginatedList,
   ProgramEnrollmentRequest,
-  ProgramUserRequest,
   ProgramUserResponse,
   RequestFilters,
-  StudentResponse,
   TermResponse,
   YearResponse,
 } from '@project-manara-frontend/models';
@@ -167,9 +165,3 @@ export class CreateProgramEnrollmentPageComponent implements OnInit {
       });
   }
 }
-
-//The Error Does not appere
-//Test The API Itself
-//Also what about loading
-//The Make A new model for the student
-//Or Complete the current one

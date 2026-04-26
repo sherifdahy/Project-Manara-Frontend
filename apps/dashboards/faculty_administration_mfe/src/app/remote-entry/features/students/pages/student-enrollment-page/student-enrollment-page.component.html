@@ -1,0 +1,74 @@
+<!-- Student Enrollments Section -->
+<div class="student-enrollments-section">
+  <div class="section-card">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div>
+        <h4 class="section-title">Student Enrollments</h4>
+        <p class="section-subtitle">
+          View and manage student enrollment information
+        </p>
+      </div>
+    </div>
+
+    <!-- Student Enrollments Table -->
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Program Name</th>
+            <th>Year</th>
+            <th>Term</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="studentEnrollments$ | async as enrollments">
+            <tr *ngFor="let enrollment of enrollments">
+              <td>
+                <div class="table-cell-with-icon">
+                  <div class="table-cell-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                  </div>
+                  <div class="table-cell-content">
+                    <span class="table-cell-title">{{
+                      enrollment.programName
+                    }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ enrollment.yearName }}</td>
+              <td>{{ enrollment.termName }}</td>
+              <td>
+                <span
+                  class="table-status-badge"
+                  [ngClass]="{
+                    'status-active': enrollment.isActive,
+                    'status-inactive': !enrollment.isActive,
+                  }"
+                >
+                  {{ enrollment.isActive ? 'Current' : 'Finished' }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="enrollments.length === 0">
+              <td colspan="4">
+                <div class="table-empty-state">
+                  <div class="table-empty-icon">
+                    <i class="fa-solid fa-inbox"></i>
+                  </div>
+                  <h3 class="table-empty-title">No Enrollments Found</h3>
+                  <p class="table-empty-text">
+                    This student has no enrollments to display at the moment.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

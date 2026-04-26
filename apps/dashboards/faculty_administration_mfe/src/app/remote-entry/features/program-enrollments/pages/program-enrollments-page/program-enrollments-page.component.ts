@@ -42,7 +42,7 @@ export class ProgramEnrollmentsPageComponent implements OnInit {
   loadProgramEnrollments(): void {
     this.isLoading = true;
     this.programEnrollments$ = this.programEnrollmentsService
-      .getAll(this.programId, this.filters, this.selectedStatus)
+      .getAllByProgram(this.programId, this.filters, this.selectedStatus)
       .pipe(
         finalize(() => {
           this.isLoading = false;

@@ -4,6 +4,7 @@ import {
   ProgramEnrollmentRequest,
   ProgramEnrollmentsResponse,
   RequestFilters,
+  StudentEnrollmentResponse,
 } from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
 import { ApiClientService } from '../api/api-client.service';
@@ -16,7 +17,7 @@ import { HttpParams } from '@angular/common/http';
 export class ProgramEnrollmentsService {
   constructor(private apiClient: ApiClientService) {}
 
-  getAll(
+  getAllByProgram(
     programId: number,
     filters?: RequestFilters,
     includeDisabled: boolean = false,
@@ -41,6 +42,15 @@ export class ProgramEnrollmentsService {
     return this.apiClient.get(
       `${environment.apiUrl}/api/programs/${programId}/enrollments?includeDisabled=${includeDisabled}`,
       params,
+    );
+  }
+
+  getAllByStudent(
+    studentId: number,
+    includeDisabled: boolean,
+  ): Observable<StudentEnrollmentResponse[]> {
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/students/${studentId}/enrollments?includeDisabled=${includeDisabled}`,
     );
   }
 
