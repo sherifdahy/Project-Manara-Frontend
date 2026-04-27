@@ -1,7 +1,12 @@
-import { SubjectResponse } from "../../subjects/responses/subject-response";
+import { SubjectResponse } from '../../subjects/responses/subject-response';
 
 export interface ScheduleItemResponse {
-    subject : SubjectResponse;
-    periodId : number;
-    dayId : number;
+  subjectId: number;
+  subjectName : string;
+  periodId: number;
+  dayId: number;
+  doctorName : string;
+  doctorId: number | null;
+  instructorName : string;
+  instructorId: number | null;
 }

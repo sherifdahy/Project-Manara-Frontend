@@ -1,3 +1,5 @@
+// slot-detail-dialog.component.ts
+
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -19,11 +21,11 @@ export class SlotDetailDialogComponent implements OnInit, OnDestroy {
 
   // ─── Search Controls ───────────────────────────────────
   doctorSearchCtrl = new FormControl('');
-  assistantSearchCtrl = new FormControl('');
+  instructorSearchCtrl = new FormControl('');  // ← اتغير
 
   // ─── Filtered Lists ────────────────────────────────────
   filteredDoctors: StaffMember[] = [];
-  filteredAssistants: StaffMember[] = [];
+  filteredInstructors: StaffMember[] = [];     // ← اتغير
 
   private destroy$ = new Subject<void>();
 
@@ -37,14 +39,15 @@ export class SlotDetailDialogComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // ✅ اتغير من assistantId → instructorId
     this.form = this.fb.group({
       doctorId: [this.data.selectedDoctorId],
-      assistantId: [this.data.selectedAssistantId],
+      instructorId: [this.data.selectedInstructorId],
     });
 
     // Initialize filtered lists
     this.filteredDoctors = [...this.data.doctors];
-    this.filteredAssistants = [...this.data.assistants];
+    this.filteredInstructors = [...this.data.instructors];  // ← اتغير
 
     // Doctor search
     this.doctorSearchCtrl.valueChanges
@@ -56,12 +59,12 @@ export class SlotDetailDialogComponent implements OnInit, OnDestroy {
         );
       });
 
-    // Assistant search
-    this.assistantSearchCtrl.valueChanges
+    // ✅ Instructor search (كان Assistant)
+    this.instructorSearchCtrl.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((query) => {
-        this.filteredAssistants = this.filterStaff(
-          this.data.assistants,
+        this.filteredInstructors = this.filterStaff(
+          this.data.instructors,               // ← اتغير
           query ?? '',
         );
       });

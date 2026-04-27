@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
 import { Observable } from 'rxjs';
 import {
+  DepartmentUserResponse,
   FacultyUserRequest,
   FacultyUserResponse,
   PaginatedList,
@@ -69,6 +70,49 @@ export class FacultyUserService {
   toggleStatus(id: number) {
     return this.apiClient.delete(
       `${environment.apiUrl}/api/facultyUsers/${id}`,
+    );
+  }
+
+  // ✅ لو عايز تبعت الـ filters
+  getFacultyDoctors(
+    facultyId: number,
+    filters?: RequestFilters,
+  ): Observable<PaginatedList<DepartmentUserResponse>> {
+    let params = new HttpParams();
+
+    if (filters) {
+      params = params
+        .set('pageNumber', filters.PageNumber)
+        .set('pageSize', filters.PageSize);
+
+      if (filters.SearchValue)
+        params = params.set('searchValue', filters.SearchValue);
+    }
+
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/faculties/${facultyId}/doctors`,
+      params,
+    );
+  }
+
+  getFacultyInstructors(
+    facultyId: number,
+    filters?: RequestFilters,
+  ): Observable<PaginatedList<DepartmentUserResponse>> {
+    let params = new HttpParams();
+
+    if (filters) {
+      params = params
+        .set('pageNumber', filters.PageNumber)
+        .set('pageSize', filters.PageSize);
+
+      if (filters.SearchValue)
+        params = params.set('searchValue', filters.SearchValue);
+    }
+
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/faculties/${facultyId}/instructors`,
+      params,
     );
   }
 }

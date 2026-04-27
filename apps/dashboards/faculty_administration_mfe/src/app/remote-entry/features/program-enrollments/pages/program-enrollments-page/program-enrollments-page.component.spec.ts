@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { SlotDetailDialogComponent } from './slot-detail-dialog.component';
+import { ProgramEnrollmentsPageComponent } from './program-enrollments-page.component';
 
-describe('SlotDetailDialogComponent', () => {
-  let component: SlotDetailDialogComponent;
-  let fixture: ComponentFixture<SlotDetailDialogComponent>;
+describe('ProgramEnrollmentsPageComponent', () => {
+  let component: ProgramEnrollmentsPageComponent;
+  let fixture: ComponentFixture<ProgramEnrollmentsPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlotDetailDialogComponent ]
+      declarations: [ ProgramEnrollmentsPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SlotDetailDialogComponent);
+    fixture = TestBed.createComponent(ProgramEnrollmentsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

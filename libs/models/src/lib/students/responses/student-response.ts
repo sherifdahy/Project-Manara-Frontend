@@ -1,2 +1,1 @@
-export interface StudentResponse {
-}
+export interface StudentResponse {}

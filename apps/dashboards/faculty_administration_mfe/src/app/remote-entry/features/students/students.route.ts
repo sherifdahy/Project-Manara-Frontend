@@ -1,19 +1,20 @@
-import { Routes } from "@angular/router";
-import { StudentsPageComponent } from "./pages/students-page/students-page.component";
-import { StudentDetailPageComponent } from "./pages/student-detail-page/student-detail-page.component";
-import { StudentOverviewComponent } from "./pages/student-overview/student-overview.component";
-import { EditStudentPageComponent } from "./pages/edit-student-page/edit-student-page.component";
-import { CreateStudentPageComponent } from "./pages/create-student-page/create-student-page.component";
-import { StudentPermissionsPageComponent } from "./pages/student-permissions-page/student-permissions-page.component";
+import { Routes } from '@angular/router';
+import { StudentsPageComponent } from './pages/students-page/students-page.component';
+import { StudentDetailPageComponent } from './pages/student-detail-page/student-detail-page.component';
+import { StudentOverviewComponent } from './pages/student-overview/student-overview.component';
+import { EditStudentPageComponent } from './pages/edit-student-page/edit-student-page.component';
+import { CreateStudentPageComponent } from './pages/create-student-page/create-student-page.component';
+import { StudentPermissionsPageComponent } from './pages/student-permissions-page/student-permissions-page.component';
+import { StudentEnrollmentPageComponent } from './pages/student-enrollment-page/student-enrollment-page.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: StudentsPageComponent
+    component: StudentsPageComponent,
   },
   {
     path: 'add',
-    component: CreateStudentPageComponent
+    component: CreateStudentPageComponent,
   },
   {
     path: ':id',
@@ -22,20 +23,24 @@ export const routes: Routes = [
       {
         path: '',
         redirectTo: 'overview',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'overview',
-        component: StudentOverviewComponent
+        component: StudentOverviewComponent,
+      },
+      {
+        path: 'enrollment',
+        component: StudentEnrollmentPageComponent,
       },
       {
         path: 'basic-information',
-        component: EditStudentPageComponent
+        component: EditStudentPageComponent,
       },
       {
         path: 'permissions',
-        component: StudentPermissionsPageComponent
-      }
-    ]
-  }
-]
+        component: StudentPermissionsPageComponent,
+      },
+    ],
+  },
+];

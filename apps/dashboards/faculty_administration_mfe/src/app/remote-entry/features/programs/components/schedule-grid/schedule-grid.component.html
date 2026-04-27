@@ -1,3 +1,5 @@
+<!-- schedule-grid.component.html -->
+
 <div class="dashboard-card">
   <div class="card-head card-head-flex">
     <div>
@@ -84,6 +86,7 @@
                       trackBy: trackByUid
                     "
                     class="assigned-subject-card"
+                    [ngClass]="getSlotStateClass(entry)"
                     cdkDrag
                     [cdkDragData]="entry"
                     (click)="onSlotClick(entry, di, ti)"
@@ -91,25 +94,14 @@
                     <div class="assigned-code">{{ entry.code }}</div>
                     <div class="assigned-name">{{ entry.name }}</div>
 
-                    <!-- Staff Badges -->
-                    <div
-                      class="assigned-staff"
-                      *ngIf="entry.doctorName || entry.assistantName"
-                    >
-                      <span
-                        class="staff-badge doctor-badge"
-                        *ngIf="entry.doctorName"
-                      >
-                        <i class="bi bi-mortarboard"></i>
-                        {{ entry.doctorName }}
-                      </span>
-                      <span
-                        class="staff-badge ta-badge"
-                        *ngIf="entry.assistantName"
-                      >
-                        <i class="bi bi-person-badge"></i>
-                        {{ entry.assistantName }}
-                      </span>
+                    <!-- Staff Summary -->
+                    <div class="assigned-staff-summary">
+                      <div *ngIf="entry.doctorName" class="staff-summary-item">
+                        <i class="bi bi-mortarboard"></i> {{ entry.doctorName }}
+                      </div>
+                      <div *ngIf="entry.instructorName" class="staff-summary-item">
+                        <i class="bi bi-person-badge"></i> {{ entry.instructorName }}
+                      </div>
                     </div>
 
                     <ng-template cdkDragPreview>

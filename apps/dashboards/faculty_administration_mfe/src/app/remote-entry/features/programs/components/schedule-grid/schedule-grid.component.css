@@ -195,20 +195,39 @@
 }
 
 /* ── Assigned Subject Card ── */
+/* ── Slot States - Color Variants ── */
+
+/* Base styles */
 .assigned-subject-card {
   width: 100%;
-  min-height: 54px;
+  min-height: 60px;
   flex-shrink: 0;
   border-radius: var(--radius-md);
-  background: #2e4798;
+  background: #1e3a8a;
   color: #fff;
   box-shadow: var(--shadow-sm);
-  padding: var(--space-sm) var(--space-md);
+  padding: 6px 8px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   transition: all 0.15s ease;
   cursor: pointer;
+  gap: 2px;
+}
+
+/* State 1: Time slot only (no doctor, no instructor) */
+.assigned-subject-card.slot-time-only {
+  background: #3b82f6;
+}
+
+/* State 2: Doctor assigned only */
+.assigned-subject-card.slot-doctor-only {
+  background: #10b981;
+}
+
+/* State 3: Doctor + Instructor assigned */
+.assigned-subject-card.slot-doctor-instructor {
+  background: #f59e0b;
 }
 
 .assigned-subject-card:active {
@@ -221,52 +240,42 @@
 }
 
 .assigned-code {
-  font-size: var(--fs-xs);
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: var(--fw-semibold);
-  margin-bottom: 2px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .assigned-name {
-  font-size: var(--fs-base);
-  font-weight: var(--fw-bold);
-  line-height: 1.3;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
 }
 
 /* ── Staff Badges ── */
-.assigned-staff {
+.assigned-staff-summary {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin-top: 4px;
+  gap: 1px;
+  margin-top: 2px;
+  font-size: 9px;
 }
 
-.staff-badge {
-  display: inline-flex;
+.staff-summary-item {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  font-weight: var(--fw-semibold);
-  padding: 1px 6px;
-  border-radius: var(--radius-pill);
-  max-width: 100%;
+  gap: 3px;
+  line-height: 1.1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.doctor-badge {
-  background: rgba(255, 255, 255, 0.2);
-  color: #e0e7ff;
-}
-
-.ta-badge {
-  background: rgba(255, 255, 255, 0.15);
-  color: #c7d2fe;
-}
-
-.staff-badge i {
-  font-size: 9px;
+.staff-summary-item i {
+  font-size: 8px;
   flex-shrink: 0;
 }
 
