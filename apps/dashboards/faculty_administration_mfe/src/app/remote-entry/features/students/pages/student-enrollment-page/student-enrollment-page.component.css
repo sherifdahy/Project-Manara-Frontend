@@ -1,0 +1,403 @@
+/* =====================
+   Student Enrollments Section
+===================== */
+
+/* =====================
+   Section Card
+===================== */
+.section-card {
+  background: white;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.section-title {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.section-subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* =====================
+   Search Bar
+===================== */
+.search-bar-container {
+  flex-shrink: 0;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-lg);
+  color: var(--text-muted);
+  font-size: var(--fs-md);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg) var(--space-md) 2.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  background: white;
+  transition: all 0.2s ease;
+  min-width: 220px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--main-color);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* =====================
+   Filter Dropdown
+===================== */
+.filter-dropdown-container {
+  flex-shrink: 0;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: var(--space-md) 2.5rem var(--space-md) var(--space-lg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 160px;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.select-icon {
+  position: absolute;
+  right: var(--space-lg);
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  pointer-events: none;
+}
+
+/* =====================
+   Add Student Enrollment Button
+===================== */
+.btn-add-student-enrollment {
+  background: var(--main-color);
+  color: white;
+  border: none;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-add-student-enrollment:hover {
+  background: var(--main-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* =====================
+   Data Table
+===================== */
+.data-table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead th {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--card-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table tbody td {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--card-border);
+  vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================
+   Table Cell With Icon
+===================== */
+.table-cell-with-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.table-cell-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-color);
+  font-size: var(--fs-sm);
+  flex-shrink: 0;
+}
+
+.table-cell-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-cell-title {
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.table-cell-title:hover {
+  color: var(--main-color);
+}
+
+/* =====================
+   Status Badge
+===================== */
+.table-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 9999px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+.status-active {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.status-inactive {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+/* =====================
+   Table Actions
+===================== */
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.table-action-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.table-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.table-action-btn.btn-primary {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+}
+
+.table-action-btn.btn-primary:hover {
+  background: rgba(37, 99, 235, 0.2);
+}
+
+.table-action-btn.btn-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.table-action-btn.btn-success:hover {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.table-action-btn.btn-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.table-action-btn.btn-warning:hover {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+/* =====================
+   Table Empty State
+===================== */
+.table-empty-state {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.table-empty-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-lg);
+  font-size: var(--fs-2xl);
+  color: var(--text-muted);
+}
+
+.table-empty-title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.table-empty-text {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* =====================
+   Responsive
+===================== */
+@media (max-width: 1199.98px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .section-header .d-flex {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .btn-add-student-enrollment {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-input {
+    min-width: unset;
+  }
+
+  .student-enrollments-section .data-table th:nth-child(6),
+  .student-enrollments-section .data-table td:nth-child(6),
+  .student-enrollments-section .data-table th:nth-child(7),
+  .student-enrollments-section .data-table td:nth-child(7) {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .section-card {
+    padding: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: var(--fs-xl);
+  }
+
+  .search-bar-container,
+  .filter-dropdown-container {
+    width: 100%;
+  }
+
+  .search-input,
+  .custom-select {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .student-enrollments-section .data-table th:nth-child(3),
+  .student-enrollments-section .data-table td:nth-child(3),
+  .student-enrollments-section .data-table th:nth-child(4),
+  .student-enrollments-section .data-table td:nth-child(4),
+  .student-enrollments-section .data-table th:nth-child(5),
+  .student-enrollments-section .data-table td:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .section-card {
+    padding: var(--space-lg);
+  }
+}

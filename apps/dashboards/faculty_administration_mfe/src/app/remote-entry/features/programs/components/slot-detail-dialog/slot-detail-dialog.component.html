@@ -1,3 +1,5 @@
+<!-- slot-detail-dialog.component.html -->
+
 <div class="slot-dialog">
   <!-- ── Header ── -->
   <div class="dialog-header">
@@ -6,7 +8,7 @@
     </div>
     <div class="dialog-header-text">
       <h2 class="dialog-title">Slot Details</h2>
-      <p class="dialog-subtitle">Assign doctor & assistant</p>
+      <p class="dialog-subtitle">Assign doctor & instructor</p>  <!-- ← اتغير -->
     </div>
     <button class="dialog-close-btn" (click)="onCancel()">
       <i class="bi bi-x-lg"></i>
@@ -54,7 +56,6 @@
           placeholder="Select doctor..."
           panelClass="search-select-panel"
         >
-          <!-- Search Input -->
           <mat-option class="search-option" disabled>
             <ngx-mat-select-search
               [formControl]="doctorSearchCtrl"
@@ -81,24 +82,23 @@
       </mat-form-field>
     </div>
 
-    <!-- Assistant Select -->
+    <!-- ✅ Instructor Select (كان Assistant) -->
     <div class="form-field">
       <label class="field-label">
         <i class="bi bi-person-badge"></i>
-        Teaching Assistant
+        Instructor
       </label>
       <mat-form-field appearance="outline" class="custom-select-field">
         <mat-select
-          formControlName="assistantId"
-          placeholder="Select assistant..."
+          formControlName="instructorId"
+          placeholder="Select instructor..."
           panelClass="search-select-panel"
         >
-          <!-- Search Input -->
           <mat-option class="search-option" disabled>
             <ngx-mat-select-search
-              [formControl]="assistantSearchCtrl"
-              placeholderLabel="Search assistants..."
-              noEntriesFoundLabel="No assistants found"
+              [formControl]="instructorSearchCtrl"
+              placeholderLabel="Search instructors..."
+              noEntriesFoundLabel="No instructors found"
               [showToggleAllCheckbox]="false"
             ></ngx-mat-select-search>
           </mat-option>
@@ -108,12 +108,12 @@
           </mat-option>
 
           <mat-option
-            *ngFor="let ta of filteredAssistants"
-            [value]="ta.id"
+            *ngFor="let inst of filteredInstructors"
+            [value]="inst.id"
           >
             <div class="option-content">
               <i class="bi bi-person-badge option-icon"></i>
-              <span>{{ ta.name }}</span>
+              <span>{{ inst.name }}</span>
             </div>
           </mat-option>
         </mat-select>

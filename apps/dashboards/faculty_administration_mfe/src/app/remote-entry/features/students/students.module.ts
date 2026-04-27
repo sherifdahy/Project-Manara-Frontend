@@ -11,6 +11,8 @@ import { StudentOverviewComponent } from './pages/student-overview/student-overv
 import { CreateStudentPageComponent } from './pages/create-student-page/create-student-page.component';
 import { EditStudentPageComponent } from './pages/edit-student-page/edit-student-page.component';
 import { StudentPermissionsPageComponent } from './pages/student-permissions-page/student-permissions-page.component';
+import { StudentEnrollmentPageComponent } from './pages/student-enrollment-page/student-enrollment-page.component';
+import { DirectivesModule } from '@project-manara-frontend/directives';
 
 @NgModule({
   imports: [
@@ -20,6 +22,7 @@ import { StudentPermissionsPageComponent } from './pages/student-permissions-pag
     RouterModule.forChild(routes),
     UiModule,
     NgSelectModule,
+    DirectivesModule,
   ],
   declarations: [
     StudentsPageComponent,
@@ -28,6 +31,7 @@ import { StudentPermissionsPageComponent } from './pages/student-permissions-pag
     StudentDetailPageComponent,
     StudentOverviewComponent,
     StudentPermissionsPageComponent,
+    StudentEnrollmentPageComponent,
   ],
 })
 export class StudentsModule {}

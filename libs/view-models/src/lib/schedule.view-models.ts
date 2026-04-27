@@ -18,26 +18,25 @@ export interface ScheduleEntry extends GridItem {
   creditHours: number;
   doctorId?: number | null;
   doctorName?: string | null;
-  assistantId?: number | null;
-  assistantName?: string | null;
+  instructorId?: number | null;    // ← اتغير من assistantId
+  instructorName?: string | null;  // ← اتغير من assistantName
 }
 
 export interface SlotCell extends GridCell<ScheduleEntry> {
   day: DayResponse;
   time: string;
-  periodId: number;  // ← جديد
+  periodId: number;
 }
 
 export interface SchedulePageData {
   days: DayResponse[];
   subjects: SubjectItem[];
-  periods: PeriodItem[];  // ← اتغير
+  periods: PeriodItem[];
 }
 
-// ← جديد
 export interface PeriodItem {
   id: number;
-  label: string;       // "08:00 - 09:30"
+  label: string;
   startTime: string;
   endTime: string;
 }
@@ -51,7 +50,7 @@ export interface ScheduleAssignment {
   periodId: number;
   time: string;
   doctorId: number | null;
-  assistantId: number | null;
+  instructorId: number | null;  // ← اتغير
 }
 
 export interface StaffMember {
@@ -64,12 +63,12 @@ export interface SlotDialogData {
   day: DayResponse;
   time: string;
   doctors: StaffMember[];
-  assistants: StaffMember[];
+  instructors: StaffMember[];              // ← اتغير من assistants
   selectedDoctorId: number | null;
-  selectedAssistantId: number | null;
+  selectedInstructorId: number | null;     // ← اتغير من selectedAssistantId
 }
 
 export interface SlotDialogResult {
   doctorId: number | null;
-  assistantId: number | null;
+  instructorId: number | null;             // ← اتغير من assistantId
 }

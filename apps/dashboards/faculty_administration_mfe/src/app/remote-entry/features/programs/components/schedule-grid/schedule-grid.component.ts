@@ -69,4 +69,22 @@ export class ScheduleGridComponent {
   trackByUid(_: number, entry: ScheduleEntry): string {
     return entry.uid;
   }
+
+  /**
+   * Determine the CSS class for a slot based on its staff assignment state
+   * - slot-time-only: No doctor, no instructor
+   * - slot-doctor-only: Doctor only
+   * - slot-doctor-instructor: Doctor and Instructor both assigned
+   */
+  getSlotStateClass(entry: ScheduleEntry): string {
+    const hasDoctor = entry.doctorId && entry.doctorId > 0;
+    const hasInstructor = entry.instructorId && entry.instructorId > 0;
+
+    if (hasDoctor && hasInstructor) {
+      return 'slot-doctor-instructor';
+    } else if (hasDoctor) {
+      return 'slot-doctor-only';
+    }
+    return 'slot-time-only';
+  }
 }

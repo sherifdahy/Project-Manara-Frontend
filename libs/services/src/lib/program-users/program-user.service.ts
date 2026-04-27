@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from '../api/api-client.service';
-import { PaginatedList, ProgramUserRequest, ProgramUserResponse, RequestFilters } from '@project-manara-frontend/models';
+import {
+  PaginatedList,
+  ProgramUserRequest,
+  ProgramUserResponse,
+  RequestFilters,
+} from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProgramUserService {
-  constructor(private apiClient: ApiClientService) { }
+  constructor(private apiClient: ApiClientService) {}
 
-  getAllByProgramId(programId: number,filters?: RequestFilters,includeDisabled: boolean = false): Observable<PaginatedList<ProgramUserResponse>> {
-
+  getAllByProgramId(
+    programId: number,
+    filters?: RequestFilters,
+    includeDisabled: boolean = false,
+  ): Observable<PaginatedList<ProgramUserResponse>> {
     let params = new HttpParams();
 
     if (filters) {
@@ -36,8 +44,11 @@ export class ProgramUserService {
     );
   }
 
-  getAllByFacultyId(facultyId: number,filters?: RequestFilters,includeDisabled: boolean = false): Observable<PaginatedList<ProgramUserResponse>> {
-
+  getAllByFacultyId(
+    facultyId: number,
+    filters?: RequestFilters,
+    includeDisabled: boolean = false,
+  ): Observable<PaginatedList<ProgramUserResponse>> {
     let params = new HttpParams();
 
     if (filters) {
@@ -76,7 +87,7 @@ export class ProgramUserService {
     );
   }
 
-  update(programUserId : number, request: ProgramUserRequest) {
+  update(programUserId: number, request: ProgramUserRequest) {
     return this.apiClient.put(
       `${environment.apiUrl}/api/programUsers/${programUserId}`,
       request,

@@ -3,7 +3,12 @@
   <div class="tab-sidebar">
     <ul class="nav nav-pills flex-column">
       <li hasPermission="Programs:read" class="nav-item">
-        <a class="nav-link" routerLink="overview" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a
+          class="nav-link"
+          routerLink="overview"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <i class="fa-solid fa-user me-2"></i>
           Overview
         </a>
@@ -26,8 +31,16 @@
           Settings
         </a>
       </li>
-
-
+      <li hasPermission="enrollments:read" class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="program-enrollments"
+          routerLinkActive="active"
+        >
+          <i class="fa-solid fa-user-graduate me-2"></i>
+          Enrollments
+        </a>
+      </li>
     </ul>
   </div>
 

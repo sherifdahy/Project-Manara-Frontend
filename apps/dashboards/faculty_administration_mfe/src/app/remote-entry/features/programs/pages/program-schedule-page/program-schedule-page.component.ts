@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+// program-schedule-page.component.ts
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
@@ -9,8 +11,10 @@ import {
   forkJoin,
   map,
   Observable,
+  Subject,
   switchMap,
   take,
+  takeUntil,
   tap,
 } from 'rxjs';
 
@@ -19,6 +23,7 @@ import {
   LoaderService,
   ProgramService,
   PeriodsService,
+  FacultyUserService,         // ✅ جديد
 } from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { DayResponse } from '@project-manara-frontend/models';
@@ -50,11 +55,14 @@ const SCHEDULE_POOL_ID = 'schedule-subjects-pool';
   styleUrls: ['./program-schedule-page.component.css'],
   standalone: false,
 })
-export class ProgramSchedulePageComponent implements OnInit {
+export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
   // ─── IDs ───────────────────────────────────────────────
   programId!: number;
   facultyId!: number;
   readonly poolId = SCHEDULE_POOL_ID;
+
+  // ─── Cleanup ───────────────────────────────────────────
+  private readonly destroy$ = new Subject<void>();
 
   // ─── Streams ───────────────────────────────────────────
   data$!: Observable<SchedulePageData>;
@@ -66,11 +74,11 @@ export class ProgramSchedulePageComponent implements OnInit {
 
   // ─── Staff Data ────────────────────────────────────────
   doctors: StaffMember[] = [];
-  assistants: StaffMember[] = [];
+  instructors: StaffMember[] = [];
 
   // ─── Lookup Maps ───────────────────────────────────────
-  private dayIndexMap = new Map<number, number>();   // dayId → rowIndex
-  private periodIndexMap = new Map<number, number>(); // periodId → colIndex
+  private dayIndexMap = new Map<number, number>();
+  private periodIndexMap = new Map<number, number>();
 
   // ─── Saved Schedule ────────────────────────────────────
   private savedScheduleItems: ScheduleItemResponse[] = [];
@@ -96,6 +104,7 @@ export class ProgramSchedulePageComponent implements OnInit {
     private readonly dayService: DayService,
     private readonly loaderService: LoaderService,
     private readonly dialog: MatDialog,
+    private readonly facultyUserService: FacultyUserService,  // ✅ جديد
   ) {}
 
   // ─── Init ──────────────────────────────────────────────
@@ -112,30 +121,27 @@ export class ProgramSchedulePageComponent implements OnInit {
     });
 
     this.data$ = this.buildDataStream();
-    this.loadStaff();
+    // ✅ شيلنا loadStaff() — بقت جوه الـ forkJoin
   }
 
-  // ─── Load Staff ────────────────────────────────────────
-
-  private loadStaff(): void {
-    // TODO: استبدل بالـ API الحقيقي
-    this.doctors = [
-      { id: 1, name: 'Dr. Ahmed Hassan' },
-      { id: 2, name: 'Dr. Mohamed Ali' },
-      { id: 3, name: 'Dr. Sara Ibrahim' },
-      { id: 4, name: 'Dr. Fatma Khalil' },
-    ];
-
-    this.assistants = [
-      { id: 1, name: 'Eng. Omar Youssef' },
-      { id: 2, name: 'Eng. Nour Adel' },
-      { id: 3, name: 'Eng. Khaled Mostafa' },
-    ];
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // ─── Data Stream ───────────────────────────────────────
+  // ✅ ضفنا doctors و instructors في الـ forkJoin
 
   private buildDataStream(): Observable<SchedulePageData> {
+    // ✅ Default filters للـ staff (جيب كل الناس)
+    const staffFilters = {
+      PageNumber: 1,
+      PageSize: 1000,    // عدد كبير عشان نجيب كلهم
+      SearchValue: '',
+      SortColumn: '',
+      SortDirection: '',
+    };
+
     return this.store.select(selectFacultyId).pipe(
       filter((id): id is number => !!id),
       take(1),
@@ -146,11 +152,33 @@ export class ProgramSchedulePageComponent implements OnInit {
           subjects: this.programService.getSubjects(this.programId),
           periods: this.periodsService.getAll(facultyId, false),
           savedSchedule: this.programService.getSchedule(this.programId),
+          doctors: this.facultyUserService.getFacultyDoctors(           // ✅ جديد
+            facultyId,
+            staffFilters,
+          ),
+          instructors: this.facultyUserService.getFacultyInstructors(   // ✅ جديد
+            facultyId,
+            staffFilters,
+          ),
         }).pipe(finalize(() => this.loaderService.hide())),
       ),
-      map(({ days, subjects, periods, savedSchedule }) => {
-        // حفظ الـ saved schedule items
+      map(({ days, subjects, periods, savedSchedule, doctors, instructors }) => {
         this.savedScheduleItems = savedSchedule.schedules ?? [];
+
+        // ✅ Map الـ API response لـ StaffMember
+        this.doctors = doctors.items.map(
+          (d): StaffMember => ({
+            id: d.id,
+            name: d.name,
+          }),
+        );
+
+        this.instructors = instructors.items.map(
+          (i): StaffMember => ({
+            id: i.id,
+            name: i.name,
+          }),
+        );
 
         return {
           days,
@@ -203,8 +231,8 @@ export class ProgramSchedulePageComponent implements OnInit {
     subjects.forEach((s) => subjectMap.set(s.id, s));
 
     for (const item of this.savedScheduleItems) {
-      const subject = item.subject;
-      if (!subject || subject.isDeleted) continue;
+      const subject = subjectMap.get(item.subjectId);
+      if (!subject) continue;
 
       const dayIndex = this.dayIndexMap.get(item.dayId);
       const periodIndex = this.periodIndexMap.get(item.periodId);
@@ -214,7 +242,6 @@ export class ProgramSchedulePageComponent implements OnInit {
       const cell = this.slotGrid[dayIndex]?.[periodIndex];
       if (!cell) continue;
 
-      // تأكد إن المادة مش موجودة في نفس الـ cell
       const alreadyExists = cell.items.some(
         (e) => e.subjectId === subject.id,
       );
@@ -226,6 +253,10 @@ export class ProgramSchedulePageComponent implements OnInit {
         name: subject.name,
         code: subject.code,
         creditHours: subject.creditHours,
+        doctorId: item.doctorId ?? null,
+        doctorName: item.doctorName ?? null,
+        instructorId: item.instructorId ?? null,
+        instructorName: item.instructorName ?? null,
       };
 
       cell.items.push(entry);
@@ -315,9 +346,9 @@ export class ProgramSchedulePageComponent implements OnInit {
       day: cell.day,
       time: cell.time,
       doctors: this.doctors,
-      assistants: this.assistants,
+      instructors: this.instructors,
       selectedDoctorId: entry.doctorId ?? null,
-      selectedAssistantId: entry.assistantId ?? null,
+      selectedInstructorId: entry.instructorId ?? null,
     };
 
     const dialogRef = this.dialog.open(SlotDetailDialogComponent, {
@@ -329,6 +360,7 @@ export class ProgramSchedulePageComponent implements OnInit {
 
     dialogRef
       .afterClosed()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result: SlotDialogResult | undefined) => {
         if (!result) return;
         this.applyAssignment(entry, result);
@@ -345,13 +377,18 @@ export class ProgramSchedulePageComponent implements OnInit {
     const cell = this.slotGrid[location.rowIndex][location.colIndex];
     const item = cell.items[location.itemIndex];
 
+    // Update doctor assignment
     item.doctorId = result.doctorId;
     item.doctorName =
       this.doctors.find((d) => d.id === result.doctorId)?.name ?? null;
 
-    item.assistantId = result.assistantId;
-    item.assistantName =
-      this.assistants.find((a) => a.id === result.assistantId)?.name ?? null;
+    // Update instructor assignment
+    item.instructorId = result.instructorId;
+    item.instructorName =
+      this.instructors.find((a) => a.id === result.instructorId)?.name ?? null;
+
+    // Reassign items array to trigger *ngFor and class binding updates
+    cell.items = [...cell.items];
   }
 
   // ─── Actions ───────────────────────────────────────────
@@ -367,9 +404,12 @@ export class ProgramSchedulePageComponent implements OnInit {
   saveSchedule(): void {
     const schedules: ScheduleItemRequest[] = [];
 
-    // لف على كل cell في الـ grid
     for (let dayIdx = 0; dayIdx < this.slotGrid.length; dayIdx++) {
-      for (let periodIdx = 0; periodIdx < this.slotGrid[dayIdx].length; periodIdx++) {
+      for (
+        let periodIdx = 0;
+        periodIdx < this.slotGrid[dayIdx].length;
+        periodIdx++
+      ) {
         const cell = this.slotGrid[dayIdx][periodIdx];
 
         for (const item of cell.items) {
@@ -377,6 +417,8 @@ export class ProgramSchedulePageComponent implements OnInit {
             subjectId: item.subjectId,
             periodId: cell.periodId,
             dayId: cell.day.id,
+            doctorId: item.doctorId ?? null,
+            instructorId: item.instructorId ?? null,
           });
         }
       }
@@ -388,15 +430,16 @@ export class ProgramSchedulePageComponent implements OnInit {
 
     this.programService
       .saveSchedule(this.programId, request)
-      .pipe(finalize(() => this.loaderService.hide()))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.loaderService.hide()),
+      )
       .subscribe({
         next: () => {
           console.log('Schedule saved successfully!', request);
-          // TODO: أضف toast / snackbar للنجاح
         },
         error: (err) => {
           console.error('Failed to save schedule', err);
-          // TODO: أضف toast / snackbar للخطأ
         },
       });
   }
