@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  EditProgramEnrollmentRequest,
   PaginatedList,
   ProgramEnrollmentRequest,
+  ProgramEnrollmentsDetailResponse,
   ProgramEnrollmentsResponse,
   RequestFilters,
   StudentEnrollmentResponse,
@@ -54,9 +56,21 @@ export class ProgramEnrollmentsService {
     );
   }
 
+  get(id: number): Observable<ProgramEnrollmentsDetailResponse> {
+    return this.apiClient.get(`${environment.apiUrl}/api/Enrollments/${id}
+`);
+  }
+
   create(programId: number, request: ProgramEnrollmentRequest) {
     return this.apiClient.post(
       `${environment.apiUrl}/api/programs/${programId}/enrollments`,
+      request,
+    );
+  }
+
+  edit(id: number, request: EditProgramEnrollmentRequest) {
+    return this.apiClient.put(
+      `${environment.apiUrl}/api/Enrollments/${id}`,
       request,
     );
   }

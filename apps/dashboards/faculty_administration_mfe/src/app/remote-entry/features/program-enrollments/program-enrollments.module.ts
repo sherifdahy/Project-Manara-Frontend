@@ -7,6 +7,7 @@ import { routes } from './program-enrollments.routes';
 import { RouterModule } from '@angular/router';
 import { ProgramEnrollmentsPageComponent } from './pages/program-enrollments-page/program-enrollments-page.component';
 import { CreateProgramEnrollmentPageComponent } from './pages/create-program-enrollment-page/create-program-enrollment-page.component';
+import { EditProgramEnrollmentComponent } from './components/edit-program-enrollment/edit-program-enrollment.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { CreateProgramEnrollmentPageComponent } from './pages/create-program-enr
   declarations: [
     ProgramEnrollmentsPageComponent,
     CreateProgramEnrollmentPageComponent,
+    EditProgramEnrollmentComponent,
   ],
 })
 export class ProgramEnrollmentsModule {}

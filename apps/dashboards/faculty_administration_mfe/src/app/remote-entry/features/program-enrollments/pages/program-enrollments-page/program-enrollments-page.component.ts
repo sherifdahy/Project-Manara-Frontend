@@ -10,6 +10,8 @@ import {
   ProgramEnrollmentsService,
 } from '@project-manara-frontend/services';
 import { finalize, Observable } from 'rxjs';
+import { EditProgramEnrollmentComponent } from '../../components/edit-program-enrollment/edit-program-enrollment.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-program-enrollments-page',
@@ -30,9 +32,9 @@ export class ProgramEnrollmentsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private programEnrollmentsService: ProgramEnrollmentsService,
     private httpErrorService: HttpErrorService,
+    private matDialog: MatDialog,
   ) {}
 
-  //Delete
   ngOnInit() {
     this.programId = +this.route.parent?.parent?.snapshot.params['id'];
 
@@ -124,5 +126,19 @@ export class ProgramEnrollmentsPageComponent implements OnInit {
       response.pageNumber * this.filters.PageSize,
       response.totalCount,
     );
+  }
+  openYearFormDialog(enrollmentId: number) {
+    this.matDialog
+      .open(EditProgramEnrollmentComponent, {
+        width: '600px',
+        maxWidth: '90vw',
+        data: {
+          enrollmentId: enrollmentId,
+        },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) this.loadProgramEnrollments();
+      });
   }
 }

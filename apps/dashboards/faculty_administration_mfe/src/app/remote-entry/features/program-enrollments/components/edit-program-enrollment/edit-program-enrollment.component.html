@@ -1,0 +1,87 @@
+<div class="program-enrollment-dialog">
+  <!-- ================= Header ================= -->
+  <div class="program-enrollment-dialog-header">
+    <div class="d-flex align-items-center gap-3 flex-fill">
+      <div class="program-enrollment-dialog-icon">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div class="flex-fill">
+        <h2 class="program-enrollment-dialog-title">Add Program Enrollment</h2>
+        <p class="program-enrollment-dialog-subtitle">
+          Fill in the program enrollment details
+        </p>
+      </div>
+    </div>
+
+    <button class="program-enrollment-dialog-close" type="button">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- ================= Body ================= -->
+  <div class="program-enrollment-dialog-body">
+    <form [formGroup]="enrollmentForm">
+      <div class="program-enrollment-form-grid">
+        <!-- Program Enrollment -->
+        <div class="program-enrollment-form-field">
+          <label class="program-enrollment-field-label">
+            <i class="fas fa-layer-group"></i>
+            Year <span class="required-star">*</span>
+          </label>
+          <div class="custom-select-wrapper">
+            <select
+              formControlName="yearId"
+              class="program-enrollment-field-input program-enrollment-field-select"
+            >
+              <option value="" disabled selected>Select a year</option>
+              <option *ngFor="let year of years$ | async" [value]="year.id">
+                {{ year.name }}
+              </option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+        </div>
+
+        <!-- Term -->
+        <div class="program-enrollment-form-field">
+          <label class="program-enrollment-field-label">
+            <i class="fas fa-layer-group"></i>
+            Term <span class="required-star">*</span>
+          </label>
+          <div class="custom-select-wrapper">
+            <select
+              formControlName="termId"
+              class="program-enrollment-field-input program-enrollment-field-select"
+            >
+              <option value="" disabled selected>Select a term</option>
+              <option *ngFor="let term of terms$ | async" [value]="term.id">
+                {{ term.name }}
+              </option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-arrow"></i>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <div class="program-enrollment-dialog-footer">
+    <button
+      (click)="onCancel()"
+      type="button"
+      class="program-enrollment-btn program-enrollment-btn-cancel"
+    >
+      Cancel
+    </button>
+
+    <button
+      (click)="onSubmit()"
+      type="button"
+      class="program-enrollment-btn program-enrollment-btn-submit"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <span>Create</span>
+    </button>
+  </div>
+</div>
