@@ -23,7 +23,8 @@ import {
   LoaderService,
   ProgramService,
   PeriodsService,
-  FacultyUserService,         // ✅ جديد
+  FacultyUserService,
+  ProgramScheduleService, // ✅ جديد
 } from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { DayResponse } from '@project-manara-frontend/models';
@@ -43,7 +44,6 @@ import {
   ProgramScheduleRequest,
   ScheduleItemRequest,
 } from '@project-manara-frontend/models';
-import { GridCell } from '@project-manara-frontend/view-models';
 import { DragDropGridService } from '@project-manara-frontend/services';
 import { SlotDetailDialogComponent } from '../../components/slot-detail-dialog/slot-detail-dialog.component';
 
@@ -100,11 +100,12 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly store: Store,
     private readonly programService: ProgramService,
+    private readonly programScheduleService: ProgramScheduleService,
     private readonly periodsService: PeriodsService,
     private readonly dayService: DayService,
     private readonly loaderService: LoaderService,
     private readonly dialog: MatDialog,
-    private readonly facultyUserService: FacultyUserService,  // ✅ جديد
+    private readonly facultyUserService: FacultyUserService, // ✅ جديد
   ) {}
 
   // ─── Init ──────────────────────────────────────────────
@@ -136,7 +137,7 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
     // ✅ Default filters للـ staff (جيب كل الناس)
     const staffFilters = {
       PageNumber: 1,
-      PageSize: 1000,    // عدد كبير عشان نجيب كلهم
+      PageSize: 1000, // عدد كبير عشان نجيب كلهم
       SearchValue: '',
       SortColumn: '',
       SortDirection: '',
@@ -151,60 +152,66 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
           days: this.dayService.getAll(),
           subjects: this.programService.getSubjects(this.programId),
           periods: this.periodsService.getAll(facultyId, false),
-          savedSchedule: this.programService.getSchedule(this.programId),
-          doctors: this.facultyUserService.getFacultyDoctors(           // ✅ جديد
+          savedSchedule: this.programScheduleService.getSchedule(
+            this.programId,
+          ),
+          doctors: this.facultyUserService.getFacultyDoctors(
+            // ✅ جديد
             facultyId,
             staffFilters,
           ),
-          instructors: this.facultyUserService.getFacultyInstructors(   // ✅ جديد
+          instructors: this.facultyUserService.getFacultyInstructors(
+            // ✅ جديد
             facultyId,
             staffFilters,
           ),
         }).pipe(finalize(() => this.loaderService.hide())),
       ),
-      map(({ days, subjects, periods, savedSchedule, doctors, instructors }) => {
-        this.savedScheduleItems = savedSchedule.schedules ?? [];
+      map(
+        ({ days, subjects, periods, savedSchedule, doctors, instructors }) => {
+          this.savedScheduleItems = savedSchedule.schedules ?? [];
 
-        // ✅ Map الـ API response لـ StaffMember
-        this.doctors = doctors.items.map(
-          (d): StaffMember => ({
-            id: d.id,
-            name: d.name,
-          }),
-        );
+          // ✅ Map الـ API response لـ StaffMember
+          this.doctors = doctors.items.map(
+            (d): StaffMember => ({
+              id: d.id,
+              name: d.name,
+            }),
+          );
 
-        this.instructors = instructors.items.map(
-          (i): StaffMember => ({
-            id: i.id,
-            name: i.name,
-          }),
-        );
+          this.instructors = instructors.items.map(
+            (i): StaffMember => ({
+              id: i.id,
+              name: i.name,
+            }),
+          );
 
-        return {
-          days,
-          subjects: subjects
-            .filter((s) => !s.isDeleted)
-            .map(
-              (s): SubjectItem => ({
-                id: s.id,
-                name: s.name,
-                code: s.code,
-                creditHours: s.creditHours,
-              }),
-            ),
-          periods: periods
-            .filter((p) => !p.isDeleted)
-            .map(
-              (p): PeriodItem => ({
-                id: p.id,
-                label: `${this.formatTime(p.startTime)} - ${this.formatTime(p.endTime)}`,
-                startTime: p.startTime,
-                endTime: p.endTime,
-              }),
-            )
-            .sort((a, b) => a.label.localeCompare(b.label)),
-        };
-      }),
+          return {
+            days,
+            subjects: subjects
+              .filter((s) => !s.isDeleted)
+              .map(
+                (s): SubjectItem => ({
+                  id: s.id,
+                  name: s.name,
+                  code: s.code,
+                  creditHours: s.creditHours,
+                }),
+              ),
+            periods: periods
+              .filter((p) => !p.isDeleted)
+              .map(
+                (p): PeriodItem => ({
+                  id: p.id,
+                  label: `${this.formatTime(p.startTime)} - ${this.formatTime(p.endTime)}`,
+                  startTime: p.startTime,
+                  endTime: p.endTime,
+                }),
+              )
+              .sort((a, b) => a.label.localeCompare(b.label)),
+          };
+        },
+      ),
       tap(({ days, subjects, periods }) => {
         this.buildLookupMaps(days, periods);
         this.buildPool(subjects);
@@ -221,7 +228,9 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
     this.periodIndexMap.clear();
 
     days.forEach((day, index) => this.dayIndexMap.set(day.id, index));
-    periods.forEach((period, index) => this.periodIndexMap.set(period.id, index));
+    periods.forEach((period, index) =>
+      this.periodIndexMap.set(period.id, index),
+    );
   }
 
   // ─── Load Saved Entries into Grid ──────────────────────
@@ -242,9 +251,7 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
       const cell = this.slotGrid[dayIndex]?.[periodIndex];
       if (!cell) continue;
 
-      const alreadyExists = cell.items.some(
-        (e) => e.subjectId === subject.id,
-      );
+      const alreadyExists = cell.items.some((e) => e.subjectId === subject.id);
       if (alreadyExists) continue;
 
       const entry: ScheduleEntry = {
@@ -428,7 +435,7 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
 
     this.loaderService.loading();
 
-    this.programService
+    this.programScheduleService
       .saveSchedule(this.programId, request)
       .pipe(
         takeUntil(this.destroy$),

@@ -69,13 +69,5 @@ export class ProgramService {
     );
   }
 
-  getSchedule(programId: number): Observable<ProgramScheduleResponse> {
-    return this.apiClient.get<ProgramScheduleResponse>(
-      `${environment.apiUrl}/api/programs/${programId}/schedule`,
-    );
-  }
 
-  saveSchedule(programId: number,request: ProgramScheduleRequest): Observable<void> {
-    return this.apiClient.post<void>( `${environment.apiUrl}/api/programs/${programId}/schedule`, request);
-  }
 }

@@ -29,3 +29,5 @@ export * from './lib/department-users/department-user.service';
 export * from './lib/drag-and-drop/drag-drop-grid.service';
 export * from './lib/profile/profile.service';
 export * from './lib/program-enrollments/program-enrollments.service';
+export * from './lib/programs/program-schedule.service';
+
