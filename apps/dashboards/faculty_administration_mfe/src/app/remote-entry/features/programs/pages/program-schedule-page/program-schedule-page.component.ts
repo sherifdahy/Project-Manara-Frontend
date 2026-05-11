@@ -24,7 +24,8 @@ import {
   ProgramService,
   PeriodsService,
   FacultyUserService,
-  ProgramScheduleService, // ✅ جديد
+  ProgramScheduleService,
+  ProgramSubjectService, // ✅ جديد
 } from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { DayResponse } from '@project-manara-frontend/models';
@@ -100,6 +101,7 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly store: Store,
     private readonly programService: ProgramService,
+    private readonly programSubjectService : ProgramSubjectService,
     private readonly programScheduleService: ProgramScheduleService,
     private readonly periodsService: PeriodsService,
     private readonly dayService: DayService,
@@ -150,9 +152,9 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
       switchMap((facultyId) =>
         forkJoin({
           days: this.dayService.getAll(),
-          subjects: this.programService.getSubjects(this.programId),
+          subjects: this.programSubjectService.getSubjects(this.programId),
           periods: this.periodsService.getAll(facultyId, false),
-          savedSchedule: this.programScheduleService.getSchedule(
+          savedSchedule: this.programScheduleService.getLecturesSchedule(
             this.programId,
           ),
           doctors: this.facultyUserService.getFacultyDoctors(
@@ -436,7 +438,7 @@ export class ProgramSchedulePageComponent implements OnInit, OnDestroy {
     this.loaderService.loading();
 
     this.programScheduleService
-      .saveSchedule(this.programId, request)
+      .saveLecturesSchedule(this.programId, request)
       .pipe(
         takeUntil(this.destroy$),
         finalize(() => this.loaderService.hide()),

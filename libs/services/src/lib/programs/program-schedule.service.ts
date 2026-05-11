@@ -7,7 +7,7 @@ import {
 } from '@project-manara-frontend/models';
 import { environment } from 'environments/environment';
 
-@Injectable()
+@Injectable({'providedIn' : 'root'})
 export class ProgramScheduleService {
   constructor(private apiClient: ApiClientService) {}
   

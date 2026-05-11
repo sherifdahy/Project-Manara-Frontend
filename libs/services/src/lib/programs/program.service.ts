@@ -50,24 +50,7 @@ export class ProgramService {
     );
   }
 
-  getSubjects(programId: number): Observable<SubjectResponse[]> {
-    return this.apiClient.get(
-      `${environment.apiUrl}/api/programs/${programId}/subjects`,
-    );
-  }
 
-  addSubject(programId: number, subjectId: number) {
-    return this.apiClient.post(
-      `${environment.apiUrl}/api/programs/${programId}/subjects/${subjectId}`,
-      {},
-    );
-  }
-
-  removeSubject(programId: number, subjectId: number) {
-    return this.apiClient.delete(
-      `${environment.apiUrl}/api/programs/${programId}/subjects/${subjectId}`,
-    );
-  }
 
 
 }

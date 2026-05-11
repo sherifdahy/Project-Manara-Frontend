@@ -5,6 +5,7 @@ import { ProgramOverviewPageComponent } from './pages/program-overview-page/prog
 import { ProgramSettingsPageComponent } from './pages/program-settings-page/program-settings-page.component';
 import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/program-subjects-page.component';
 import { ProgramSchedulePageComponent } from './pages/program-schedule-page/program-schedule-page.component';
+import { ProgramSectionsScheduleComponent } from './pages/program-sections-schedule/program-sections-schedule.component';
 
 export const routes: Routes = [
   {
@@ -36,13 +37,6 @@ export const routes: Routes = [
         path: 'schedule',
         component: ProgramSchedulePageComponent,
       },
-      // {
-      //   path: 'department-staffs',
-      //   loadChildren: () =>
-      //     import('../department-staffs/department-staffs.module').then(
-      //       (x) => x.DepartmentStaffsModule,
-      //     ),
-      // },
       {
         path: 'program-enrollments',
         loadChildren: () =>
@@ -50,6 +44,10 @@ export const routes: Routes = [
             (x) => x.ProgramEnrollmentsModule,
           ),
       },
+      {
+        path : 'program-sections-schedule',
+        component : ProgramSectionsScheduleComponent
+      }
     ],
   },
 ];

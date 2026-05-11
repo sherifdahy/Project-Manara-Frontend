@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   ProgramService,
+  ProgramSubjectService,
   SubjectService,
 } from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
@@ -42,6 +43,7 @@ export class ProgramSubjectsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private subjectService: SubjectService,
     private programService: ProgramService,
+    private programSubjectService: ProgramSubjectService,
     private loaderService: LoaderService,
   ) {}
 
@@ -61,19 +63,19 @@ export class ProgramSubjectsPageComponent implements OnInit {
 
   loadSelectedSubjects() {
     // this.loaderService.loading();
-    this.selectedSubjects$ = this.programService
+    this.selectedSubjects$ = this.programSubjectService
       .getSubjects(this.programId)
       .pipe(shareReplay(1));
   }
 
   addSubject(subject: SubjectResponse) {
-    this.programService.addSubject(this.programId, subject.id).subscribe({
+    this.programSubjectService.addSubject(this.programId, subject.id).subscribe({
       next: () => this.loadSelectedSubjects(),
     });
   }
 
   removeSubject(subject: SubjectResponse) {
-    this.programService.removeSubject(this.programId, subject.id).subscribe({
+    this.programSubjectService.removeSubject(this.programId, subject.id).subscribe({
       next: () => this.loadSelectedSubjects(),
     });
   }

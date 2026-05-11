@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'; 
-
+import { ProgramSectionsScheduleComponent } from './pages/program-sections-schedule/program-sections-schedule.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +37,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatSelectModule,
     MatFormFieldModule,
     MatOptionModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
   ],
   declarations: [
     ProgramFormDialogComponent,
@@ -51,6 +51,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ScheduleGridComponent,
     ScheduleHeaderComponent,
     SlotDetailDialogComponent,
+    ProgramSectionsScheduleComponent
   ],
 })
 export class ProgramsModule {}

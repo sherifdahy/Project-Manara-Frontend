@@ -1,3 +1,17 @@
-<p>
-  program-sections-schedule works!
-</p>
+<div
+  cdkDropList
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div
+    class="example-box"
+    cdkDrag
+    *ngFor="let item of subjects; trackBy: trackById"
+    [cdkDragDisabled]="item.isDeleted"
+  >
+    {{ item.name }}
+  </div>
+</div>
+<p>Length: {{ subjects.length }}</p>
+
+<pre>{{ subjects | json }}</pre>
