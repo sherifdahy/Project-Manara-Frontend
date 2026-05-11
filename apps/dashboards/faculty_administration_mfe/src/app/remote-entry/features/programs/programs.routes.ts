@@ -45,7 +45,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path : 'program-sections-schedule',
+        path : 'sections-schedule',
         component : ProgramSectionsScheduleComponent
       }
     ],

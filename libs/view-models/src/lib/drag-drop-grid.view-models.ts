@@ -1,4 +1,3 @@
-import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 export interface GridItem {
   uid: string;

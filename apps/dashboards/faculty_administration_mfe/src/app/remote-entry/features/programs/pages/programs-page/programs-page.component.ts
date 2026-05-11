@@ -8,7 +8,6 @@ import {
 } from '@project-manara-frontend/services';
 import { finalize, Observable } from 'rxjs';
 import { ProgramFormDialogComponent } from '../../components/program-form-dialog/program-form-dialog.component';
-
 @Component({
   selector: 'app-programs-page',
   standalone: false,
