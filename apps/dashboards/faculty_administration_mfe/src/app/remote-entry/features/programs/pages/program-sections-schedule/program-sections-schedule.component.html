@@ -1,17 +1,177 @@
-<div
-  cdkDropList
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  <div
-    class="example-box"
-    cdkDrag
-    *ngFor="let item of subjects; trackBy: trackById"
-    [cdkDragDisabled]="item.isDeleted"
-  >
-    {{ item.name }}
+<div class="page-header">
+  <div class="header-title-wrap">
+    <div class="header-icon">
+      <i class="bi bi-calendar-week"></i>
+    </div>
+    <div>
+      <h1 class="page-title">Program Schedule</h1>
+      <p class="page-subtitle">Drag subjects to schedule</p>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button class="btn action-btn btn-secondary-lite" (click)="reset()">
+      <i class="fa-solid fa-arrow-rotate-right"></i> Reset
+    </button>
+    <button class="btn action-btn btn-primary-orange" (click)="save()">
+      <i class="fa-solid fa-floppy-disk"></i> Save
+    </button>
   </div>
 </div>
-<p>Length: {{ subjects.length }}</p>
 
-<pre>{{ subjects | json }}</pre>
+<div class="program-schedule-page" cdkDropListGroup>
+  <div class="page-content">
+    <div class="row">
+      <!-- Subjects Pool -->
+      <div class="col-12 col-lg-3 pe-lg-3">
+        <div class="dashboard-card">
+          <div class="card-head">
+            <h2 class="card-title">Subjects</h2>
+            <p class="card-subtitle">Drag to schedule</p>
+          </div>
+
+          <div
+            class="subjects-pool"
+            cdkDropList
+            [cdkDropListData]="subjects"
+            id="subjects-pool"
+            (cdkDropListDropped)="onDropBackToPool($event)"
+          >
+            <div
+              *ngFor="let subject of subjects; trackBy: trackBySubject"
+              class="subject-card"
+              cdkDrag
+              [cdkDragData]="subject"
+            >
+              <div class="subject-card-inner">
+                <div class="subject-drag-handle">
+                  <i class="bi bi-grip-vertical"></i>
+                </div>
+                <div class="subject-content">
+                  <h3 class="subject-name">{{ subject.name }}</h3>
+                  <div class="subject-meta">
+                    <span class="subject-code-pill">{{ subject.code }}</span>
+                    <span class="subject-hours" *ngIf="subject.creditHours">
+                      <i class="bi bi-clock"></i> {{ subject.creditHours }}h
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <ng-template cdkDragPreview>
+                <div class="drag-preview-card">
+                  <div class="drag-preview-code">{{ subject.code }}</div>
+                  <div class="drag-preview-name">{{ subject.name }}</div>
+                </div>
+              </ng-template>
+
+              <ng-template cdkDragPlaceholder>
+                <div class="subject-placeholder"></div>
+              </ng-template>
+            </div>
+
+            <div *ngIf="subjects.length === 0" class="pool-empty">
+              No subjects
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule Grid -->
+      <div class="col-12 col-lg-9">
+        <div class="dashboard-card">
+          <div class="card-head">
+            <h2 class="card-title">Weekly Schedule</h2>
+            <p class="card-subtitle">Multiple subjects per slot</p>
+          </div>
+
+          <ng-container *ngIf="periods.length > 0; else noPeriods">
+            <div class="schedule-grid-wrap">
+              <div
+                class="schedule-grid"
+                [style.grid-template-columns]="
+                  '85px repeat(' + days.length + ', 1fr)'
+                "
+              >
+                <!-- Header -->
+                <div class="grid-header-cell time-header-cell">Time</div>
+                <div class="grid-header-cell" *ngFor="let day of days">
+                  {{ day.value | slice: 0 : 3 }}
+                </div>
+
+                <!-- Grid Rows -->
+                <ng-container *ngFor="let period of periods; let ti = index">
+                  <div class="time-column-cell">
+                    <div class="time-cell-lines">
+                      <span>{{ period.startTime }}</span>
+                      <span>{{ period.endTime }}</span>
+                    </div>
+                  </div>
+
+                  <ng-container *ngFor="let day of days; let di = index">
+                    <div class="grid-slot-cell">
+                      <div
+                        class="slot-dropzone"
+                        cdkDropList
+                        [id]="'slot-' + di + '-' + ti"
+                        [cdkDropListConnectedTo]="allDropLists"
+                        [cdkDropListData]="{ dayIndex: di, periodIndex: ti }"
+                        (cdkDropListDropped)="onDropToCell($event, di, ti)"
+                      >
+                        <div
+                          *ngFor="
+                            let item of slots[di][ti];
+                            trackBy: trackBySubject
+                          "
+                          cdkDrag
+                          class="assigned-subject-card"
+                          [cdkDragData]="{
+                            dayIndex: di,
+                            periodIndex: ti,
+                            subjectId: item.subject.id,
+                          }"
+                        >
+                          <div class="assigned-code">{{ item.subject.code }}</div>
+                          <div class="assigned-name">{{ item.subject.name }}</div>
+
+                          <ng-template cdkDragPreview>
+                            <div class="drag-preview-card assigned-preview">
+                              <div class="drag-preview-code">
+                                {{ item.subject.code }}
+                              </div>
+                              <div class="drag-preview-name">
+                                {{ item.subject.name }}
+                              </div>
+                            </div>
+                          </ng-template>
+
+                          <ng-template cdkDragPlaceholder>
+                            <div class="assigned-placeholder"></div>
+                          </ng-template>
+                        </div>
+
+                        <div
+                          *ngIf="slots[di][ti].length === 0"
+                          class="slot-empty-state"
+                        >
+                          Drop here
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #noPeriods>
+            <div class="no-periods-state">
+              <i class="bi bi-calendar3"></i>
+              <p>No periods</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

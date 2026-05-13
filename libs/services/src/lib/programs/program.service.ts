@@ -4,9 +4,6 @@ import {
   ProgramDetailResponse,
   ProgramRequest,
   ProgramResponse,
-  ProgramScheduleRequest,
-  ProgramScheduleResponse,
-  SubjectResponse,
 } from '@project-manara-frontend/models';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';

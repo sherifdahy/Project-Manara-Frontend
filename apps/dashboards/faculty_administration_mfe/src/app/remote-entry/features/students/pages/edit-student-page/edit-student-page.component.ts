@@ -10,7 +10,7 @@ import {
   HttpErrorService,
   LoaderService,
   ProgramUserService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -39,7 +39,7 @@ export class EditStudentPageComponent implements OnInit {
     private store: Store,
     private route: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private programUserService: ProgramUserService,
     private loaderService: LoaderService,
@@ -113,7 +113,7 @@ export class EditStudentPageComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastrService.success('Student updated successfully');
+          this.notificationService.success('Student updated successfully');
         },
         error: (err) => {
           this.isLoading = false;

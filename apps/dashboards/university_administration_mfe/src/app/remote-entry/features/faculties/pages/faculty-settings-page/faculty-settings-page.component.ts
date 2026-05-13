@@ -7,7 +7,7 @@ import {
   FacultyService,
   HttpErrorService,
   LoaderService,
-  ToastService,
+  NotificationService ,
 } from '@project-manara-frontend/services';
 import { finalize } from 'rxjs';
 
@@ -25,7 +25,7 @@ export class FacultySettingsPageComponent implements OnInit {
     private fb: FormBuilder,
     private facultyService: FacultyService,
     private route: ActivatedRoute,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private loaderService: LoaderService,
   ) {}
@@ -81,7 +81,7 @@ export class FacultySettingsPageComponent implements OnInit {
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
-          this.toastrService.success(
+          this.notificationService.success(
             'Faculty information updated successfully',
           );
           this.facultyForm.markAsPristine();

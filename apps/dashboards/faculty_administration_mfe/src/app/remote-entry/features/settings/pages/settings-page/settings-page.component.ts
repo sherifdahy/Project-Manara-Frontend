@@ -7,7 +7,7 @@ import {
   FacultyService,
   HttpErrorService,
   LoaderService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 import { filter, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
@@ -27,7 +27,7 @@ export class SettingsPageComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     private facultyService: FacultyService,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private loaderService: LoaderService,
   ) {}
@@ -87,7 +87,7 @@ export class SettingsPageComponent implements OnInit {
           this.facultyService.update(id!, request).subscribe({
             next: () => {
               this.store.dispatch(getFacultyAction());
-              this.toastrService.success('done');
+              this.notificationService.success('done');
             },
             error: (error) => {
               this.httpErrorService.handle(error);

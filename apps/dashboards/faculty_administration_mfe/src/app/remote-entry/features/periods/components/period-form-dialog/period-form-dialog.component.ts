@@ -7,7 +7,7 @@ import { filter, take } from 'rxjs';
 import {
   HttpErrorService,
   PeriodsService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 
 @Component({
@@ -23,7 +23,7 @@ export class PeriodFormDialogComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PeriodFormDialogComponent>,
-    private toastService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private periodService: PeriodsService,
   ) {}
@@ -52,7 +52,7 @@ export class PeriodFormDialogComponent implements OnInit {
             .subscribe({
               next: () => {
                 this.dialogRef.close(true);
-                this.toastService.success('Period created successfully!');
+                this.notificationService.success('Period created successfully!');
               },
               error: (errors) => {
                 this.httpErrorService.handle(errors);

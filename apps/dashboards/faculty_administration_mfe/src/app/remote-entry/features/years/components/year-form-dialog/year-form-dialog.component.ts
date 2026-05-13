@@ -6,7 +6,7 @@ import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { filter, Observable, take } from 'rxjs';
 import {
   HttpErrorService,
-  ToastService,
+  NotificationService,
   YearsService,
 } from '@project-manara-frontend/services';
 import { TermResponse } from '@project-manara-frontend/models';
@@ -27,7 +27,7 @@ export class YearFormDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<YearFormDialogComponent>,
     private store: Store,
     private yearService: YearsService,
-    private toastService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
   ) {}
 
@@ -59,7 +59,7 @@ export class YearFormDialogComponent implements OnInit {
           this.yearService.create(facultyId!, this.yearForm.value).subscribe({
             next: () => {
               this.dialogRef.close(true);
-              this.toastService.success('Year created successfully!');
+              this.notificationService.success('Year created successfully!');
             },
             error: (errors) => {
               this.httpErrorService.handle(errors);

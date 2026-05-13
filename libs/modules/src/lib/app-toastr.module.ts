@@ -8,7 +8,7 @@ export class AppToastrModule {
   static forRoot(): ModuleWithProviders<ToastrModule> {
     return ToastrModule.forRoot({
       positionClass : 'toast-top-center',
-      preventDuplicates: true,
+      preventDuplicates: false,
       progressBar: true,
       progressAnimation: 'decreasing',
       timeOut: 5000,
@@ -17,6 +17,8 @@ export class AppToastrModule {
       tapToDismiss: false,
       newestOnTop: true,
       easeTime: 300,
+      maxOpened:5,
+      autoDismiss: false,
     });
   }
 }

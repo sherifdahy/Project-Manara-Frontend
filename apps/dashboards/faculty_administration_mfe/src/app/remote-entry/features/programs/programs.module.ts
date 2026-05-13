@@ -12,18 +12,15 @@ import { ProgramSettingsPageComponent } from './pages/program-settings-page/prog
 import { ProgramsPageComponent } from './pages/programs-page/programs-page.component';
 import { ProgramSubjectsPageComponent } from './pages/program-subjects-page/program-subjects-page.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ProgramSchedulePageComponent } from './pages/program-schedule-page/program-schedule-page.component';
-import { SubjectsPoolComponent } from './components/subjects-pool/subjects-pool.component';
-import { ScheduleGridComponent } from './components/schedule-grid/schedule-grid.component';
-import { ScheduleHeaderComponent } from './components/schedule-header/schedule-header.component';
-import { SlotDetailDialogComponent } from './components/slot-detail-dialog/slot-detail-dialog.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'; 
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ProgramSectionsScheduleComponent } from './pages/program-sections-schedule/program-sections-schedule.component';
+import { ProgramLectureScheduleFormDialogComponent } from './components/program-lecture-schedule-form-dialog/program-lecture-schedule-form-dialog.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +35,7 @@ import { ProgramSectionsScheduleComponent } from './pages/program-sections-sched
     MatFormFieldModule,
     MatOptionModule,
     NgxMatSelectSearchModule,
+    NgSelectModule
   ],
   declarations: [
     ProgramFormDialogComponent,
@@ -46,12 +44,8 @@ import { ProgramSectionsScheduleComponent } from './pages/program-sections-sched
     ProgramSettingsPageComponent,
     ProgramsPageComponent,
     ProgramSubjectsPageComponent,
-    ProgramSchedulePageComponent,
-    SubjectsPoolComponent,
-    ScheduleGridComponent,
-    ScheduleHeaderComponent,
-    SlotDetailDialogComponent,
-    ProgramSectionsScheduleComponent
+    ProgramSectionsScheduleComponent,
+    ProgramLectureScheduleFormDialogComponent,
   ],
 })
 export class ProgramsModule {}

@@ -5,7 +5,7 @@ import { selectUniversityId } from '../../../../store/selectors/university.selec
 import {
   HttpErrorService,
   LoaderService,
-  ToastService,
+  NotificationService,
   UniversityService,
 } from '@project-manara-frontend/services';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
@@ -29,7 +29,7 @@ export class UniversitySettingPageComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     private universityService: UniversityService,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private router: Router,
     private loaderService: LoaderService,
@@ -102,7 +102,7 @@ export class UniversitySettingPageComponent implements OnInit {
       .subscribe({
         next: () => {
           this.store.dispatch(getUniversityAction());
-          this.toastrService.success(
+          this.notificationService.success(
             'University information updated successfully',
           );
           this.universityForm.markAsPristine();

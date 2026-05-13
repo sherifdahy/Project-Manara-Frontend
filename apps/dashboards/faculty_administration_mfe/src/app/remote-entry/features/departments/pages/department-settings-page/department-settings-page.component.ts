@@ -5,7 +5,7 @@ import {
   DepartmentService,
   HttpErrorService,
   LoaderService,
-  ToastService,
+  NotificationService ,
 } from '@project-manara-frontend/services';
 import { DepartmentRequest } from 'libs/models/src/lib/departments/requests/department-request';
 import { finalize } from 'rxjs';
@@ -25,7 +25,7 @@ export class DepartmentSettingsPageComponent implements OnInit {
     private fb: FormBuilder,
     private departmentService: DepartmentService,
     private httpErrorService: HttpErrorService,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private loaderService: LoaderService,
   ) {}
 
@@ -73,7 +73,7 @@ export class DepartmentSettingsPageComponent implements OnInit {
         )
         .subscribe({
           next: () => {
-            this.toastrService.success(
+            this.notificationService.success(
               'Department information updated successfully',
             );
             this.departmentForm.markAsPristine();

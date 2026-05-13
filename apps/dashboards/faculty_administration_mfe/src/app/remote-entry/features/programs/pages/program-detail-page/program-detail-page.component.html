@@ -19,10 +19,16 @@
           Subjects
         </a>
       </li>
-      <li hasPermission="Programs:update" class="nav-item">
-        <a class="nav-link" routerLink="schedule" routerLinkActive="active">
+      <li hasPermission="programLecturesSchedule:read" class="nav-item">
+        <a class="nav-link" routerLink="lectures-schedule" routerLinkActive="active">
           <i class="fa-solid fa-calendar me-2"></i>
-          Schedule
+          Lectures Schedule
+        </a>
+      </li>
+      <li hasPermission="programSectionsSchedule:read" class="nav-item">
+        <a class="nav-link" routerLink="sections-schedule" routerLinkActive="active">
+          <i class="fa-solid fa-calendar me-2"></i>
+          Sections Schedule
         </a>
       </li>
       <li hasPermission="Programs:update" class="nav-item">

@@ -13,7 +13,7 @@ import {
   UserService,
   FacultyService,
   HttpErrorService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 import { selectUniversityId } from '../../../../store/selectors/university.selectors';
 import { filter, finalize, switchMap, take } from 'rxjs';
@@ -30,7 +30,7 @@ export class FacultyFormDialogComponent implements OnInit {
   isLoading = false;
   constructor(
     private fb: FormBuilder,
-    private toastService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private facultyService: FacultyService,
     private dialogRef: MatDialogRef<FacultyFormDialogComponent>,
@@ -79,7 +79,7 @@ export class FacultyFormDialogComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialogRef.close(true);
-          this.toastService.success('Faculty created successfully!');
+          this.notificationService.success('Faculty created successfully!');
         },
         error: (errors) => {
           this.httpErrorService.handle(errors);

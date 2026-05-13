@@ -20,10 +20,10 @@ export * from './lib/departments/responses/department-detail-respnse';
 export * from './lib/programs/responses/program-response';
 export * from './lib/programs/requests/program-request';
 export * from './lib/programs/responses/program-detail-response';
-export * from './lib/programs/responses/program-schedule-response';
-export * from './lib/programs/requests/program-schedule-request';
-export * from './lib/programs/responses/schedule-item-response';
-export * from './lib/programs/requests/schedule-item-request';
+export * from './lib/programs/requests/program-lecuture-schedule-request';
+export * from './lib/programs/requests/program-section-schedule-request';
+export * from './lib/programs/responses/program-section-schedule-response';
+export * from './lib/programs/responses/program-lecutre-schedule-response';
 
 export * from './lib/roles/requests/role-request';
 export * from './lib/roles/responses/role-response';
@@ -74,3 +74,5 @@ export * from './lib/program-enrollments/responses/student-enrollments-response'
 export * from './lib/program-enrollments/responses/program-enrollments-detaill-response';
 
 export * from './lib/students/responses/student-response';
+
+

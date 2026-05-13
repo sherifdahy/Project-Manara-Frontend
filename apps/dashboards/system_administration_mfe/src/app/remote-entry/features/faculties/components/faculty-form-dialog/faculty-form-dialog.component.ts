@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
 import { FacultyRequest } from '@project-manara-frontend/models';
-import { UserService, FacultyService, HttpErrorService, ToastService } from '@project-manara-frontend/services';
+import { UserService, FacultyService, HttpErrorService, NotificationService } from '@project-manara-frontend/services';
 @Component({
   selector: 'app-faculty-form-dialog',
   templateUrl: './faculty-form-dialog.component.html',
@@ -16,7 +16,7 @@ export class FacultyFormDialogComponent implements OnInit {
   universityId!: number;
   constructor(
     private fb: FormBuilder,
-    private toastService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private facultyService: FacultyService,
     private dialogRef: MatDialogRef<FacultyFormDialogComponent>,
@@ -46,7 +46,7 @@ export class FacultyFormDialogComponent implements OnInit {
       this.facultyService.create(this.universityId, payload).subscribe({
         next: (response) => {
           this.dialogRef.close(true);
-          this.toastService.success('Faculty created successfully!');
+          this.notificationService.success('Faculty created successfully!');
         },
         error: (errors) => {
           this.httpErrorService.handle(errors);

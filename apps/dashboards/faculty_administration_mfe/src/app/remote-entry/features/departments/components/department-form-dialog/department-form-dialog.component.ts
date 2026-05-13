@@ -6,7 +6,7 @@ import { filter, take } from 'rxjs/operators';
 import {
   DepartmentService,
   HttpErrorService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -26,7 +26,7 @@ export class DepartmentFormDialogComponent implements OnInit {
     private departmentService: DepartmentService,
     private httpErrorService: HttpErrorService,
     private dialogRef: MatDialogRef<DepartmentFormDialogComponent>,
-    private toastService: ToastService,
+    private notificationService: NotificationService,
   ) {}
   ngOnInit(): void {
     this.initForm();
@@ -55,7 +55,9 @@ export class DepartmentFormDialogComponent implements OnInit {
             .subscribe({
               next: () => {
                 this.dialogRef.close(true);
-                this.toastService.success('Department created successfully!');
+                this.notificationService.success(
+                  'Department created successfully!',
+                );
               },
               error: (errors) => {
                 this.httpErrorService.handle(errors);

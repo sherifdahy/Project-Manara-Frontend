@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   HttpErrorService,
   ProgramService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 import { finalize } from 'rxjs';
 
@@ -23,7 +23,7 @@ export class ProgramFormDialogComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProgramFormDialogComponent>,
     private httpErrorService: HttpErrorService,
-    private toastService: ToastService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private programService: ProgramService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,7 +57,7 @@ export class ProgramFormDialogComponent implements OnInit {
         .subscribe({
           next: () => {
             this.dialogRef.close(true);
-            this.toastService.success('Program created successfully!');
+            this.notificationService.success('Program created successfully!');
           },
           error: (errors) => {
             this.httpErrorService.handle(errors);

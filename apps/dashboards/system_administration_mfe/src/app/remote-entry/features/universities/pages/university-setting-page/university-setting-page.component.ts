@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   HttpErrorService,
   LoaderService,
-  ToastService,
+  NotificationService,
   UniversityService,
 } from '@project-manara-frontend/services';
 import { RegexPatternConsts } from '@project-manara-frontend/consts';
@@ -26,7 +26,7 @@ export class UniversitySettingPageComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     private universityService: UniversityService,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private httpErrorService: HttpErrorService,
     private route: ActivatedRoute,
     private loaderService: LoaderService,
@@ -75,7 +75,7 @@ export class UniversitySettingPageComponent implements OnInit {
       var request = this.universityForm.value as UniversityRequest;
       this.universityService.update(this.universityId, request).subscribe({
         next: () => {
-          this.toastrService.success(
+          this.notificationService.success(
             'University information updated successfully',
           );
           this.universityForm.markAsPristine();

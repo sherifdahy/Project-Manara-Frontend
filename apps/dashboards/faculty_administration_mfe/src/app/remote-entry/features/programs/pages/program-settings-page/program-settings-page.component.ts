@@ -6,7 +6,7 @@ import {
   HttpErrorService,
   LoaderService,
   ProgramService,
-  ToastService,
+  NotificationService,
 } from '@project-manara-frontend/services';
 import { finalize } from 'rxjs';
 
@@ -25,7 +25,7 @@ export class ProgramSettingsPageComponent implements OnInit {
     private fb: FormBuilder,
     private httpErrorService: HttpErrorService,
     private programService: ProgramService,
-    private toastrService: ToastService,
+    private notificationService: NotificationService,
     private loaderService: LoaderService,
   ) {}
 
@@ -76,7 +76,7 @@ export class ProgramSettingsPageComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.toastrService.success(
+          this.notificationService.success(
             'Program information updated successfully',
           );
           this.programForm.markAsPristine();

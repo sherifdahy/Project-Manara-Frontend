@@ -12,7 +12,7 @@ export class PeriodsService {
 
   getAll(
     facultId: number,
-    includeDisabled: boolean,
+    includeDisabled: boolean = false
   ): Observable<PeriodResponse[]> {
     return this.apiClient.get(
       `${environment.apiUrl}/api/faculties/${facultId}/periods?includeDisabled=${includeDisabled}`,
