@@ -109,7 +109,6 @@ export class ProgramLectureScheduleFormDialogComponent implements OnInit {
   // ---------------- API CALL ----------------
   load() {
     this.loading = true;
-
     this.departmentUserService
       .getDoctors(this.data.departmentId, this.requestFilters)
       .pipe(finalize(() => (this.loading = false)))

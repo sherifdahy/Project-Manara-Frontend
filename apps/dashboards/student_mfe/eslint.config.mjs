@@ -27,7 +27,7 @@ export default [
     },
   },
   {
-    files: ['**/*.html'],
+    files: ['**/*.*'],
     // Override or add rules here
     rules: '/rules.json',
   },

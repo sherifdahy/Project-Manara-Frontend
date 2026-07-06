@@ -1,3 +1,45 @@
-<p>
-  sidebar works!
-</p>
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header d-flex align-items-center" [ngClass]="{
+      'justify-content-between': !isCollapsed,
+      'justify-content-center': isCollapsed,
+    }">
+    <div class="start-section d-flex align-items-center">
+      <span>
+        <i class="fa-solid fa-shield"></i>
+      </span>
+      <p class="m-0">Studnet Portal</p>
+    </div>
+
+    <button class="bg-transparent border-0" (click)="toggleSidebar()">
+      <i class="fa-solid fa-bars text-white"></i>
+    </button>
+  </div>
+  <hr class="m-0" />
+  <div class="sidebar-links">
+    <ul>
+      <!-- Overview -->
+      <li>
+        <a routerLink="/student/overview" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa-solid fa-gauge-high fa-fw"></i>
+          <span>Overview</span>
+        </a>
+      </li>
+
+      <!-- Academic Progress -->
+      <li>
+        <a routerLink="/student/academic-progress" routerLinkActive="active">
+          <i class="fa-solid fa-chart-line fa-fw"></i>
+          <span>Academic Progress</span>
+        </a>
+      </li>
+
+      <!-- Course Registration -->
+      <li>
+        <a routerLink="/student/course-registration" routerLinkActive="active">
+          <i class="fa-solid fa-book-open fa-fw"></i>
+          <span>Course Registration</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

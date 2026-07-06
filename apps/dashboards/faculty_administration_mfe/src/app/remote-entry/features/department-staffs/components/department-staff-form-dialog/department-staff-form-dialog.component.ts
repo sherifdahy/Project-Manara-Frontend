@@ -86,7 +86,6 @@ export class DepartmentStaffFormDialogComponent implements OnInit {
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
-
     const request = this.form.value;
     this.isLoading = true;
     this.departmentUserService

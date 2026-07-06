@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-main-layout',
+  standalone:false,
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.css']
+  styleUrls: ['./main-layout.component.css'],
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent {
+  ngOnInit(): void {}
 
-  constructor() { }
+  isSidebarCollapsed = false;
 
-  ngOnInit() {
+  onToggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
-
 }
