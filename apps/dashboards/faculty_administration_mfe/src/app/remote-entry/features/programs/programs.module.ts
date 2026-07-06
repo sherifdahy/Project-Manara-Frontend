@@ -21,6 +21,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ProgramSectionsScheduleComponent } from './pages/program-sections-schedule/program-sections-schedule.component';
 import { ProgramLectureScheduleFormDialogComponent } from './components/program-lecture-schedule-form-dialog/program-lecture-schedule-form-dialog.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ProgramSectionScheduleFormDialogComponent } from './components/program-section-schedule-form-dialog/program-section-schedule-form-dialog.component';
+import { ProgramLecturesScheduleComponent } from './pages/program-lectures-schedule/program-lectures-schedule.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +37,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatFormFieldModule,
     MatOptionModule,
     NgxMatSelectSearchModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   declarations: [
     ProgramFormDialogComponent,
@@ -44,8 +46,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ProgramSettingsPageComponent,
     ProgramsPageComponent,
     ProgramSubjectsPageComponent,
+    ProgramLecturesScheduleComponent,
     ProgramSectionsScheduleComponent,
     ProgramLectureScheduleFormDialogComponent,
+    ProgramSectionScheduleFormDialogComponent,
   ],
 })
 export class ProgramsModule {}

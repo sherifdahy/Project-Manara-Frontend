@@ -117,6 +117,7 @@
                         [cdkDropListConnectedTo]="allDropLists"
                         [cdkDropListData]="{ dayIndex: di, periodIndex: ti }"
                         (cdkDropListDropped)="onDropToCell($event, di, ti)"
+                        (dblclick)="onClickCell(di, ti)"
                       >
                         <div
                           *ngFor="
@@ -131,8 +132,12 @@
                             subjectId: item.subject.id,
                           }"
                         >
-                          <div class="assigned-code">{{ item.subject.code }}</div>
-                          <div class="assigned-name">{{ item.subject.name }}</div>
+                          <div class="assigned-code">
+                            {{ item.subject.code }}
+                          </div>
+                          <div class="assigned-name">
+                            {{ item.subject.name }}
+                          </div>
 
                           <ng-template cdkDragPreview>
                             <div class="drag-preview-card assigned-preview">

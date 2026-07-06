@@ -68,4 +68,57 @@ export class DepartmentUserService {
       `${environment.apiUrl}/api/departmentUsers/${id}`,
     );
   }
+
+  getDoctors(
+    departmentId: number,
+    filters?: RequestFilters,
+  ): Observable<PaginatedList<DepartmentUserResponse>> {
+    var params = new HttpParams();
+
+    if (filters) {
+      params = params
+        .set('pageNumber', filters.PageNumber)
+        .set('pageSize', filters.PageSize);
+
+      if (filters.SearchValue)
+        params = params.set('searchValue', filters.SearchValue);
+
+      if (filters.SortDirection && filters.SortColumn) {
+        params = params
+          .set('sortDirection', filters.SortDirection)
+          .set('sortColumn', filters.SortColumn);
+      }
+    }
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/departmentUsers/${departmentId}/doctors`,
+      params,
+    );
+  }
+
+  getInstructors(
+    departmentId: number,
+    filters?: RequestFilters,
+  ): Observable<PaginatedList<DepartmentUserResponse>> {
+    var params = new HttpParams();
+
+    if (filters) {
+      params = params
+        .set('pageNumber', filters.PageNumber)
+        .set('pageSize', filters.PageSize);
+
+      if (filters.SearchValue)
+        params = params.set('searchValue', filters.SearchValue);
+
+      if (filters.SortDirection && filters.SortColumn) {
+        params = params
+          .set('sortDirection', filters.SortDirection)
+          .set('sortColumn', filters.SortColumn);
+      }
+    }
+
+    return this.apiClient.get(
+      `${environment.apiUrl}/api/departmentUsers/${departmentId}/instructors`,
+      params,
+    );
+  }
 }

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ProgramLecturesScheduleComponent } from './program-lectures-schedule.component';
+import { ProgramSectionScheduleFormDialogComponent } from './program-section-schedule-form-dialog.component';
 
-describe('ProgramLecturesScheduleComponent', () => {
-  let component: ProgramLecturesScheduleComponent;
-  let fixture: ComponentFixture<ProgramLecturesScheduleComponent>;
+describe('ProgramSectionScheduleFormDialogComponent', () => {
+  let component: ProgramSectionScheduleFormDialogComponent;
+  let fixture: ComponentFixture<ProgramSectionScheduleFormDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProgramLecturesScheduleComponent ]
+      declarations: [ ProgramSectionScheduleFormDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProgramLecturesScheduleComponent);
+    fixture = TestBed.createComponent(ProgramSectionScheduleFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,12 +19,12 @@ import {
 } from 'rxjs';
 
 @Component({
-  selector: 'app-program-lecture-schedule-form-dialog',
+  selector: 'app-program-section-schedule-form-dialog',
   standalone: false,
-  templateUrl: './program-lecture-schedule-form-dialog.component.html',
-  styleUrls: ['./program-lecture-schedule-form-dialog.component.css'],
+  templateUrl: './program-section-schedule-form-dialog.component.html',
+  styleUrls: ['./program-section-schedule-form-dialog.component.css'],
 })
-export class ProgramLectureScheduleFormDialogComponent implements OnInit {
+export class ProgramSectionScheduleFormDialogComponent implements OnInit {
   form!: FormGroup;
 
   instructors: DepartmentUserResponse[] = [];
@@ -35,7 +35,7 @@ export class ProgramLectureScheduleFormDialogComponent implements OnInit {
   typeahead$ = new Subject<string>();
 
   constructor(
-    private readonly matDialogRef: MatDialogRef<ProgramLectureScheduleFormDialogComponent>,
+    private readonly matDialogRef: MatDialogRef<ProgramSectionScheduleFormDialogComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly departmentUserService: DepartmentUserService,
     @Inject(MAT_DIALOG_DATA)
@@ -45,13 +45,14 @@ export class ProgramLectureScheduleFormDialogComponent implements OnInit {
       subject: SubjectResponse;
       period: PeriodResponse;
       day: DayResponse;
-      maxSlots: number | null;
-      doctorId: number | null;
     },
   ) {}
 
   ngOnInit(): void {
-    this.initForm();
+    this.form = this.formBuilder.group({
+      instructorId: [null, [Validators.required]],
+      maxSlots: [0, [Validators.required, Validators.min(1)]],
+    });
 
     this.listenToSearch();
 
@@ -63,20 +64,6 @@ export class ProgramLectureScheduleFormDialogComponent implements OnInit {
     if (this.form.invalid) return;
 
     this.matDialogRef.close(this.form.value);
-  }
-
-  initForm() {
-    this.form = this.formBuilder.group({
-      doctorId: [null, [Validators.required]],
-      maxSlots: [0, [Validators.required, Validators.min(1)]],
-    });
-
-    if (this.data.mode === 'edit') {
-      this.form.patchValue({
-        doctorId: this.data.doctorId,
-        maxSlots: this.data.maxSlots,
-      });
-    }
   }
 
   // ---------------- SEARCH ----------------
@@ -111,7 +98,7 @@ export class ProgramLectureScheduleFormDialogComponent implements OnInit {
     this.loading = true;
 
     this.departmentUserService
-      .getDoctors(this.data.departmentId, this.requestFilters)
+      .getInstructors(this.data.departmentId, this.requestFilters)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe((response: any) => {
         this.hasNextPage = response.hasNextPage;

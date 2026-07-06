@@ -1,5 +1,5 @@
 <div>
-  <h2>Program Lecture Schedule Form Dialog</h2>
+  <h2>Program Section Schedule Form Dialog</h2>
 
   <hr />
 
@@ -13,12 +13,12 @@
   <hr />
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <!-- Docotrs -->
+    <!-- Instructor -->
     <div class="form-group">
-      <label>Doctor</label>
+      <label>Instructor</label>
 
       <ng-select
-        formControlName="doctorId"
+        formControlName="instructorId"
         [items]="instructors"
         bindLabel="name"
         bindValue="id"
@@ -27,7 +27,7 @@
         [typeahead]="typeahead$"
         (scrollToEnd)="loadMore()"
         [clearSearchOnAdd]="true"
-        placeholder="Select Doctor"
+        placeholder="Select Instructor"
       >
       </ng-select>
     </div>

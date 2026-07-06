@@ -27,7 +27,7 @@ export class ProgramScheduleService {
   ): Observable<void> {
     return this.apiClient.post<void>(
       `${environment.apiUrl}/api/programs/${programId}/lectures-schedule`,
-      request,
+      { schedules: request },
     );
   }
 

@@ -21,6 +21,7 @@ import {
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { ProgramLectureScheduleFormDialogComponent } from '../../components/program-lecture-schedule-form-dialog/program-lecture-schedule-form-dialog.component';
+import { ProgramSectionScheduleFormDialogComponent } from '../../components/program-section-schedule-form-dialog/program-section-schedule-form-dialog.component';
 
 @Component({
   selector: 'app-program-sections-schedule',
@@ -138,9 +139,11 @@ export class ProgramSectionsScheduleComponent implements OnInit {
       );
       if (!exists) {
         let dialogRef = this.matDialog.open(
-          ProgramLectureScheduleFormDialogComponent,
+          ProgramSectionScheduleFormDialogComponent,
           {
             data: {
+              mode: 'add',
+              departmentId: this.route.snapshot.parent?.params['id'],
               subject: data,
               period: this.periods[periodIdx],
               day: this.days[dayIdx],
@@ -154,7 +157,7 @@ export class ProgramSectionsScheduleComponent implements OnInit {
               ...this.slots[dayIdx][periodIdx],
               {
                 subject: data,
-                instructorId: result.instructor,
+                instructorId: result.instructorId,
                 maxSlots: result.maxSlots,
               },
             ];
@@ -197,6 +200,11 @@ export class ProgramSectionsScheduleComponent implements OnInit {
       periodIndex
     ].filter((s) => s.subject.id !== subjectId);
     this.slots = [...this.slots];
+  }
+
+  onClickCell(dayIdx: number, periodIdx: number): void {
+    const slot = this.slots[dayIdx][periodIdx];
+    alert(slot.map((s) => s.subject.name).join(', '));
   }
 
   get allDropLists(): string[] {
