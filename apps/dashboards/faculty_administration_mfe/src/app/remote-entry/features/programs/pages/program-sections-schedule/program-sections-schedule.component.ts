@@ -143,7 +143,7 @@ export class ProgramSectionsScheduleComponent implements OnInit {
           {
             data: {
               mode: 'add',
-              departmentId: this.route.snapshot.parent?.params['id'],
+              departmentId: this.route.snapshot.parent?.parent?.parent?.params['id'],
               subject: data,
               period: this.periods[periodIdx],
               day: this.days[dayIdx],
