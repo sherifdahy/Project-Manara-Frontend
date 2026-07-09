@@ -1,3 +1,225 @@
-<p>
-  academic-progress works!
-</p>
+<!-- Page Header -->
+<div class="page-header mb-4">
+  <div>
+    <h1 class="page-title mb-1">Academic Progress</h1>
+    <p class="page-description mb-0">
+      View your academic progress and subject status.
+    </p>
+  </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+
+  <!-- Total Subjects -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Total Subjects</span>
+          <h3 class="stats-number">{{ totalSubjects }}</h3>
+          <span class="stats-meta">Registered subjects</span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-primary-soft">
+          <i class="fa-solid fa-book text-primary"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Completed -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Completed</span>
+          <h3 class="stats-number">{{ completedCount }}</h3>
+          <span class="stats-meta text-success">
+            Successfully completed
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-success-soft">
+          <i class="fa-solid fa-circle-check text-success"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Available -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Available</span>
+          <h3 class="stats-number">{{ availableCount }}</h3>
+          <span class="stats-meta">
+            Ready to enroll
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-warning-soft">
+          <i class="fa-solid fa-lock-open text-warning"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Locked -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Locked</span>
+          <h3 class="stats-number">{{ lockedCount }}</h3>
+          <span class="stats-meta">
+            Waiting prerequisites
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-danger-soft">
+          <i class="fa-solid fa-lock text-danger"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Academic Progress Section -->
+<div class="academic-progress-section">
+
+  <div class="section-card">
+
+    <!-- Header -->
+    <div class="section-header">
+
+      <div>
+        <h4 class="section-title">Academic Progress</h4>
+        <p class="section-subtitle">
+          View all your registered subjects and their academic status.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="data-table-wrapper">
+
+      <table class="data-table">
+
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Credit Hours</th>
+            <th>GPA</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let lecture of lectures">
+
+            <!-- Subject -->
+            <td>
+              <div class="table-cell-with-icon">
+
+                <div class="table-cell-icon">
+                  <i class="fa-solid fa-book"></i>
+                </div>
+
+                <div class="table-cell-content">
+
+                  <div class="table-cell-title">
+                    {{ lecture.subject.name }}
+                  </div>
+
+                </div>
+
+              </div>
+            </td>
+
+            <!-- Status -->
+            <td>
+
+              <span
+                class="table-status-badge"
+                [ngClass]="{
+                  'status-active': lecture.status === 'Completed',
+                  'status-inactive': lecture.status === 'Locked',
+                  'status-pending': lecture.status === 'Available'
+                }">
+
+                {{ lecture.status }}
+
+              </span>
+
+            </td>
+
+            <!-- Hours -->
+            <td>
+
+              <span class="table-value-badge">
+                {{ lecture.subject.creditHours }}
+              </span>
+
+            </td>
+
+            <!-- GPA -->
+            <td>
+
+              <span class="table-value-badge">
+
+                {{ lecture.gpa ?? '-' }}
+
+              </span>
+
+            </td>
+
+          </tr>
+
+          <!-- Empty State -->
+
+          <tr *ngIf="lectures.length === 0">
+
+            <td colspan="4">
+
+              <div class="table-empty-state">
+
+                <div class="table-empty-icon">
+                  <i class="fa-solid fa-book-open"></i>
+                </div>
+
+                <h3 class="table-empty-title">
+                  No Subjects Found
+                </h3>
+
+                <p class="table-empty-text">
+                  There are no subjects available for this student.
+                </p>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

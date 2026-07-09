@@ -1,0 +1,206 @@
+/* ===========================
+   Page Header
+=========================== */
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.page-description {
+  color: var(--text-secondary);
+  margin-top: .25rem;
+}
+
+/* ===========================
+   Summary Cards
+=========================== */
+
+.stats-card {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: .25s;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.stats-info {
+  flex: 1;
+}
+
+.stats-label {
+  display: block;
+  font-size: .75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: .4rem;
+  font-weight: 600;
+}
+
+.stats-number {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.stats-meta {
+  font-size: .875rem;
+  color: var(--text-secondary);
+}
+
+.stats-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-primary-soft {
+  background: rgba(37,99,235,.1);
+}
+
+.bg-success-soft {
+  background: rgba(22,163,74,.1);
+}
+
+.bg-warning-soft {
+  background: rgba(245,158,11,.1);
+}
+
+.bg-danger-soft {
+  background: rgba(239,68,68,.1);
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.section-card {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+   padding: 1rem 1.25rem;
+}
+
+.section-header {
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 1rem;
+    padding-bottom: .75rem;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  margin: .25rem 0 0;
+  color: var(--text-secondary);
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.table thead th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom-width: 1px;
+}
+
+.table td,
+.table th {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+/* ===========================
+   Status
+=========================== */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .45rem .8rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.status-completed {
+  background: rgba(22,163,74,.12);
+  color: #15803d;
+}
+
+.status-available {
+  background: rgba(245,158,11,.12);
+  color: #b45309;
+}
+
+.status-locked {
+  background: rgba(107,114,128,.12);
+  color: #4b5563;
+}
+
+/* ===========================
+   Empty State
+=========================== */
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.empty-state i {
+  font-size: 2.5rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.empty-state h5 {
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+
+  .stats-number {
+    font-size: 1.5rem;
+  }
+
+  .section-card {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+}

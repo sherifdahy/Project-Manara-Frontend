@@ -1,3 +1,82 @@
-<p>
-  course-registration works!
-</p>
+<div class="page-header">
+  <div class="header-title-wrap">
+    <div class="header-icon">
+      <i class="bi bi-calendar-week"></i>
+    </div>
+    <div>
+      <h1 class="page-title">My Schedule</h1>
+      <p class="page-subtitle">Click a lecture to add it to your schedule</p>
+    </div>
+  </div>
+</div>
+
+<div class="program-schedule-page">
+  <div class="page-content">
+    <div class="dashboard-card">
+      <div class="card-head">
+        <h2 class="card-title">Available Lectures</h2>
+        <p class="card-subtitle">One selection per subject</p>
+      </div>
+
+      <ng-container *ngIf="periods.length > 0; else noPeriods">
+        <div class="schedule-grid-wrap">
+          <div
+            class="schedule-grid"
+            [style.grid-template-columns]="
+              '85px repeat(' + days.length + ', 1fr)'
+            "
+          >
+            <div class="grid-header-cell time-header-cell">Time</div>
+            <div class="grid-header-cell" *ngFor="let day of days">
+              {{ day.value | slice: 0 : 3 }}
+            </div>
+
+            <ng-container *ngFor="let period of periods; let ti = index">
+              <div class="time-column-cell">
+                <div class="time-cell-lines">
+                  <span>{{ period.startTime }}</span>
+                  <span>{{ period.endTime }}</span>
+                </div>
+              </div>
+
+              <ng-container *ngFor="let day of days; let di = index">
+                <div class="grid-slot-cell">
+                  <div class="slot-dropzone">
+                    <div
+                      *ngFor="let item of slots[di][ti]; trackBy: trackBySlot"
+                      class="assigned-subject-card"
+                      [class.selected]="item.selected"
+                      [class.disabled]="selectingId === item.lectureScheduleId"
+                      (click)="selectLecture(item)"
+                    >
+                      <div class="assigned-code">{{ item.doctorName }}</div>
+                      <div class="assigned-name">{{ item.subjectName }}</div>
+                      <i
+                        *ngIf="item.selected"
+                        class="bi bi-check-circle-fill selected-icon"
+                      ></i>
+                    </div>
+
+                    <div
+                      *ngIf="slots[di][ti].length === 0"
+                      class="slot-empty-state"
+                    >
+                      -
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #noPeriods>
+        <div class="no-periods-state">
+          <i class="bi bi-calendar3"></i>
+          <p>No available lectures</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -29,8 +29,8 @@ export const remoteRoutes: Route[] = [
         path: 'course-registration',
         loadComponent: () =>
           import(
-            './features/academic-progress/academic-progress.component'
-          ).then((x) => x.AcademicProgressComponent),
+            './features/course-registration/course-registration.component'
+          ).then((x) => x.CourseRegistrationComponent),
       },
     ],
   },
