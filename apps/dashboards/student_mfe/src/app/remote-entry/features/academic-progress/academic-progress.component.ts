@@ -1,5 +1,6 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { filter, take } from 'rxjs';
 import { StudentsService } from '../../core/services/students.service';
 import { StudentLecture } from './models/student-lecture';
 
@@ -13,7 +14,7 @@ import { StudentLecture } from './models/student-lecture';
 export class AcademicProgressComponent implements OnInit {
   studentsService = inject(StudentsService);
 
-  studentId = this.studentsService.student$.value?.id;
+  studentId?: number;
 
   lectures: StudentLecture[] = [];
 
@@ -23,7 +24,11 @@ export class AcademicProgressComponent implements OnInit {
   lockedCount = 0;
 
   ngOnInit(): void {
-    this.loadAcademicProgress();
+    // wait for student info to be available (uses StudentsService cache)
+    this.studentsService.student$.pipe(filter((s) => !!s), take(1)).subscribe((s) => {
+      this.studentId = s!.id;
+      this.loadAcademicProgress();
+    });
   }
 
   private loadAcademicProgress(): void {

@@ -47,16 +47,16 @@ export class CourseRegistrationComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly scheduleService: StudentsService,
+    private readonly studentsService: StudentsService,
     private readonly dayService: DayService,
     private readonly periodService: PeriodsService,
     private readonly notificationService: NotificationService,
     private readonly httpErrorService: HttpErrorService,
-    private readonly studnetServices: StudentsService,
+    
   ) {}
 
   ngOnInit(): void {
-    this.studnetServices.student$
+    this.studentsService.student$
       .pipe(
         filter((student) => !!student),
         take(1),
@@ -74,7 +74,7 @@ export class CourseRegistrationComponent implements OnInit {
     forkJoin({
       days: this.dayService.getAll(),
       periods: this.periodService.getAll(this.facultyId),
-      lectures: this.scheduleService.getAvailableLectures(this.studentId),
+      lectures: this.studentsService.getAvailableLectures(this.studentId),
     })
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
@@ -137,7 +137,7 @@ export class CourseRegistrationComponent implements OnInit {
 
     this.selectingId = item.lectureScheduleId;
 
-    this.scheduleService
+    this.studentsService
       .selectLecture(this.studentId, item.lectureScheduleId)
       .pipe(finalize(() => (this.selectingId = null)))
       .subscribe({
