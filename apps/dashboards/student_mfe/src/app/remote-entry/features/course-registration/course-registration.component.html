@@ -1,13 +1,88 @@
-<div class="page-header">
-  <div class="header-title-wrap">
-    <div class="header-icon">
-      <i class="bi bi-calendar-week"></i>
-    </div>
-    <div>
-      <h1 class="page-title">My Schedule</h1>
-      <p class="page-subtitle">Click a lecture to add it to your schedule</p>
+<!-- Summary Cards -->
+<div class="row g-3 mb-4">
+
+  <!-- Total Subjects -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Total Subjects</span>
+          <h3 class="stats-number">{{ totalSubjects }}</h3>
+          <span class="stats-meta">Available for you</span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-primary-soft">
+          <i class="fa-solid fa-book text-primary"></i>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <!-- Enrolled -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Enrolled</span>
+          <h3 class="stats-number">{{ enrolledSubjects }}</h3>
+          <span class="stats-meta text-success">
+            Successfully registered
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-success-soft">
+          <i class="fa-solid fa-circle-check text-success"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Remaining -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Remaining</span>
+          <h3 class="stats-number">{{ totalSubjects - enrolledSubjects }}</h3>
+          <span class="stats-meta">
+            Still need to enroll
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-warning-soft">
+          <i class="fa-solid fa-hourglass-half text-warning"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Lectures -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Full Lectures</span>
+          <h3 class="stats-number">{{ fullSlotsCount }}</h3>
+          <span class="stats-meta text-danger">
+            No slots remaining
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-danger-soft">
+          <i class="fa-solid fa-lock text-danger"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="program-schedule-page">
@@ -46,11 +121,19 @@
                       *ngFor="let item of slots[di][ti]; trackBy: trackBySlot"
                       class="assigned-subject-card"
                       [class.selected]="item.selected"
-                      [class.disabled]="selectingId === item.lectureScheduleId"
+                      [class.full]="item.isFull"
+                      [class.disabled]="
+                        item.isFull ||
+                        item.selected ||
+                        selectingId === item.lectureScheduleId
+                      "
                       (click)="selectLecture(item)"
                     >
                       <div class="assigned-code">{{ item.doctorName }}</div>
                       <div class="assigned-name">{{ item.subjectName }}</div>
+                      <div class="assigned-slots" *ngIf="!item.selected">
+                        {{ item.isFull ? 'Full' : item.remainingSlots + ' left' }}
+                      </div>
                       <i
                         *ngIf="item.selected"
                         class="bi bi-check-circle-fill selected-icon"

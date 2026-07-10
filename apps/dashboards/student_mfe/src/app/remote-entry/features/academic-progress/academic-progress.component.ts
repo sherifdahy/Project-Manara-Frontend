@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { StudentsService } from '../../core/services/students.service';
 import { StudentLecture } from './models/student-lecture';
@@ -11,7 +11,9 @@ import { StudentLecture } from './models/student-lecture';
   styleUrls: ['./academic-progress.component.css'],
 })
 export class AcademicProgressComponent implements OnInit {
-  studentId = input<number>(186);
+  studentsService = inject(StudentsService);
+
+  studentId = this.studentsService.student$.value?.id;
 
   lectures: StudentLecture[] = [];
 
@@ -20,15 +22,13 @@ export class AcademicProgressComponent implements OnInit {
   availableCount = 0;
   lockedCount = 0;
 
-  constructor(private studentsService: StudentsService) {}
-
   ngOnInit(): void {
     this.loadAcademicProgress();
   }
 
   private loadAcademicProgress(): void {
     this.studentsService
-      .getAcademicProgress(this.studentId())
+      .getAcademicProgress(this.studentId!)
       .subscribe((lectures) => {
         this.lectures = lectures;
         this.calculateSummary();

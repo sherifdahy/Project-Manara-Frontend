@@ -1,14 +1,14 @@
 <div class="app-header">
   <div class="header-content-wrapper">
     <!-- Left Side - University Info -->
-    <!-- <ng-container *ngIf="faculty$ | async as faculty">
+    <ng-container *ngIf="currentUser">
       <div class="university-info">
-        <h1 class="university-title">{{ faculty.name }}</h1>
+        <h1 class="university-title">{{ currentUser.fullName }}</h1>
         <span class="university-subtitle">{{
-          faculty.description || 'Administrative Control Panel'
-        }}</span>
+          currentUser.email
+          }}</span>
       </div>
-    </ng-container> -->
+    </ng-container>
 
     <!-- Right Side - Actions -->
     <div class="header-actions">

@@ -7,10 +7,9 @@ import {
 } from '@project-manara-frontend/services';
 import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
-import {
-  CurrentUserResponse,
-} from '@project-manara-frontend/models';
+import { CurrentUserResponse } from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
+import { StudentsService } from '../../../../core/services/students.service';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +21,7 @@ export class HeaderComponent implements OnInit {
   currentLang: string = 'en';
   acceptedLanguageConsts = AcceptedLanguageConsts;
   currentUser!: CurrentUserResponse | null;
+  
   constructor(
     private httpErrorService: HttpErrorService,
     private userService: UserService,
@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private appTranslateService: AppTranslateService,
     private store: Store,
+    studentService: StudentsService,
   ) {}
 
   ngOnInit() {
