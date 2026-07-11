@@ -51,6 +51,27 @@
     </div>
   </div>
 
+  <!-- Currently Enrolled -->
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="stats-card">
+      <div class="stats-header">
+
+        <div class="stats-info">
+          <span class="stats-label">Currently Enrolled</span>
+          <h3 class="stats-number">{{ currentlyEnrolledCount }}</h3>
+          <span class="stats-meta">
+            In progress this term
+          </span>
+        </div>
+
+        <div class="stats-icon-wrapper bg-primary-soft">
+          <i class="fa-solid fa-book-open-reader text-primary"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- Available -->
   <div class="col-12 col-sm-6 col-xl-3">
     <div class="stats-card">
@@ -155,9 +176,10 @@
               <span
                 class="table-status-badge"
                 [ngClass]="{
-                  'status-active': lecture.status === 'Completed',
-                  'status-inactive': lecture.status === 'Locked',
-                  'status-pending': lecture.status === 'Available'
+                  'status-completed': lecture.status === 'Completed',
+                  'status-current': lecture.status === 'CurrentlyEnrolled',
+                  'status-available': lecture.status === 'Available',
+                  'status-locked': lecture.status === 'Locked'
                 }">
 
                 {{ lecture.status }}

@@ -73,6 +73,5 @@ export * from './lib/program-enrollments/responses/program-enrollments-response'
 export * from './lib/program-enrollments/responses/student-enrollments-response';
 export * from './lib/program-enrollments/responses/program-enrollments-detaill-response';
 
-export * from './lib/students/responses/student-response';
-
-
+export * from './lib/students/responses/available-lecture-response';
+export * from './lib/students/responses/student-lecture';

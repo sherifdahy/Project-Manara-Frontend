@@ -1,0 +1,279 @@
+/* =====================
+   Student Subjects Progress Section
+===================== */
+
+/* =====================
+   Section Card
+===================== */
+.section-card {
+  background: white;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.section-title {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.section-subtitle {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* =====================
+   Data Table
+===================== */
+.data-table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead th {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--card-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table tbody td {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--card-border);
+  vertical-align: middle;
+}
+
+.data-table tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =====================
+   Table Cell With Icon
+===================== */
+.table-cell-with-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.table-cell-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-color);
+  font-size: var(--fs-sm);
+  flex-shrink: 0;
+}
+
+.table-cell-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-cell-title {
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.table-cell-title:hover {
+  color: var(--main-color);
+}
+
+/* =====================
+   Status Badge
+===================== */
+.table-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 9999px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+
+/* Completed */
+.status-active {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+/* Available */
+.status-inactive {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+/* Currently Enrolled */
+.status-current {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+}
+
+/* Locked */
+.status-locked {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+/* =====================
+   Table Actions
+===================== */
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.table-action-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.table-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.table-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.table-action-btn.btn-primary {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+}
+
+.table-action-btn.btn-primary:hover {
+  background: rgba(37, 99, 235, 0.2);
+}
+
+.table-action-btn.btn-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.table-action-btn.btn-success:hover {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.table-action-btn.btn-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.table-action-btn.btn-warning:hover {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+/* =====================
+   Table Empty State
+===================== */
+.table-empty-state {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.table-empty-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-lg);
+  font-size: var(--fs-2xl);
+  color: var(--text-muted);
+}
+
+.table-empty-title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.table-empty-text {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* =====================
+   Responsive
+===================== */
+@media (max-width: 1199.98px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .section-card {
+    padding: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: var(--fs-xl);
+  }
+
+  .student-subjects-section .data-table th:nth-child(2),
+  .student-subjects-section .data-table td:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .section-card {
+    padding: var(--space-lg);
+  }
+}

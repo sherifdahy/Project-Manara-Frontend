@@ -11,4 +11,8 @@ export interface Subject {
   creditHours: number;
 }
 
-export type LectureStatus = 'Available' | 'Locked' | 'Completed' | 'InProgress';
+export type LectureStatus =
+  | 'Completed'
+  | 'CurrentlyEnrolled'
+  | 'Available'
+  | 'Locked';

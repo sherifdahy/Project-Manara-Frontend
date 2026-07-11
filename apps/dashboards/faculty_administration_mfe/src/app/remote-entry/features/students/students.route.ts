@@ -6,6 +6,7 @@ import { EditStudentPageComponent } from './pages/edit-student-page/edit-student
 import { CreateStudentPageComponent } from './pages/create-student-page/create-student-page.component';
 import { StudentPermissionsPageComponent } from './pages/student-permissions-page/student-permissions-page.component';
 import { StudentEnrollmentPageComponent } from './pages/student-enrollment-page/student-enrollment-page.component';
+import { StudentSubjectsComponent } from './pages/student-subjects/student-subjects.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'permissions',
         component: StudentPermissionsPageComponent,
+      },
+      {
+        path: 'subjects',
+        component: StudentSubjectsComponent,
       },
     ],
   },

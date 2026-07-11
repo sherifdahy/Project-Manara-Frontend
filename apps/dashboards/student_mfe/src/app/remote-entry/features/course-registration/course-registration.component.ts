@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, finalize, forkJoin, take } from 'rxjs';
-import { StudentsService } from '../../core/services/students.service';
+import { StudentsService } from '../../../../../../../../libs/services/src/lib/students/students.service';
 import {
   DayService,
   PeriodsService,
@@ -9,7 +9,7 @@ import {
   NotificationService,
 } from '@project-manara-frontend/services';
 import { DayResponse, PeriodResponse } from '@project-manara-frontend/models';
-import { AvailableLectureResponse } from './models/available-lecture-response';
+import { AvailableLectureResponse } from '../../../../../../../../libs/models/src/lib/students/responses/available-lecture-response';
 import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 
 interface SlotItem {
@@ -24,7 +24,7 @@ interface SlotItem {
 
 @Component({
   selector: 'app-course-registration',
-  imports: [NgIf, NgFor, NgClass, SlicePipe],
+  imports: [NgIf, NgFor, SlicePipe],
   templateUrl: './course-registration.component.html',
   styleUrls: ['./course-registration.component.css'],
 })

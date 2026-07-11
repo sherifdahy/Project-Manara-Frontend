@@ -9,7 +9,7 @@ import { AppTranslateService } from '@project-manara-frontend/services';
 import { AcceptedLanguageConsts } from '@project-manara-frontend/consts';
 import { CurrentUserResponse } from '@project-manara-frontend/models';
 import { Store } from '@ngrx/store';
-import { StudentsService } from '../../../../core/services/students.service';
+import { StudentsService } from '../../../../../../../../../../libs/services/src/lib/students/students.service';
 
 @Component({
   selector: 'app-header',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StudentsService } from '../../core/services/students.service';
+import { StudentsService } from '../../../../../../../../libs/services/src/lib/students/students.service';
 
 @Component({
   selector: 'app-main-layout',

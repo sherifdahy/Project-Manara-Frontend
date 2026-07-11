@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { filter, take } from 'rxjs';
-import { StudentsService } from '../../core/services/students.service';
-import { StudentLecture } from './models/student-lecture';
+import { StudentsService } from '../../../../../../../../libs/services/src/lib/students/students.service';
+import { StudentLecture } from '../../../../../../../../libs/models/src/lib/students/responses/student-lecture';
 
 @Component({
   selector: 'app-academic-progress',
@@ -20,6 +20,7 @@ export class AcademicProgressComponent implements OnInit {
 
   totalSubjects = 0;
   completedCount = 0;
+  currentlyEnrolledCount = 0;
   availableCount = 0;
   lockedCount = 0;
 
@@ -44,6 +45,7 @@ export class AcademicProgressComponent implements OnInit {
     this.totalSubjects = this.lectures.length;
 
     this.completedCount = this.countByStatus('Completed');
+    this.currentlyEnrolledCount = this.countByStatus('CurrentlyEnrolled');
     this.availableCount = this.countByStatus('Available');
     this.lockedCount = this.countByStatus('Locked');
   }

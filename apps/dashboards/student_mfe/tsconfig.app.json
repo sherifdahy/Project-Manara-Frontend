@@ -5,7 +5,7 @@
     "types": [],
     "target": "ES2020"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../../libs/services/src/lib/students/students.service.ts", "../../../libs/services/src/lib/students/students.service.spec.ts", "../../../libs/models/src/lib/students/responses/student-lecture.ts"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],
   "files": ["src/app/remote-entry/entry-module.ts"]
 }

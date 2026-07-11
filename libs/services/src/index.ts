@@ -5,7 +5,7 @@ export * from './lib/api/api-client.service';
 export * from './lib/state-manegment/auth-token.service';
 export * from './lib/state-manegment/auth-navigation.service';
 export * from './lib/universities/university.service';
-export * from './lib/students/student.service';
+export * from './lib/students/students.service';
 export * from './lib/faculties/faculty.service';
 export * from './lib/departments/department.service';
 export * from './lib/programs/program.service';

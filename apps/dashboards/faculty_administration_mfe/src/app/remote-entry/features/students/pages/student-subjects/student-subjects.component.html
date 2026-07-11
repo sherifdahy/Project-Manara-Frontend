@@ -1,0 +1,84 @@
+<!-- Student Subjects Progress Section -->
+<div class="student-subjects-section">
+  <div class="section-card">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div>
+        <h4 class="section-title">Student Subjects Progress</h4>
+        <p class="section-subtitle">
+          Track subject availability, status and GPA for this student
+        </p>
+      </div>
+    </div>
+
+    <!-- Student Subjects Table -->
+    <div class="data-table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Subject Name</th>
+            <th>Credit Hours</th>
+            <th>GPA</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="studentSubjects$ | async as subjects">
+            <tr *ngFor="let item of subjects">
+              <td>
+                <div class="table-cell-with-icon">
+                  <div class="table-cell-icon">
+                    <i class="fa-solid fa-book"></i>
+                  </div>
+                  <div class="table-cell-content">
+                    <span class="table-cell-title">{{
+                      item.subject.name
+                    }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ item.subject.creditHours }}</td>
+              <td>{{ item.gpa ?? '-' }}</td>
+              <td>
+                <span
+                  class="table-status-badge"
+                  [ngClass]="getStatusClass(item.status)"
+                >
+                  {{ getStatusLabel(item.status) }}
+                </span>
+              </td>
+              <td>
+                <div class="table-actions">
+                  <!-- TODO: هنفعّلها لما نعمل feature تحديد الـ GPA -->
+                  <button
+                    class="table-action-btn btn-warning"
+                    disabled
+                    title="Set GPA (coming soon)"
+                  >
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="subjects.length === 0">
+              <td colspan="5">
+                <div class="table-empty-state">
+                  <div class="table-empty-icon">
+                    <i class="fa-solid fa-inbox"></i>
+                  </div>
+                  <h3 class="table-empty-title">No Subjects Found</h3>
+                  <p class="table-empty-text">
+                    This student has no subjects to display at the moment.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

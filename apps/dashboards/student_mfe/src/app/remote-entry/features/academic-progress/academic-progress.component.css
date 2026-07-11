@@ -98,13 +98,13 @@
   background: #fff;
   border: 1px solid var(--card-border);
   border-radius: 12px;
-   padding: 1rem 1.25rem;
+  padding: 1rem 1.25rem;
 }
 
 .section-header {
   border-bottom: 1px solid var(--card-border);
   margin-bottom: 1rem;
-    padding-bottom: .75rem;
+  padding-bottom: .75rem;
 }
 
 .section-title {
@@ -122,23 +122,74 @@
    Table
 =========================== */
 
-.table thead th {
-  font-weight: 600;
-  color: var(--text-secondary);
-  border-bottom-width: 1px;
+.data-table-wrapper {
+  overflow-x: auto;
 }
 
-.table td,
-.table th {
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead th {
+  font-weight: 600;
+  font-size: .8rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--card-border);
+  text-align: start;
+  padding: .85rem 1rem;
+}
+
+.data-table td {
   padding: 1rem;
   vertical-align: middle;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-cell-with-icon {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.table-cell-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(37,99,235,.1);
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.table-cell-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.table-value-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .35rem .7rem;
+  border-radius: 8px;
+  background: rgba(107,114,128,.08);
+  font-weight: 600;
+  font-size: .85rem;
+  color: var(--text-primary);
 }
 
 /* ===========================
-   Status
+   Status Badge
 =========================== */
 
-.status-badge {
+.table-status-badge {
   display: inline-flex;
   align-items: center;
   padding: .45rem .8rem;
@@ -150,6 +201,11 @@
 .status-completed {
   background: rgba(22,163,74,.12);
   color: #15803d;
+}
+
+.status-current {
+  background: rgba(37,99,235,.12);
+  color: #1d4ed8;
 }
 
 .status-available {
@@ -166,23 +222,25 @@
    Empty State
 =========================== */
 
-.empty-state {
+.table-empty-state {
   text-align: center;
   padding: 4rem 0;
 }
 
-.empty-state i {
+.table-empty-icon i {
   font-size: 2.5rem;
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
 
-.empty-state h5 {
+.table-empty-title {
   font-weight: 600;
+  margin: .5rem 0 .25rem;
 }
 
-.empty-state p {
+.table-empty-text {
   color: var(--text-secondary);
+  margin: 0;
 }
 
 /* ===========================

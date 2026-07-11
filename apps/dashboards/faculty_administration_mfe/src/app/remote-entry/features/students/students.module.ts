@@ -13,6 +13,7 @@ import { EditStudentPageComponent } from './pages/edit-student-page/edit-student
 import { StudentPermissionsPageComponent } from './pages/student-permissions-page/student-permissions-page.component';
 import { StudentEnrollmentPageComponent } from './pages/student-enrollment-page/student-enrollment-page.component';
 import { DirectivesModule } from '@project-manara-frontend/directives';
+import { StudentSubjectsComponent } from './pages/student-subjects/student-subjects.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { DirectivesModule } from '@project-manara-frontend/directives';
     StudentOverviewComponent,
     StudentPermissionsPageComponent,
     StudentEnrollmentPageComponent,
+    StudentSubjectsComponent,
   ],
 })
 export class StudentsModule {}
