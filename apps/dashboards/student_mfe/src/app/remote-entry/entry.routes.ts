@@ -8,7 +8,7 @@ export const remoteRoutes: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: 'overview',
+        redirectTo: 'academic-progress',
         pathMatch: 'full',
       },
       {
