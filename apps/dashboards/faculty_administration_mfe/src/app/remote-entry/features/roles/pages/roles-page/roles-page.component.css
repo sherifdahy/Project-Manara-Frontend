@@ -127,7 +127,6 @@
   margin: 0;
 }
 
-
 /* =====================
    Search Bar
 ===================== */
@@ -171,32 +170,6 @@
 }
 
 /* =====================
-   Roles Table - Responsive Column Hiding
-===================== */
-
-/* Hide Description & Default Portal on tablets and below */
-@media (max-width: 1199.98px) {
-  .roles-section .data-table th:nth-child(2),
-  .roles-section .data-table td:nth-child(2),
-  .roles-section .data-table th:nth-child(6),
-  .roles-section .data-table td:nth-child(6) {
-    display: none;
-  }
-}
-
-/* Hide Level, Permissions, Created on mobile */
-@media (max-width: 767.98px) {
-  .roles-section .data-table th:nth-child(3),
-  .roles-section .data-table td:nth-child(3),
-  .roles-section .data-table th:nth-child(5),
-  .roles-section .data-table td:nth-child(5),
-  .roles-section .data-table th:nth-child(8),
-  .roles-section .data-table td:nth-child(8) {
-    display: none;
-  }
-}
-
-/* =====================
    Responsive
 ===================== */
 @media (max-width: 1199.98px) {
@@ -217,7 +190,12 @@
     font-size: var(--fs-3xl);
   }
 }
-
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
 @media (max-width: 575.98px) {
   .stats-card,
   .section-card {

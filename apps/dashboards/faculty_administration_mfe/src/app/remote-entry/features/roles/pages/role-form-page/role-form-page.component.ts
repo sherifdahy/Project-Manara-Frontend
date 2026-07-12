@@ -25,6 +25,7 @@ export class RoleFormPageComponent implements OnInit {
   roleId: number;
   facultyId$ = this.store.select(selectFacultyId);
   searchQuery = '';
+  isSaving = false;
 
   defaults: string[] = [];
   selected: string[] = [];
@@ -71,12 +72,23 @@ export class RoleFormPageComponent implements OnInit {
     return this.base.filterCategories(this.categories, this.searchQuery);
   }
 
+  get hasChanges(): boolean {
+    if (this.selected.length !== this.original.length) return true;
+    const originalSet = new Set(this.original);
+    return this.selected.some((key) => !originalSet.has(key));
+  }
+
   getVisiblePermissions(category: Category) {
     return this.base.getVisiblePermissions(category, this.searchQuery);
   }
 
   getSelectedCount(category: Category): number {
     return this.base.getSelectedCount(category, this.selected);
+  }
+
+  getCategoryProgress(category: Category): number {
+    if (!category.permissions.length) return 0;
+    return (this.getSelectedCount(category) / category.permissions.length) * 100;
   }
 
   isSelected(key: string): boolean {
@@ -104,6 +116,10 @@ export class RoleFormPageComponent implements OnInit {
   }
 
   save(): void {
+    if (!this.hasChanges || this.isSaving) return;
+
+    this.isSaving = true;
+
     this.facultyId$
       .pipe(
         filter((id) => !!id),
@@ -116,6 +132,7 @@ export class RoleFormPageComponent implements OnInit {
             this.selected,
           ),
         ),
+        finalize(() => (this.isSaving = false)),
       )
       .subscribe({
         next: () => {

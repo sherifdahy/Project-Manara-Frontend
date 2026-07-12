@@ -149,10 +149,7 @@
               <div class="category-progress">
                 <div
                   class="category-progress-bar"
-                  [style.width.%]="
-                    (getSelectedCount(category) / category.permissions.length) *
-                    100
-                  "
+                  [style.width.%]="getCategoryProgress(category)"
                 ></div>
               </div>
               <i
@@ -199,11 +196,19 @@
 
       <div class="card-footer-bar">
         <div class="footer-info">
-          <span class="footer-changes" hasPermission="permissions:update">
+          <span
+            class="footer-changes"
+            hasPermission="permissions:update"
+            *ngIf="hasChanges"
+          >
             <i class="fa-solid fa-circle-exclamation"></i>
             You have unsaved changes
           </span>
-          <span class="footer-no-changes" hasPermission="permissions:update">
+          <span
+            class="footer-no-changes"
+            hasPermission="permissions:update"
+            *ngIf="!hasChanges"
+          >
             <i class="fa-solid fa-check-circle"></i>
             All changes saved
           </span>
@@ -220,9 +225,13 @@
             class="btn btn-save"
             (click)="save()"
             hasPermission="permissions:update"
+            [disabled]="!hasChanges || isSaving"
           >
-            <i class="fa-solid fa-save"></i>
-            Save Changes
+            <i
+              class="fa-solid"
+              [ngClass]="isSaving ? 'fa-spinner fa-spin' : 'fa-save'"
+            ></i>
+            {{ isSaving ? 'Saving...' : 'Save Changes' }}
           </button>
         </div>
       </div>

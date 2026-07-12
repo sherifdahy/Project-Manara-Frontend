@@ -11,16 +11,16 @@
       </div>
     </div>
 
-    <!-- Stats Cards Row -->
-    <div class="row g-3 mb-4">
+    <!-- Stats Cards Row (real data only) -->
+    <div class="row g-3 mb-4" *ngIf="rolesStats$ | async as stats">
       <!-- Total Roles -->
-      <div class="col-12 col-sm-6 col-xl-3">
+      <div class="col-12 col-sm-6 col-xl-4">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Total Roles</span>
-              <h3 class="stats-number">6</h3>
-              <span class="stats-meta">Configured roles</span>
+              <h3 class="stats-number">{{ stats.total }}</h3>
+              <span class="stats-meta text-success">{{ stats.active }} active</span>
             </div>
             <div class="stats-icon-wrapper bg-primary-soft">
               <i class="fa-solid fa-shield-alt text-primary"></i>
@@ -30,13 +30,13 @@
       </div>
 
       <!-- Active Roles -->
-      <div class="col-12 col-sm-6 col-xl-3">
+      <div class="col-12 col-sm-6 col-xl-4">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
               <span class="stats-label">Active Roles</span>
-              <h3 class="stats-number">6</h3>
-              <span class="stats-meta text-success">All currently active</span>
+              <h3 class="stats-number">{{ stats.active }}</h3>
+              <span class="stats-meta">Currently enabled</span>
             </div>
             <div class="stats-icon-wrapper bg-success-soft">
               <i class="fa-solid fa-check-circle text-success"></i>
@@ -45,33 +45,17 @@
         </div>
       </div>
 
-      <!-- Total Users -->
-      <div class="col-12 col-sm-6 col-xl-3">
+      <!-- Disabled Roles -->
+      <div class="col-12 col-sm-6 col-xl-4">
         <div class="stats-card">
           <div class="stats-header">
             <div class="stats-info">
-              <span class="stats-label">Total Users</span>
-              <h3 class="stats-number">12,661</h3>
-              <span class="stats-meta">Assigned to roles</span>
+              <span class="stats-label">Disabled Roles</span>
+              <h3 class="stats-number">{{ stats.total - stats.active }}</h3>
+              <span class="stats-meta">Currently disabled</span>
             </div>
             <div class="stats-icon-wrapper bg-warning-soft">
-              <i class="fa-solid fa-users text-warning"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Permissions -->
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="stats-card" hasPermission="permissions:read">
-          <div class="stats-header">
-            <div class="stats-info">
-              <span class="stats-label">Permissions</span>
-              <h3 class="stats-number">42</h3>
-              <span class="stats-meta">Available permissions</span>
-            </div>
-            <div class="stats-icon-wrapper bg-info-soft">
-              <i class="fa-solid fa-key text-info"></i>
+              <i class="fa-solid fa-ban text-warning"></i>
             </div>
           </div>
         </div>
@@ -79,7 +63,7 @@
     </div>
 
     <!-- All Roles Section -->
-    <div class="roles-section">
+    <div class="roles-section" hasPermission="roles:read">
       <div class="section-card">
         <!-- Section Header -->
         <div class="section-header">
@@ -95,80 +79,53 @@
             <thead>
               <tr>
                 <th>Role Name</th>
-                <th>Description</th>
-                <th>Users</th>
-                <th>Permissions</th>
-                <th>Default Portal</th>
                 <th>Status</th>
-                <th class="text-center">Actions</th>
+                <th class="text-end">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngIf="roles$ | async as roles">
-                <tr *ngFor="let role of roles" hasPermission="roles:read">
-                  <td>
-                    <div class="table-cell-with-icon">
-                      <a [routerLink]="[role.id]" class="table-cell-content">
-                        <span class="table-cell-title">{{ role.name }}</span>
-                      </a>
-                    </div>
-                  </td>
-                  <td>Full system access with all permissions</td>
-                  <td>3</td>
-                  <td>
-                    <span
-                      class="table-value-badge"
-                      hasPermission="permissions:read"
-                      >42</span
-                    >
-                  </td>
-                  <td>Admin</td>
-                  <td>
-                    <span
-                      class="table-status-badge status-inactive"
-                      *ngIf="role.isDeleted"
-                      >Disabled</span
-                    >
-                    <span
-                      class="table-status-badge status-active"
-                      *ngIf="!role.isDeleted"
-                      >Active</span
-                    >
-                  </td>
-                  <td>
-                    <div class="table-actions" hasPermission="roles:update">
-                      <a
-                        [routerLink]="[role.id]"
-                        class="table-action-btn btn-primary"
-                        title="Edit Role"
-                      >
-                        <i class="fa-solid fa-pen"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr *ngIf="roles.length == 0">
-                  <td colspan="9">
-                    <div class="table-empty-state">
-                      <div class="table-empty-icon">
-                        <i class="fa-solid fa-inbox"></i>
+              <ng-container *ngIf="!isLoading">
+                <ng-container *ngIf="roles$ | async as roles">
+                  <tr *ngFor="let role of roles">
+                    <td>
+                      <div class="table-cell-with-icon">
+                        <a [routerLink]="[role.id]" hasPermission="roles:update" class="table-cell-content">
+                          <span class="table-cell-title">{{ role.name }}</span>
+                        </a>
                       </div>
-                      <h3 class="table-empty-title">No Roles Found</h3>
-                      <p class="table-empty-text">
-                        There are no roles to display at the moment.
-                      </p>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                    <td>
+                      <span class="table-status-badge status-inactive" *ngIf="role.isDeleted">Disabled</span>
+                      <span class="table-status-badge status-active" *ngIf="!role.isDeleted">Active</span>
+                    </td>
+                    <td class="text-end">
+                      <div class="table-actions" hasPermission="roles:update">
+                        <a [routerLink]="[role.id]" class="table-action-btn btn-primary" title="Edit Role">
+                          <i class="fa-solid fa-pen"></i>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="roles.length === 0">
+                    <td colspan="3">
+                      <div class="table-empty-state">
+                        <div class="table-empty-icon">
+                          <i class="fa-solid fa-inbox"></i>
+                        </div>
+                        <h3 class="table-empty-title">No Roles Found</h3>
+                        <p class="table-empty-text">
+                          There are no roles to display at the moment.
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
               </ng-container>
 
-              <!-- Skelton -->
+              <!-- Skeleton -->
               <ng-container *ngIf="isLoading">
-                <tr
-                  *ngFor="let row of [1, 2, 3]"
-                  class="table-skeleton-row placeholder-glow"
-                >
+                <tr *ngFor="let row of [1, 2, 3]" class="table-skeleton-row placeholder-glow">
                   <td>
                     <div class="table-cell-with-icon">
                       <div class="table-cell-content">
@@ -176,31 +133,9 @@
                       </div>
                     </div>
                   </td>
-
-                  <td>
-                    <div class="table-location-badge sk-pill"></div>
-                  </td>
-
-                  <td>
-                    <div class="table-cell-multiline">
-                      <div class="table-cell-primary sk-pill sm"></div>
-                    </div>
-                  </td>
-
-                  <td>
-                    <div class="table-value-badge sk-pill sm"></div>
-                  </td>
-
-                  <td>
-                    <div class="table-cell-multiline">
-                      <div class="table-cell-primary sk-pill sm"></div>
-                    </div>
-                  </td>
-
                   <td>
                     <div class="table-status-badge sk-pill sm"></div>
                   </td>
-
                   <td>
                     <div class="table-actions">
                       <div class="table-action-btn sk-btn"></div>
