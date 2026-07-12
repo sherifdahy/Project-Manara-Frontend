@@ -96,7 +96,7 @@ export class PeriodEditPageComponent implements OnInit {
 
     const request = this.periodForm.value as PeriodRequest;
     this.isSaving = true;
-
+    console.log(request);
     this.facultyId$
       .pipe(
         filter((facultyId): facultyId is number => !!facultyId),
