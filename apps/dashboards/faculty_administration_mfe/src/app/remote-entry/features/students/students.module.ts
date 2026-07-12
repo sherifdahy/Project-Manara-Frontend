@@ -7,7 +7,6 @@ import { routes } from './students.route';
 import { UiModule } from '@project-manara-frontend/ui';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { StudentDetailPageComponent } from './pages/student-detail-page/student-detail-page.component';
-import { StudentOverviewComponent } from './pages/student-overview/student-overview.component';
 import { CreateStudentPageComponent } from './pages/create-student-page/create-student-page.component';
 import { EditStudentPageComponent } from './pages/edit-student-page/edit-student-page.component';
 import { StudentPermissionsPageComponent } from './pages/student-permissions-page/student-permissions-page.component';
@@ -30,7 +29,6 @@ import { StudentSubjectsComponent } from './pages/student-subjects/student-subje
     CreateStudentPageComponent,
     EditStudentPageComponent,
     StudentDetailPageComponent,
-    StudentOverviewComponent,
     StudentPermissionsPageComponent,
     StudentEnrollmentPageComponent,
     StudentSubjectsComponent,
