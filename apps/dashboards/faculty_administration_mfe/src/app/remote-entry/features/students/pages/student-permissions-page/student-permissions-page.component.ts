@@ -91,6 +91,14 @@ export class StudentPermissionsPageComponent implements OnInit {
     );
   }
 
+  // Drives the footer "unsaved changes" indicator and disables Save
+  // when there is nothing new to persist.
+  hasChanges(): boolean {
+    if (this.selected.length !== this.original.length) return true;
+    const originalSet = new Set(this.original);
+    return this.selected.some((key) => !originalSet.has(key));
+  }
+
   save(): void {
     this.ps
       .updateForUser(this.programUserId, this.defaults, this.selected)

@@ -12,7 +12,7 @@ import { SetGpaDialogComponent } from './components/set-gpa-dialog/set-gpa-dialo
   templateUrl: './student-subjects.component.html',
   styleUrls: ['./student-subjects.component.css'],
 })
-export class StudentSubjectsComponent {
+export class StudentSubjectsComponent implements OnInit {
   studentSubjects$!: Observable<StudentLecture[]>;
   studentId!: number;
 
@@ -31,14 +31,14 @@ export class StudentSubjectsComponent {
     private studentSubjectsService: StudentsService,
     private dialog: MatDialog,
   ) {
-    this.studentId = this.route.parent?.snapshot.params['id'];
+    this.studentId = Number(this.route.snapshot.parent?.params['id']);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadSubjects();
   }
 
-  loadSubjects() {
+  loadSubjects(): void {
     this.studentSubjects$ = this.studentSubjectsService.getAcademicProgress(
       this.studentId,
     );
@@ -52,7 +52,7 @@ export class StudentSubjectsComponent {
     return this.statusMap[status]?.label ?? status;
   }
 
-  openGpaDialog(item: StudentLecture) {
+  openGpaDialog(item: StudentLecture): void {
     const dialogRef = this.dialog.open(SetGpaDialogComponent, {
       width: '420px',
       data: { item, studentId: this.studentId },

@@ -48,7 +48,8 @@
               <td>
                 <div class="table-actions">
                   <button class="table-action-btn btn-warning" title="Set GPA"
-                    [disabled]="item.status != 'CurrentlyEnrolled' || item.lectureScheduleId == null"
+                    hasPermission="studentsPortal:updateGrade"
+                    [disabled]="item.status !== 'CurrentlyEnrolled' || item.lectureScheduleId == null"
                     (click)="openGpaDialog(item)">
                     <i class="fa-solid fa-pen"></i>
                   </button>

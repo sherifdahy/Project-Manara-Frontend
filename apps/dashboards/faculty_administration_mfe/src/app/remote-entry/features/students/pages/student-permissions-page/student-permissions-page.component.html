@@ -9,7 +9,7 @@
             <div class="stats-info">
               <span class="stats-label">Default</span>
               <h3 class="stats-number">{{ defaults.length }}</h3>
-              <span class="stats-meta">Available permissions</span>
+              <span class="stats-meta">Inherited from role</span>
             </div>
             <div class="stats-icon-wrapper bg-primary-soft">
               <i class="fa-solid fa-shield-alt text-primary"></i>
@@ -89,7 +89,8 @@
             <div class="category-right">
               <div class="category-progress">
                 <div class="category-progress-bar"
-                  [style.width.%]="(getSelectedCount(category) / category.permissions.length) * 100"></div>
+                  [style.width.%]="category.permissions.length ? (getSelectedCount(category) / category.permissions.length) * 100 : 0">
+                </div>
               </div>
               <i class="fa-solid fa-chevron-down category-arrow" [class.expanded]="category.expanded"></i>
             </div>
@@ -122,11 +123,11 @@
 
       <div class="card-footer-bar">
         <div class="footer-info">
-          <span class="footer-changes">
+          <span class="footer-changes" *ngIf="hasChanges()">
             <i class="fa-solid fa-circle-exclamation"></i>
             You have unsaved changes
           </span>
-          <span class="footer-no-changes">
+          <span class="footer-no-changes" *ngIf="!hasChanges()">
             <i class="fa-solid fa-check-circle"></i>
             All changes saved
           </span>
@@ -135,7 +136,8 @@
           <button class="btn btn-cancel" routerLink="/roles">
             Cancel
           </button>
-          <button class="btn btn-save" (click)="save()" hasPermission="permissions:update">
+          <button class="btn btn-save" (click)="save()" hasPermission="permissions:update"
+            [disabled]="!hasChanges()">
             <i class="fa-solid fa-save"></i>
             Save Changes
           </button>

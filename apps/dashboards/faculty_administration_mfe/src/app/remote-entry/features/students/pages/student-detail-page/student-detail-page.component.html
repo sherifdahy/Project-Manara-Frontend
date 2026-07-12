@@ -28,21 +28,19 @@
       <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
         <a class="nav-link w-100 w-lg-auto" routerLink="subjects" hasPermission="subjects:read"
           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-          <i class="fa-solid fa-user-plus me-2"></i> Subjects
+          <i class="fa-solid fa-book me-2"></i> Subjects
         </a>
       </li>
       <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
         <a class="nav-link w-100 w-lg-auto" routerLink="enrollment" hasPermission="enrollments:read"
           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
-          <i class="fa-solid fa-user-plus me-2"></i> Enrollment
+          <i class="fa-solid fa-clipboard-list me-2"></i> Enrollment
         </a>
       </li>
-
-
-
       <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
-        <a class="nav-link w-100 w-lg-auto" routerLink="permissions" routerLinkActive="active">
-          <i class="fa-solid fa-gear me-2"></i> Permissions
+        <a class="nav-link w-100 w-lg-auto" routerLink="permissions" hasPermission="studentsPortal:read"
+          routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+          <i class="fa-solid fa-user-shield me-2"></i> Permissions
         </a>
       </li>
     </ul>

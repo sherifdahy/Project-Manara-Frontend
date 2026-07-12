@@ -13,18 +13,19 @@ import { Observable } from 'rxjs';
 export class StudentEnrollmentPageComponent implements OnInit {
   studentEnrollments$!: Observable<StudentEnrollmentResponse[]>;
   userId!: number;
+
   constructor(
     private route: ActivatedRoute,
     private programEnrollmentsService: ProgramEnrollmentsService,
   ) {
-    this.userId = this.route.parent?.snapshot.params['id'];
+    this.userId = Number(this.route.snapshot.parent?.params['id']);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadEnrollments();
   }
 
-  loadEnrollments() {
+  loadEnrollments(): void {
     this.studentEnrollments$ = this.programEnrollmentsService.getAllByStudent(
       this.userId,
       false,

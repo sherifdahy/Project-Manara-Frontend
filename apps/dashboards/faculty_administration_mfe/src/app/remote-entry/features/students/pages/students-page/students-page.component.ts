@@ -118,7 +118,9 @@ export class StudentsPageComponent implements OnInit {
     return Religion[value] || '—';
   }
 
-  onDelete(id: number): void {
+  // Renamed from onDelete: this endpoint toggles the active/inactive
+  // (isDeleted) status, it does not hard-delete the record.
+  onToggleStatus(id: number): void {
     this.programUserService.toggleStatus(id).subscribe({
       next: () => {
         this.loadStudents();
