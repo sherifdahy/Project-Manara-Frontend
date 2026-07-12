@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { LectureStatus, StudentLecture } from '@project-manara-frontend/models';
 import { StudentsService } from '@project-manara-frontend/services';
 import { Observable } from 'rxjs';
+import { SetGpaDialogComponent } from './components/set-gpa-dialog/set-gpa-dialog.component';
 
 @Component({
   selector: 'app-student-subjects',
@@ -27,6 +29,7 @@ export class StudentSubjectsComponent {
   constructor(
     private route: ActivatedRoute,
     private studentSubjectsService: StudentsService,
+    private dialog: MatDialog,
   ) {
     this.studentId = this.route.parent?.snapshot.params['id'];
   }
@@ -49,6 +52,16 @@ export class StudentSubjectsComponent {
     return this.statusMap[status]?.label ?? status;
   }
 
-  // هيتفعل لما نبدأ feature تحديد GPA للمادة
-  // setGpa(item: StudentLecture) { ... }
+  openGpaDialog(item: StudentLecture) {
+    const dialogRef = this.dialog.open(SetGpaDialogComponent, {
+      width: '420px',
+      data: { item, studentId: this.studentId },
+    });
+
+    dialogRef.afterClosed().subscribe((saved) => {
+      if (saved) {
+        this.loadSubjects();
+      }
+    });
+  }
 }

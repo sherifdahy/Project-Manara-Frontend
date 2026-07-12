@@ -13,7 +13,11 @@ import { StudentPermissionsPageComponent } from './pages/student-permissions-pag
 import { StudentEnrollmentPageComponent } from './pages/student-enrollment-page/student-enrollment-page.component';
 import { DirectivesModule } from '@project-manara-frontend/directives';
 import { StudentSubjectsComponent } from './pages/student-subjects/student-subjects.component';
-
+import { SetGpaDialogComponent } from './pages/student-subjects/components/set-gpa-dialog/set-gpa-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +27,10 @@ import { StudentSubjectsComponent } from './pages/student-subjects/student-subje
     UiModule,
     NgSelectModule,
     DirectivesModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   declarations: [
     StudentsPageComponent,
@@ -32,6 +40,7 @@ import { StudentSubjectsComponent } from './pages/student-subjects/student-subje
     StudentPermissionsPageComponent,
     StudentEnrollmentPageComponent,
     StudentSubjectsComponent,
+    SetGpaDialogComponent,
   ],
 })
 export class StudentsModule {}

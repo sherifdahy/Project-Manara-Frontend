@@ -1,0 +1,109 @@
+<div class="year-dialog">
+  <!-- ================= Header ================= -->
+  <div class="year-dialog-header">
+    <div class="d-flex align-items-center gap-3 flex-fill">
+      <div class="year-dialog-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <div class="flex-fill">
+        <h2 class="year-dialog-title">Set GPA</h2>
+        <p class="year-dialog-subtitle">Update the student's GPA for this subject</p>
+      </div>
+    </div>
+
+    <button (click)="close()" class="year-dialog-close" type="button">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- ================= Body ================= -->
+  <div class="year-dialog-body">
+    <div class="year-form-grid">
+      <!-- Subject (read-only info) -->
+      <div class="year-form-field full-width">
+        <label class="year-field-label">
+          <i class="fas fa-book"></i>
+          Subject
+        </label>
+        <input
+          type="text"
+          class="year-field-input"
+          [value]="data.item.subject.name"
+          disabled
+        />
+      </div>
+
+      <!-- Credit Hours (read-only info) -->
+      <div class="year-form-field full-width">
+        <label class="year-field-label">
+          <i class="fas fa-clock"></i>
+          Credit Hours
+        </label>
+        <input
+          type="text"
+          class="year-field-input"
+          [value]="data.item.subject.creditHours"
+          disabled
+        />
+      </div>
+
+      <!-- GPA -->
+      <div class="year-form-field full-width">
+        <label class="year-field-label">
+          <i class="fas fa-chart-line"></i>
+          GPA <span class="required-star">*</span>
+        </label>
+        <input
+          type="number"
+          step="0.01"
+          min="0"
+          max="4"
+          class="year-field-input"
+          [formControl]="gpaControl"
+          [class.invalid]="gpaControl.invalid && gpaControl.touched"
+        />
+        <p
+          class="gpa-error-text"
+          *ngIf="gpaControl.hasError('required') && gpaControl.touched"
+        >
+          GPA مطلوب
+        </p>
+        <p
+          class="gpa-error-text"
+          *ngIf="
+            (gpaControl.hasError('min') || gpaControl.hasError('max')) &&
+            gpaControl.touched
+          "
+        >
+          القيمة لازم تكون بين 0 و 4
+        </p>
+      </div>
+
+      <p class="gpa-error-text full-width" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <div class="year-dialog-footer">
+    <button
+      (click)="close()"
+      type="button"
+      class="year-btn year-btn-cancel"
+      [disabled]="submitting"
+    >
+      Cancel
+    </button>
+
+    <button
+      [disabled]="gpaControl.invalid || submitting"
+      (click)="submit()"
+      type="button"
+      class="year-btn year-btn-submit"
+    >
+      <i class="fa-solid" [ngClass]="submitting ? 'fa-spinner fa-spin' : 'fa-check'"></i>
+      <span>{{ submitting ? 'Saving...' : 'Save' }}</span>
+    </button>
+  </div>
+</div>

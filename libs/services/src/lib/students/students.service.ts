@@ -50,4 +50,10 @@ export class StudentsService {
       { lectureScheduleId },
     );
   }
+  setGpa(studentId: number, lectureScheduleId: number, gpa: number) {
+    return this.apiClient.put(`${this.base}/${studentId}/gpa`, {
+      lectureScheduleId,
+      gpa,
+    });
+  }
 }

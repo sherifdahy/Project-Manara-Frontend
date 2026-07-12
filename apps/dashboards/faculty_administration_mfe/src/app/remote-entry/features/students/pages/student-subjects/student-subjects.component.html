@@ -47,9 +47,9 @@
               </td>
               <td>
                 <div class="table-actions">
-                  <!-- TODO: هنفعّلها لما نعمل feature تحديد الـ GPA -->
-                  <button class="table-action-btn btn-warning" title="Set GPA (coming soon)"
-                    [disabled]="item.status != 'CurrentlyEnrolled'">
+                  <button class="table-action-btn btn-warning" title="Set GPA"
+                    [disabled]="item.status != 'CurrentlyEnrolled' || item.lectureScheduleId == null"
+                    (click)="openGpaDialog(item)">
                     <i class="fa-solid fa-pen"></i>
                   </button>
                 </div>
