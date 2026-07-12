@@ -100,12 +100,58 @@ jobs:
           retention-days: 7
 
   # ════════════════════════════════════════════
-  #  JOB 3 – Build Production Bundle
+  #  JOB 3 – SonarQube Static Analysis / Quality Gate
+  #  • Runs after tests so coverage report is available
+  #  • Downloads the coverage artifact from JOB 2 (if it exists)
+  #  • Fails the pipeline if the Quality Gate is not passed
+  # ════════════════════════════════════════════
+  sonarqube:
+    name: 🔍 SonarQube Analysis
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Sonar needs full git history for blame/new-code analysis
+
+      - name: Download coverage report (if available)
+        if: needs.test.outputs.tests_available == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+        continue-on-error: true
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=manaraa-shell
+            -Dsonar.sources=apps/${{ env.NX_APP_NAME }}/src
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.exclusions=**/*.spec.ts,**/node_modules/**,**/dist/**
+
+      # Optional but recommended: block the pipeline if code doesn't pass Sonar's Quality Gate
+      - name: SonarQube Quality Gate Check
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  # ════════════════════════════════════════════
+  #  JOB 4 – Build Production Bundle
+  #  Now gated on SonarQube passing, not just tests
   # ════════════════════════════════════════════
   build:
     name: 🏗️ Build
     runs-on: ubuntu-latest
-    needs: test
+    needs: sonarqube
 
     steps:
       - name: Checkout repository
@@ -156,7 +202,7 @@ jobs:
           retention-days: 1
 
   # ════════════════════════════════════════════
-  #  JOB 4 – Deploy to S3 + Invalidate CloudFront
+  #  JOB 5 – Deploy to S3 + Invalidate CloudFront
   #  Runs ONLY on push to main (not on PRs)
   # ════════════════════════════════════════════
   deploy:
