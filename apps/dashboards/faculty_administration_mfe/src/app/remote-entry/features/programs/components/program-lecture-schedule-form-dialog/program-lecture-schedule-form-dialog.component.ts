@@ -35,7 +35,7 @@ export class ProgramLectureScheduleFormDialogComponent implements OnInit {
   typeahead$ = new Subject<string>();
 
   constructor(
-    private readonly matDialogRef: MatDialogRef<ProgramLectureScheduleFormDialogComponent>,
+    readonly matDialogRef: MatDialogRef<ProgramLectureScheduleFormDialogComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly departmentUserService: DepartmentUserService,
     @Inject(MAT_DIALOG_DATA)

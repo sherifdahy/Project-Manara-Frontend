@@ -1,46 +1,130 @@
-<div>
-  <h2>Program Lecture Schedule Form Dialog</h2>
-
-  <hr />
-
-  <p><strong>Subject:</strong> {{ data.subject.name }}</p>
-  <p><strong>Day:</strong> {{ data.day.value }}</p>
-  <p>
-    <strong>Period:</strong>
-    {{ data.period.startTime }} - {{ data.period.endTime }}
-  </p>
-
-  <hr />
-
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <!-- Docotrs -->
-    <div class="form-group">
-      <label>Doctor</label>
-
-      <ng-select
-        formControlName="doctorId"
-        [items]="instructors"
-        bindLabel="name"
-        bindValue="id"
-        [loading]="loading"
-        [virtualScroll]="true"
-        [typeahead]="typeahead$"
-        (scrollToEnd)="loadMore()"
-        [clearSearchOnAdd]="true"
-        placeholder="Select Doctor"
-      >
-      </ng-select>
+<div class="year-dialog">
+  <!-- ================= Header ================= -->
+  <div class="year-dialog-header">
+    <div class="d-flex align-items-center gap-3 flex-fill">
+      <div class="year-dialog-icon">
+        <i class="fa-solid fa-chalkboard-user"></i>
+      </div>
+      <div class="flex-fill">
+        <h2 class="year-dialog-title">
+          {{ data.mode === 'edit' ? 'Edit' : 'Add' }} Lecture Schedule
+        </h2>
+        <p class="year-dialog-subtitle">
+          {{ data.subject.name }} · {{ data.day.value }} ·
+          {{ data.period.startTime }} - {{ data.period.endTime }}
+        </p>
+      </div>
     </div>
 
-    <!-- Max Slots -->
-    <div class="form-group">
-      <label>Max Slots</label>
-
-      <input type="number" class="form-control" formControlName="maxSlots" />
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-      Save
+    <button (click)="matDialogRef.close()" class="year-dialog-close" type="button">
+      <i class="fa-solid fa-xmark"></i>
     </button>
-  </form>
+  </div>
+
+  <!-- ================= Body ================= -->
+  <div class="year-dialog-body">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="year-form-grid">
+        <!-- Info Row (Subject / Day / Period) -->
+        <div class="year-form-field full-width">
+          <label class="year-field-label">
+            <i class="fas fa-book"></i>
+            Subject
+          </label>
+          <input
+            type="text"
+            class="year-field-input"
+            [value]="data.subject.name"
+            disabled
+          />
+        </div>
+
+        <div class="year-form-field">
+          <label class="year-field-label">
+            <i class="fas fa-calendar-day"></i>
+            Day
+          </label>
+          <input
+            type="text"
+            class="year-field-input"
+            [value]="data.day.value"
+            disabled
+          />
+        </div>
+
+        <div class="year-form-field">
+          <label class="year-field-label">
+            <i class="fas fa-clock"></i>
+            Period
+          </label>
+          <input
+            type="text"
+            class="year-field-input"
+            [value]="data.period.startTime + ' - ' + data.period.endTime"
+            disabled
+          />
+        </div>
+
+        <!-- Doctor -->
+        <div class="year-form-field full-width">
+          <label class="year-field-label">
+            <i class="fas fa-user-doctor"></i>
+            Doctor <span class="required-star">*</span>
+          </label>
+
+          <ng-select
+            class="year-ng-select"
+            formControlName="doctorId"
+            [items]="instructors"
+            bindLabel="name"
+            bindValue="id"
+            [loading]="loading"
+            [virtualScroll]="true"
+            [typeahead]="typeahead$"
+            (scrollToEnd)="loadMore()"
+            [clearSearchOnAdd]="true"
+            placeholder="Select Doctor"
+          >
+          </ng-select>
+        </div>
+
+        <!-- Max Slots -->
+        <div class="year-form-field full-width">
+          <label class="year-field-label">
+            <i class="fas fa-users"></i>
+            Max Slots <span class="required-star">*</span>
+          </label>
+          <input
+            type="number"
+            class="year-field-input"
+            formControlName="maxSlots"
+            [class.invalid]="
+              form.get('maxSlots')?.invalid && form.get('maxSlots')?.touched
+            "
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <div class="year-dialog-footer">
+    <button
+      (click)="matDialogRef.close()"
+      type="button"
+      class="year-btn year-btn-cancel"
+    >
+      Cancel
+    </button>
+
+    <button
+      [disabled]="form.invalid"
+      (click)="submit()"
+      type="button"
+      class="year-btn year-btn-submit"
+    >
+      <i class="fa-solid fa-check"></i>
+      <span>Save</span>
+    </button>
+  </div>
 </div>
