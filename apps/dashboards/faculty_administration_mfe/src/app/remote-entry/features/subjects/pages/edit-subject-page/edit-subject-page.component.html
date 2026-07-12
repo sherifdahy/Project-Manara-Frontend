@@ -1,12 +1,3 @@
-<!-- Page Header -->
-<div class="page-header mb-4">
-  <div>
-    <h1 class="page-title mb-1">Edit Subject</h1>
-    <p class="page-description mb-0">
-      Editing: <strong>{{ subjectName }}</strong>
-    </p>
-  </div>
-</div>
 
 <form class="subject-form" [formGroup]="form" (ngSubmit)="onSubmit()">
   <!-- ===== Subject Information Card ===== -->
@@ -149,7 +140,7 @@
                       subject.creditHours || '—'
                     }}</span>
                   </td>
-                  <td class="col-action">
+                  <td class="col-action" hasPermission="subjects:update">
                     <button
                       type="button"
                       class="add-btn"
@@ -305,7 +296,7 @@
                     subject.creditHours || '—'
                   }}</span>
                 </td>
-                <td class="col-action">
+                <td class="col-action" hasPermission="subjects:update">
                   <button
                     (click)="deleteSubject(subject.id)"
                     type="button"
@@ -340,7 +331,7 @@
   <!-- end prerequisites row -->
 
   <!-- ===== Form Actions ===== -->
-  <div class="form-actions">
+  <div class="form-actions" hasPermission="subjects:update">
     <button
       type="submit"
       class="btn-save"

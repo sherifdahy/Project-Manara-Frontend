@@ -13,6 +13,7 @@ import {
   HttpErrorService,
   LoaderService,
   SubjectService,
+  UserService,
 } from '@project-manara-frontend/services';
 import { filter, finalize, Observable, switchMap, take } from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
@@ -40,6 +41,11 @@ export class EditSubjectPageComponent implements OnInit {
   filters = new RequestFilters();
   subjectName: string = '';
   isLoading = false;
+
+  // NOTE: assumes UserService exposes `currentUser` with a `permissions: string[]`
+  // array, matching the shape already used elsewhere (hasPermission directive).
+  canUpdate = false;
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -48,10 +54,14 @@ export class EditSubjectPageComponent implements OnInit {
     private store: Store,
     private router: Router,
     private loaderService: LoaderService,
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
     this.subjectId = Number(this.route.parent?.snapshot.paramMap.get('id'));
+    this.canUpdate = !!this.userService.currentUser?.permissions?.includes(
+      'subjects:update',
+    );
     this.initForm();
     this.loadSubjectData();
     this.loadSubjects();
@@ -64,6 +74,12 @@ export class EditSubjectPageComponent implements OnInit {
       description: ['', [Validators.required]],
       creditHours: ['', [Validators.required]],
     });
+
+    // View-only users (subjects:read but not subjects:update) can see the
+    // form but can't type into it.
+    if (!this.canUpdate) {
+      this.form.disable();
+    }
   }
 
   private loadSubjectData(): void {
@@ -148,6 +164,7 @@ export class EditSubjectPageComponent implements OnInit {
   }
 
   addSubject(subject: SubjectResponse): void {
+    if (!this.canUpdate) return;
     this.selectedSubjects.push({
       id: subject.id,
       name: subject.name,
@@ -157,6 +174,7 @@ export class EditSubjectPageComponent implements OnInit {
   }
 
   deleteSubject(id: number): void {
+    if (!this.canUpdate) return;
     this.selectedSubjects = this.selectedSubjects.filter((s) => s.id !== id);
   }
 
@@ -165,6 +183,7 @@ export class EditSubjectPageComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (!this.canUpdate) return;
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
     this.isLoading = true;

@@ -25,54 +25,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Active Subjects -->
-  <div class="col-12 col-sm-6 col-xl-3">
-    <div class="stats-card">
-      <div class="stats-header">
-        <div class="stats-info">
-          <span class="stats-label">Active Subjects</span>
-          <h3 class="stats-number">98</h3>
-          <span class="stats-meta text-success">Currently active</span>
-        </div>
-        <div class="stats-icon-wrapper bg-success-soft">
-          <i class="fa-solid fa-circle-check text-success"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Male Subjects -->
-  <div class="col-12 col-sm-6 col-xl-3">
-    <div class="stats-card">
-      <div class="stats-header">
-        <div class="stats-info">
-          <span class="stats-label">Male Subjects</span>
-          <h3 class="stats-number">65</h3>
-          <span class="stats-meta">Male enrolled</span>
-        </div>
-        <div class="stats-icon-wrapper bg-info-soft">
-          <i class="fa-solid fa-mars text-info"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Female Subjects -->
-  <div class="col-12 col-sm-6 col-xl-3">
-    <div class="stats-card">
-      <div class="stats-header">
-        <div class="stats-info">
-          <span class="stats-label">Female Subjects</span>
-          <h3 class="stats-number">55</h3>
-          <span class="stats-meta">Female enrolled</span>
-        </div>
-        <div class="stats-icon-wrapper bg-warning-soft">
-          <i class="fa-solid fa-venus text-warning"></i>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- All Subjects Section -->
@@ -194,16 +146,25 @@
                     [routerLink]="[subject.id]"
                     class="table-action-btn btn-primary"
                     title="Edit Subject"
+                    hasPermission="subjects:update"
                   >
                     <i class="fa-solid fa-pen"></i>
                   </a>
                   <button
-                    class="table-action-btn btn-danger"
-                    title="Delete Subject"
+                    class="table-action-btn"
+                    [class.btn-danger]="!subject.isDeleted"
+                    [class.btn-success]="subject.isDeleted"
+                    [title]="
+                      subject.isDeleted ? 'Activate Subject' : 'Deactivate Subject'
+                    "
                     hasPermission="subjects:toggleStatus"
                     (click)="onDelete(subject.id)"
                   >
-                    <i class="fa-solid fa-trash"></i>
+                    <i
+                      class="fa-solid"
+                      [class.fa-toggle-off]="subject.isDeleted"
+                      [class.fa-toggle-on]="!subject.isDeleted"
+                    ></i>
                   </button>
                 </div>
               </td>

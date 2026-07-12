@@ -22,21 +22,9 @@
       <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
         <a
           class="nav-link w-100 w-lg-auto"
-          routerLink="overview"
-          routerLinkActive="active"
-          hasPermission="subjects:read"
-          [routerLinkActiveOptions]="{ exact: false }"
-        >
-          <i class="fa-solid fa-chart-line me-2"></i> Overview
-        </a>
-      </li>
-
-      <li class="nav-item me-0 me-lg-2 mb-2 mb-lg-0">
-        <a
-          class="nav-link w-100 w-lg-auto"
           routerLink="edit"
           routerLinkActive="active"
-          hasPermission="subjects:update"
+          hasPermission="subjects:read"
         >
           <i class="fa-solid fa-gear me-2"></i> Edit
         </a>

@@ -5,16 +5,15 @@ import { routes } from './roles.route';
 import { RolesPageComponent } from './pages/roles-page/roles-page.component';
 import { RoleFormPageComponent } from './pages/role-form-page/role-form-page.component';
 import { FormsModule } from '@angular/forms';
+import { DirectivesModule } from '@project-manara-frontend/directives';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    DirectivesModule,
   ],
-  declarations: [
-    RolesPageComponent,
-    RoleFormPageComponent
-  ]
+  declarations: [RolesPageComponent, RoleFormPageComponent],
 })
-export class RolesModule { }
+export class RolesModule {}
