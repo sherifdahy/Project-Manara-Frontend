@@ -24,18 +24,10 @@
                 <i class="fas fa-pen me-1"></i>
                 Year Name <span class="required-mark">*</span>
               </label>
-              <input
-                formControlName="name"
-                [class.invalid]="
+              <input formControlName="name" [class.invalid]="
                   yearForm.get('name')?.invalid && yearForm.get('name')?.touched
-                "
-                type="text"
-                class="form-control-custom"
-                placeholder="Enter year name e.g. 2025"
-              />
-              <app-display-error
-                [control]="yearForm.get('name')"
-              ></app-display-error>
+                " type="text" class="form-control-custom" placeholder="Enter year name e.g. 2025" />
+              <app-display-error [control]="yearForm.get('name')"></app-display-error>
             </div>
 
             <!-- Start Date -->
@@ -44,18 +36,11 @@
                 <i class="fas fa-calendar-plus me-1"></i>
                 Start Date <span class="required-mark">*</span>
               </label>
-              <input
-                formControlName="startDate"
-                [class.invalid]="
+              <input formControlName="startDate" [class.invalid]="
                   yearForm.get('startDate')?.invalid &&
                   yearForm.get('startDate')?.touched
-                "
-                type="date"
-                class="form-control-custom"
-              />
-              <app-display-error
-                [control]="yearForm.get('startDate')"
-              ></app-display-error>
+                " type="date" class="form-control-custom" />
+              <app-display-error [control]="yearForm.get('startDate')"></app-display-error>
             </div>
 
             <!-- End Date -->
@@ -64,18 +49,11 @@
                 <i class="fas fa-calendar-minus me-1"></i>
                 End Date <span class="required-mark">*</span>
               </label>
-              <input
-                formControlName="endDate"
-                [class.invalid]="
+              <input formControlName="endDate" [class.invalid]="
                   yearForm.get('endDate')?.invalid &&
                   yearForm.get('endDate')?.touched
-                "
-                type="date"
-                class="form-control-custom"
-              />
-              <app-display-error
-                [control]="yearForm.get('endDate')"
-              ></app-display-error>
+                " type="date" class="form-control-custom" />
+              <app-display-error [control]="yearForm.get('endDate')"></app-display-error>
             </div>
 
             <!-- Active Term -->
@@ -85,10 +63,7 @@
                 Active Term <span class="required-mark">*</span>
               </label>
               <div class="input-with-icon">
-                <select
-                  formControlName="activeTermId"
-                  class="form-control-custom with-icon"
-                >
+                <select formControlName="activeTermId" class="form-control-custom with-icon">
                   <option value="" disabled selected>Select active term</option>
                   <option *ngFor="let term of terms$ | async" [value]="term.id">
                     {{ term.name }}
@@ -132,7 +107,7 @@
                   <i class="fa-solid fa-calendar-plus"></i>
                   <span>{{
                     yearForm.get('startDate')?.value || 'startDate'
-                  }}</span>
+                    }}</span>
                 </div>
                 <div class="preview-info-item">
                   <i class="fa-solid fa-calendar-minus"></i>
@@ -147,12 +122,10 @@
         <div class="settings-card mt-3">
           <div class="card-body-custom">
             <div class="actions-section">
-              <button
-                type="submit"
-                class="btn-primary-custom w-100 mb-2"
-                [disabled]="!yearForm.valid || !yearForm.dirty"
-              >
-                <i class="fa-solid fa-check me-2"></i> Save Changes
+              <button hasPermission="years:update" type="submit" class="btn-primary-custom w-100 mb-2"
+                [disabled]="!yearForm.valid || !yearForm.dirty">
+                <i class="fa-solid fa-check me-2"></i>
+                Save Changes
               </button>
             </div>
 

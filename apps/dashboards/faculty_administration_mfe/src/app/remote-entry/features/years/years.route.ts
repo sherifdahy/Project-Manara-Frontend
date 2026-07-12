@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { YearsPageComponent } from './pages/years-page/years-page.component';
 import { YearDetailPageComponent } from './pages/year-detail-page/year-detail-page.component';
-import { YearOverviewPageComponent } from './pages/year-overview-page/year-overview-page.component';
 import { YearEditPageComponent } from './pages/year-edit-page/year-edit-page.component';
 
 export const routes: Routes = [
@@ -15,12 +14,8 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'overview',
+        redirectTo: 'edit',
         pathMatch: 'full',
-      },
-      {
-        path: 'overview',
-        component: YearOverviewPageComponent,
       },
       {
         path: 'edit',

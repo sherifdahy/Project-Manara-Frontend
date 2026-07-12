@@ -26,18 +26,11 @@
             <i class="fas fa-pen"></i>
             Year Name <span class="required-star">*</span>
           </label>
-          <input
-            type="text"
-            class="year-field-input"
-            placeholder="Enter year name e.g. 2025"
-            formControlName="name"
+          <input type="text" class="year-field-input" placeholder="Enter year name e.g. 2025" formControlName="name"
             [class.invalid]="
               yearForm.get('name')?.invalid && yearForm.get('name')?.touched
-            "
-          />
-          <app-display-error
-            [control]="yearForm.get('name')"
-          ></app-display-error>
+            " />
+          <app-display-error [control]="yearForm.get('name')"></app-display-error>
         </div>
 
         <!-- Start Date -->
@@ -46,18 +39,11 @@
             <i class="fas fa-calendar-plus"></i>
             Start Date <span class="required-star">*</span>
           </label>
-          <input
-            type="date"
-            class="year-field-input"
-            formControlName="startDate"
-            [class.invalid]="
+          <input type="date" class="year-field-input" formControlName="startDate" [class.invalid]="
               yearForm.get('startDate')?.invalid &&
               yearForm.get('startDate')?.touched
-            "
-          />
-          <app-display-error
-            [control]="yearForm.get('startDate')"
-          ></app-display-error>
+            " />
+          <app-display-error [control]="yearForm.get('startDate')"></app-display-error>
         </div>
 
         <!-- End Date -->
@@ -66,18 +52,11 @@
             <i class="fas fa-calendar-minus"></i>
             End Date <span class="required-star">*</span>
           </label>
-          <input
-            type="date"
-            class="year-field-input"
-            formControlName="endDate"
-            [class.invalid]="
+          <input type="date" class="year-field-input" formControlName="endDate" [class.invalid]="
               yearForm.get('endDate')?.invalid &&
               yearForm.get('endDate')?.touched
-            "
-          />
-          <app-display-error
-            [control]="yearForm.get('endDate')"
-          ></app-display-error>
+            " />
+          <app-display-error [control]="yearForm.get('endDate')"></app-display-error>
         </div>
 
         <!-- Active Term -->
@@ -87,10 +66,7 @@
             Active Term <span class="required-star">*</span>
           </label>
           <div class="custom-select-wrapper">
-            <select
-              formControlName="activeTermId"
-              class="year-field-input year-field-select"
-            >
+            <select formControlName="activeTermId" class="year-field-input year-field-select">
               <option value="" disabled selected>Select active term</option>
               <option *ngFor="let term of terms$ | async" [value]="term.id">
                 {{ term.name }}
@@ -109,12 +85,8 @@
       Cancel
     </button>
 
-    <button
-      [disabled]="yearForm.invalid"
-      (click)="onSubmit()"
-      type="button"
-      class="year-btn year-btn-submit"
-    >
+    <button hasPermission="years:create" [disabled]="yearForm.invalid" (click)="onSubmit()" type="button"
+      class="year-btn year-btn-submit">
       <i class="fa-solid fa-plus"></i>
       <span>Create</span>
     </button>

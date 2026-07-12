@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, finalize, Observable, switchMap, take } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  finalize,
+  map,
+  Observable,
+  shareReplay,
+  switchMap,
+  take,
+} from 'rxjs';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
 import { PeriodResponse } from '@project-manara-frontend/models';
 import {
@@ -10,6 +20,11 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { PeriodFormDialogComponent } from '../../components/period-form-dialog/period-form-dialog.component';
 
+interface PeriodsStats {
+  total: number;
+  active: number;
+}
+
 @Component({
   selector: 'app-periods-page',
   standalone: false,
@@ -18,9 +33,16 @@ import { PeriodFormDialogComponent } from '../../components/period-form-dialog/p
 })
 export class PeriodsPageComponent implements OnInit {
   periods$!: Observable<PeriodResponse[]>;
+  filteredPeriods$!: Observable<PeriodResponse[]>;
+  periodsStats$!: Observable<PeriodsStats>;
+
   facultyId$ = this.store.select(selectFacultyId);
-  includeDisabled: boolean = false;
-  isLoading: boolean = false;
+  includeDisabled = false;
+  isLoading = false;
+  searchTerm = '';
+
+  private searchTerm$ = new BehaviorSubject<string>('');
+
   constructor(
     private store: Store,
     private periodsService: PeriodsService,
@@ -34,6 +56,7 @@ export class PeriodsPageComponent implements OnInit {
 
   loadPeriods(): void {
     this.isLoading = true;
+
     this.periods$ = this.facultyId$.pipe(
       filter((id): id is number => !!id),
       switchMap((id) =>
@@ -41,13 +64,41 @@ export class PeriodsPageComponent implements OnInit {
           .getAll(id, this.includeDisabled)
           .pipe(finalize(() => (this.isLoading = false))),
       ),
+      shareReplay(1),
+    );
+
+    this.periodsStats$ = this.periods$.pipe(
+      map((periods) => ({
+        total: periods.length,
+        active: periods.filter((p) => !p.isDeleted).length,
+      })),
+    );
+
+    this.filteredPeriods$ = combineLatest([
+      this.periods$,
+      this.searchTerm$,
+    ]).pipe(
+      map(([periods, term]) => {
+        const search = term.trim().toLowerCase();
+        if (!search) return periods;
+        return periods.filter(
+          (p) =>
+            p.startTime?.toLowerCase().includes(search) ||
+            p.endTime?.toLowerCase().includes(search),
+        );
+      }),
     );
   }
 
-  onFilterChange() {
+  onFilterChange(): void {
     this.loadPeriods();
   }
-  onToggleStatus(startTime: string, endTime: string) {
+
+  onSearchChange(): void {
+    this.searchTerm$.next(this.searchTerm);
+  }
+
+  onToggleStatus(startTime: string, endTime: string): void {
     this.facultyId$
       .pipe(
         filter((id): id is number => !!id),
@@ -65,7 +116,8 @@ export class PeriodsPageComponent implements OnInit {
         },
       });
   }
-  openPeriodFormDialog() {
+
+  openPeriodFormDialog(): void {
     this.matDialog
       .open(PeriodFormDialogComponent, {
         width: '600px',

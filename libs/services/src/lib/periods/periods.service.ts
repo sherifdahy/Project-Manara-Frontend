@@ -11,22 +11,16 @@ export class PeriodsService {
   constructor(private apiClient: ApiClientService) {}
 
   getAll(
-    facultId: number,
-    includeDisabled: boolean = false
+    facultyId: number,
+    includeDisabled: boolean = false,
   ): Observable<PeriodResponse[]> {
     return this.apiClient.get(
-      `${environment.apiUrl}/api/faculties/${facultId}/periods?includeDisabled=${includeDisabled}`,
+      `${environment.apiUrl}/api/faculties/${facultyId}/periods?includeDisabled=${includeDisabled}`,
     );
   }
 
-  get(
-    facultyId: number,
-    startTime: string,
-    endTime: string,
-  ): Observable<PeriodResponse> {
-    return this.apiClient.get(
-      `${environment.apiUrl}/api/faculties/${facultyId}/periods/${startTime}/${endTime}`,
-    );
+  get(id: number): Observable<PeriodResponse> {
+    return this.apiClient.get(`${environment.apiUrl}/api/periods/${id}`);
   }
 
   update(
@@ -36,8 +30,7 @@ export class PeriodsService {
     request: PeriodRequest,
   ) {
     return this.apiClient.put(
-      `${environment.apiUrl}/api/faculties/${facultyId}/periods/${oldStartTime}/${oldEndTime}
-`,
+      `${environment.apiUrl}/api/faculties/${facultyId}/periods/${oldStartTime}/${oldEndTime}`,
       request,
     );
   }

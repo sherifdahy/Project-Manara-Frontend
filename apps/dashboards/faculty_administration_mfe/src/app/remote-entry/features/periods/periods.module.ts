@@ -10,7 +10,6 @@ import { PeriodsPageComponent } from './pages/periods-page/periods-page.componen
 import { PeriodFormDialogComponent } from './components/period-form-dialog/period-form-dialog.component';
 import { PeriodDetailPageComponent } from './pages/period-detail-page/period-detail-page.component';
 import { PeriodEditPageComponent } from './pages/period-edit-page/period-edit-page.component';
-import { PeriodOverviewPageComponent } from './pages/period-overview-page/period-overview-page.component';
 
 @NgModule({
   imports: [
@@ -27,7 +26,6 @@ import { PeriodOverviewPageComponent } from './pages/period-overview-page/period
     PeriodFormDialogComponent,
     PeriodDetailPageComponent,
     PeriodEditPageComponent,
-    PeriodOverviewPageComponent,
   ],
 })
 export class PeriodsModule {}

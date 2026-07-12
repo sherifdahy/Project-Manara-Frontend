@@ -18,6 +18,9 @@ import { YearFormDialogComponent } from '../../components/year-form-dialog/year-
 })
 export class YearsPageComponent implements OnInit {
   years$!: Observable<YearResponse[]>;
+  totalYears = 0;
+  activeYears = 0;
+  disabledYears = 0;
   facultyId$ = this.store.select(selectFacultyId);
   includeDisabled: boolean = false;
   isLoading: boolean = false;
@@ -34,6 +37,7 @@ export class YearsPageComponent implements OnInit {
 
   loadYears(): void {
     this.isLoading = true;
+
     this.years$ = this.facultyId$.pipe(
       filter((id): id is number => !!id),
       switchMap((id) =>
@@ -42,6 +46,12 @@ export class YearsPageComponent implements OnInit {
           .pipe(finalize(() => (this.isLoading = false))),
       ),
     );
+
+    this.years$.subscribe((years) => {
+      this.totalYears = years.length;
+      this.activeYears = years.filter((x) => !x.isDeleted).length;
+      this.disabledYears = years.filter((x) => x.isDeleted).length;
+    });
   }
 
   onFilterChange() {

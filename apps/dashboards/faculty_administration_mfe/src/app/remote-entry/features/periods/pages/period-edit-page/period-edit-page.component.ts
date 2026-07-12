@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -7,7 +13,7 @@ import {
   PeriodsService,
 } from '@project-manara-frontend/services';
 import { selectFacultyId } from '../../../../store/selectors/faculty.selectors';
-import { filter, switchMap, take } from 'rxjs';
+import { filter, finalize, switchMap, take } from 'rxjs';
 import { PeriodRequest } from '@project-manara-frontend/models';
 import { ToastrService } from 'ngx-toastr';
 
@@ -19,9 +25,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PeriodEditPageComponent implements OnInit {
   periodForm!: FormGroup;
-  oldStartTime!: string;
-  oldEndTime!: string;
+  periodId!: number;
+  oldStartTime = '';
+  oldEndTime = '';
+  isLoading = false;
+  isSaving = false;
+
   facultyId$ = this.store.select(selectFacultyId);
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -29,38 +40,44 @@ export class PeriodEditPageComponent implements OnInit {
     private periodService: PeriodsService,
     private httpErrorService: HttpErrorService,
     private toastrService: ToastrService,
-  ) {}
+  ) {
+    this.periodId = Number(this.route.parent?.snapshot.paramMap.get('periodId'));
+  }
 
   ngOnInit() {
     this.initForm();
-    this.oldStartTime = this.route.parent?.snapshot.params['startTime'] || '';
-    this.oldEndTime = this.route.parent?.snapshot.params['endTime'] || '';
     this.loadPeriodData();
   }
 
   initForm(): void {
-    this.periodForm = this.fb.group({
-      startTime: ['', [Validators.required]],
-      endTime: ['', [Validators.required]],
-    });
+    this.periodForm = this.fb.group(
+      {
+        startTime: ['', [Validators.required]],
+        endTime: ['', [Validators.required]],
+      },
+      { validators: this.timeRangeValidator },
+    );
   }
+
+  private timeRangeValidator(group: AbstractControl): ValidationErrors | null {
+    const start = group.get('startTime')?.value;
+    const end = group.get('endTime')?.value;
+    if (start && end && start >= end) {
+      return { timeRange: true };
+    }
+    return null;
+  }
+
   loadPeriodData(): void {
-    this.facultyId$
-      .pipe(
-        filter((facultyId) => !!facultyId),
-        take(1),
-        switchMap((facultyId) =>
-          this.periodService.get(
-            facultyId!,
-            this.oldStartTime,
-            this.oldEndTime,
-          ),
-        ),
-      )
+    this.isLoading = true;
+    this.periodService
+      .get(this.periodId)
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (period) => {
+          this.oldStartTime = period.startTime;
+          this.oldEndTime = period.endTime;
           this.periodForm.patchValue({
-            ...period,
             startTime: period.startTime,
             endTime: period.endTime,
           });
@@ -71,35 +88,39 @@ export class PeriodEditPageComponent implements OnInit {
       });
   }
 
-  onSave() {
-    if (this.periodForm.valid) {
-      const request = this.periodForm.value as PeriodRequest;
-
-      this.facultyId$
-        .pipe(
-          filter((facultyId) => !!facultyId),
-          take(1),
-          switchMap((facultyId) =>
-            this.periodService.update(
-              facultyId!,
-              this.oldStartTime,
-              this.oldEndTime,
-              request,
-            ),
-          ),
-        )
-        .subscribe({
-          next: () => {
-            this.toastrService.success(
-              'Period information updated successfully',
-            );
-            this.periodForm.markAsPristine();
-          },
-          error: (error) => {
-            this.httpErrorService.handle(error);
-          },
-        });
+  onSave(): void {
+    if (this.periodForm.invalid) {
+      this.periodForm.markAllAsTouched();
+      return;
     }
-    this.periodForm.markAllAsTouched();
+
+    const request = this.periodForm.value as PeriodRequest;
+    this.isSaving = true;
+
+    this.facultyId$
+      .pipe(
+        filter((facultyId): facultyId is number => !!facultyId),
+        take(1),
+        switchMap((facultyId) =>
+          this.periodService.update(
+            facultyId,
+            this.oldStartTime,
+            this.oldEndTime,
+            request,
+          ),
+        ),
+        finalize(() => (this.isSaving = false)),
+      )
+      .subscribe({
+        next: () => {
+          this.toastrService.success('Period information updated successfully');
+          this.periodForm.markAsPristine();
+          this.oldStartTime = request.startTime;
+          this.oldEndTime = request.endTime;
+        },
+        error: (error) => {
+          this.httpErrorService.handle(error);
+        },
+      });
   }
 }
