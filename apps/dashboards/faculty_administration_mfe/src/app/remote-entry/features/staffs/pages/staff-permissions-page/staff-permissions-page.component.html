@@ -58,11 +58,11 @@
           <p class="card-header-subtitle">Customize permissions for this role in this faculty</p>
         </div>
         <div class="card-header-actions">
-          <button class="btn-action" (click)="selectAll()" hasPermission="permissions:update">
+          <button class="btn-action" (click)="selectAll()" hasPermission="facultyUsers:update">
             <i class="fa-solid fa-check-double"></i>
             <span>Select All</span>
           </button>
-          <button class="btn-action" (click)="deselectAll()" hasPermission="permissions:update">
+          <button class="btn-action" (click)="deselectAll()" hasPermission="facultyUsers:update">
             <i class="fa-solid fa-times"></i>
             <span>Deselect All</span>
           </button>
@@ -97,7 +97,7 @@
 
           <div class="permissions-grid" *ngIf="category.expanded">
             <label class="permission-item" *ngFor="let perm of getVisiblePermissions(category)"
-              [class.selected]="isSelected(perm.key)" hasPermission="permissions:update">
+              [class.selected]="isSelected(perm.key)" hasPermission="facultyUsers:update">
               <input type="checkbox" [checked]="isSelected(perm.key)" (change)="toggle(perm.key)" />
               <span class="check-icon">
                 <i class="fa-solid fa-check"></i>
@@ -122,11 +122,11 @@
 
       <div class="card-footer-bar">
         <div class="footer-info">
-          <span class="footer-changes">
+          <span class="footer-changes" *ngIf="hasUnsavedChanges()">
             <i class="fa-solid fa-circle-exclamation"></i>
             You have unsaved changes
           </span>
-          <span class="footer-no-changes">
+          <span class="footer-no-changes" *ngIf="!hasUnsavedChanges()">
             <i class="fa-solid fa-check-circle"></i>
             All changes saved
           </span>
@@ -135,7 +135,7 @@
           <button class="btn btn-cancel" routerLink="/roles">
             Cancel
           </button>
-          <button class="btn btn-save" (click)="save()" hasPermission="permissions:update">
+          <button class="btn btn-save" (click)="save()" hasPermission="facultyUsers:update" [disabled]="!hasUnsavedChanges()">
             <i class="fa-solid fa-save"></i>
             Save Changes
           </button>

@@ -91,6 +91,12 @@ export class StaffPermissionsPageComponent implements OnInit {
     );
   }
 
+  hasUnsavedChanges(): boolean {
+    if (this.selected.length !== this.original.length) return true;
+    const originalSet = new Set(this.original);
+    return this.selected.some((key) => !originalSet.has(key));
+  }
+
   save(): void {
     this.ps
       .updateForUser(this.facultyUserId, this.defaults, this.selected)

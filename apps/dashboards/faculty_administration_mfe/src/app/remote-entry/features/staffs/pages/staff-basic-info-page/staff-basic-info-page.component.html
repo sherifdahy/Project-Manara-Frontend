@@ -8,13 +8,8 @@
             <i class="fas fa-user"></i>
             Full Name
           </label>
-          <input
-            type="text"
-            class="field-input"
-            [class.invalid]="f['name'].touched && f['name'].invalid"
-            formControlName="name"
-            placeholder="Enter full name"
-          />
+          <input type="text" class="field-input" [class.invalid]="f['name'].touched && f['name'].invalid"
+            formControlName="name" placeholder="Enter full name" />
           <app-display-error [control]="form.get('name')"></app-display-error>
         </div>
 
@@ -24,17 +19,9 @@
             <i class="fas fa-hashtag"></i>
             National ID
           </label>
-          <input
-            type="text"
-            class="field-input"
-            [class.invalid]="f['nationalId'].touched && f['nationalId'].invalid"
-            formControlName="nationalId"
-            placeholder="Enter 14-digit national ID"
-            maxlength="14"
-          />
-          <app-display-error
-            [control]="form.get('nationalId')"
-          ></app-display-error>
+          <input type="text" class="field-input" [class.invalid]="f['nationalId'].touched && f['nationalId'].invalid"
+            formControlName="nationalId" placeholder="Enter 14-digit national ID" maxlength="14" />
+          <app-display-error [control]="form.get('nationalId')"></app-display-error>
         </div>
 
         <!-- Email Address -->
@@ -43,13 +30,8 @@
             <i class="fas fa-envelope"></i>
             Email Address
           </label>
-          <input
-            type="email"
-            class="field-input"
-            [class.invalid]="f['email'].touched && f['email'].invalid"
-            formControlName="email"
-            placeholder="example@university.edu"
-          />
+          <input type="email" class="field-input" [class.invalid]="f['email'].touched && f['email'].invalid"
+            formControlName="email" placeholder="example@university.edu" />
           <app-display-error [control]="form.get('email')"></app-display-error>
         </div>
 
@@ -61,25 +43,14 @@
             <span class="label-note">(Leave empty to keep current)</span>
           </label>
           <div class="input-wrapper">
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              class="field-input"
-              [class.invalid]="f['password'].touched && f['password'].invalid"
-              formControlName="password"
-              placeholder="Leave empty to keep current password"
-            />
-            <button
-              type="button"
-              class="toggle-password"
-              (click)="togglePasswordVisibility()"
-              tabindex="-1"
-            >
+            <input [type]="showPassword ? 'text' : 'password'" class="field-input"
+              [class.invalid]="f['password'].touched && f['password'].invalid" formControlName="password"
+              placeholder="Leave empty to keep current password" />
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()" tabindex="-1">
               <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
             </button>
           </div>
-          <app-display-error
-            [control]="form.get('password')"
-          ></app-display-error>
+          <app-display-error [control]="form.get('password')"></app-display-error>
         </div>
 
         <!-- Birth Date -->
@@ -88,15 +59,9 @@
             <i class="fas fa-calendar"></i>
             Birth Date
           </label>
-          <input
-            type="date"
-            class="field-input"
-            [class.invalid]="f['birthDate'].touched && f['birthDate'].invalid"
-            formControlName="birthDate"
-          />
-          <app-display-error
-            [control]="form.get('birthDate')"
-          ></app-display-error>
+          <input type="date" class="field-input" [class.invalid]="f['birthDate'].touched && f['birthDate'].invalid"
+            formControlName="birthDate" />
+          <app-display-error [control]="form.get('birthDate')"></app-display-error>
         </div>
 
         <!-- Phone Number -->
@@ -105,18 +70,10 @@
             <i class="fas fa-phone"></i>
             Phone Number
           </label>
-          <input
-            type="tel"
-            class="field-input"
-            [class.invalid]="
+          <input type="tel" class="field-input" [class.invalid]="
               f['phoneNumber'].touched && f['phoneNumber'].invalid
-            "
-            formControlName="phoneNumber"
-            placeholder="Enter phone number"
-          />
-          <app-display-error
-            [control]="form.get('phoneNumber')"
-          ></app-display-error>
+            " formControlName="phoneNumber" placeholder="Enter phone number" />
+          <app-display-error [control]="form.get('phoneNumber')"></app-display-error>
         </div>
 
         <!-- Gender -->
@@ -125,21 +82,10 @@
             <i class="fas fa-venus-mars"></i>
             Gender
           </label>
-          <ng-select
-            [items]="genderOptions"
-            bindLabel="label"
-            bindValue="value"
-            [multiple]="false"
-            [closeOnSelect]="true"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Select gender..."
-            formControlName="gender"
-            class="roles-select"
-            [class.invalid]="f['gender'].touched && f['gender'].invalid"
-            [class.has-value]="f['gender'].value"
-            notFoundText="No gender found"
-          >
+          <ng-select [items]="genderOptions" bindLabel="label" bindValue="value" [multiple]="false"
+            [closeOnSelect]="true" [searchable]="true" [clearable]="true" placeholder="Select gender..."
+            formControlName="gender" class="roles-select" [class.invalid]="f['gender'].touched && f['gender'].invalid"
+            [class.has-value]="f['gender'].value" notFoundText="No gender found">
             <ng-template ng-option-tmp let-item="item" let-item$="item$">
               <div class="role-option">
                 <span class="role-checkbox">
@@ -161,21 +107,11 @@
             <i class="fas fa-mosque"></i>
             Religion
           </label>
-          <ng-select
-            [items]="religionOptions"
-            bindLabel="label"
-            bindValue="value"
-            [multiple]="false"
-            [closeOnSelect]="true"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Select religion..."
-            formControlName="religion"
-            class="roles-select"
-            [class.invalid]="f['religion'].touched && f['religion'].invalid"
-            [class.has-value]="f['religion'].value"
-            notFoundText="No religion found"
-          >
+          <ng-select [items]="religionOptions" bindLabel="label" bindValue="value" [multiple]="false"
+            [closeOnSelect]="true" [searchable]="true" [clearable]="true" placeholder="Select religion..."
+            formControlName="religion" class="roles-select"
+            [class.invalid]="f['religion'].touched && f['religion'].invalid" [class.has-value]="f['religion'].value"
+            notFoundText="No religion found">
             <ng-template ng-option-tmp let-item="item" let-item$="item$">
               <div class="role-option">
                 <span class="role-checkbox">
@@ -188,9 +124,7 @@
               <div class="role-tag">{{ item.label }}</div>
             </ng-template>
           </ng-select>
-          <app-display-error
-            [control]="form.get('religion')"
-          ></app-display-error>
+          <app-display-error [control]="form.get('religion')"></app-display-error>
         </div>
 
         <!-- Roles -->
@@ -199,22 +133,11 @@
             <i class="fas fa-shield-alt"></i>
             Roles
           </label>
-          <ng-select
-            [items]="roles"
-            bindLabel="name"
-            bindValue="name"
-            [multiple]="true"
-            [closeOnSelect]="false"
-            [searchable]="true"
-            [clearable]="true"
-            placeholder="Select roles..."
-            formControlName="roles"
-            class="roles-select"
-            [class.invalid]="f['roles'].touched && f['roles'].invalid"
-            [class.has-value]="f['roles'].value?.length > 0"
-            notFoundText="No roles found"
-            loadingText="Loading roles..."
-          >
+          <ng-select [items]="roles" bindLabel="name" bindValue="name" [multiple]="true" [closeOnSelect]="false"
+            [searchable]="true" [clearable]="true" placeholder="Select roles..." formControlName="roles"
+            class="roles-select" [class.invalid]="f['roles'].touched && f['roles'].invalid"
+            [class.has-value]="f['roles'].value?.length > 0" notFoundText="No roles found"
+            loadingText="Loading roles...">
             <ng-template ng-option-tmp let-item="item" let-item$="item$">
               <div class="role-option">
                 <span class="role-checkbox">
@@ -238,25 +161,18 @@
             <i class="fas fa-toggle-on"></i>
             Account Status
           </label>
-          <div
-            class="status-box"
-            [class.active]="!f['isDisabled'].value"
-            [class.inactive]="f['isDisabled'].value"
-          >
+          <div class="status-box" [class.active]="!f['isDisabled'].value" [class.inactive]="f['isDisabled'].value">
             <div class="status-info">
-              <span
-                class="status-indicator"
-                [class.off]="f['isDisabled'].value"
-              ></span>
+              <span class="status-indicator" [class.off]="f['isDisabled'].value"></span>
               <div>
                 <div class="status-label">
                   {{ f['isDisabled'].value ? 'Disabled' : 'Active' }}
                 </div>
                 <div class="status-desc">
                   {{
-                    f['isDisabled'].value
-                      ? 'This account is currently suspended'
-                      : 'This account is fully operational'
+                  f['isDisabled'].value
+                  ? 'This account is currently suspended'
+                  : 'This account is fully operational'
                   }}
                 </div>
               </div>
@@ -271,11 +187,8 @@
 
       <!-- Action Buttons -->
       <div class="form-actions">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="form.invalid || !form.dirty"
-        >
+        <button type="submit" class="btn btn-primary" hasPermission="facultyUsers:update"
+          [disabled]="form.invalid || !form.dirty">
           Save Changes
         </button>
       </div>

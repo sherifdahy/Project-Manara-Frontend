@@ -28,6 +28,7 @@ export class StaffsPageComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 50];
   facultyId$ = this.store.select(selectFacultyId);
   isLoading = false;
+
   constructor(
     private httpErrorService: HttpErrorService,
     private facultyUserService: FacultyUserService,
@@ -127,7 +128,15 @@ export class StaffsPageComponent implements OnInit {
     });
   }
 
-  onDelete(staff: FacultyUserResponse): void {
+  // Renamed from onDelete: the API call was always toggleStatus, never a real
+  // delete, so the UI/wording/permission now match what actually happens.
+  onToggleStatus(staff: FacultyUserResponse): void {
+    const action = staff.isDeleted ? 'activate' : 'deactivate';
+    const confirmed = window.confirm(
+      `Are you sure you want to ${action} "${staff.name}"?`,
+    );
+    if (!confirmed) return;
+
     this.facultyUserService.toggleStatus(staff.id).subscribe({
       next: () => {
         this.loadStaffs();
