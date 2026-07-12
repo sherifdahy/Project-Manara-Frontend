@@ -150,13 +150,13 @@
         <div class="settings-card mt-3" hasPermission="faculties:update">
           <div class="card-body-custom">
             <div class="actions-section">
-              <button type="submit" class="btn-primary-custom w-100 mb-2" [disabled]="!facultyForm.valid" hasPermission="faculties:update">
+              <button type="submit" class="btn-primary-custom w-100 mb-2" [disabled]="!facultyForm.valid">
                 <i class="fa-solid fa-check me-2"></i> Save Changes
               </button>
             </div>
 
             <!-- Form Status -->
-            <div class="form-status mt-3" *ngIf="facultyForm.dirty" hasPermission="faculties:update">
+            <div class="form-status mt-3" *ngIf="facultyForm.dirty">
               <div class="alert-warning-custom">
                 <i class="fa-solid fa-exclamation-triangle me-2"></i>
                 You have unsaved changes

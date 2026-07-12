@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UiModule } from '@project-manara-frontend/ui';
 import { RouterModule } from '@angular/router';
 import { routes } from './settings.route';
+import { DirectivesModule } from '@project-manara-frontend/directives';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { routes } from './settings.route';
     FormsModule,
     ReactiveFormsModule,
     UiModule,
+    DirectivesModule,
     RouterModule.forChild(routes),
   ],
   declarations: [
