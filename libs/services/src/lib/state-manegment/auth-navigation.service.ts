@@ -26,9 +26,9 @@ export class AuthNavigationService {
       roles?.includes(RoleConsts.facultyAdmin) ||
       roles?.includes(RoleConsts.facultyCoordinator) ||
       roles?.includes(RoleConsts.academicAdvisor) ||
-      roles?.includes(RoleConsts.departmentHead) ||
-      roles?.includes(RoleConsts.doctor) ||
-      roles?.includes(RoleConsts.instructor)
+      roles?.includes(RoleConsts.departmentHead) 
+      // roles?.includes(RoleConsts.doctor) ||
+      // roles?.includes(RoleConsts.instructor)
     ) {
       this.router.navigateByUrl('/faculty-administration');
     } else if (

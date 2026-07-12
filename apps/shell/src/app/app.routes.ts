@@ -43,9 +43,9 @@ export const appRoutes: Route[] = [
         RoleConsts.facultyAdmin,
         RoleConsts.academicAdvisor,
         RoleConsts.departmentHead,
-        RoleConsts.doctor,
+        // RoleConsts.doctor,
         RoleConsts.facultyCoordinator,
-        RoleConsts.instructor,
+        // RoleConsts.instructor,
       ],
     },
     loadChildren: () =>
