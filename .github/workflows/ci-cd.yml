@@ -100,7 +100,46 @@ jobs:
           retention-days: 7
 
   # ════════════════════════════════════════════
-  #  JOB 3 – Build Production Bundle
+  #  JOB 3 – SonarQube Static Analysis (standalone, non-blocking)
+  #  • Runs independently of test results (no coverage yet — that's fine)
+  #  • Maximum analysis depth: no source/exclusion restrictions
+  #  • NEVER fails the pipeline — `continue-on-error: true` on every step
+  #    Findings live entirely on the SonarQube dashboard, not in CI status
+  # ════════════════════════════════════════════
+  sonarqube:
+    name: 🔍 SonarQube Analysis (report-only)
+    runs-on: ubuntu-latest
+    needs: test
+    continue-on-error: true   # this whole job can never fail the workflow
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full git history — enables blame/new-code/author analysis
+
+      - name: SonarQube Scan (full project, all rules)
+        uses: SonarSource/sonarqube-scan-action@v4
+        continue-on-error: true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=manaraa-shell
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/coverage/**,**/*.spec.ts
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.qualitygate.wait=false
+
+      # No quality-gate-check step on purpose — that's the step that would
+      # normally fail the build. Removing it means results only ever
+      # surface on the SonarQube dashboard, never as a CI failure.
+
+  # ════════════════════════════════════════════
+  #  JOB 4 – Build Production Bundle
+  #  Depends on `test` only — sonarqube is fully decoupled and can never
+  #  block or delay the build/deploy, regardless of its findings
   # ════════════════════════════════════════════
   build:
     name: 🏗️ Build
@@ -156,7 +195,7 @@ jobs:
           retention-days: 1
 
   # ════════════════════════════════════════════
-  #  JOB 4 – Deploy to S3 + Invalidate CloudFront
+  #  JOB 5 – Deploy to S3 + Invalidate CloudFront
   #  Runs ONLY on push to main (not on PRs)
   # ════════════════════════════════════════════
   deploy:
