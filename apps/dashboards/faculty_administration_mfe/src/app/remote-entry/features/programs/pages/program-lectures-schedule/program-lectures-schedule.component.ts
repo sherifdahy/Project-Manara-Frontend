@@ -140,7 +140,8 @@ export class ProgramLecturesScheduleComponent implements OnInit {
       {
         data: {
           mode: 'edit',
-          departmentId: this.route.snapshot.parent?.parent?.parent?.params['id'],
+          departmentId:
+            this.route.snapshot.parent?.parent?.parent?.params['id'],
           subject: slot.subject,
           period: this.periods[ti],
           day: this.days[di],
@@ -188,7 +189,8 @@ export class ProgramLecturesScheduleComponent implements OnInit {
           {
             data: {
               mode: 'add',
-              departmentId: this.route.snapshot.parent?.parent?.parent?.params['id'],
+              departmentId:
+                this.route.snapshot.parent?.parent?.parent?.params['id'],
               subject: data,
               period: this.periods[periodIdx],
               day: this.days[dayIdx],

@@ -41,6 +41,11 @@ export const appRoutes: Route[] = [
     data: {
       'required-roles': [
         RoleConsts.facultyAdmin,
+        RoleConsts.academicAdvisor,
+        RoleConsts.departmentHead,
+        RoleConsts.doctor,
+        RoleConsts.facultyCoordinator,
+        RoleConsts.instructor,
       ],
     },
     loadChildren: () =>
@@ -52,9 +57,7 @@ export const appRoutes: Route[] = [
     path: 'student',
     canMatch: [hasRoleGuard],
     data: {
-      'required-roles': [
-        RoleConsts.student
-      ]
+      'required-roles': [RoleConsts.student,RoleConsts.mainStreamStudent],
     },
     loadChildren: () =>
       import('student_mfe/Module').then((m) => m!.RemoteEntryModule),

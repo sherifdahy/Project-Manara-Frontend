@@ -30,19 +30,10 @@
             <p class="card-subtitle">Drag to schedule</p>
           </div>
 
-          <div
-            class="subjects-pool"
-            cdkDropList
-            [cdkDropListData]="subjects"
-            id="subjects-pool"
-            (cdkDropListDropped)="onDropBackToPool($event)"
-          >
-            <div
-              *ngFor="let subject of subjects; trackBy: trackBySubject"
-              class="subject-card"
-              cdkDrag
-              [cdkDragData]="subject"
-            >
+          <div class="subjects-pool" cdkDropList [cdkDropListData]="subjects" id="subjects-pool"
+            (cdkDropListDropped)="onDropBackToPool($event)">
+            <div *ngFor="let subject of subjects; trackBy: trackBySubject" class="subject-card" cdkDrag
+              [cdkDragData]="subject">
               <div class="subject-card-inner">
                 <div class="subject-drag-handle">
                   <i class="bi bi-grip-vertical"></i>
@@ -87,12 +78,9 @@
 
           <ng-container *ngIf="periods.length > 0; else noPeriods">
             <div class="schedule-grid-wrap">
-              <div
-                class="schedule-grid"
-                [style.grid-template-columns]="
+              <div class="schedule-grid" [style.grid-template-columns]="
                   '85px repeat(' + days.length + ', 1fr)'
-                "
-              >
+                ">
                 <!-- Header -->
                 <div class="grid-header-cell time-header-cell">Time</div>
                 <div class="grid-header-cell" *ngFor="let day of days">
@@ -110,30 +98,19 @@
 
                   <ng-container *ngFor="let day of days; let di = index">
                     <div class="grid-slot-cell">
-                      <div
-                        class="slot-dropzone"
-                        cdkDropList
-                        [id]="'slot-' + di + '-' + ti"
-                        [cdkDropListConnectedTo]="allDropLists"
-                        [cdkDropListData]="{ dayIndex: di, periodIndex: ti }"
-                        (cdkDropListDropped)="onDropToCell($event, di, ti)"
-                      >
-                        <div
-                          *ngFor="
+                      <div class="slot-dropzone" cdkDropList [id]="'slot-' + di + '-' + ti"
+                        [cdkDropListConnectedTo]="allDropLists" [cdkDropListData]="{ dayIndex: di, periodIndex: ti }"
+                        (cdkDropListDropped)="onDropToCell($event, di, ti)">
+                        <div *ngFor="
                             let item of slots[di][ti];
                             trackBy: trackBySubject
-                          "
-                          cdkDrag
-                          class="assigned-subject-card"
-                          [cdkDragData]="{
+                          " cdkDrag class="assigned-subject-card" [cdkDragData]="{
                             dayIndex: di,
                             periodIndex: ti,
                             subjectId: item.subject.id,
-                          }"
-                          (click)="
+                          }" (click)="
                             onClickHandler($event, di, ti, item.subject.id)
-                          "
-                        >
+                          ">
                           <div class="assigned-code">
                             {{ item.subject.code }}
                           </div>
@@ -157,10 +134,7 @@
                           </ng-template>
                         </div>
 
-                        <div
-                          *ngIf="slots[di][ti].length === 0"
-                          class="slot-empty-state"
-                        >
+                        <div *ngIf="slots[di][ti].length === 0" class="slot-empty-state">
                           Drop here
                         </div>
                       </div>
