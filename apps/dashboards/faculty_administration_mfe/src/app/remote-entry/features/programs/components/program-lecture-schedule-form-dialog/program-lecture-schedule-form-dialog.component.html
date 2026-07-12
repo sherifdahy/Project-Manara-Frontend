@@ -31,12 +31,7 @@
             <i class="fas fa-book"></i>
             Subject
           </label>
-          <input
-            type="text"
-            class="year-field-input"
-            [value]="data.subject.name"
-            disabled
-          />
+          <input type="text" class="year-field-input" [value]="data.subject.name" disabled />
         </div>
 
         <div class="year-form-field">
@@ -44,12 +39,7 @@
             <i class="fas fa-calendar-day"></i>
             Day
           </label>
-          <input
-            type="text"
-            class="year-field-input"
-            [value]="data.day.value"
-            disabled
-          />
+          <input type="text" class="year-field-input" [value]="data.day.value" disabled />
         </div>
 
         <div class="year-form-field">
@@ -57,12 +47,8 @@
             <i class="fas fa-clock"></i>
             Period
           </label>
-          <input
-            type="text"
-            class="year-field-input"
-            [value]="data.period.startTime + ' - ' + data.period.endTime"
-            disabled
-          />
+          <input type="text" class="year-field-input" [value]="data.period.startTime + ' - ' + data.period.endTime"
+            disabled />
         </div>
 
         <!-- Doctor -->
@@ -72,19 +58,9 @@
             Doctor <span class="required-star">*</span>
           </label>
 
-          <ng-select
-            class="year-ng-select"
-            formControlName="doctorId"
-            [items]="instructors"
-            bindLabel="name"
-            bindValue="id"
-            [loading]="loading"
-            [virtualScroll]="true"
-            [typeahead]="typeahead$"
-            (scrollToEnd)="loadMore()"
-            [clearSearchOnAdd]="true"
-            placeholder="Select Doctor"
-          >
+          <ng-select class="year-ng-select" formControlName="doctorId" [items]="instructors" bindLabel="name"
+            bindValue="id" [loading]="loading" [virtualScroll]="true" [typeahead]="typeahead$"
+            (scrollToEnd)="loadMore()" [clearSearchOnAdd]="true" placeholder="Select Doctor">
           </ng-select>
         </div>
 
@@ -94,14 +70,9 @@
             <i class="fas fa-users"></i>
             Max Slots <span class="required-star">*</span>
           </label>
-          <input
-            type="number"
-            class="year-field-input"
-            formControlName="maxSlots"
-            [class.invalid]="
+          <input type="number" class="year-field-input" formControlName="maxSlots" [class.invalid]="
               form.get('maxSlots')?.invalid && form.get('maxSlots')?.touched
-            "
-          />
+            " />
         </div>
       </div>
     </form>
@@ -109,20 +80,11 @@
 
   <!-- ================= Footer ================= -->
   <div class="year-dialog-footer">
-    <button
-      (click)="matDialogRef.close()"
-      type="button"
-      class="year-btn year-btn-cancel"
-    >
+    <button (click)="matDialogRef.close()" type="button" class="year-btn year-btn-cancel">
       Cancel
     </button>
 
-    <button
-      [disabled]="form.invalid"
-      (click)="submit()"
-      type="button"
-      class="year-btn year-btn-submit"
-    >
+    <button [disabled]="form.invalid" (click)="submit()" type="button" class="year-btn year-btn-submit">
       <i class="fa-solid fa-check"></i>
       <span>Save</span>
     </button>
