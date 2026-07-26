@@ -16,8 +16,6 @@ import { DirectivesModule } from '@project-manara-frontend/directives';
     DirectivesModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [
-    SettingsPageComponent
-  ]
+  declarations: [SettingsPageComponent],
 })
-export class SettingsModule { }
+export class SettingsModule {}

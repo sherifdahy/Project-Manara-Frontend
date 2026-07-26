@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../../../../../../../../libs/services/src/lib/configuration/loader.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +11,6 @@ import {
 import {
   FacultyUserService,
   HttpErrorService,
-  LoaderService,
   ScopeService,
 } from '@project-manara-frontend/services';
 import { ToastrService } from 'ngx-toastr';
@@ -128,18 +128,15 @@ export class StaffBasicInfoPageComponent implements OnInit, OnDestroy {
 
     const formValue = this.form.value;
 
-    this.loaderService.loading();
     this.facultyUserService
       .update(this.staffId, formValue)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => {
-          this.loaderService.hide();
+        next: (updatedStaff) => {
           this.form.markAsPristine();
           this.toastrService.success('Update Staff Successfully');
         },
         error: (error) => {
-          this.loaderService.hide();
           this.httpErrorService.handle(error);
         },
       });
