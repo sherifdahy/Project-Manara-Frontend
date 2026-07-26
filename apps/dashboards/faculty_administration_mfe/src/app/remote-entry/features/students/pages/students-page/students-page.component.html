@@ -66,7 +66,7 @@
         </div>
 
         <!-- Add Student Button -->
-        <button class="btn-add-student" [routerLink]="['add']">
+        <button hasPermission="studentsPortal:create" class="btn-add-student" [routerLink]="['add']">
           <i class="fa-solid fa-plus"></i>
           <span>Add Student</span>
         </button>
